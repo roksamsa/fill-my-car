@@ -1,7 +1,19 @@
-<mat-toolbar>
-  
-</mat-toolbar>
-
-<p>
-  header works!
-</p>
+<header class="header">
+  <div class="header__wrapper">
+    <div class="header__left">
+      <div routerLink="/dashboard" class="header__logo">
+        FILL MY CAR
+      </div>
+      <ul class="header__menu">
+          <li routerLink="/dashboard">Dashboard</li>
+          <li routerLink="/dashboard">Vehicles</li>
+          <li routerLink="/dashboard">Trips</li>
+      </ul>
+    </div>
+    <div class="header__right">
+      <div class="header__user">
+        <div class="header__register" routerLink="/register">Register</div>
+      </div>
+    </div>
+  </div>
+</header>

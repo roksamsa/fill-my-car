@@ -1,0 +1,58 @@
+$header__background-color: #fff;
+$header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
+
+:host {
+  position: fixed;
+  height: 64px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  background: $header__background-color;
+  box-shadow: 0 0 12px $header__shadow-color;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    height: 100%;
+  }
+
+  &__menu {
+    display: flex;
+
+    li {
+      padding: 10px 20px;
+      list-style: none;
+
+      &:hover {
+        background: #ccc;
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    height: 100%;
+  }
+}

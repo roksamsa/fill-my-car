@@ -1,0 +1,15 @@
+$color--main-background: #EDF1F8;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: $color--main-background;
+}
+
+.app__wrapper {
+  position: relative;
+  width: 1200px;
+  margin: 0 auto;
+}

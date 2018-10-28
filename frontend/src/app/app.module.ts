@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatToolbarModule,
   MatFormFieldModule,
@@ -24,6 +25,7 @@ import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { ContentComponent } from './components/content/content.component';
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent },
@@ -43,13 +45,15 @@ const routes: Routes = [
     CreateComponent,
     EditComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ContentComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    ReactiveFormsModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,

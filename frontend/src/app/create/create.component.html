@@ -1,3 +1,48 @@
-<p>
-  create works!
-</p>
+<div>
+  <mat-card>
+    <section class="mat-typography">
+      <h1>Create new vehicle</h1>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <form [formGroup]="createForm" class="create-form">
+
+      <mat-form-field class="create-form__field">
+        <mat-select matInput placeholder="Vehicle type" formControlName="vehicleType" #vehicleType>
+          <mat-option value="Car">Car</mat-option>
+          <mat-option value="Van">Van</mat-option>
+          <mat-option value="Truck">Truck</mat-option>
+          <mat-option value="Motorbike">Motorbike</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="Vehicle brand" formControlName="vehicleBrand" #vehicleBrand>
+      </mat-form-field>
+
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="Vehicle name" formControlName="vehicleName" #vehicleName>
+      </mat-form-field>
+
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="Vehicle model year" formControlName="vehicleModelYear" #vehicleModelYear>
+      </mat-form-field>
+
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="Vehicle color" formControlName="vehicleColor" #vehicleColor>
+      </mat-form-field>
+
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="Vehicle seats number" formControlName="vehicleSeats" #vehicleSeats>
+      </mat-form-field>
+
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="Vehicle max luggage" formControlName="vehicleMaxLuggage" #vehicleMaxLuggage>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" routerLink="/dashboard">Back</button>
+      <button type="submit" (click)="addVehicle(vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
+    </form>
+  </mat-card>
+</div>
