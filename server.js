@@ -14,7 +14,9 @@ app.use(bodyParser.json());
 const databasePort = '27017';
 const databaseName = 'fill-my-car';
 
-mongoose.connect(`mongodb://localhost:${databasePort}/${databaseName}`);
+mongoose.connect(`mongodb://localhost:${databasePort}/${databaseName}`, {
+  useNewUrlParser: true
+});
 
 const connection = mongoose.connection;
 
