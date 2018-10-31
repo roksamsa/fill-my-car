@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-let Vehicle = new Schema({
+let VehicleSchema = new Schema({
     vehicleType: {
         type: String
     },
@@ -26,4 +26,4 @@ let Vehicle = new Schema({
     }
 });
 
-export default mongoose.model('Vehicle', Vehicle);
+export default mongoose.model('Vehicle', VehicleSchema);

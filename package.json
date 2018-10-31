@@ -18,6 +18,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "cors": "^2.8.4",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "mongoose": "^5.3.6",
     "morgan": "^1.9.1",

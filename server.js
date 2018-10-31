@@ -4,94 +4,55 @@ import passport from 'passport';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import {morgan, logger} from 'morgan';
+import morgan from 'morgan';
+import logger from 'morgan';
 import favicon from 'serve-favicon';
-import Vehicle from './models/Vehicle';
 import config from './config/database';
+import ejs from 'ejs'
 
 const api = require('./routes/api');
 const app = express();
-const router = express.Router();
 
 app.use(cors());
-app.use(bodyParser.json());
 
 mongoose.Promise = require('bluebird');
-mongoose.connect(config.database, {promiseLibrary: require('bluebird'), useNewUrlParser: true})
-  .then(() =>  console.log('Mongo database running! :)'))
+mongoose.connect(config.database, {
+  promiseLibrary: require('bluebird'),
+  useNewUrlParser: true,
+  useCreateIndex: true
+})
+  .then(() =>  console.log('Mongo database is running! :)'))
   .catch((err) => console.error(err));
 
 app.use(passport.initialize());
 
-router.route('/').get((req, res) => {
-  Vehicle.find((err, vehicles) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(vehicles);
-  });
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({'extended':'false'}));
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/vehicles', express.static(path.join(__dirname, 'dist')));
+app.use('/books', express.static(path.join(__dirname, 'dist')));
+app.use('/api', api);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
-router.route('/vehicles').get((req, res) => {
-  Vehicle.find((err, vehicles) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(vehicles);
-  });
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
-router.route('/vehicles/:id').get((req, res) => {
-  Vehicle.findById(req.params.id, (err, vehicle) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(vehicle);
-  });
-});
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
-router.route('/vehicles/add').post((req, res) => {
-  let vehicle = new Vehicle(req.body);
-  vehicle.save()
-    .then(vehicle => {
-      res.status(200).json({ 'vehicle': 'Added successfully' })
-    })
-    .catch(err => {
-      res.status(400).send('Failed to create new vehicle');
-    });
-});
-
-router.route('/vehicles/update/:id').patch((req, res) => {
-  Vehicle.findById(req.params.id, (err, vehicle) => {
-    if (!vehicle)
-      return next(new Error('Error! Could not load document'));
-    else {
-      vehicle.vehicleType = req.body.vehicleType;
-      vehicle.vehicleBrand = req.body.vehicleBrand;
-      vehicle.vehicleName = req.body.vehicleName;
-      vehicle.vehicleModelYear = req.body.vehicleModelYear;
-      vehicle.vehicleColor = req.body.vehicleColor;
-      vehicle.vehicleSeats = req.body.vehicleSeats;
-      vehicle.vehicleMaxLuggage = req.body.vehicleMaxLuggage;
-
-      vehicle.save().then(vehicle => {
-        res.json('Update done!');
-      }).catch(err => {
-        res.status(400).send('Update failed!');
-      });
-    }
-  });
-});
-
-router.route('/vehicles/delete/:id').delete((req, res) => {
-  Vehicle.findByIdAndRemove({ _id: req.params.id }, (err, vehicle) => {
-    if (err)
-      res.json(err);
-    else
-      res.json('Removed successfully!');
-  });
-});
-
-app.use('/', router);
-
-app.listen(4000, () => console.log('Server on port 4000!'));
+module.exports = app;
