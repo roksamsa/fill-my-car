@@ -1,28 +1,27 @@
 import express from 'express';
+import path from 'path';
 import passport from 'passport';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import {morgan, logger} from 'morgan';
+import favicon from 'serve-favicon';
 import Vehicle from './models/Vehicle';
+import config from './config/database';
 
+const api = require('./routes/api');
 const app = express();
 const router = express.Router();
 
 app.use(cors());
 app.use(bodyParser.json());
 
-const databasePort = '27017';
-const databaseName = 'fill-my-car';
+mongoose.Promise = require('bluebird');
+mongoose.connect(config.database, {promiseLibrary: require('bluebird'), useNewUrlParser: true})
+  .then(() =>  console.log('Mongo database running! :)'))
+  .catch((err) => console.error(err));
 
-mongoose.connect(`mongodb://localhost:${databasePort}/${databaseName}`, {
-  useNewUrlParser: true
-});
-
-const connection = mongoose.connection;
-
-connection.once('open', () => {
-  console.log('MongoDB running!')
-});
+app.use(passport.initialize());
 
 router.route('/').get((req, res) => {
   Vehicle.find((err, vehicles) => {
