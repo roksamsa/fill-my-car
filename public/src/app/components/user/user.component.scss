@@ -1,0 +1,15 @@
+$header__shadow-color: rgba(38, 42, 77, .3); // #262A4D
+
+.user {
+  &__image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: #ccc;
+    border: 1px solid #ccc;
+    padding: 4px;
+    background-color: white;
+    box-shadow: 0 5px 20px $header__shadow-color;
+  }
+}

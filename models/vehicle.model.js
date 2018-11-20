@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
-
 const Schema = mongoose.Schema;
 
-let VehicleSchema = new Schema({
+var vehicleSchema = new Schema({
     vehicleType: {
         type: String
     },
@@ -26,4 +25,4 @@ let VehicleSchema = new Schema({
     }
 });
 
-export default mongoose.model('Vehicle', VehicleSchema);
+module.exports = mongoose.model('vehicles', vehicleSchema);

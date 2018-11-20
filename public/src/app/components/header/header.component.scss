@@ -2,8 +2,8 @@ $header__background-color: #fff;
 $header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
 
 :host {
-  position: fixed;
-  height: 64px;
+  position: relative;
+  height: 56px;
   width: 100%;
 }
 
@@ -54,5 +54,23 @@ $header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
     justify-content: space-between;
     position: relative;
     height: 100%;
+  }
+
+  &__user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+    &-image {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: #ccc;
+      border: 1px solid #ddd;
+      padding: 1px;
+      background-color: white;
+    }
   }
 }

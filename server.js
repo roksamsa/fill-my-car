@@ -1,85 +1,55 @@
+import mongoose from 'mongoose';
 import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import Vehicle from './models/Vehicle';
+import cookieParser from 'cookie-parser';
+import errorHandler from 'errorhandler';
+const path = require('path');
 
-const app = express();
+// Listening
+const listeningPort = 4000;
+const consoleDivider = '\n******************************************\n\n';
+const consoleMessage = 'Server runs on port ';
+
+// Import database settings
+import './config/database';
+
+// Variables
 const router = express.Router();
+const app = express();
 
 app.use(cors());
+app.use(cookieParser());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
 app.use(bodyParser.json());
 
-import database from './config/database';
+app.use(require('morgan')('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'This is the secret',
+  cookie: { maxAge: 60000 },
+  resave: true,
+  saveUninitialized: true
+}));
 
-router.route('/').get((req, res) => {
-  Vehicle.find((err, vehicles) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(vehicles);
-  });
-});
+// Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
 
-router.route('/vehicles').get((req, res) => {
-  Vehicle.find((err, vehicles) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(vehicles);
-  });
-});
-
-router.route('/vehicles/:id').get((req, res) => {
-  Vehicle.findById(req.params.id, (err, vehicle) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(vehicle);
-  });
-});
-
-router.route('/vehicles/add').post((req, res) => {
-  let vehicle = new Vehicle(req.body);
-  vehicle.save()
-    .then(vehicle => {
-      res.status(200).json({ 'vehicle': 'Added successfully' })
-    })
-    .catch(err => {
-      res.status(400).send('Failed to create new vehicle');
-    });
-});
-
-router.route('/vehicles/update/:id').patch((req, res) => {
-  Vehicle.findById(req.params.id, (err, vehicle) => {
-    if (!vehicle)
-      return next(new Error('Error! Could not load document'));
-    else {
-      vehicle.vehicleType = req.body.vehicleType;
-      vehicle.vehicleBrand = req.body.vehicleBrand;
-      vehicle.vehicleName = req.body.vehicleName;
-      vehicle.vehicleModelYear = req.body.vehicleModelYear;
-      vehicle.vehicleColor = req.body.vehicleColor;
-      vehicle.vehicleSeats = req.body.vehicleSeats;
-      vehicle.vehicleMaxLuggage = req.body.vehicleMaxLuggage;
-
-      vehicle.save().then(vehicle => {
-        res.json('Update done!');
-      }).catch(err => {
-        res.status(400).send('Update failed!');
-      });
-    }
-  });
-});
-
-router.route('/vehicles/delete/:id').delete((req, res) => {
-  Vehicle.findByIdAndRemove({ _id: req.params.id }, (err, vehicle) => {
-    if (err)
-      res.json(err);
-    else
-      res.json('Removed successfully!');
-  });
-});
-
+// Import data
+app.use(require('./routes/index'));
+app.use(require('./routes/vehicles.route'));
+app.use(require('./routes/users.route'));
+require('./config/passport');
+require('./routes/auth');
 app.use('/', router);
 
-app.listen(4000, () => console.log('Server on port 4000!'));
+app.listen(listeningPort, function () {
+  console.log(consoleDivider + consoleMessage + listeningPort);
+});

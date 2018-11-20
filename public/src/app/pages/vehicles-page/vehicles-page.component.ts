@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { VehicleService } from '../vehicle.service';
-import { Vehicle } from '../vehicle.module';
+import { VehicleService } from '../../core/vehicle.service';
+import { Vehicle } from '../../core/vehicle.module';
 import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-vehicles-page',
+  templateUrl: './vehicles-page.component.html',
+  styleUrls: ['./vehicles-page.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class VehiclesPageComponent implements OnInit {
 
   vehicles: Vehicle[];
   displayedColumns: string[] = [

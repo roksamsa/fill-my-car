@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { VehicleService } from '../vehicle.service';
-import { Vehicle } from '../vehicle.module';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { VehicleService } from '../../core/vehicle.service';
+import { Vehicle } from '../../core/vehicle.module';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+  selector: 'app-create-page',
+  templateUrl: './create-page.component.html',
+  styleUrls: ['./create-page.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class CreatePageComponent implements OnInit {
 
   createForm: FormGroup;
 
