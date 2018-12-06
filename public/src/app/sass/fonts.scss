@@ -1,0 +1,60 @@
+// sass-lint:disable no-vendor-prefixes
+// Porsche Plain font
+@mixin font-pag-plain {
+  font-family: 'Porsche Plain', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Porsche Semibold font
+@mixin font-pag-semibold {
+  font-family: 'Porsche SemiBold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Porsche Plain Numeric font
+@mixin font-pag-numeric-plain {
+  font-family: 'Porsche Plain Numeric', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Porsche Semibold Numeric font
+@mixin font-pag-numeric-semibold {
+  font-family: 'Porsche SemiBold Numeric', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Monda Regular Password font
+@mixin font-monda-password-regular {
+  font-family: 'Monda Regular', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Porsche Icon font
+@mixin font-pag-icon {
+  font-family: 'pag3-icon-font', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-pag-plain {
+  @include font-pag-plain;
+}
+
+.font-pag-semibold {
+  @include font-pag-semibold;
+}
+
+.font-pag-numeric-plain {
+  @include font-pag-numeric-plain;
+}
+
+.font-pag-numeric-semibold {
+  @include font-pag-numeric-semibold;
+}
+
+.font-monda-password-regular {
+  @include font-monda-password-regular;
+}
+
+.font-pag-icon {
+  @include font-pag-icon;
+}

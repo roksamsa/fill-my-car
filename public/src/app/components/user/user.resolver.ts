@@ -10,7 +10,7 @@ export class UserResolver implements Resolve<FirebaseUserModel> {
 
   constructor(
     public userService: UserService,
-    private router: Router) { }
+    public router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot): Promise<FirebaseUserModel> {
 
@@ -22,7 +22,7 @@ export class UserResolver implements Resolve<FirebaseUserModel> {
         this.isLoggedIn = true;
         if (res.providerData[0].providerId === 'password') {
           user.image = 'http://dsi-vd.github.io/patternlab-vd/images/fpo_avatar.png';
-          user.name = res.displayName;
+          user.name = 'Unknown';
           user.provider = res.providerData[0].providerId;
           return resolve(user);
         } else {

@@ -1,3 +1,5 @@
+@import 'sass/global_variables.scss';
+
 :host {
   display: flex;
   flex-direction: column;
@@ -7,6 +9,6 @@
 
 .app__wrapper {
   position: relative;
-  width: 1200px;
+  width: $page__width;
   margin: 0 auto;
 }

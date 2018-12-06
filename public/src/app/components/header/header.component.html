@@ -1,7 +1,8 @@
-<header class="header">
+<header class="header" [@headerFadeIn]>
+  <div class="header__background"></div>
   <div class="header__wrapper">
     <div class="header__left">
-      <div routerLink="/dashboard" class="header__logo">
+      <div routerLink="/dashboard" class="header__logo" [@logoFadeIn]>
         FILL MY CAR
       </div>
       <ul class="header__menu">
@@ -12,6 +13,7 @@
     </div>
     <div class="header__right">
       <div class="header__user" routerLink="/user">
+        {{user | json}}
         <app-user></app-user>
       </div>
       <div class="header__register" routerLink="/register">

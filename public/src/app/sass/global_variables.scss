@@ -1,0 +1,59 @@
+@import './global_mixins';
+
+$scale__factor: 1;
+
+$grid__unit: 4px;
+
+$page__width: 1200px;
+
+$fading__height: 14 * $grid__unit;
+
+$spacer__xs--hor: 1.5 * $grid__unit;
+$spacer__xs: 2 * $grid__unit;
+$spacer__s: 3 * $grid__unit;
+$spacer__m: 4 * $grid__unit;
+$spacer__ml: 6 * $grid__unit;
+$spacer__l: 8 * $grid__unit;
+$spacer__xl: 12 * $grid__unit;
+
+$size__s: $grid__unit;
+$size__m: 15 * $grid__unit;
+$size__l: 18 * $grid__unit;
+$size__xl: 24 * $grid__unit;
+$size__xxl: 42 * $grid__unit;
+
+// Font sizes
+$font__size--xxl: 30 * $grid__unit;
+$font__size--xl: 16 * $grid__unit;
+$font__size--l: 13 * $grid__unit;
+$font__size--m: 11 * $grid__unit;
+$font__size--n: 9 * $grid__unit;
+$font__size--s: 8 * $grid__unit;
+$font__size--ms: 7 * $grid__unit;
+$font__size--xs: 5.5 * $grid__unit;
+
+// Icon sizes
+$icon-size__xs: 9 * $grid__unit;
+$icon-size__s: 12 * $grid__unit;
+$icon-size__m: $size__m;
+$icon-size__l: $size__l;
+$icon-size__xl: $size__xl;
+$icon-size__xxl: 30 * $grid__unit;
+
+// Grey colors
+$color__white--100: #fff;
+$color__white--90: #e6e6e6;
+$color__white--80: #ccc;
+$color__white--70: #b3b3b3;
+$color__white--60: #999;
+$color__white--53: #888888;
+$color__white--50: #808080;
+$color__white--40: #666;
+$color__white--30: #4d4d4d;
+$color__white--28: #474747;
+$color__white--20: #333;
+$color__white--15: #252525;
+$color__white--10: #1a1a1a;
+
+// Base colors
+$color__blue--light: #EDF1F8;

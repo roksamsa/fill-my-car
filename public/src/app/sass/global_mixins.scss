@@ -1,0 +1,1141 @@
+// sass-lint:disable no-vendor-prefixes
+@mixin text-fading($direction, $start: 0) {
+  -webkit-mask-image: linear-gradient(to $direction, transparent $start, $color__primary--first $fading__height);
+}
+
+@mixin multiline-fading($direction: left, $lineheight: $grid__unit * 12, $linestofade: 1, $startafterline: 1) {
+  $visible-min: $lineheight * $startafterline;
+  $visible-max: calc(100% - #{$linestofade * $lineheight});
+  -webkit-mask-image: linear-gradient(to $direction, transparent 0, $color__primary--first 60px), linear-gradient(to bottom, $color__primary--first 0, $color__primary--first $visible-min, $color__primary--first $visible-max, transparent $visible-max);
+}
+
+@mixin multiline-fading__second-line($direction, $lineheight, $linestofade, $startafterline) {
+  $visible-min-area: $lineheight * $startafterline;
+  $visible-max-area: calc(100% - #{$linestofade * ($lineheight * 2)});
+  -webkit-mask-image: linear-gradient(to $direction, transparent 0, $color__primary--first 60px), linear-gradient(to bottom, $color__primary--first 0, $color__primary--first $visible-min-area, $color__primary--first $visible-max-area, transparent $visible-max-area);
+}
+
+@mixin list-fading($list-height) {
+  $fading-stop: $list-height - $fading__height;
+  -webkit-mask-image: linear-gradient(to top, transparent 0, $color__primary--first $fading__height);
+}
+
+@mixin border($style: 'standard') {
+  $color__button-shadow-color: rgba($color__primary--first, .5);
+  $color__border--outer: none !default;
+  $color__border: none;
+
+  @if $style == 'standard' {
+    $color__border--outer: rgba($color__primary--first, .6);
+    $color__border: $color__border--enabled;
+  } @else if $style == 'pressed' {
+    $color__border: $color__border--pressed;
+    $color__border--outer: transparent;
+  } @else if $style == 'disabled' {
+    $color__border: $color__border--disabled;
+    $color__border--outer: rgba($color__primary--first, .3);
+  }
+
+  box-shadow: 0 ($grid__unit * 1.25) ($grid__unit * 2.5) $color__button-shadow-color, inset 0 0 0 $border__width--default $color__border;
+  border: $grid__unit / 4 solid $color__border--outer;
+}
+
+@mixin focus-border {
+  box-shadow: inset 0 0 0 $grid__unit $color__focus;
+}
+
+@mixin standard-icon-shadow {
+  filter: drop-shadow(0 .1em .04em $color__icon--shadow--default);
+}
+
+@mixin standard-svg-path-shadow {
+  filter: drop-shadow(0 5px 10px $color__primary--first);
+}
+
+@mixin standard-svg-path-no-shadow {
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+@mixin standard-text-shadow {
+  text-shadow: 0 5px 10px $color__primary--first;
+}
+
+@mixin slider-handle-shadow {
+  box-shadow: 0 15px 30px 0 $color__icon-shadow--default;
+}
+
+@mixin slider-handle-shadow--focused {
+  box-shadow: 0 5px 30px 10px $color__icon-shadow--default;
+}
+
+@mixin text-tool-label($maxheight: 100%, $maxwidth: 100%, $overflow: overflow, $whitespace: nowrap, $display: flex) {
+  display: $display;
+  max-width: $maxwidth;
+  max-height: $maxheight;
+  #{$overflow}: hidden;
+  white-space: unquote($whitespace);
+}
+
+// Overlay background for Partial popup, Notifications, Help text, Visual Feedback
+@mixin overlay__background--popup($noise: 1, $noise-size: .02, $overlay-background__opacity: 0.8) {
+  $color__overlay-background: rgba(10, 10, 10, $overlay-background__opacity);
+  @if $noise == 1 {
+    @include noise($noise-size);
+  }
+  @include no-select;
+  background-color: $color__overlay-background;
+  background-image: $gradient__overlay-background-image;
+  border-radius: $overlay__border-radius;
+}
+
+// Overlay background for Navigation overlays
+@mixin overlay__background--navigation($outside-shadow: 0) {
+  @include no-select;
+  border-radius: $overlay__border-radius;
+  background-color: $map__background--tooltip;
+  border: $map__border--tooltip;
+
+  @if $outside-shadow == 1 {
+    box-shadow: $map__box-shadow--tooltip, $map__box-shadow2--tooltip;
+  } @else {
+    box-shadow: $map__box-shadow--tooltip;
+  }
+}
+
+// Overlay background for Context back, Longpress tooltip
+@mixin overlay__background--other {
+  @include no-select;
+  background-image: $overlay-other__background-image;
+  border-radius: $overlay__border-radius;
+  border: $overlay-other__border-radius;
+}
+
+@mixin overlay__border ($border-width--1: $size__overlay-border--1, $border-width--2: $size__overlay-border--2) {
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: $overlay__border-radius;
+  }
+
+  &::before {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: $overlay__shadow, inset 0 0 0 $border-width--1 $color__overlay-border--1;
+  }
+
+  &::after {
+    left: $border-width--1;
+    top: $border-width--1;
+    right: $border-width--1;
+    bottom: $border-width--1;
+    box-shadow: inset 0 0 0 $border-width--2 $color__overlay-border--2;
+  }
+}
+
+@mixin background($component, $state: 'normal') {
+  @include noise(.01);
+
+  @if $component == 'buttons-tiles' {
+    @include border('standard');
+    border-radius: $border__radius--default;
+
+    @if $state == 'normal' {
+      @include gradient($gradient__medium-gray--ab, linear, bottom);
+    } @else if $state == 'disabled' {
+      @include gradient($gradient__tiles-buttons-background-image--disabled, linear, bottom);
+      @include border('disabled');
+    } @else if $state = 'active' {
+      @include gradient($gradient__deep-blue--ab, linear, top);
+    }
+  } @else if $component = 'call-button' {
+    background-color: $color__primary--first;
+    @if $state = 'normal' {
+      border: $border__width--default solid $color__border--enabled;
+    } @else if $state == 'active' {
+      @include gradient('#{$color__midnight} 0, #{$color__firefly} 80%, transparent 100%', radial, 50% 100%, 80% 120%);
+      border: $border__width--default solid transparentize($color__highlight, .9);
+    }
+  }
+}
+
+@mixin linear-icon-gradient($start, $end) {
+  background: linear-gradient($start, $end);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin squared-dimensions($dimensions) {
+  height: $dimensions;
+  width: $dimensions;
+}
+
+@mixin noise($opacity) {
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/graphics-master/general/j1_texture_noise.png');
+    opacity: $opacity;
+    pointer-events: none;
+  }
+}
+
+@mixin divider($priority: 'top', $width: 100%, $padding: 0, $state: '', $pos: bottom) {
+  content: '';
+  display: block;
+  position: absolute;
+  #{$pos}: 0;
+  left: $padding;
+  @if $padding != 0 {
+    width: calc(#{$width} - 2 * #{$padding});
+  } @else {
+    width: $width;
+  }
+
+  @if $priority == 'top' {
+    height: $grid__unit * 3 / 4;
+    background-color: $color__white--40;
+  } @else if $priority == 'standard' {
+    height: $grid__unit / 2;
+    background-color: $color__white--20;
+    box-shadow: 0 0 $grid__unit / 2 0 $color__primary--first;
+  } @else if $priority == 'overlay' {
+    height: $grid__unit / 2;
+    background-color: $color__white--40;
+    opacity: .5;
+    box-shadow: none;
+  } @else if $priority == 'myscreen' {
+    height: $grid__unit * 3 / 4;
+    background-color: $color__white--30;
+  }
+
+  @if $state == 'active' {
+    background-color: $color__highlight;
+  }
+}
+
+@mixin scrollbar-styles($color__scrollbar--default, $color__scrollbar--thumb, $width, $border__radius) {
+  &::-webkit-scrollbar {
+    appearance: none; // no vendor-prefix needed, autoprefixer got this!
+    background-color: $color__scrollbar--default;
+    border: $width / 3 solid $color__scrollbar--outline;
+    border-radius: $border__radius;
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+    &:vertical {
+      width: $width;
+    }
+
+    &:horizontal {
+      height: $width;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color__scrollbar--thumb;
+    border-radius: $border__radius;
+  }
+}
+
+@mixin no-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@mixin gradient($gradient, $type, $position, $size: '') {
+  @if $type == 'linear' {
+    $position: 'to ' + $position;
+  } @else {
+    $position: 'at ' + $position;
+  }
+  @if type-of($size) == 'string' {
+    $size: unquote($size);
+  }
+  @if type-of($position) == 'string' {
+    $position: unquote($position);
+  }
+  @if type-of($gradient) == 'string' {
+    $gradient: unquote($gradient);
+  }
+  background-image: #{$type}-gradient($size $position, $gradient);
+}
+
+// Pressed state style
+@mixin pressed-growing-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 125%;
+  padding-top: 125%;
+  opacity: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(.1);
+  background-color: $color__highlight;
+  // z-index and will-change are necessary to avoid paint flashing while scrolling in lists
+}
+
+@mixin pressed-background {
+  @include gradient($gradient__deep-blue--ab, linear, top);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  // z-index and will-change are necessary to avoid paint flashing while scrolling in lists
+}
+
+@mixin focus-state-pseudo-element($position: absolute, $top: 0, $right: 0, $bottom: 0, $left: 0, $width: auto, $height: auto, $border-radius: 2px) {
+  display: block;
+  position: unquote($position);
+  content: '';
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  width: $width;
+  height: $height;
+  border-radius: $border-radius;
+}
+
+// Focus state style
+@mixin focus-state($type: 'default') {
+  @include gradient($gradient__sunflower-seeds--ab, linear, bottom);
+  position: relative;
+  border-radius: $border__radius--default;
+
+  @if $type == 'default' {
+    @include focus-border;
+
+  } @else if $type == 'tile' {
+    @include focus-border;
+
+  } @else if $type == 'tile--my-screen-edit-mode' {
+    border: $grid__unit solid $color__focus;
+
+  } @else if $type == 'tile-header' {
+    &::after {
+      @include focus-state-pseudo-element;
+      @include focus-border;
+      background-color: unset;
+    }
+
+  } @else if $type == 'tile-body' {
+    &::after {
+      @include focus-state-pseudo-element('absolute', -3px);
+      @include focus-border;
+      background-color: unset;
+    }
+
+  } @else if $type == 'checkbox' {
+    &::before {
+      @include focus-state-pseudo-element;
+      @include focus-border;
+    }
+
+  } @else if $type == 'connection-manager' {
+    overflow: hidden;
+
+    &::before {
+      @include focus-state-pseudo-element;
+      @include focus-border;
+      background-color: unset;
+    }
+
+  } @else if $type == 'list-item' {
+    overflow: visible;
+
+    &::before {
+      @include focus-state-pseudo-element('absolute', -2px);
+      @include focus-border;
+      background-color: unset;
+    }
+
+  } @else if $type == 'media-player-bar' {
+    @include focus-border;
+
+    &::before {
+      @include focus-state-pseudo-element('absolute', 0, -2px, 0, -2px);
+    }
+
+  } @else if $type == 'long-press-popup-item' {
+    &::before {
+      @include focus-state-pseudo-element;
+      @include focus-border;
+    }
+
+  } @else if $type == 'slider-handle' {
+    position: absolute;
+    border: $grid__unit solid $color__focus;
+
+  } @else if $type == 'popup' {
+    border: $grid__unit solid $color__focus;
+    border-radius: $border__radius--default;
+  }
+}
+
+// Detail Screen Background
+@mixin detail-screen-background ($style: 'default') {
+  $background-highlight__height: 125 * $grid__unit; // 500px
+  $background-highlight__width: 300 * $grid__unit; // 1200px
+  $background-highlight__gradient-color--1: rgba(255, 255, 255, .7);
+  $background-highlight__gradient-color--2: rgba(255, 255, 255, .05);
+  $background-highlight__gradient-color--3: transparent;
+  $background-highlight__background-image: radial-gradient($background-highlight__gradient-color--1 0%, $background-highlight__gradient-color--2 45%, $background-highlight__gradient-color--3 100%);
+
+  $background-highlight-spot__height: 160 * $grid__unit; // 640px
+  $background-highlight-spot__width: 185 * $grid__unit; // 740px
+  $background-highlight-spot__gradient-color--1: rgba(255, 255, 255, .5);
+  $background-highlight-spot__gradient-color--2: transparent;
+  $background-highlight-spot__background-image: radial-gradient(ellipse at center center, $background-highlight-spot__gradient-color--1 10%, $background-highlight-spot__gradient-color--2 60%);
+
+  $background-highlight__position: -43 * $grid__unit + ($grid__unit - 1); // -175px
+  $background-highlight__position--transform-right: translate(0, -50%);
+  $background-highlight__position--transform-left: translate(0, -50%);
+  $background-highlight-spot__position: 15 * $grid__unit; // 60px
+  $background-highlight-spot__position--transform-right: translate(0, -50%);
+  $background-highlight-spot__position--transform-left: translate(0, -50%);
+
+  $background--media-phone-lhw: url('/assets/graphics-master/general/j1_dot_grid_without_glow_bg_lhw.png');
+  $background--media-phone-rhw: url('/assets/graphics-master/general/j1_dot_grid_without_glow_bg_rhw.png');
+
+  $background-highlight__opacity: 1;
+  $background-highlight-spot__opacity: .1;
+
+  $shadow__blur-radius: 60 * $grid__unit;
+  $shadow__spread-radius: 35 * $grid__unit;
+
+  $background--navi__width: 1227px;
+
+  @if $style == 'default' {
+    $background-highlight-spot__opacity: 0;
+  } @else if $style == 'text' {
+    $background-highlight-spot__opacity: 0;
+  } @else if $style == 'fullscreen' {
+    $background--media-phone-lhw: url('/assets/graphics-master/general/j1_dot_grid_bg.png');
+    $background--media-phone-rhw: url('/assets/graphics-master/general/j1_dot_grid_bg.png');
+    $background-highlight-spot__opacity: 0;
+    $background-highlight__position: 50%;
+    $background-highlight__position--transform-right: translate(50%, -50%);
+    $background-highlight__position--transform-left: translate(-50%, -50%);
+    $background-highlight-spot__position: 50%;
+    $background-highlight-spot__position--transform-right: none;
+    $background-highlight-spot__position--transform-left: none;
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+  } @else if $style == 'extended' {
+    $shadow__spread-radius: 0;
+    $background--media-phone-lhw: url('/assets/graphics-master/general/j1_dot_grid_bg.png');
+    $background--media-phone-rhw: url('/assets/graphics-master/general/j1_dot_grid_bg.png');
+    $background-highlight__position: 50%;
+    $background-highlight__position--transform-right: translate(50%, -50%);
+    $background-highlight__position--transform-left: translate(-50%, -50%);
+    $background-highlight-spot__position: 50%;
+    $background-highlight-spot__position--transform-right: translate(50%, -50%);
+    $background-highlight-spot__position--transform-left: translate(-50%, -50%);
+  } @else if $style == 'navi' {
+    $background--media-phone-lhw: url('/assets/graphics-master/general/j1_dot_grid_bg.png');
+    $background--media-phone-rhw: url('/assets/graphics-master/general/j1_dot_grid_bg.png');
+    $background-highlight-spot__opacity: 0;
+    $background-highlight__position: 50%;
+    $background-highlight__position--transform-right: translate(50%, -50%);
+    $background-highlight__position--transform-left: translate(-50%, -50%);
+    $background-highlight-spot__position: 50%;
+    $background-highlight-spot__position--transform-right: none;
+    $background-highlight-spot__position--transform-left: none;
+    position: relative;
+    display: block;
+    height: 100%;
+    width: $background--navi__width;
+  } @else if $style == 'black' {
+    $background-highlight-spot__opacity: 0;
+    $background-highlight__opacity: 0;
+    $background--media-phone-lhw: none;
+    $background--media-phone-rhw: none;
+    background-color: $color__first--primary;
+  } @else if $style == 'none' {
+    $background-highlight-spot__opacity: 0;
+    $background-highlight__opacity: 0;
+    $background--media-phone-lhw: none;
+    $background--media-phone-rhw: none;
+  }
+
+  box-shadow: inset 0 0 $shadow__blur-radius $shadow__spread-radius $color__primary--first;
+  background-image: url('/assets/graphics-master/general/j1_dot_grid_bg.png');
+
+  // Highlight
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    height: $background-highlight__height;
+    width: $background-highlight__width;
+    border-radius: 50%;
+    opacity: $background-highlight__opacity;
+    background-image: $background-highlight__background-image;
+    right: $background-highlight__position;
+    transform: $background-highlight-spot__position--transform-right;
+    mix-blend-mode: overlay;
+  }
+
+  // Spot
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    height: $background-highlight-spot__height;
+    width: $background-highlight-spot__width;
+    border-radius: 50%;
+    opacity: $background-highlight-spot__opacity;
+    background-image: $background-highlight-spot__background-image;
+  }
+
+  #{$selector-steering-wheel-left} & {
+    background-image: $background--media-phone-lhw;
+
+    &::before {
+      right: $background-highlight__position;
+      transform: $background-highlight-spot__position--transform-right;
+    }
+
+    &::after {
+      right: $background-highlight-spot__position;
+      transform: $background-highlight-spot__position--transform-right;
+    }
+  }
+
+  #{$selector-steering-wheel-right} & {
+
+    justify-content: space-between;
+    background-image: $background--media-phone-rhw;
+
+    &::before {
+      left: $background-highlight__position;
+      transform: $background-highlight__position--transform-left;
+    }
+
+    &::after {
+      left: $background-highlight-spot__position;
+      transform: $background-highlight__position--transform-left;
+    }
+  }
+}
+
+// Icon Solid style
+@mixin icon-style-solid($state: enabled, $tile__svg--active: false) {
+  &::after {
+    background-image: none;
+  }
+
+  @if $state == enabled {
+    @if $tile__svg--active == true {
+      @include standard-svg-path-shadow;
+      fill: $color__white--80;
+    } @else {
+      &::before {
+        @include standard-text-shadow;
+        color: $color__white--80;
+      }
+    }
+
+  } @else if $state == disabled {
+    @if $tile__svg--active == true {
+      @include standard-svg-path-shadow;
+      fill: $color__white--40;
+    } @else {
+      &::before {
+        @include standard-text-shadow;
+        color: $color__white--40;
+      }
+    }
+
+  } @else if $state == active {
+    @if $tile__svg--active == true {
+      @include standard-svg-path-no-shadow;
+      fill: $color__highlight;
+    } @else {
+      &::before {
+        color: $color__highlight;
+      }
+    }
+
+  } @else if $state == active_indicators {
+    &::before {
+      color: $color__white--100;
+    }
+
+  } @else if $state == pressed {
+    @if $tile__svg--active == true {
+      @include standard-svg-path-no-shadow;
+      fill: $color__white--100;
+    } @else {
+      &::before {
+        color: $color__white--100;
+      }
+    }
+
+  } @else {
+    @error 'No such icon state.';
+  }
+}
+
+// Icon Gradient style
+@mixin icon-style-gradient($state: enabled, $shadow: 1, $tile__svg--active: false) {
+  @if $tile__svg--active == true {
+    stroke-width: $border__width--icon;
+
+    .svg__gradient--enabled-start {
+      stop-color: $color__white--70;
+    }
+
+    .svg__gradient--enabled-end {
+      stop-color: $color__white--50;
+    }
+
+    .svg__gradient--disabled-start {
+      stop-color: $color__white--40;
+    }
+
+    .svg__gradient--disabled-end {
+      stop-color: $color__white--20;
+    }
+
+    .svg__gradient--active-start {
+      stop-color: $color__highlight;
+    }
+
+    .svg__gradient--active-end {
+      stop-color: $color__highlight;
+    }
+
+    .svg__gradient--pressed-start {
+      stop-color: $color__white--100;
+    }
+
+    .svg__gradient--pressed-end {
+      stop-color: $color__white--80;
+    }
+
+  } @else {
+    &::before,
+    &::after {
+      background-color: unset;
+      color: transparent;
+      -webkit-background-clip: text;
+    }
+  }
+
+  @if $shadow == 0 {
+    &::after {
+      display: none;
+    }
+
+    @if $state == enabled {
+      @if $tile__svg--active == true {
+        fill: url(#svg__gradient--enabled); // sass-lint:disable-line url-quotes
+      } @else {
+        &::before {
+          background-image: linear-gradient(to bottom, $color__white--70 0, $color__white--50 100%);
+        }
+      }
+
+    } @else if $state == disabled {
+      @if $tile__svg--active == true {
+        fill: url(#svg__gradient--disabled); // sass-lint:disable-line url-quotes
+      } @else {
+        &::before {
+          background-image: linear-gradient(to bottom, $color__white--40 0, $color__white--20 100%);
+        }
+      }
+
+    } @else if $state == active {
+      @if $tile__svg--active == true {
+        fill: $color__highlight;
+      } @else {
+        &::before {
+          color: $color__highlight;
+        }
+      }
+
+    } @else if $state == pressed {
+      @if $tile__svg--active == true {
+        fill: url(#svg__gradient--pressed); // sass-lint:disable-line url-quotes
+      } @else {
+        &::before {
+          background-image: linear-gradient(to bottom, $color__white--100 0, $color__white--80 100%);
+        }
+      }
+
+    } @else {
+      @error 'No such icon state.';
+    }
+  } @else {
+    @if $state == enabled {
+      @if $tile__svg--active == true {
+        @include standard-svg-path-shadow;
+        fill: url(#svg__gradient--enabled); // sass-lint:disable-line url-quotes
+      } @else {
+        &::before {
+          @include standard-text-shadow;
+        }
+
+        &::after {
+          background-image: linear-gradient(to bottom, $color__white--70 0, $color__white--50 100%);
+        }
+      }
+
+    } @else if $state == disabled {
+      @if $tile__svg--active == true {
+        @include standard-svg-path-shadow;
+        fill: url(#svg__gradient--disabled); // sass-lint:disable-line url-quotes
+      } @else {
+        &::before {
+          @include standard-text-shadow;
+        }
+
+        &::after {
+          background-image: linear-gradient(to bottom, $color__white--40 0, $color__white--20 100%);
+        }
+      }
+
+    } @else if $state == active {
+      @if $tile__svg--active == true {
+        @include standard-svg-path-no-shadow;
+        fill: $color__highlight;
+      } @else {
+        &::before {
+          background-color: $color__highlight;
+        }
+      }
+
+    } @else if $state == pressed {
+      @if $tile__svg--active == true {
+        @include standard-svg-path-no-shadow;
+        fill: url(#svg__gradient--pressed); // sass-lint:disable-line url-quotes
+      } @else {
+        &::before {
+          background-image: linear-gradient(to bottom, $color__white--100 0, $color__white--80 100%);
+        }
+      }
+
+    } @else {
+      @error 'No such icon state.';
+    }
+  }
+}
+
+// Icon Beveled style
+@mixin icon-style-beveled($state: enabled, $shadow: 1, $tile__svg--active: false) {
+  $icon__border-color--normal: rgba(255, 255, 255, .4);
+  $icon__border-color--disabled: rgba(255, 255, 255, .1);
+  $icon__border-color--active: rgba(0, 176, 244, .4);
+
+  @if $tile__svg--active == true {
+    stroke-width: $border__width--icon;
+
+    .svg__gradient--enabled-start {
+      stop-color: $color__white--100;
+    }
+
+    .svg__gradient--enabled-end {
+      stop-color: $color__white--60;
+    }
+
+    .svg__gradient--disabled-start {
+      stop-color: $color__white--40;
+    }
+
+    .svg__gradient--disabled-end {
+      stop-color: $color__white--20;
+    }
+
+    .svg__gradient--active-start {
+      stop-color: $color__highlight;
+    }
+
+    .svg__gradient--active-end {
+      stop-color: $color__orient;
+    }
+
+    .svg__gradient--pressed-start {
+      stop-color: $color__white--100;
+    }
+
+    .svg__gradient--pressed-end {
+      stop-color: $color__white--90;
+    }
+
+  } @else {
+    // WARNING: This is only here for showcasing the performance
+    // differences between drop-shadow and no drop-shadow.
+    // This makes the UI look really flat.
+    filter: none;
+
+    &::before,
+    &::after {
+      background-color: unset;
+      color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-stroke-width: $border__width--icon;
+    }
+  }
+
+  @if $shadow == 0 {
+    &::after {
+      display: none;
+    }
+
+    @if $state == enabled {
+      @if $tile__svg--active == true {
+        fill: url(#svg__gradient--enabled); // sass-lint:disable-line url-quotes
+        stroke: $icon__border-color--normal;
+      } @else {
+        &::before {
+          background-image: linear-gradient(to bottom, $color__white--100 0, $color__white--60 100%);
+          -webkit-text-stroke-color: $icon__border-color--normal;
+        }
+      }
+
+    } @else if $state == disabled {
+      @if $tile__svg--active == true {
+        fill: url(#svg__gradient--disabled); // sass-lint:disable-line url-quotes
+        stroke: $icon__border-color--disabled;
+      } @else {
+        &::before {
+          background-image: linear-gradient(to bottom, $color__white--40 0, $color__white--20 100%);
+          -webkit-text-stroke-color: $icon__border-color--disabled;
+        }
+      }
+
+    } @else if $state == active {
+      @if $tile__svg--active == true {
+        fill: url(#svg__gradient--active); // sass-lint:disable-line url-quotes
+        stroke: $icon__border-color--active;
+      } @else {
+        &::before {
+          background-image: linear-gradient(to bottom, $color__highlight 0, $color__orient 100%);
+          -webkit-text-stroke-color: $icon__border-color--active;
+        }
+      }
+
+    } @else if $state == pressed {
+      @if $tile__svg--active == true {
+        fill: url(#svg__gradient--pressed); // sass-lint:disable-line url-quotes
+        stroke: $icon__border-color--normal;
+      } @else {
+        &::before {
+          display: none;
+        }
+
+        &::after {
+          background-image: linear-gradient(to bottom, $color__white--100 0, $color__white--90 100%);
+          -webkit-text-stroke-color: $icon__border-color--normal;
+        }
+      }
+
+    } @else {
+      @error 'No such icon state.';
+    }
+
+  } @else {
+    @if $state == enabled {
+      @if $tile__svg--active == true {
+        @include standard-svg-path-shadow;
+        fill: url(#svg__gradient--enabled); // sass-lint:disable-line url-quotes
+        stroke: $icon__border-color--normal;
+      } @else {
+        &::before {
+          @include standard-text-shadow;
+        }
+
+        &::after {
+          background-image: linear-gradient(to bottom, $color__white--100 0, $color__white--60 100%);
+          -webkit-text-stroke-color: $icon__border-color--normal;
+        }
+      }
+
+    } @else if $state == disabled {
+      @if $tile__svg--active == true {
+        @include standard-svg-path-shadow;
+        fill: url(#svg__gradient--disabled); // sass-lint:disable-line url-quotes
+        stroke: $icon__border-color--disabled;
+      } @else {
+        &::before {
+          @include standard-text-shadow;
+        }
+
+        &::after {
+          background-image: linear-gradient(to bottom, $color__white--40 0, $color__white--20 100%);
+          -webkit-text-stroke-color: $icon__border-color--disabled;
+        }
+      }
+
+    } @else if $state == active {
+      @if $tile__svg--active == true {
+        @include standard-svg-path-no-shadow;
+        fill: url(#svg__gradient--active); // sass-lint:disable-line url-quotes
+        stroke: $icon__border-color--active;
+      } @else {
+        &::before {
+          display: none;
+        }
+
+        &::after {
+          background-image: linear-gradient(to bottom, $color__highlight 0, $color__orient 100%);
+          -webkit-text-stroke-color: $icon__border-color--active;
+        }
+      }
+
+    } @else if $state == pressed {
+      @if $tile__svg--active == true {
+        @include standard-svg-path-no-shadow;
+        fill: url(#svg__gradient--pressed); // sass-lint:disable-line url-quotes
+        stroke: $icon__border-color--normal;
+      } @else {
+        &::before {
+          display: none;
+        }
+
+        &::after {
+          background-image: linear-gradient(to bottom, $color__white--100 0, $color__white--90 100%);
+          -webkit-text-stroke-color: $icon__border-color--normal;
+        }
+      }
+
+    } @else {
+      @error 'No such icon state.';
+    }
+  }
+}
+
+@mixin icon-style($state, $style: solid, $shadow: 1, $tile__svg--active: false) {
+  @if $tile__svg--active == false {
+    -webkit-background-clip: text;
+  }
+
+  @if $style == solid {
+    @include icon-style-solid($state, $tile__svg--active);
+
+  } @else if $style == gradient {
+    @include icon-style-gradient($state, $shadow, $tile__svg--active);
+
+  } @else if $style == bevel {
+    @include icon-style-beveled($state, $shadow, $tile__svg--active);
+
+  } @else {
+    @error 'No such icon style.';
+  }
+
+  @if $shadow == 0 {
+    @if $tile__svg--active == true {
+      @include standard-svg-path-no-shadow;
+    } @else {
+      &::before {
+        text-shadow: none;
+      }
+    }
+  }
+
+  // WARNING: This is only here for showcasing the performance
+  // differences between drop-shadow and no drop-shadow.
+  // This makes the UI look really flat.
+  @if $tile__svg--active == false {
+    filter: none;
+  }
+}
+
+@mixin solid-icon-without-experimental-shit($state, $shadow: 1) {
+  @if $state == enabled {
+    &::before {
+      @include standard-text-shadow;
+    }
+
+    &::after,
+    &::before {
+      color: $color__white--80;
+    }
+
+  } @else if $state == disabled {
+    &::before {
+      @include standard-text-shadow;
+    }
+
+    &::after,
+    &::before {
+      color: $color__white--40;
+    }
+
+  } @else if $state == active {
+    &::after {
+      color: $color__highlight;
+    }
+
+  } @else if $state == pressed {
+    &::after {
+      color: $color__white--100;
+    }
+
+  } @else {
+    @error 'No such icon state.';
+  }
+
+  @if $shadow == 0 {
+    &::before {
+      text-shadow: none;
+    }
+  }
+}
+
+@mixin font-size($size) {
+  @if $size == l {
+    font-size: $font__size--m;
+    line-height: $font__line-height--medium;
+    padding-top: 0;
+  } @else if $size == s {
+    font-size: $font__size--normal;
+    line-height: $font__line-height--normal;
+    padding-top: 1px;
+  }
+}
+
+@mixin circle($width, $color, $border) {
+  width: $width;
+  height: $width;
+  background: $color;
+  border-radius: calc(#{$width} / 2);
+  border: $border;
+}
+
+@mixin focus($direction) {
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background: $color__focus-orange;
+  }
+
+  @if $direction == 'h' {
+    &::before,
+    &::after {
+      height: 2 * $border__width--default;
+      width: 100%;
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
+  } @else {
+    &::before,
+    &::after {
+      height: 100%;
+      width: 2 * $border__width--default;
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
+  }
+}
+
+// Animation - example: @include animation(10s, 5s, changecolour)
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation($value) {
+  animation: $value;
+}
+
+@mixin loading-spinner($size) {
+  @if $size == 'xl' {
+    height: $icon-size__xxl;
+    width: $icon-size__xxl;
+    font-size: $icon-size__xxl;
+    margin-bottom: $spacer__xs;
+  } @else if $size == 'l' {
+    height: $icon-size__xl;
+    width: $icon-size__xl;
+    font-size: $icon-size__xl;
+  } @else if $size == 'm' {
+    height: $grid__unit * 17;
+    width: $grid__unit * 17;
+    font-size: $grid__unit * 17;
+  } @else if $size == 's' {
+    height: $icon-size__m;
+    width: $icon-size__m;
+    font-size: $icon-size__m;
+  }
+}
+
+@mixin icon-divider($divider-position: 'left', $margin: 0) {
+  @if $divider-position == 'left' {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: $margin;
+      transform: translateY(-50%);
+      height: $size__list-item-icon-divider-height;
+      width: $size__divider-width;
+      background-color: $color__list--item-icon-divider-background;
+    }
+
+  } @else if $divider-position == 'right' {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: $margin;
+      transform: translateY(-50%);
+      height: $size__list-item-icon-divider-height;
+      width: $size__divider-width;
+      background-color: $color__list--item-icon-divider-background;
+    }
+  } @else if $divider-position == 'both' {
+    &::before { // left
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: $margin;
+      transform: translateY(-50%);
+      height: $size__list-item-icon-divider-height;
+      width: $size__divider-width;
+      background-color: $color__list--item-icon-divider-background;
+    }
+
+    &::after { // right
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: $margin;
+      transform: translateY(-50%);
+      height: $size__list-item-icon-divider-height;
+      width: $size__divider-width;
+      background-color: $color__list--item-icon-divider-background;
+    }
+  }
+}

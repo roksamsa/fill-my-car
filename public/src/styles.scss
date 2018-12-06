@@ -1,4 +1,6 @@
-$color--main-background: #EDF1F8;
+@import 'app/sass/global_variables.scss';
+
+$color--main-background: $color__blue--light;
 
 html, body { height: 100%; }
 body {

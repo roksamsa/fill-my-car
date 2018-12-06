@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { UserService } from '../../core/user.service';
 import { AuthService } from '../../core/auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { FirebaseUserModel } from '../../core/user.model';
   styleUrls: ['./user.component.scss']
 })
 
-export class UserComponent implements OnInit, OnDestroy {
+export class UserComponent implements OnInit {
 
   user: FirebaseUserModel = new FirebaseUserModel();
   profileForm: FormGroup;
@@ -57,5 +57,13 @@ export class UserComponent implements OnInit, OnDestroy {
       }, (error) => {
         console.log('Logout error', error);
       });
+  }
+
+  isUserLoggedIn() {
+    this.userService.getCurrentUser()
+      .then(res => {
+        console.log(res);
+        this.isLoggedIn = true;
+      }, err => console.log(err));
   }
 }

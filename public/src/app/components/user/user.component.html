@@ -26,3 +26,9 @@
 -->
 <img class="user__image" [src]="user.image" alt="Card image cap">
 <h4 class="card-title">{{user.name}}</h4>
+
+{{user | json}}
+
+<div class="col-md-4">
+  <button type="button" (click)="logout()" class="btn btn-link">Logout</button>
+</div>

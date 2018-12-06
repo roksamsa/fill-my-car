@@ -12,8 +12,16 @@ $header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  background: $header__background-color;
-  box-shadow: 0 0 12px $header__shadow-color;
+
+  &__background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: $header__background-color;
+    box-shadow: 0 0 12px $header__shadow-color;
+  }
 
   &__wrapper {
     display: flex;
@@ -32,6 +40,9 @@ $header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
     justify-content: space-between;
     position: relative;
     height: 100%;
+  }
+
+  &__logo {
   }
 
   &__menu {
