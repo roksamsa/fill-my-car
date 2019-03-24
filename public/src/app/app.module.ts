@@ -28,9 +28,9 @@ import { LoginComponent } from './components/login/login.component';
 import { ContentComponent } from './components/content/content.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserComponent } from './components/user/user.component';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UserResolver } from '../app/components/user/user.resolver';
 import { AuthGuard } from './core/auth.guard';
 import { AuthService } from './core/auth.service';
@@ -49,7 +49,7 @@ const routes: Routes = [
   { path: 'vehicles', component: VehiclesPageComponent, resolve: { data: UserResolver} },
   { path: 'trips', component: TripsPageComponent, resolve: { data: UserResolver} },
   { path: 'user', component: UserPageComponent, resolve: { data: UserResolver}},
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full', resolve: { data: UserResolver} },
 ];
 
 @NgModule({
@@ -72,8 +72,8 @@ const routes: Routes = [
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

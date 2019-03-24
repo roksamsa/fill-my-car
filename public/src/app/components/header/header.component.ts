@@ -92,21 +92,8 @@ export const headerAnimationDelay = '450ms';
 
 export class HeaderComponent implements OnInit {
 
-  user: FirebaseUserModel = new FirebaseUserModel();
-  isLoggedIn: Boolean;
-
-  constructor(
-    public userService: UserService,
-    public authService: AuthService,
-    private route: ActivatedRoute) { }
+  constructor() { }
 
     ngOnInit(): void {
-      this.route.data.subscribe(routeData => {
-        const data = routeData['data'];
-        if (data) {
-          this.user = data;
-          console.log(data);
-        }
-      });
     }
 }
