@@ -1,5 +1,6 @@
 export interface Vehicle {
     id: String;
+    belongsToUser: String;
     vehicleType: String;
     vehicleBrand: String;
     vehicleName: String;

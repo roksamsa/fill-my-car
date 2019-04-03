@@ -25,31 +25,36 @@ import { CreatePageComponent } from './pages/create-page/create-page.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ContentComponent } from './components/content/content.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserComponent } from './components/user/user.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { UserResolver } from '../app/components/user/user.resolver';
-import { AuthGuard } from './core/auth.guard';
 import { AuthService } from './core/auth.service';
 import { UserService } from './core/user.service';
 import { environment } from '../environments/environment';
 import { VehiclesPageComponent } from './pages/vehicles-page/vehicles-page.component';
 import { TripsPageComponent } from './pages/trips-page/trips-page.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+
+// Import canActivate guard services
+import { AuthGuard } from '../app/core/auth.guard';
+import { SecureInnerPagesGuard } from '../app/core/secure-inner-pages.guard';
+import { NavigationMainComponent } from './components/navigation-main/navigation-main.component';
 
 const routes: Routes = [
-  { path: 'create', component: CreatePageComponent },
-  { path: 'edit/:id', component: EditPageComponent },
-  { path: 'dashboard', component: DashboardPageComponent },
-  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
-  { path: 'vehicles', component: VehiclesPageComponent, resolve: { data: UserResolver} },
-  { path: 'trips', component: TripsPageComponent, resolve: { data: UserResolver} },
-  { path: 'user', component: UserPageComponent, resolve: { data: UserResolver}},
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full', resolve: { data: UserResolver} },
+  { path: 'create', component: CreatePageComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:id', component: EditPageComponent, canActivate: [AuthGuard] },
+  { path: 'nadzorna-plosca', component: DashboardPageComponent, canActivate: [AuthGuard] },
+  { path: 'registracija', component: RegisterComponent, canActivate: [SecureInnerPagesGuard] },
+  { path: 'prijava', component: LoginPageComponent, canActivate: [SecureInnerPagesGuard] },
+  { path: 'moja-vozila', component: VehiclesPageComponent, canActivate: [AuthGuard] },
+  { path: 'moja-potovanja', component: TripsPageComponent, canActivate: [AuthGuard] },
+  { path: 'user', component: UserPageComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'nadzorna-plosca', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -62,13 +67,16 @@ const routes: Routes = [
     EditPageComponent,
     RegisterComponent,
     LoginComponent,
+    ForgotPasswordComponent,
     TripsPageComponent,
     UserComponent,
     VehiclesPageComponent,
     UserPageComponent,
     ContentComponent,
     TripsPageComponent,
-    VehicleListComponent
+    VehicleListComponent,
+    LoginPageComponent,
+    NavigationMainComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -91,7 +99,7 @@ const routes: Routes = [
     MatDividerModule,
     MatSnackBarModule
   ],
-  providers: [VehicleService, AuthService, UserService, UserResolver, AuthGuard],
+  providers: [VehicleService, AuthService, UserService, AuthGuard],
   bootstrap: [AppComponent]
 })
 

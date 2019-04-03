@@ -7,7 +7,6 @@
     <mat-divider></mat-divider>
 
     <form [formGroup]="createForm" class="create-form">
-
       <mat-form-field class="create-form__field">
         <mat-select matInput placeholder="Vehicle type" formControlName="vehicleType" #vehicleType>
           <mat-option value="Car">Car</mat-option>
@@ -41,8 +40,8 @@
         <input matInput placeholder="Vehicle max luggage" formControlName="vehicleMaxLuggage" #vehicleMaxLuggage>
       </mat-form-field>
 
-      <button mat-raised-button color="accent" routerLink="/dashboard">Back</button>
-      <button type="submit" (click)="addVehicle(vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
+      <button mat-raised-button color="accent" routerLink="/nadzorna-plosca">Back</button>
+      <button type="submit" (click)="addVehicle(authService.userData.uid, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
     </form>
   </mat-card>
 </div>

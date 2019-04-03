@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VehicleService } from '../../core/vehicle.service';
-import { Vehicle } from '../../core/vehicle.module';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-create-page',
@@ -14,6 +14,7 @@ export class CreatePageComponent implements OnInit {
   createForm: FormGroup;
 
   constructor (
+    public authService: AuthService,
     private vehicleService: VehicleService,
     private fb: FormBuilder,
     private router: Router) {
@@ -25,18 +26,21 @@ export class CreatePageComponent implements OnInit {
       vehicleColor: '',
       vehicleSeats: '',
       vehicleMaxLuggage: '',
+      belongsToUser: ''
     });
   }
 
   addVehicle (
-    vehicleType,
-    vehicleBrand,
-    vehicleName,
-    vehicleModelYear,
-    vehicleColor,
-    vehicleSeats,
-    vehicleMaxLuggage) {
+    belongsToUser: any,
+    vehicleType: any,
+    vehicleBrand: any,
+    vehicleName: any,
+    vehicleModelYear: number,
+    vehicleColor: any,
+    vehicleSeats: number,
+    vehicleMaxLuggage: number) {
     this.vehicleService.addVehicle(
+      belongsToUser,
       vehicleType,
       vehicleBrand,
       vehicleName,
@@ -44,7 +48,7 @@ export class CreatePageComponent implements OnInit {
       vehicleColor,
       vehicleSeats,
       vehicleMaxLuggage).subscribe(() => {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/nadzorna-plosca']);
       });
   }
 

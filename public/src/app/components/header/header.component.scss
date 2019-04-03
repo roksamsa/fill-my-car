@@ -1,5 +1,6 @@
+@import '../../sass/global_variables.scss';
+
 $header__background-color: #fff;
-$header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
 
 :host {
   position: relative;
@@ -12,6 +13,8 @@ $header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  color: $color__blue--primary;
+  font-weight: bold;
 
   &__background {
     position: absolute;
@@ -19,7 +22,7 @@ $header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
     top: 0;
     height: 100%;
     width: 100%;
-    background: $header__background-color;
+    background-color: $header__background-color;
     box-shadow: 0 0 12px $header__shadow-color;
   }
 
@@ -43,18 +46,12 @@ $header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
   }
 
   &__logo {
-  }
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
 
-  &__menu {
-    display: flex;
-
-    li {
-      padding: 10px 20px;
-      list-style: none;
-
-      &:hover {
-        background: #ccc;
-      }
+    &-pink {
+      color: $color__pink--primary;
     }
   }
 
@@ -67,21 +64,54 @@ $header__shadow-color: rgba(38, 42, 77, .1); // #262A4D
     height: 100%;
   }
 
-  &__user {
+  &__user-wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
+    margin-right: 20px;
+  }
+
+  &__avatar {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid $color__white--70;
+    margin-right: 10px;
+    overflow: hidden;
+
+    &--default {
+      .header__avatar-image {
+        width: 32px;
+        height: 32px;
+        margin-top: 2px;
+      }
+    }
 
     &-image {
-      width: 30px;
-      height: 30px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 22px;
+      height: 22px;
+      transform: translate(-50%, -50%);
       border-radius: 50%;
       overflow: hidden;
-      border: #ccc;
-      border: 1px solid #ddd;
-      padding: 1px;
-      background-color: white;
     }
   }
+
+  &__user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__register {
+    cursor: pointer;
+  }
+}
+
+.nav-link {
+  cursor: pointer;
 }

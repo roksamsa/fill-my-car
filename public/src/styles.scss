@@ -1,10 +1,22 @@
 @import 'app/sass/global_variables.scss';
+@import 'app/sass/fonts.scss';
 
 $color--main-background: $color__blue--light;
 
+::-moz-selection {
+  background-color: $color__pink--primary;
+  color: white;
+}
+
+::selection {
+  background-color: $color__pink--primary;
+  color: white;
+}
+
 html, body { height: 100%; }
+
 body {
+  @include font-titillium-regular;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: $color--main-background;
 }

@@ -1,16 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FirebaseUserModel } from '../../core/user.model';
-import { UserService } from '../../core/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { trigger, query, style, group, animate, transition } from '@angular/animations';
 import { AuthService } from '../../core/auth.service';
-import {
-  trigger,
-  query,
-  style,
-  group,
-  animate,
-  transition
-} from '@angular/animations';
+import { Router } from '@angular/router';
 
 export const defaultAnimationFunction = 'ease-in-out';
 
@@ -45,7 +36,7 @@ export const headerAnimationDelay = '450ms';
               animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
                 opacity: 1
               }))
-            ]),
+            ], { optional: true }),
             query('.header__right', [
               style({
                 opacity: 0
@@ -92,8 +83,12 @@ export const headerAnimationDelay = '450ms';
 
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public authService: AuthService,
+    public router: Router,
+    public ngZone: NgZone
+  ) { }
 
-    ngOnInit(): void {
-    }
+  ngOnInit() { }
+
 }

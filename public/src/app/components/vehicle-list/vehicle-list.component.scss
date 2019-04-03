@@ -1,7 +1,17 @@
+@import '../../sass/global_variables.scss';
+
 :host {
   width: 100%;
 }
 
 .mat-table {
   width: 100%;
+}
+
+.mat-row {
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: $color__blue-grey--light;
+  }
 }

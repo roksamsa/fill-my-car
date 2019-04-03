@@ -1,0 +1,108 @@
+@import '../../sass/global_variables.scss';
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  margin-left: 30px;
+  padding: 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    padding: 0 15px;
+    list-style: none;
+    cursor: pointer;
+    outline: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      opacity: 0;
+      transition: opacity 200ms ease-in-out;
+      background-color: rgba(207, 216, 232, 0.3);
+      border-radius: 5px;
+    }
+
+    &:hover {
+      color: $color__blue--darker;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    &--active {
+      color: $color__pink--primary;
+
+      &:hover {
+        color: $color__pink--primary;
+      }
+    }
+  }
+
+  &__item-icon-wrapper {
+    position: relative;
+    margin-right: 10px;
+
+    &--control-panel {
+      height: 18px;
+      width: 18px;
+
+      .menu__item-icon--active-bg {
+        background-image: url("/../../../assets/icons/icon-menu-control-panel-active-bg.svg");
+      }
+
+      .menu__item-icon--front {
+        background-image: url("/../../../assets/icons/icon-menu-control-panel.svg");
+      }
+    }
+
+    &--my-vehicles {
+      width: 32px;
+      height: 16px;
+
+      .menu__item-icon--active-bg {
+        background-image: url("/../../../assets/icons/icon-my-vehicles-active-bg.svg");
+      }
+
+      .menu__item-icon--front {
+        background-image: url("/../../../assets/icons/icon-my-vehicles.svg");
+      }
+    }
+
+    &--my-trips {
+      height: 16px;
+      width: 18px;
+
+      .menu__item-icon--active-bg {
+        background-image: url("/../../../assets/icons/icon-my-trips-active-bg.svg");
+      }
+
+      .menu__item-icon--front {
+        width: 32px;
+        background-image: url("/../../../assets/icons/icon-my-trips.svg");
+      }
+    }
+  }
+
+  &__item-icon {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__item-text {
+    position: relative;
+  }
+}

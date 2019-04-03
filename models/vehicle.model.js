@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 var vehicleSchema = new Schema({
+    belongsToUser: {
+        type: String
+    },
     vehicleType: {
         type: String
     },

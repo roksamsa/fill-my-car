@@ -1,60 +1,140 @@
-// sass-lint:disable no-vendor-prefixes
-// Porsche Plain font
-@mixin font-pag-plain {
-  font-family: 'Porsche Plain', sans-serif;
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-ThinItalic.eot');
+  src: url('/../../assets/font/hinted-Titillium-ThinItalic.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-ThinItalic.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-ThinItalic.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-ThinItalic.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-ThinItalic.svg#Titillium-ThinItalic') format('svg');
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-LightItalic.eot');
+  src: url('/../../assets/font/hinted-Titillium-LightItalic.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-LightItalic.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-LightItalic.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-LightItalic.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-LightItalic.svg#Titillium-LightItalic') format('svg');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-Semibold.eot');
+  src: url('/../../assets/font/hinted-Titillium-Semibold.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-Semibold.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-Semibold.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-Semibold.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-Semibold.svg#Titillium-Semibold') format('svg');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-Black.eot');
+  src: url('/../../assets/font/hinted-Titillium-Black.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-Black.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-Black.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-Black.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-Black.svg#Titillium-Black') format('svg');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-Light.eot');
+  src: url('/../../assets/font/hinted-Titillium-Light.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-Light.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-Light.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-Light.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-Light.svg#Titillium-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Titillium-Regular';
+  src: url('/../../assets/font/hinted-Titillium-Regular.eot');
+  src: url('/../../assets/font/hinted-Titillium-Regular.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-Regular.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-Regular.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-Regular.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-Regular.svg#Titillium-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Titillium-Italic';
+  src: url('/../../assets/font/hinted-Titillium-RegularItalic.eot');
+  src: url('/../../assets/font/hinted-Titillium-RegularItalic.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-RegularItalic.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-RegularItalic.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-RegularItalic.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-RegularItalic.svg#Titillium-RegularItalic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-Bold.eot');
+  src: url('/../../assets/font/hinted-Titillium-Bold.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-Bold.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-Bold.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-Bold.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-Bold.svg#Titillium-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-Thin.eot');
+  src: url('/../../assets/font/hinted-Titillium-Thin.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-Thin.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-Thin.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-Thin.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-Thin.svg#Titillium-Thin') format('svg');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-BoldItalic.eot');
+  src: url('/../../assets/font/hinted-Titillium-BoldItalic.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-BoldItalic.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-BoldItalic.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-BoldItalic.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-BoldItalic.svg#Titillium-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/../../assets/font/hinted-Titillium-SemiboldItalic.eot');
+  src: url('/../../assets/font/hinted-Titillium-SemiboldItalic.eot?#iefix') format('embedded-opentype'),
+      url('/../../assets/font/hinted-Titillium-SemiboldItalic.woff2') format('woff2'),
+      url('/../../assets/font/hinted-Titillium-SemiboldItalic.woff') format('woff'),
+      url('/../../assets/font/hinted-Titillium-SemiboldItalic.ttf') format('truetype'),
+      url('/../../assets/font/hinted-Titillium-SemiboldItalic.svg#Titillium-SemiboldItalic') format('svg');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@mixin font-titillium-regular {
+  font-family: 'Titillium-Regular', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-// Porsche Semibold font
-@mixin font-pag-semibold {
-  font-family: 'Porsche SemiBold', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-// Porsche Plain Numeric font
-@mixin font-pag-numeric-plain {
-  font-family: 'Porsche Plain Numeric', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-// Porsche Semibold Numeric font
-@mixin font-pag-numeric-semibold {
-  font-family: 'Porsche SemiBold Numeric', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-// Monda Regular Password font
-@mixin font-monda-password-regular {
-  font-family: 'Monda Regular', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-// Porsche Icon font
-@mixin font-pag-icon {
-  font-family: 'pag3-icon-font', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-.font-pag-plain {
-  @include font-pag-plain;
-}
-
-.font-pag-semibold {
-  @include font-pag-semibold;
-}
-
-.font-pag-numeric-plain {
-  @include font-pag-numeric-plain;
-}
-
-.font-pag-numeric-semibold {
-  @include font-pag-numeric-semibold;
-}
-
-.font-monda-password-regular {
-  @include font-monda-password-regular;
-}
-
-.font-pag-icon {
-  @include font-pag-icon;
+.font-titillium-regular {
+  @include font-titillium-regular;
 }

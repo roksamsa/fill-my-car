@@ -1,25 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleService {
 
-  uri = 'http://localhost:4000';
+  uriLink = 'http://localhost:4000';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    public authService: AuthService) { }
 
   getVehicles() {
-    return this.http.get(`${this.uri}/vehicles`);
+    return this.http.get(`${this.uriLink}/vehicles`);
   }
 
   getVehicleById(id) {
-    return this.http.get(`${this.uri}/vehicles/${id}`);
+    return this.http.get(`${this.uriLink}/vehicles/${id}`);
   }
 
-  addVehicle(vehicleType, vehicleBrand, vehicleName, vehicleModelYear, vehicleColor, vehicleSeats, vehicleMaxLuggage) {
+  getVehicleByUser(belongsToUser) {
+    return this.http.get(`${this.uriLink}/vehicles/user/${belongsToUser}`);
+  }
+
+  addVehicle(belongsToUser, vehicleType, vehicleBrand, vehicleName, vehicleModelYear, vehicleColor, vehicleSeats, vehicleMaxLuggage) {
     const vehicle = {
+      belongsToUser: belongsToUser,
       vehicleType: vehicleType,
       vehicleBrand: vehicleBrand,
       vehicleName: vehicleName,
@@ -28,11 +36,20 @@ export class VehicleService {
       vehicleSeats: vehicleSeats,
       vehicleMaxLuggage: vehicleMaxLuggage
     };
-    return this.http.post(`${this.uri}/vehicles/add`, vehicle);
+    return this.http.post(`${this.uriLink}/vehicles/add`, vehicle);
   }
 
-  updateVehicle(id, vehicleType, vehicleBrand, vehicleName, vehicleModelYear, vehicleColor, vehicleSeats, vehicleMaxLuggage) {
+  updateVehicle(id,
+    belongsToUser,
+    vehicleType,
+    vehicleBrand,
+    vehicleName,
+    vehicleModelYear,
+    vehicleColor,
+    vehicleSeats,
+    vehicleMaxLuggage) {
     const vehicle = {
+      belongsToUser: belongsToUser,
       vehicleType: vehicleType,
       vehicleBrand: vehicleBrand,
       vehicleName: vehicleName,
@@ -41,10 +58,10 @@ export class VehicleService {
       vehicleSeats: vehicleSeats,
       vehicleMaxLuggage: vehicleMaxLuggage
     };
-    return this.http.post(`${this.uri}/vehicles/update/${id}`, vehicle);
+    return this.http.post(`${this.uriLink}/vehicles/update/${id}`, vehicle);
   }
 
   deleteVehicle(id) {
-    return this.http.delete(`${this.uri}/vehicles/delete/${id}`);
+    return this.http.delete(`${this.uriLink}/vehicles/delete/${id}`);
   }
 }

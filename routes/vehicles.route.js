@@ -10,17 +10,27 @@ router.get('/vehicles', function (req, res) {
     else
       res.json(vehicles);
   });
-})
+});
+
+// Get vehicles for specific user
+router.get('/vehicles/user/:belongsToUser', function (req, res) {
+  vehicleSchema.find({belongsToUser: req.params.belongsToUser}, (err, vehicles) => {
+    if (err)
+      console.log(err);
+    else
+      res.json(vehicles);
+  });
+});
 
 // Get vehicle by specific id
-router.get('/vehicles:id', function (req, res) {
+router.get('/vehicles/:id', function (req, res) {
   vehicleSchema.findById(req.params.id, (err, vehicles) => {
     if (err)
       console.log(err);
     else
       res.json(vehicles);
   });
-})
+});
 
 // Add vehicle
 router.post('/vehicles/add', function (req, res) {
@@ -32,7 +42,7 @@ router.post('/vehicles/add', function (req, res) {
     .catch(err => {
       res.status(400).send('Failed to create new vehicle');
     });
-})
+});
 
 router.route('/vehicles/edit/:id').patch((req, res) => {
   vehicleSchema.findById(req.params.id, (err, vehicles) => {

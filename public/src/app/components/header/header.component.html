@@ -2,22 +2,30 @@
   <div class="header__background"></div>
   <div class="header__wrapper">
     <div class="header__left">
-      <div routerLink="/dashboard" class="header__logo">
-        FILL MY CAR
+      <div routerLink="/nadzorna-plosca" class="header__logo">
+        Napolni<span class="header__logo-pink">moj</span>avto
       </div>
-      <ul class="header__menu">
-          <li routerLink="/dashboard">Dashboard</li>
-          <li routerLink="/vehicles">Vehicles</li>
-          <li routerLink="/trips">Trips</li>
-      </ul>
+      <app-navigation-main *ngIf="authService.isLoggedIn"></app-navigation-main>
     </div>
     <div class="header__right">
-      <div class="header__user" routerLink="/user">
-        Rok Samsa
+      <div *ngIf="authService.isLoggedIn; else loggedOut" class="header__user">
+        <div *ngIf="authService.userData as user" class="header__user-wrapper" routerLink="/user">
+          <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
+            <img class="header__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
+          </div>
+          <div *ngIf="user.displayName" class="header__username">{{user.displayName}}</div>
+          <div *ngIf="user.email && !user.displayName" class="header__email">{{user.email}}</div>
+        </div>
+        <a class="nav-link" (click)="authService.SignOut()">
+          Odjava
+        </a>
       </div>
-      <div class="header__register" routerLink="/register">
-        Register
-      </div>
+
+      <ng-template #loggedOut>
+        <div class="header__register" routerLink="/prijava">
+          Prijava
+        </div>
+      </ng-template>
     </div>
   </div>
 </header>
