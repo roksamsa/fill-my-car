@@ -23,7 +23,7 @@
 }
 
 @font-face {
-  font-family: 'Titillium';
+  font-family: 'Titillium-Semibold';
   src: url('/../../assets/font/hinted-Titillium-Semibold.eot');
   src: url('/../../assets/font/hinted-Titillium-Semibold.eot?#iefix') format('embedded-opentype'),
       url('/../../assets/font/hinted-Titillium-Semibold.woff2') format('woff2'),
@@ -132,6 +132,11 @@
 
 @mixin font-titillium-regular {
   font-family: 'Titillium-Regular', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@mixin font-titillium-semibold {
+  font-family: 'Titillium-Semibold', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

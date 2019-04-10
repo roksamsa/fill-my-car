@@ -1,0 +1,19 @@
+@import '../../sass/global_variables.scss';
+
+$tile__padding: 20px;
+$tile__shadow: 0 2px 5px 0 rgba(0, 19, 168, .1);
+$tile__shadow--hover: 0 4px 19px 0 rgba(0, 19, 168, .05);
+$tile__background-color: $color__white--100;
+$tile__border-radius: 3px;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  padding: $tile__padding;
+  background-color: $tile__background-color;
+  -webkit-box-shadow: $tile__shadow;
+  -moz-box-shadow: $tile__shadow;
+  box-shadow: $tile__shadow;
+  border-radius: $tile__border-radius;
+}

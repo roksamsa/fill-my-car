@@ -1,31 +1,50 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from './auth.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Vehicle } from './vehicle.module';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class VehicleService {
 
-  uriLink = 'http://localhost:4000';
+  uriBase = 'http://localhost:4000';
+  uriVehicles = this.uriBase + '/vehicles/';
+  uriVehiclesForUser = this.uriVehicles + 'user/';
+  uriVehicleAdd = this.uriVehicles + 'add/';
+  uriVehicleUpdate = this.uriVehicles + 'update/';
+  uriVehicleDelete = this.uriVehicles + 'delete/';
 
   constructor(
-    private http: HttpClient,
-    public authService: AuthService) { }
+    private http: HttpClient) { }
 
-  getVehicles() {
-    return this.http.get(`${this.uriLink}/vehicles`);
+  // Get all vehicles in database
+  getAllVehicles(): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.uriVehicles);
   }
 
-  getVehicleById(id) {
-    return this.http.get(`${this.uriLink}/vehicles/${id}`);
+  // Get specific vehicle by ID
+  getVehicleById(id: any): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.uriVehicles + id);
   }
 
-  getVehicleByUser(belongsToUser) {
-    return this.http.get(`${this.uriLink}/vehicles/user/${belongsToUser}`);
+  // Get vehicles by specific user
+  getVehicleByUser(belongsToUser: any): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.uriVehiclesForUser + belongsToUser);
   }
 
-  addVehicle(belongsToUser, vehicleType, vehicleBrand, vehicleName, vehicleModelYear, vehicleColor, vehicleSeats, vehicleMaxLuggage) {
+  // Add vehicle to database
+  addVehicle(
+    belongsToUser: any,
+    vehicleType: any,
+    vehicleBrand: any,
+    vehicleName: any,
+    vehicleModelYear: number,
+    vehicleColor: any,
+    vehicleSeats: number,
+    vehicleMaxLuggage: number) {
     const vehicle = {
       belongsToUser: belongsToUser,
       vehicleType: vehicleType,
@@ -36,18 +55,20 @@ export class VehicleService {
       vehicleSeats: vehicleSeats,
       vehicleMaxLuggage: vehicleMaxLuggage
     };
-    return this.http.post(`${this.uriLink}/vehicles/add`, vehicle);
+    return this.http.post(this.uriVehicleAdd, vehicle);
   }
 
-  updateVehicle(id,
-    belongsToUser,
-    vehicleType,
-    vehicleBrand,
-    vehicleName,
-    vehicleModelYear,
-    vehicleColor,
-    vehicleSeats,
-    vehicleMaxLuggage) {
+  // Update vehicle from database
+  updateVehicle(
+    id: any,
+    belongsToUser: any,
+    vehicleType: any,
+    vehicleBrand: any,
+    vehicleName: any,
+    vehicleModelYear: number,
+    vehicleColor: any,
+    vehicleSeats: number,
+    vehicleMaxLuggage: number) {
     const vehicle = {
       belongsToUser: belongsToUser,
       vehicleType: vehicleType,
@@ -58,10 +79,11 @@ export class VehicleService {
       vehicleSeats: vehicleSeats,
       vehicleMaxLuggage: vehicleMaxLuggage
     };
-    return this.http.post(`${this.uriLink}/vehicles/update/${id}`, vehicle);
+    return this.http.post(this.uriVehicleUpdate, vehicle);
   }
 
-  deleteVehicle(id) {
-    return this.http.delete(`${this.uriLink}/vehicles/delete/${id}`);
+  // Delete vehicle from database
+  deleteVehicle(id: any): Observable<Vehicle[]> {
+    return this.http.delete<Vehicle[]>(this.uriVehicleDelete + id);
   }
 }

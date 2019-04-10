@@ -1,6 +1,9 @@
 @import '../../sass/global_variables.scss';
 
 :host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -14,4 +17,8 @@
   &:hover {
     background-color: $color__blue-grey--light;
   }
+}
+
+.vehicle-list {
+  padding: 30px;
 }

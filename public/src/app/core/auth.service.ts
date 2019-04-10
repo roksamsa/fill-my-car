@@ -99,7 +99,7 @@ export class AuthService {
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider) {
+  AuthLogin(provider: auth.AuthProvider | auth.FacebookAuthProvider | auth.GoogleAuthProvider | auth.GithubAuthProvider) {
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result) => {
        this.ngZone.run(() => {
@@ -109,19 +109,6 @@ export class AuthService {
     }).catch((error) => {
       window.alert(error);
     });
-  }
-
-  GetUserData(user) {
-    const userRef = JSON.parse(localStorage.getItem('user'));
-    const userData: FirebaseUserModel = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified
-    };
-
-    return userRef.set(userData);
   }
 
   /* Setting up user data when sign in with username/password, sign up with username/password and sign in with social auth
@@ -149,17 +136,4 @@ export class AuthService {
       console.log('Logout successful');
     });
   }
-
-  /*isLoggedInState() {
-    return this.afAuth.authState.pipe(first()).toPromise();
-  }
-
-  async isLoggedInTrigger() {
-    const user = await this.isLoggedInState();
-    if (user) {
-      return true;
-    } else {
-      return false;
-    }
-  }*/
 }

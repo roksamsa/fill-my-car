@@ -39,11 +39,11 @@ import { VehiclesPageComponent } from './pages/vehicles-page/vehicles-page.compo
 import { TripsPageComponent } from './pages/trips-page/trips-page.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-
-// Import canActivate guard services
 import { AuthGuard } from '../app/core/auth.guard';
 import { SecureInnerPagesGuard } from '../app/core/secure-inner-pages.guard';
 import { NavigationMainComponent } from './components/navigation-main/navigation-main.component';
+import { TileComponent } from './components/tile/tile.component';
+import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 
 const routes: Routes = [
   { path: 'create', component: CreatePageComponent, canActivate: [AuthGuard] },
@@ -76,7 +76,9 @@ const routes: Routes = [
     TripsPageComponent,
     VehicleListComponent,
     LoginPageComponent,
-    NavigationMainComponent
+    NavigationMainComponent,
+    TileComponent,
+    VehicleTileComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -1,5 +1,5 @@
 @import 'app/sass/global_variables.scss';
-@import 'app/sass/fonts.scss';
+@import 'app/sass/global_fonts.scss';
 
 $color--main-background: $color__blue--light;
 
@@ -13,10 +13,18 @@ $color--main-background: $color__blue--light;
   color: white;
 }
 
-html, body { height: 100%; }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
 
 body {
   @include font-titillium-regular;
   margin: 0;
   background-color: $color--main-background;
+  box-sizing: border-box;
 }

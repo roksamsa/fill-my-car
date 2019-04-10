@@ -1,4 +1,4 @@
-<table *ngIf="isVehicleListEmpty(); else emptyVehicleList" mat-table [dataSource]="vehicles">
+<table mat-table [dataSource]="vehicles">
   <ng-container matColumnDef="vehicleType">
     <th mat-header-cell *matHeaderCellDef>vehicleType</th>
     <td mat-cell *matCellDef="let element"> {{ element.vehicleType }} </td>
@@ -45,10 +45,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
-<ng-template #emptyVehicleList>
-  <div class="vehicle-list__empty-container">
-    <img src="/assets/icons/icon-empty-vehicle-list.svg" />
-    <p>Tvoja garaža je še vedno prazna.</p>
-  </div>
-</ng-template>

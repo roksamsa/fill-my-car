@@ -1,5 +1,5 @@
 <div>
-  <mat-card>
+  <app-tile>
     <section class="mat-typography">
       <h1>Create new vehicle</h1>
     </section>
@@ -43,5 +43,5 @@
       <button mat-raised-button color="accent" routerLink="/nadzorna-plosca">Back</button>
       <button type="submit" (click)="addVehicle(authService.userData.uid, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
     </form>
-  </mat-card>
+  </app-tile>
 </div>

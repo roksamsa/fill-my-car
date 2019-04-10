@@ -1,0 +1,57 @@
+
+@import '../../sass/global_variables.scss';
+@import '../../sass/global_elements.scss';
+@import '../../sass/global_fonts.scss';
+
+.empty-data{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-grow: 1;
+  color: $color__blue--empty;
+
+  &__icon {
+    width: 120px;
+    fill: $color__blue--empty;
+  }
+
+  &__text {
+    margin: 0 0 0 15px;
+    font-size: 24px;
+  }
+}
+
+.vehicles {
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 160px;
+  }
+
+  &__title {
+    @include font-titillium-semibold;
+    display: flex;
+    flex-shrink: 0;
+    position: relative;
+    font-size: 22px;
+    padding-right: 20px;
+    margin-right: 20px;
+    color: $color__blue--primary;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -20px;
+      bottom: -20px;
+      width: 2px;
+      background-color: $color__blue--lighter;
+    }
+  }
+
+  &__button {
+    display: flex;
+    flex-shrink: 0;
+  }
+}

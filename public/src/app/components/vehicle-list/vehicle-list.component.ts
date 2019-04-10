@@ -1,9 +1,7 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VehicleService } from '../../core/vehicle.service';
-import { AuthService } from '../../core/auth.service';
 import { Vehicle } from '../../core/vehicle.module';
 import { Router } from '@angular/router';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -11,11 +9,11 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
   styleUrls: ['./vehicle-list.component.scss']
 })
 
-export class VehicleListComponent implements OnInit, AfterViewInit {
+export class VehicleListComponent implements OnInit {
 
+  vehicles: Vehicle[] = [];
+  currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
-  user = JSON.parse(localStorage.getItem('user'));
-  vehicles: Vehicle[];
   displayedColumns: string[] = [
     'vehicleType',
     'vehicleBrand',
@@ -28,43 +26,36 @@ export class VehicleListComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(
-    public authService: AuthService,
     private vehicleService: VehicleService,
-    private router: Router) {
-    }
+    private router: Router) {}
 
   ngOnInit() {
     this.fetchVehicles();
-    this.isVehicleListEmpty();
   }
 
-  ngAfterViewInit() {
-  }
-
+  // Fetch all vehicles for specific user
   fetchVehicles() {
-    this.vehicleService
-      .getVehicleByUser(this.user.uid)
-      .subscribe((data: Vehicle[]) => {
-        if (data.length > 0) {
-          this.vehicles = data;
-          this.areThereAnyVehicles = true;
-        } else {
-          this.vehicles = [];
-          this.areThereAnyVehicles = false;
-        }
+    this.vehicleService.getVehicleByUser(this.currentUser.uid)
+    .subscribe((data: Vehicle[]) => {
+      if (data.length > 0) {
+        this.vehicles = data;
+        this.areThereAnyVehicles = true;
+      } else {
+        this.vehicles = null;
+        this.areThereAnyVehicles = false;
+      }
     });
   }
 
-  public isVehicleListEmpty(): boolean {
-    return this.areThereAnyVehicles;
-  }
-
-  editVehicle(id) {
+  // Edit specific vehicle
+  editVehicle(id: any) {
     this.router.navigate([`/edit/${id}`]);
   }
 
-  deleteVehicle(id) {
-    this.vehicleService.deleteVehicle(id).subscribe(() => {
+  // Delete specific vehicle
+  deleteVehicle(id: any) {
+    this.vehicleService.deleteVehicle(id)
+    .subscribe(() => {
       this.fetchVehicles();
     });
   }
