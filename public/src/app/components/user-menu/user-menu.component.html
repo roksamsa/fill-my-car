@@ -1,0 +1,7 @@
+
+<div class="user-menu__background" [@userMenuBackgroundFadeIn]></div>
+<div class="user-menu__background-image" [ngStyle]="{'background-image': 'url(' + authService.userData.photoURL + ')'}"></div>
+<div class="user-menu__item">{{authService.userData.displayName}}</div>
+<div class="user-menu__item">{{authService.userData.email}}</div>
+<div class="user-menu__item user-menu__item--menu" routerLink="/user">Uporabniški profil</div>
+<div class="user-menu__item user-menu__item--menu" (click)="authService.SignOut()" routerLink="/user">Odjava</div>

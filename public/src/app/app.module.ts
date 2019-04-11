@@ -44,6 +44,7 @@ import { SecureInnerPagesGuard } from '../app/core/secure-inner-pages.guard';
 import { NavigationMainComponent } from './components/navigation-main/navigation-main.component';
 import { TileComponent } from './components/tile/tile.component';
 import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
+import { UserMenuComponent } from './components/user-menu/user-menu.component';
 
 const routes: Routes = [
   { path: 'create', component: CreatePageComponent, canActivate: [AuthGuard] },
@@ -78,7 +79,8 @@ const routes: Routes = [
     LoginPageComponent,
     NavigationMainComponent,
     TileComponent,
-    VehicleTileComponent
+    VehicleTileComponent,
+    UserMenuComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

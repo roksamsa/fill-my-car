@@ -6,6 +6,7 @@ $header__background-color: #fff;
   position: relative;
   height: 56px;
   width: 100%;
+  z-index: 9;
 }
 
 .header {
@@ -24,6 +25,15 @@ $header__background-color: #fff;
     width: 100%;
     background-color: $header__background-color;
     box-shadow: 0 0 12px $header__shadow-color;
+  }
+
+  &__user-menu-wrapper {
+    position: absolute;
+    width: 1200px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
   }
 
   &__wrapper {
@@ -116,28 +126,5 @@ $header__background-color: #fff;
 
   &__register {
     cursor: pointer;
-  }
-}
-
-.user-menu {
-  position: absolute;
-  top: 0;
-  background-color: $color__white--100;
-  box-shadow: 0 0 12px $header__shadow-color;
-  border-radius: 4px;
-
-  &__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    opacity: 0.4;
-    background-size: cover;
-  }
-
-  &__item {
-    position: relative;
-    padding: 10px 20px;
   }
 }

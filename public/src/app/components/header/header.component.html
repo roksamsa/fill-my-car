@@ -1,4 +1,7 @@
 <header class="header" [@headerFadeIn]>
+  <div *ngIf="authService.isLoggedIn" class="header__user-menu-wrapper">
+    <app-user-menu *ngIf="clickActiveState" [@userMenuFadeIn]></app-user-menu>
+  </div>
   <div class="header__background"></div>
   <div class="header__wrapper">
     <div class="header__left">
@@ -16,14 +19,6 @@
           <div *ngIf="user.displayName" class="header__username">{{user.displayName}}</div>
           <div *ngIf="user.email && !user.displayName" class="header__email">{{user.email}}</div>
         </div>
-      </div>
-
-      <div *ngIf="clickActiveState" class="user-menu">
-        <div class="user-menu__background" [ngStyle]="{'background-image': 'url(' + authService.userData.photoURL + ')'}"></div>
-        <div class="user-menu__item">{{authService.userData.displayName}}</div>
-        <div class="user-menu__item">{{authService.userData.email}}</div>
-        <div class="user-menu__item user-menu__item--menu" routerLink="/user">Uporabniški profil</div>
-        <div class="user-menu__item user-menu__item--menu" (click)="authService.SignOut()" routerLink="/user">Odjava</div>
       </div>
       <ng-template #loggedOut>
         <div class="header__register" routerLink="/prijava">

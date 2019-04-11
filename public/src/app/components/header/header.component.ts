@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, HostBinding } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { trigger, query, style, group, animate, transition } from '@angular/animations';
 import { AuthService } from '../../core/auth.service';
 import { Router } from '@angular/router';
@@ -76,7 +76,25 @@ export const headerAnimationDelay = '450ms';
               }))
             ])
           ])
+      ])
+    ]),
+    trigger('userMenuFadeIn', [
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: '1'
+        }))
       ]),
+      transition(':leave', [
+        style({
+          opacity: '1'
+        }),
+        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: '0'
+        }))
+      ])
     ])
   ]
 })
