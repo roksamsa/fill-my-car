@@ -5,6 +5,9 @@ var vehicleSchema = new Schema({
     belongsToUser: {
         type: String
     },
+    vehicleRegistrationPlate: {
+        type: String
+    },
     vehicleType: {
         type: String
     },

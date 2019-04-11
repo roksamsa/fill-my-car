@@ -1,4 +1,5 @@
 @import './global_mixins';
+@import './global_fonts.scss';
 
 $scale__factor: 1;
 
@@ -66,4 +67,5 @@ $color__blue-grey--dark: #EEF0F5;
 $color__blue-grey--light: #FAFAFC;
 
 $color__pink--primary: #D93362;
+$color__pink--darker: #B50048;
 $header__shadow-color: rgba(38, 42, 77, .15); // #262A4D

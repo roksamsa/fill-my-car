@@ -1,22 +1,29 @@
 <ul class="menu">
   <li class="menu__item" routerLink="/nadzorna-plosca" routerLinkActive="menu__item--active">
-    <div class="menu__item-icon-wrapper menu__item-icon-wrapper--control-panel">
-      <div *ngIf="router.url === '/nadzorna-plosca'" class="menu__item-icon menu__item-icon--active-bg"></div>
-      <div class="menu__item-icon menu__item-icon--front"></div>
+    <div class="menu__item-wrapper">
+      <div class="menu__item-icon-wrapper menu__item-icon-wrapper--control-panel">
+        <div *ngIf="router.url === '/nadzorna-plosca'" class="menu__item-icon menu__item-icon--active-bg"></div>
+        <div class="menu__item-icon menu__item-icon--front"></div>
+      </div>
+      <div class="menu__item-text">Nadzorna plošča</div>
     </div>
-    <div class="menu__item-text">Nadzorna plošča</div>
   </li>
   <li class="menu__item" routerLink="/moja-vozila" routerLinkActive="menu__item--active">
-    <div class="menu__item-icon-wrapper menu__item-icon-wrapper--my-vehicles">
-      <div *ngIf="router.url === '/moja-vozila'" class="menu__item-icon menu__item-icon--active-bg"></div>
-      <div class="menu__item-icon menu__item-icon--front"></div>
+    <div class="menu__item-wrapper">
+      <div class="menu__item-icon-wrapper menu__item-icon-wrapper--my-vehicles">
+        <div *ngIf="router.url === '/moja-vozila'" class="menu__item-icon menu__item-icon--active-bg"></div>
+        <div class="menu__item-icon menu__item-icon--front"></div>
+      </div>
+      <div class="menu__item-text">Moja vozila</div>
     </div>
-    <div class="menu__item-text">Moja vozila</div>
   </li>
   <li class="menu__item" routerLink="/moja-potovanja" routerLinkActive="menu__item--active">
-    <div class="menu__item-icon-wrapper menu__item-icon-wrapper--my-trips">
-      <div *ngIf="router.url === '/moja-potovanja'" class="menu__item-icon menu__item-icon--active-bg"></div>
-      <div class="menu__item-icon menu__item-icon--front"></div>
+    <div class="menu__item-wrapper">
+      <div class="menu__item-icon-wrapper menu__item-icon-wrapper--my-trips">
+        <div *ngIf="router.url === '/moja-potovanja'" class="menu__item-icon menu__item-icon--active-bg"></div>
+        <div class="menu__item-icon menu__item-icon--front"></div>
+      </div>
+      <div class="menu__item-text">Moja potovanja</div>
     </div>
-    <div class="menu__item-text">Moja potovanja</div></li>
+  </li>
 </ul>

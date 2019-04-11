@@ -50,6 +50,7 @@ router.route('/vehicles/edit/:id').patch((req, res) => {
       return next(new Error('Error! Could not load document'));
     else {
       vehicleSchema.vehicleType = req.body.vehicleType;
+      vehicleSchema.vehicleRegistrationPlate = req.body.vehicleRegistrationPlate;
       vehicleSchema.vehicleBrand = req.body.vehicleBrand;
       vehicleSchema.vehicleName = req.body.vehicleName;
       vehicleSchema.vehicleModelYear = req.body.vehicleModelYear;

@@ -38,6 +38,7 @@ export class VehicleService {
   // Add vehicle to database
   addVehicle(
     belongsToUser: any,
+    vehicleRegistrationPlate: any,
     vehicleType: any,
     vehicleBrand: any,
     vehicleName: any,
@@ -47,6 +48,7 @@ export class VehicleService {
     vehicleMaxLuggage: number) {
     const vehicle = {
       belongsToUser: belongsToUser,
+      vehicleRegistrationPlate: vehicleRegistrationPlate,
       vehicleType: vehicleType,
       vehicleBrand: vehicleBrand,
       vehicleName: vehicleName,
@@ -62,6 +64,7 @@ export class VehicleService {
   updateVehicle(
     id: any,
     belongsToUser: any,
+    vehicleRegistrationPlate: any,
     vehicleType: any,
     vehicleBrand: any,
     vehicleName: any,
@@ -71,6 +74,7 @@ export class VehicleService {
     vehicleMaxLuggage: number) {
     const vehicle = {
       belongsToUser: belongsToUser,
+      vehicleRegistrationPlate: vehicleRegistrationPlate,
       vehicleType: vehicleType,
       vehicleBrand: vehicleBrand,
       vehicleName: vehicleName,

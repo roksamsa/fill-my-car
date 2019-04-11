@@ -15,6 +15,7 @@ export class VehicleListComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
   displayedColumns: string[] = [
+    'vehicleRegistrationPlate',
     'vehicleType',
     'vehicleBrand',
     'vehicleName',

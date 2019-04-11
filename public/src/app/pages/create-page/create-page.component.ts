@@ -26,12 +26,14 @@ export class CreatePageComponent implements OnInit {
       vehicleColor: '',
       vehicleSeats: '',
       vehicleMaxLuggage: '',
-      belongsToUser: ''
+      belongsToUser: '',
+      vehicleRegistrationPlate: ''
     });
   }
 
   addVehicle (
     belongsToUser: any,
+    vehicleRegistrationPlate: any,
     vehicleType: any,
     vehicleBrand: any,
     vehicleName: any,
@@ -41,6 +43,7 @@ export class CreatePageComponent implements OnInit {
     vehicleMaxLuggage: number) {
     this.vehicleService.addVehicle(
       belongsToUser,
+      vehicleRegistrationPlate,
       vehicleType,
       vehicleBrand,
       vehicleName,

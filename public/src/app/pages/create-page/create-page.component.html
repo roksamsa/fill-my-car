@@ -9,11 +9,19 @@
     <form [formGroup]="createForm" class="create-form">
       <mat-form-field class="create-form__field">
         <mat-select matInput placeholder="Vehicle type" formControlName="vehicleType" #vehicleType>
-          <mat-option value="Car">Car</mat-option>
-          <mat-option value="Van">Van</mat-option>
-          <mat-option value="Truck">Truck</mat-option>
-          <mat-option value="Motorbike">Motorbike</mat-option>
+          <mat-option value="Car">Avto</mat-option>
+          <mat-option value="Van">Kombi</mat-option>
+          <mat-option value="Truck">Tovornjak</mat-option>
+          <mat-option value="Motorbike">Motor</mat-option>
+
+          <!--<mat-option *ngFor="let type of vehicleType | async" [value]="type">
+            {{ type.name }}
+          </mat-option>-->
         </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="Vehicle registration plate" formControlName="vehicleRegistrationPlate" #vehicleRegistrationPlate>
       </mat-form-field>
 
       <mat-form-field class="create-form__field">
@@ -29,7 +37,12 @@
       </mat-form-field>
 
       <mat-form-field class="create-form__field">
-        <input matInput placeholder="Vehicle color" formControlName="vehicleColor" #vehicleColor>
+        <mat-select matInput placeholder="Vehicle color" formControlName="vehicleColor" #vehicleColor>
+          <mat-option value="Kovinsko-crna">Kovinsko črna</mat-option>
+          <mat-option value="Grafitno-crna">Grafitno črna</mat-option>
+          <mat-option value="Kovinsko-rdeča">Kovinsko rdeča</mat-option>
+          <mat-option value="Kovinsko-srebrna">Kovinsko srebrna</mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field class="create-form__field">
@@ -41,7 +54,7 @@
       </mat-form-field>
 
       <button mat-raised-button color="accent" routerLink="/nadzorna-plosca">Back</button>
-      <button type="submit" (click)="addVehicle(authService.userData.uid, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
+      <button type="submit" (click)="addVehicle(authService.userData.uid, vehicleRegistrationPlate.value, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
     </form>
   </app-tile>
 </div>

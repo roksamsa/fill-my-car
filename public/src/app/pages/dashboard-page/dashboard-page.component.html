@@ -2,10 +2,13 @@
   <app-tile class="vehicles__content">
     <div class="vehicles__title">Moja vozila</div>
 
-    <!-- Element with data-->
-    <app-vehicle-list *ngIf="isVehicleListEmpty(); else emptyVehicleList" class="vehicle-list__content"></app-vehicle-list>
-
-    <app-vehicle-tile *ngFor="let vehicle of vehicles"></app-vehicle-tile>
+    <!-- Element with data -->
+    <div *ngIf="isVehicleListEmpty(); else emptyVehicleList" class="vehicles__items">
+      <app-vehicle-tile *ngFor="let vehicle of vehicles"
+                        [vehicleRegistrationPlate]="vehicle.vehicleRegistrationPlate"
+                        [vehicleType]="vehicle.vehicleType"
+                        [vehicleColor]="vehicle.vehicleColor"></app-vehicle-tile>
+    </div>
 
     <!-- Element without data-->
     <ng-template #emptyVehicleList>

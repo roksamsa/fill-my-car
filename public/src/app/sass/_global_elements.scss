@@ -4,4 +4,9 @@
   padding: 3px 20px;
   background-color: $color__pink--primary;
   border-radius: 30px;
+  box-shadow: none;
+
+  &:hover {
+    background-color: $color__pink--darker;
+  }
 }

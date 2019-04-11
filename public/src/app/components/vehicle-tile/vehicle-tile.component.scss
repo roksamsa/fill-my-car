@@ -1,0 +1,90 @@
+@import '../../sass/global_variables.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  margin-right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+
+  &:hover {
+    background-color: rgba(207, 216, 232, 0.3);
+  }
+}
+
+.vehicle-tile {
+  &__icon {
+    position: relative;
+    height: 60px;
+    width: 80px;
+
+    &--truck {
+      .vehicle-tile__icon-background {
+        height: 35px;
+        clip-path: polygon(0 100%, 0% 0, 53% 0, 53% 100%, 61% 100%, 60% 23%, 80% 23%, 87% 55%, 96% 65%, 96% 100%);
+      }
+    }
+
+    &--van {
+      .vehicle-tile__icon-background {
+        height: 35px;
+        clip-path: polygon(0% 15%, 10% 0%, 64% 0%, 62% 0%, 69% 13%, 100% 70%, 100% 100%, 100% 100%, 84% 86%, 83% 87%, 80% 100%, 41% 100%, 22% 100%, 20% 85%, 10% 100%, 0% 100%);
+      }
+    }
+
+    &--kovinsko-rdeča {
+      .vehicle-tile__icon-background {
+        background-color: #d32f2f;
+      }
+    }
+
+    &--grafitno-crna {
+      .vehicle-tile__icon-background {
+        background-color: #444;
+      }
+    }
+
+    &--kovinsko-srebrna {
+      .vehicle-tile__icon-background {
+        background-color: #D1D5DE;
+      }
+    }
+  }
+
+  &__icon-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__svg {
+    position: relative;
+    fill: $color__blue--primary;
+  }
+
+  &__shadow {
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    height: 3px;
+    background-color: $color__blue--primary;
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(2px);
+  }
+
+  &__registration-plate {
+    @include font-titillium-semibold;
+    text-align: center;
+    color: $color__blue--primary;
+  }
+}

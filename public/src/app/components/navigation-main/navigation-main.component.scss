@@ -20,30 +20,16 @@
     align-items: center;
     position: relative;
     height: 100%;
-    padding: 0 20px;
     list-style: none;
     cursor: pointer;
     outline: none;
-    transition: color 200ms ease-in-out;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      bottom: 10px;
-      left: 0;
-      right: 0;
-      opacity: 0;
-      transition: opacity 200ms ease-in-out;
-      background-color: rgba(207, 216, 232, 0.3);
-      border-radius: 5px;
-    }
+    transition: color 200ms ease-in-out, background-color 200ms ease-in-out;
 
     &:hover {
       color: $color__blue--darker;
 
-      &::before {
-        opacity: 1;
+      .menu__item-wrapper {
+        background-color: rgba(207, 216, 232, 0.3);
       }
     }
 
@@ -54,6 +40,14 @@
         color: $color__pink--primary;
       }
     }
+  }
+
+  &__item-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 7px 14px;
+    border-radius: 4px;
+    transition: background-color 200ms ease-in-out;
   }
 
   &__item-icon-wrapper {
@@ -67,28 +61,8 @@
       .menu__item-icon--active-bg {
         width: 100%;
         height: 100%;
-
-        &::after,
-        &::before {
-          content: '';
-          position: absolute;
-        }
-
-        &::before {
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 10px;
-          background-color: $color__pink--primary;
-        }
-
-        &::after {
-          width: 0;
-          height: 0;
-          border-bottom: 9px solid $color__pink--primary;
-          border-left: 9px solid transparent;
-          border-right: 9px solid transparent;
-        }
+        background-color: $color__pink--primary;
+        clip-path: polygon(50% 0%, 100% 45%, 100% 100%, 0 100%, 0% 45%);
       }
 
       .menu__item-icon--front {
@@ -101,9 +75,10 @@
       height: 16px;
 
       .menu__item-icon--active-bg {
-        width: 30px;
+        width: 100%;
         height: 12px;
-        background-image: url("/../../../assets/icons/icon-my-vehicles-active-bg.svg");
+        background-color: $color__pink--primary;
+        clip-path: polygon(0% 55%, 22% 0%, 54% 0%, 71% 46%, 100% 68%, 110% 100%, 83% 85%, 75% 77%, 72% 100%, 34% 100%, 24% 78%, 24% 69%, 12% 100%, 5% 100%);
       }
 
       .menu__item-icon--front {

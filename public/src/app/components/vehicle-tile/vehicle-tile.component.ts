@@ -1,49 +1,96 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { VehicleService } from '../../core/vehicle.service';
-import { Vehicle } from '../../core/vehicle.module'
+import { Component, Input } from '@angular/core';
+import { Vehicle } from '../../core/vehicle.module';
+import { trigger, query, style, group, animate, transition } from '@angular/animations';
+
+export const defaultAnimationFunction = 'ease-in-out';
+export const logoFadeInAnimationTiming = '250ms';
+export const logoFadeOutAnimationTiming = '150ms';
+export const logoAnimationDelay = '450ms';
+export const headerFadeInAnimationTiming = '300ms';
+export const headerFadeOutAnimationTiming = '150ms';
+export const headerAnimationDelay = '450ms';
 
 @Component({
   selector: 'app-vehicle-tile',
   templateUrl: './vehicle-tile.component.html',
-  styleUrls: ['./vehicle-tile.component.scss']
+  styleUrls: ['./vehicle-tile.component.scss'],
+  animations: [
+    trigger('vehicleFadeIn', [
+      transition(':enter', [
+          group([
+            style({
+              transform: 'translateX(-50px)',
+              opacity: '0'
+            }),
+            animate(`${logoFadeInAnimationTiming} 400ms ${defaultAnimationFunction}`, style({
+              transform: 'translateX(0)',
+              opacity: '1'
+            }))
+          ])
+      ]),
+      transition(':leave', [
+          style({
+            height: '56px'
+          }),
+          animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+            height: '0'
+          })),
+          group([
+            query('.vehicle-tile__icon', [
+              style({
+                opacity: 1,
+                transform: 'translateX(0)'
+              }),
+              animate(`${logoFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+                opacity: 0,
+                transform: 'translateX(-40px)'
+              }))
+            ])
+          ])
+      ]),
+    ])
+  ]
 })
-export class VehicleTileComponent implements OnInit, AfterViewInit, OnDestroy {
+export class VehicleTileComponent {
 
   vehicles: Vehicle[] = [];
-  vehiclesData: any;
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
 
-  constructor(
-    private vehicleService: VehicleService) {}
+  private _vehicleRegistrationPlate = '';
+  private _vehicleType = '';
+  private _vehicleColor = '';
 
-  async ngOnInit() {
-    this.fetchVehicles();
-    this.vehicleService.getVehicleByUser(this.currentUser.uid);
+  constructor() {}
+
+  @Input()
+  set vehicleRegistrationPlate(vehicleRegistrationPlate: string) {
+    this._vehicleRegistrationPlate = vehicleRegistrationPlate;
   }
 
-  ngAfterViewInit() {
+  get vehicleRegistrationPlate(): string {
+    return this._vehicleRegistrationPlate;
   }
 
-  // Fetch all vehicles for specific user
-  fetchVehicles() {
-    this.vehicleService.getVehicleByUser(this.currentUser.uid)
-    .subscribe((data: Vehicle[]) => {
-      if (!data) {
-        return;
-      }
-      if (data.length > 0) {
-        this.vehicles = data;
-        return this.vehicles;
-      } else {
-        return this.vehicles = null;
-      }
-    }, error => {
-      console.log('Error: ' + error);
-    });
+  @Input()
+  set vehicleType(vehicleType: string) {
+    this._vehicleType = vehicleType;
   }
 
-  ngOnDestroy() {
+  get vehicleType(): string {
+    return this._vehicleType;
   }
 
+  @Input()
+  set vehicleColor(vehicleColor: string) {
+    this._vehicleColor = vehicleColor;
+  }
+
+  get vehicleColor(): string {
+    return this._vehicleColor;
+  }
+
+  setVehicleClasses() {
+    return 'vehicle-tile__icon--' + this.vehicleType + ' vehicle-tile__icon--' + this.vehicleColor;
+  }
 }

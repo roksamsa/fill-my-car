@@ -50,6 +50,15 @@
     }
   }
 
+  &__items {
+    display: flex;
+    flex-shrink: 0;
+    flex-grow: 1;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+  }
+
   &__button {
     display: flex;
     flex-shrink: 0;
