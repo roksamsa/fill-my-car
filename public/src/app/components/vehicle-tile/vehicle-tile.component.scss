@@ -6,14 +6,18 @@
   justify-content: center;
   height: 100%;
   margin-right: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0 25px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 200ms ease-in-out;
 
   &:hover {
     background-color: rgba(207, 216, 232, 0.3);
+  }
+
+  &.state--active {
+    background-color: rgba(207, 216, 232, 0.4);
+    box-shadow: inset 0 0 0 2px $color__blue--default;;
   }
 }
 
@@ -34,6 +38,13 @@
       .vehicle-tile__icon-background {
         height: 35px;
         clip-path: polygon(0% 15%, 10% 0%, 64% 0%, 62% 0%, 69% 13%, 100% 70%, 100% 100%, 100% 100%, 84% 86%, 83% 87%, 80% 100%, 41% 100%, 22% 100%, 20% 85%, 10% 100%, 0% 100%);
+      }
+    }
+
+    &--car {
+      .vehicle-tile__icon-background {
+        height: 32px;
+        clip-path: polygon(0% 57%, 23% 0%, 50% 0%, 72% 47%, 95% 56%, 95% 95%, 92% 100%, 85% 73%, 75% 81%, 68% 100%, 32% 100%, 26% 80%, 14% 80%, 8% 96%);
       }
     }
 

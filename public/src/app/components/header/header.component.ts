@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, HostBinding } from '@angular/core';
 import { trigger, query, style, group, animate, transition } from '@angular/animations';
 import { AuthService } from '../../core/auth.service';
 import { Router } from '@angular/router';
@@ -83,12 +83,17 @@ export const headerAnimationDelay = '450ms';
 
 export class HeaderComponent implements OnInit {
 
+  clickActiveState = false;
+
   constructor(
     public authService: AuthService,
     public router: Router,
-    public ngZone: NgZone
-  ) { }
+    public ngZone: NgZone) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
+
+  setUserMenuVisibility() {
+    return this.clickActiveState = !this.clickActiveState;
+  }
 
 }

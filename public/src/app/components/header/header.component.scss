@@ -69,7 +69,14 @@ $header__background-color: #fff;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
-    margin-right: 20px;
+    padding: 7px 14px;
+    border-radius: 4px;
+    margin-right: -14px;
+    transition: background-color 200ms ease-in-out;
+
+    &:hover {
+      background-color: rgba(207, 216, 232, 0.3);
+    }
   }
 
   &__avatar {
@@ -112,6 +119,25 @@ $header__background-color: #fff;
   }
 }
 
-.nav-link {
-  cursor: pointer;
+.user-menu {
+  position: absolute;
+  top: 0;
+  background-color: $color__white--100;
+  box-shadow: 0 0 12px $header__shadow-color;
+  border-radius: 4px;
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    opacity: 0.4;
+    background-size: cover;
+  }
+
+  &__item {
+    position: relative;
+    padding: 10px 20px;
+  }
 }

@@ -9,18 +9,22 @@
     </div>
     <div class="header__right">
       <div *ngIf="authService.isLoggedIn; else loggedOut" class="header__user">
-        <div *ngIf="authService.userData as user" class="header__user-wrapper" routerLink="/user">
+        <div *ngIf="authService.userData as user" class="header__user-wrapper" (click)="setUserMenuVisibility()">
           <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
             <img class="header__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
           </div>
           <div *ngIf="user.displayName" class="header__username">{{user.displayName}}</div>
           <div *ngIf="user.email && !user.displayName" class="header__email">{{user.email}}</div>
         </div>
-        <a class="nav-link" (click)="authService.SignOut()">
-          Odjava
-        </a>
       </div>
 
+      <div *ngIf="clickActiveState" class="user-menu">
+        <div class="user-menu__background" [ngStyle]="{'background-image': 'url(' + authService.userData.photoURL + ')'}"></div>
+        <div class="user-menu__item">{{authService.userData.displayName}}</div>
+        <div class="user-menu__item">{{authService.userData.email}}</div>
+        <div class="user-menu__item user-menu__item--menu" routerLink="/user">Uporabniški profil</div>
+        <div class="user-menu__item user-menu__item--menu" (click)="authService.SignOut()" routerLink="/user">Odjava</div>
+      </div>
       <ng-template #loggedOut>
         <div class="header__register" routerLink="/prijava">
           Prijava

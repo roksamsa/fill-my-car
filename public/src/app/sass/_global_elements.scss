@@ -9,4 +9,8 @@
   &:hover {
     background-color: $color__pink--darker;
   }
+
+  &.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]) {
+    box-shadow: 0 0 0 15px $header__shadow-color;
+  }
 }

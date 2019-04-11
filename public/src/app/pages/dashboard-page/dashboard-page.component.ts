@@ -13,6 +13,7 @@ export class DashboardPageComponent implements OnInit {
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
+  private selected = false;
 
   constructor(
     private vehicleService: VehicleService) { }
@@ -39,5 +40,13 @@ export class DashboardPageComponent implements OnInit {
   // Check if we get some vehicles from user or not
   isVehicleListEmpty(): boolean {
     return this.areThereAnyVehicles;
+  }
+
+  select(item: any) {
+    this.selected = item;
+  }
+
+  isActive(item: any) {
+      return this.selected === item;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostBinding, OnInit } from '@angular/core';
 import { Vehicle } from '../../core/vehicle.module';
 import { trigger, query, style, group, animate, transition } from '@angular/animations';
 
@@ -51,8 +51,9 @@ export const headerAnimationDelay = '450ms';
     ])
   ]
 })
-export class VehicleTileComponent {
+export class VehicleTileComponent implements OnInit {
 
+  @HostBinding('class.state--active') clickActiveState = false;
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
@@ -62,6 +63,13 @@ export class VehicleTileComponent {
   private _vehicleColor = '';
 
   constructor() {}
+
+  ngOnInit() {
+  }
+
+  clickSetActiveState() {
+    this.clickActiveState = !this.clickActiveState;
+  }
 
   @Input()
   set vehicleRegistrationPlate(vehicleRegistrationPlate: string) {
