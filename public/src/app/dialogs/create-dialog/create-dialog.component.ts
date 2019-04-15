@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VehicleService } from '../../core/vehicle.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-create-page',
-  templateUrl: './create-page.component.html',
-  styleUrls: ['./create-page.component.scss']
+  selector: 'app-create-dialog',
+  templateUrl: './create-dialog.component.html',
+  styleUrls: ['./create-dialog.component.scss']
 })
-export class CreatePageComponent implements OnInit {
+export class CreateDialogComponent implements OnInit {
 
   createForm: FormGroup;
 
@@ -17,7 +18,8 @@ export class CreatePageComponent implements OnInit {
     public authService: AuthService,
     private vehicleService: VehicleService,
     private fb: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    public thisDialogRef: MatDialogRef<CreateDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
     this.createForm = this.fb.group({
       vehicleType: ['', Validators.required],
       vehicleBrand: '',
@@ -53,9 +55,14 @@ export class CreatePageComponent implements OnInit {
       vehicleMaxLuggage).subscribe(() => {
         this.router.navigate(['/nadzorna-plosca']);
       });
+    this.thisDialogRef.close('Confirm');
   }
 
   ngOnInit() {
+  }
+
+  onCloseCancel() {
+    this.thisDialogRef.close('Cancel');
   }
 
 }

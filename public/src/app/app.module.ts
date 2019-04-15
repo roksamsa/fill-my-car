@@ -12,6 +12,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatTableModule,
+  MatDialogModule,
   MatDividerModule,
   MatSnackBarModule } from '@angular/material';
 import { AppComponent } from './app.component';
@@ -21,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { CreatePageComponent } from './pages/create-page/create-page.component';
+import { CreateDialogComponent } from './dialogs/create-dialog/create-dialog.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -45,9 +46,9 @@ import { NavigationMainComponent } from './components/navigation-main/navigation
 import { TileComponent } from './components/tile/tile.component';
 import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
+import { ClickOutsideDirective } from './click-outside.directive';
 
 const routes: Routes = [
-  { path: 'create', component: CreatePageComponent, canActivate: [AuthGuard] },
   { path: 'edit/:id', component: EditPageComponent, canActivate: [AuthGuard] },
   { path: 'nadzorna-plosca', component: DashboardPageComponent, canActivate: [AuthGuard] },
   { path: 'registracija', component: RegisterComponent, canActivate: [SecureInnerPagesGuard] },
@@ -64,7 +65,7 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     DashboardPageComponent,
-    CreatePageComponent,
+    CreateDialogComponent,
     EditPageComponent,
     RegisterComponent,
     LoginComponent,
@@ -80,7 +81,8 @@ const routes: Routes = [
     NavigationMainComponent,
     TileComponent,
     VehicleTileComponent,
-    UserMenuComponent
+    UserMenuComponent,
+    ClickOutsideDirective
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -101,10 +103,14 @@ const routes: Routes = [
     MatCardModule,
     MatTableModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [VehicleService, AuthService, UserService, AuthGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    CreateDialogComponent
+  ],
 })
 
 export class AppModule { }

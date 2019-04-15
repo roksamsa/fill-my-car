@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { trigger, query, style, group, animate, transition } from '@angular/animations';
 import { AuthService } from '../../core/auth.service';
 import { Router } from '@angular/router';
@@ -20,80 +20,62 @@ export const headerAnimationDelay = '450ms';
   animations: [
     trigger('headerFadeIn', [
       transition(':enter', [
-          group([
-            query('.header__background', [
-              style({
-                height: '0'
-              }),
-              animate(`${logoFadeInAnimationTiming} ${defaultAnimationFunction}`, style({
-                height: '100%'
-              }))
-            ]),
-            query('.header__menu', [
-              style({
-                opacity: 0
-              }),
-              animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-                opacity: 1
-              }))
-            ], { optional: true }),
-            query('.header__right', [
-              style({
-                opacity: 0
-              }),
-              animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-                opacity: 1
-              }))
-            ]),
-            query('.header__logo', [
-              style({
-                opacity: 0,
-                transform: 'translateX(-40px)'
-              }),
-              animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-                opacity: 1,
-                transform: 'translateX(0)'
-              }))
-            ])
+        group([
+          query('.header__background', [
+            style({
+              height: '0'
+            }),
+            animate(`${logoFadeInAnimationTiming} ${defaultAnimationFunction}`, style({
+              height: '100%'
+            }))
+          ]),
+          query('.header__menu', [
+            style({
+              opacity: 0
+            }),
+            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
+              opacity: 1
+            }))
+          ], { optional: true }),
+          query('.header__right', [
+            style({
+              opacity: 0
+            }),
+            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
+              opacity: 1
+            }))
+          ]),
+          query('.header__logo', [
+            style({
+              opacity: 0,
+              transform: 'translateX(-40px)'
+            }),
+            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
+              opacity: 1,
+              transform: 'translateX(0)'
+            }))
           ])
-      ]),
-      transition(':leave', [
-          style({
-            height: '56px'
-          }),
-          animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
-            height: '0'
-          })),
-          group([
-            query('.header__logo', [
-              style({
-                opacity: 1,
-                transform: 'translateX(0)'
-              }),
-              animate(`${logoFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
-                opacity: 0,
-                transform: 'translateX(-40px)'
-              }))
-            ])
-          ])
-      ])
-    ]),
-    trigger('userMenuFadeIn', [
-      transition(':enter', [
-        style({
-          opacity: '0'
-        }),
-        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
-          opacity: '1'
-        }))
+        ])
       ]),
       transition(':leave', [
         style({
-          opacity: '1'
+          height: '56px'
         }),
         animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
-          opacity: '0'
-        }))
+          height: '0'
+        })),
+        group([
+          query('.header__logo', [
+            style({
+              opacity: 1,
+              transform: 'translateX(0)'
+            }),
+            animate(`${logoFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+              opacity: 0,
+              transform: 'translateX(-40px)'
+            }))
+          ])
+        ])
       ])
     ])
   ]
@@ -101,7 +83,7 @@ export const headerAnimationDelay = '450ms';
 
 export class HeaderComponent implements OnInit {
 
-  clickActiveState = false;
+  @Output() clickActiveState: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     public authService: AuthService,
@@ -111,7 +93,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   setUserMenuVisibility() {
-    return this.clickActiveState = !this.clickActiveState;
+    return this.clickActiveState.emit(!this.clickActiveState);
   }
 
+  closeUserMenu() {
+    return this.clickActiveState.emit(false);
+  }
 }

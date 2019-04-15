@@ -3,8 +3,9 @@
     <div class="vehicles__title">Moja vozila</div>
 
     <!-- Element with data -->
-    <div *ngIf="isVehicleListEmpty(); else emptyVehicleList" class="vehicles__items">
+    <div *ngIf="isVehicleListEmpty(); else emptyVehicleList" @vehiclesListFadeIn class="vehicles__items">
       <app-vehicle-tile *ngFor="let vehicle of vehicles"
+                        @vehicleFadeIn
                         [vehicleRegistrationPlate]="vehicle.vehicleRegistrationPlate"
                         [vehicleType]="vehicle.vehicleType"
                         [vehicleColor]="vehicle.vehicleColor"></app-vehicle-tile>
@@ -18,7 +19,7 @@
       </div>
     </ng-template>
 
-    <button class="vehicles__button button" mat-raised-button color="primary" routerLink="/create">Dodaj novo vozilo</button>
+    <button class="vehicles__button button" mat-raised-button color="primary" (click)="openDialog()">Dodaj novo vozilo</button>
 
   </app-tile>
 </div>

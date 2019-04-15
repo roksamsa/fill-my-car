@@ -1,0 +1,8 @@
+@import '../../sass/global_variables.scss';
+
+.popup {
+  &__headline {
+    color: $color__blue--primary;
+    margin-top: 0;
+  }
+}

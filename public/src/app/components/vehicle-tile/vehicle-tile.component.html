@@ -1,5 +1,5 @@
 <div class="vehicle-tile" (click)="clickSetActiveState()">
-  <div class="vehicle-tile__icon" @vehicleFadeIn [ngClass]="setVehicleClasses() | lowercase">
+  <div class="vehicle-tile__icon" [ngClass]="setVehicleClasses() | lowercase">
     <div class="vehicle-tile__icon-background"></div>
     <div *ngIf="this.vehicleType === 'Car'" class="vehicle-tile__svg">
       <div class="vehicle-tile__shadow"></div>

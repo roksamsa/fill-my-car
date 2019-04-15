@@ -24,8 +24,26 @@ export const defaultAnimationFunction = 'ease-in-out';
         style({
           transform: 'scaleY(1)'
         }),
-        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+        animate(`${headerFadeOutAnimationTiming} ${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
           transform: 'scaleY(0)'
+        }))
+      ])
+    ]),
+    trigger('userMenuContentFadeIn', [
+      transition(':enter', [
+        style({
+          opacity: 0
+        }),
+        animate(`${headerFadeOutAnimationTiming} ${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 1
+        }))
+      ]),
+      transition(':leave', [
+        style({
+          opacity: 1
+        }),
+        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 0
         }))
       ])
     ])

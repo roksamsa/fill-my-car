@@ -1,6 +1,6 @@
 <header class="header" [@headerFadeIn]>
-  <div *ngIf="authService.isLoggedIn" class="header__user-menu-wrapper">
-    <app-user-menu *ngIf="clickActiveState" [@userMenuFadeIn]></app-user-menu>
+  <div *ngIf="authService.isLoggedIn && clickActiveState" class="header__user-menu-wrapper">
+    <app-user-menu *ngIf="clickActiveState"></app-user-menu>
   </div>
   <div class="header__background"></div>
   <div class="header__wrapper">
@@ -11,8 +11,8 @@
       <app-navigation-main *ngIf="authService.isLoggedIn"></app-navigation-main>
     </div>
     <div class="header__right">
-      <div *ngIf="authService.isLoggedIn; else loggedOut" class="header__user">
-        <div *ngIf="authService.userData as user" class="header__user-wrapper" (click)="setUserMenuVisibility()">
+      <div *ngIf="authService.isLoggedIn; else loggedOut" class="header__user" [class.header__user--open]="clickActiveState">
+        <div *ngIf="authService.userData as user" class="header__user-wrapper" (appClickOutside)="closeUserMenu()" (click)="setUserMenuVisibility()">
           <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
             <img class="header__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
           </div>

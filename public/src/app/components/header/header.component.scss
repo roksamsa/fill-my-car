@@ -3,7 +3,7 @@
 $header__background-color: #fff;
 
 :host {
-  position: relative;
+  position: fixed;
   height: 56px;
   width: 100%;
   z-index: 9;
@@ -81,7 +81,6 @@ $header__background-color: #fff;
     cursor: pointer;
     padding: 7px 14px;
     border-radius: 4px;
-    margin-right: -14px;
     transition: background-color 200ms ease-in-out;
 
     &:hover {
@@ -118,10 +117,24 @@ $header__background-color: #fff;
     }
   }
 
+  &__user-menu-backdrop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   &__user {
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    &--open {
+      .header__user-wrapper {
+        background-color: rgba(207, 216, 232, 0.3);
+      }
+    }
   }
 
   &__register {

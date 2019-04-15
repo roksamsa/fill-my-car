@@ -1,11 +1,6 @@
 <div>
-  <app-tile>
-    <section class="mat-typography">
-      <h1>Create new vehicle</h1>
-    </section>
-
-    <mat-divider></mat-divider>
-
+  <h2 class="popup__headline">Dodajanje novega vozila</h2>
+  <mat-dialog-content>
     <form [formGroup]="createForm" class="create-form">
       <mat-form-field class="create-form__field">
         <mat-select matInput placeholder="Vehicle type" formControlName="vehicleType" #vehicleType>
@@ -15,13 +10,14 @@
           <mat-option value="Motorbike">Motor</mat-option>
 
           <!--<mat-option *ngFor="let type of vehicleType | async" [value]="type">
-            {{ type.name }}
-          </mat-option>-->
+                {{ type.name }}
+              </mat-option>-->
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="create-form__field">
-        <input matInput placeholder="Vehicle registration plate" formControlName="vehicleRegistrationPlate" #vehicleRegistrationPlate>
+        <input matInput placeholder="Vehicle registration plate" formControlName="vehicleRegistrationPlate"
+          #vehicleRegistrationPlate>
       </mat-form-field>
 
       <mat-form-field class="create-form__field">
@@ -52,9 +48,10 @@
       <mat-form-field class="create-form__field">
         <input matInput placeholder="Vehicle max luggage" formControlName="vehicleMaxLuggage" #vehicleMaxLuggage>
       </mat-form-field>
-
-      <button mat-raised-button color="accent" routerLink="/nadzorna-plosca">Back</button>
-      <button type="submit" (click)="addVehicle(authService.userData.uid, vehicleRegistrationPlate.value, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
     </form>
-  </app-tile>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="onCloseCancel()">Prekliči</button>
+    <button mat-raised-button (click)="addVehicle(authService.userData.uid, vehicleRegistrationPlate.value, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)">Shrani</button>
+  </mat-dialog-actions>
 </div>
