@@ -12,7 +12,7 @@
     </div>
     <div class="header__right">
       <div *ngIf="authService.isLoggedIn; else loggedOut" class="header__user" [class.header__user--open]="clickActiveState">
-        <div *ngIf="authService.userData as user" class="header__user-wrapper" (appClickOutside)="closeUserMenu()" (click)="setUserMenuVisibility()">
+        <div *ngIf="authService.userData as user" class="header__user-wrapper" (appClickOutside)="closeUserMenu.emit()" (click)="setUserMenuVisibility.emit()">
           <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
             <img class="header__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
           </div>

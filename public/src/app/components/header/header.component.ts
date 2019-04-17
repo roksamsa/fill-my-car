@@ -83,7 +83,8 @@ export const headerAnimationDelay = '450ms';
 
 export class HeaderComponent implements OnInit {
 
-  @Output() clickActiveState: EventEmitter<boolean> = new EventEmitter();
+  @Output()
+  public clickActiveState: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     public authService: AuthService,
@@ -93,10 +94,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   setUserMenuVisibility() {
+    // return this.clickActiveState = !this.clickActiveState;
     return this.clickActiveState.emit(!this.clickActiveState);
   }
 
   closeUserMenu() {
+    // return this.clickActiveState = false;
     return this.clickActiveState.emit(false);
   }
 }

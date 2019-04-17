@@ -12,4 +12,8 @@ export class AppComponent {
   constructor() {
   }
 
+  onNotify(isUserMenuOpen: boolean): void {
+    alert(isUserMenuOpen);
+  }
+
 }

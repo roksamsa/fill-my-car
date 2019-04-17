@@ -1,6 +1,5 @@
-
-<div class="user-menu__background" @userMenuBackgroundFadeIn></div>
-<div class="user-menu__content" @userMenuContentFadeIn>
+<div class="user-menu__background" [@userMenuBackgroundFadeIn]></div>
+<div class="user-menu__content" [@userMenuContentFadeIn]>
   <div class="user-menu__profile">
     <div class="user-menu__avatar" [class.header__avatar--default]="!authService.userData.photoURL">
       <div class="user-menu__avatar-wrapper">

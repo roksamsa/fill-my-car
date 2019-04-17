@@ -49,6 +49,7 @@ export const defaultAnimationFunction = 'ease-in-out';
     ])
   ]
 })
+
 export class UserMenuComponent implements OnInit {
 
   constructor(
