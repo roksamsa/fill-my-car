@@ -1,8 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { UserService } from '../../core/user.service';
-import { AuthService } from '../../core/auth.service';
+import { UserService } from '../../core/user/user.service';
+import { AuthService } from '../../core/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { FirebaseUserModel } from '../../core/user.model';
+import { FirebaseUserModel } from '../../core/user/user.model';
 
 @Component({
   selector: 'app-user',

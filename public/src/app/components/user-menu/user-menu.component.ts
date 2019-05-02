@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth.service';
-import { trigger, query, style, group, animate, transition } from '@angular/animations';
+import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from '../../core/auth/auth.service';
+import { trigger, style, animate, transition, state } from '@angular/animations';
 
 export const headerFadeInAnimationTiming = '300ms';
 export const headerFadeOutAnimationTiming = '150ms';
@@ -14,17 +14,21 @@ export const defaultAnimationFunction = 'ease-in-out';
     trigger('userMenuBackgroundFadeIn', [
       transition(':enter', [
         style({
+          opacity: 0,
           transform: 'scaleY(0)'
         }),
-        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+        animate(`${headerFadeOutAnimationTiming} ${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 1,
           transform: 'scaleY(1)'
         }))
       ]),
-      transition(':leave', [
+      transition('true => false', [
         style({
+          opacity: 1,
           transform: 'scaleY(1)'
         }),
-        animate(`${headerFadeOutAnimationTiming} ${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 0,
           transform: 'scaleY(0)'
         }))
       ])
@@ -38,7 +42,7 @@ export const defaultAnimationFunction = 'ease-in-out';
           opacity: 1
         }))
       ]),
-      transition(':leave', [
+      transition('true => false', [
         style({
           opacity: 1
         }),
@@ -52,10 +56,16 @@ export const defaultAnimationFunction = 'ease-in-out';
 
 export class UserMenuComponent implements OnInit {
 
+  @Input() userMenuState: boolean;
+
   constructor(
-    public authService: AuthService) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  message() {
+    console.log(this.userMenuState);
   }
 
 }

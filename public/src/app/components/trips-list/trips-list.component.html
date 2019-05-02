@@ -1,0 +1,57 @@
+<table mat-table [dataSource]="trips">
+  <ng-container matColumnDef="tripFromLocation">
+    <th mat-header-cell *matHeaderCellDef>tripFromLocation</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripFromLocation }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tripToLocation">
+    <th mat-header-cell *matHeaderCellDef>tripToLocation</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripToLocation }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tripDateAndTime">
+    <th mat-header-cell *matHeaderCellDef>tripDateAndTime</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripDateAndTime }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tripCategory">
+    <th mat-header-cell *matHeaderCellDef>tripCategory</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripCategory }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tripDistance">
+    <th mat-header-cell *matHeaderCellDef>tripDistance</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripDistance }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tripDuration">
+    <th mat-header-cell *matHeaderCellDef>tripDuration</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripDuration }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tripPrice">
+    <th mat-header-cell *matHeaderCellDef>tripPrice</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripPrice }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tripLuggageSpace">
+    <th mat-header-cell *matHeaderCellDef>tripLuggageSpace</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripLuggageSpace }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="selectedVehicle">
+    <th mat-header-cell *matHeaderCellDef>selectedVehicle</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.selectedVehicle }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button color="primary" (click)="editVehicle(element._id)">Edit</button>
+      <button mat-button color="warn" (click)="deleteVehicle(element._id)">Delete</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

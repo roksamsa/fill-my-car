@@ -1,11 +1,12 @@
 export interface Vehicle {
-    id: String;
+    _id: String;
     belongsToUser: String;
-    vehicleRegistrationPlate: String;
     vehicleType: String;
+    vehicleTypeID: String;
     vehicleBrand: String;
     vehicleName: String;
     vehicleModelYear: Number;
+    vehicleColorID: String;
     vehicleColor: String;
     vehicleSeats: Number;
     vehicleMaxLuggage: Number;

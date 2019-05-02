@@ -14,16 +14,17 @@ import {
   MatTableModule,
   MatDialogModule,
   MatDividerModule,
+  MatCheckboxModule,
   MatSnackBarModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VehicleService } from './core/vehicle.service';
+import { VehicleService } from './core/vehicle/vehicle.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { CreateDialogComponent } from './dialogs/create-dialog/create-dialog.component';
-import { EditPageComponent } from './pages/edit-page/edit-page.component';
+import { CreateVehicleDialogComponent } from './dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
+import { EditVehicleDialogComponent } from './dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -32,24 +33,26 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserComponent } from './components/user/user.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FirestoreSettingsToken} from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AuthService } from './core/auth.service';
-import { UserService } from './core/user.service';
+import { AuthService } from './core/auth/auth.service';
+import { UserService } from './core/user/user.service';
 import { environment } from '../environments/environment';
 import { VehiclesPageComponent } from './pages/vehicles-page/vehicles-page.component';
 import { TripsPageComponent } from './pages/trips-page/trips-page.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { AuthGuard } from '../app/core/auth.guard';
-import { SecureInnerPagesGuard } from '../app/core/secure-inner-pages.guard';
+import { AuthGuard } from './core/auth/auth.guard';
+import { SecureInnerPagesGuard } from './core/auth/secure-inner-pages.guard';
 import { NavigationMainComponent } from './components/navigation-main/navigation-main.component';
 import { TileComponent } from './components/tile/tile.component';
 import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { ClickOutsideDirective } from './click-outside.directive';
+import { TripsListComponent } from './components/trips-list/trips-list.component';
 
 const routes: Routes = [
-  { path: 'edit/:id', component: EditPageComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:id', component: EditVehicleDialogComponent, canActivate: [AuthGuard] },
   { path: 'nadzorna-plosca', component: DashboardPageComponent, canActivate: [AuthGuard] },
   { path: 'registracija', component: RegisterComponent, canActivate: [SecureInnerPagesGuard] },
   { path: 'prijava', component: LoginPageComponent, canActivate: [SecureInnerPagesGuard] },
@@ -65,8 +68,8 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     DashboardPageComponent,
-    CreateDialogComponent,
-    EditPageComponent,
+    CreateVehicleDialogComponent,
+    EditVehicleDialogComponent,
     RegisterComponent,
     LoginComponent,
     ForgotPasswordComponent,
@@ -82,7 +85,8 @@ const routes: Routes = [
     TileComponent,
     VehicleTileComponent,
     UserMenuComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    TripsListComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -103,13 +107,14 @@ const routes: Routes = [
     MatCardModule,
     MatTableModule,
     MatDividerModule,
+    MatCheckboxModule,
     MatSnackBarModule,
     MatDialogModule
   ],
-  providers: [VehicleService, AuthService, UserService, AuthGuard],
+  providers: [VehicleService, AuthService, UserService, AuthGuard, {provide: FirestoreSettingsToken, useValue: {}}],
   bootstrap: [AppComponent],
   entryComponents: [
-    CreateDialogComponent
+    CreateVehicleDialogComponent
   ],
 })
 

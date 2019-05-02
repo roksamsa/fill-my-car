@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VehicleService } from '../../core/vehicle.service';
+import { VehicleService } from '../../core/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-edit-page',

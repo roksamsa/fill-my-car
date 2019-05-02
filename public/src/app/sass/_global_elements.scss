@@ -2,15 +2,33 @@
 
 .button {
   padding: 3px 20px;
-  background-color: $color__pink--primary;
   border-radius: 30px;
   box-shadow: none;
+  color: white;
 
-  &:hover {
-    background-color: $color__pink--darker;
+  &--default {
+    background-color: $color__blue--primary;
+
+    &:hover {
+      background-color: $color__blue--darker;
+    }
+  }
+
+  &--primary {
+    background-color: $color__pink--primary;
+
+    &:hover {
+      background-color: $color__pink--darker;
+    }
+  }
+
+  &--just-icon {
+    padding: 0;
+    background-color: transparent;
+    border: 0 none;
   }
 
   &.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]) {
-    box-shadow: 0 0 0 15px $header__shadow-color;
+    box-shadow: 0 0 10px $color__default-shadow;
   }
 }

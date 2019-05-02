@@ -6,7 +6,6 @@
   justify-content: center;
   height: 100%;
   margin-right: 10px;
-  padding: 0 25px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 200ms ease-in-out;
@@ -15,22 +14,36 @@
     background-color: rgba(207, 216, 232, 0.3);
   }
 
-  &.state--active {
-    background-color: rgba(207, 216, 232, 0.4);
-    box-shadow: inset 0 0 0 2px $color__blue--default;;
+  &.selected {
+    background-color: rgba(207, 216, 232, 0.2);
+    box-shadow: inset 0 0 0 2px $color__blue--default;
   }
 }
 
 .vehicle-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 25px;
+
   &__icon {
     position: relative;
-    height: 60px;
     width: 80px;
+    margin-bottom: 10px;
 
     &--truck {
       .vehicle-tile__icon-background {
         height: 35px;
         clip-path: polygon(0 100%, 0% 0, 53% 0, 53% 100%, 61% 100%, 60% 23%, 80% 23%, 87% 55%, 96% 65%, 96% 100%);
+      }
+    }
+
+    &--suv {
+      .vehicle-tile__icon-background {
+        height: 35px;
+        clip-path: polygon(0% 15%, 10% 2%, 64% 0%, 62% 0%, 73% 14%, 86% 54%, 96% 61%, 97% 100%, 90% 100%, 84% 87%, 81% 87%, 77% 100%, 31% 100%, 22% 100%, 16% 87%, 6% 100%, 2% 100%);
       }
     }
 
@@ -55,21 +68,75 @@
       }
     }
 
-    &--kovinsko-rdeča {
+    &--red {
       .vehicle-tile__icon-background {
         background-color: #d32f2f;
       }
     }
 
-    &--grafitno-crna {
+    &--blue {
+      .vehicle-tile__icon-background {
+        background-color: #1875d1;
+      }
+    }
+
+    &--yellow {
+      .vehicle-tile__icon-background {
+        background-color: #FFEE58;
+      }
+    }
+
+    &--orange {
+      .vehicle-tile__icon-background {
+        background-color: #FB8C00;
+      }
+    }
+
+    &--green {
+      .vehicle-tile__icon-background {
+        background-color: #66BB6A;
+      }
+    }
+
+    &--pink {
+      .vehicle-tile__icon-background {
+        background-color: #EC407A;
+      }
+    }
+
+    &--violet {
+      .vehicle-tile__icon-background {
+        background-color: #AB47BC;
+      }
+    }
+
+    &--brown {
+      .vehicle-tile__icon-background {
+        background-color: #6D4C41;
+      }
+    }
+
+    &--black {
       .vehicle-tile__icon-background {
         background-color: #444;
       }
     }
 
-    &--kovinsko-srebrna {
+    &--grey {
+      .vehicle-tile__icon-background {
+        background-color: #708090;
+      }
+    }
+
+    &--silver {
       .vehicle-tile__icon-background {
         background-color: #D1D5DE;
+      }
+    }
+
+    &--gold {
+      .vehicle-tile__icon-background {
+        background-color: #FFD700;
       }
     }
   }
@@ -100,9 +167,20 @@
     filter: blur(2px);
   }
 
-  &__registration-plate {
+  &__vehicle-name {
     @include font-titillium-semibold;
     text-align: center;
     color: $color__blue--primary;
+  }
+
+  &__text {
+    max-width: 130px;
+  }
+
+  &__text-line {
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { VehicleService } from '../../core/vehicle.service';
-import { Vehicle } from '../../core/vehicle.module';
+import { Component, OnInit, Input } from '@angular/core';
+import { VehicleService } from '../../core/vehicle/vehicle.service';
+import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { CreateDialogComponent } from '../../dialogs/create-dialog/create-dialog.component';
+import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
+import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
 import { trigger, stagger, query, style, animate, transition, animateChild, group } from '@angular/animations';
 
 export const defaultAnimationFunction = 'ease-in-out';
@@ -21,7 +22,7 @@ export const headerAnimationDelay = '450ms';
     trigger('vehiclesListFadeIn', [
       transition(':enter', [
         group([
-          query('@vehicleFadeIn', stagger(250, animateChild()))
+          query('@vehicleFadeIn', stagger(330, animateChild()))
         ])
       ]),
     ]),
@@ -31,11 +32,63 @@ export const headerAnimationDelay = '450ms';
           transform: 'translateX(-50px)',
           opacity: 0
         }),
-        animate('500ms cubic-bezier(.8,-0.6,0.2,1.5)',
+        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
           style({
             transform: 'translateX(0)',
             opacity: 1
           }))
+      ])
+    ]),
+    trigger('vehicleActionDeleteFadeIn', [
+      transition(':enter', [
+        style({
+          transform: 'translateY(-50px)',
+          opacity: 0
+        }),
+        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+          style({
+            transform: 'translateX(0)',
+            opacity: 1
+          })
+        )
+      ]),
+      transition(':leave', [
+        style({
+          transform: 'translateY(0)',
+          opacity: 1
+        }),
+        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+          style({
+            transform: 'translateY(-50px)',
+            opacity: 0
+          })
+        )
+      ])
+    ]),
+    trigger('vehicleActionEditFadeIn', [
+      transition(':enter', [
+        style({
+          transform: 'translateY(50px)',
+          opacity: 0
+        }),
+        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+          style({
+            transform: 'translateX(0)',
+            opacity: 1
+          })
+        )
+      ]),
+      transition(':leave', [
+        style({
+          transform: 'translateY(0)',
+          opacity: 1
+        }),
+        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+          style({
+            transform: 'translateY(50px)',
+            opacity: 0
+          })
+        )
       ])
     ])
   ]
@@ -45,13 +98,18 @@ export class DashboardPageComponent implements OnInit {
 
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
-  areThereAnyVehicles = false;
-  private selected = false;
+
+  @Input() selectedVehicle: any;
+  selectedVehicleIndex: number;
+  isSelectedVehicle: boolean;
+
   dialogResult = '';
+
+  areThereAnyVehicles = false;
 
   constructor(
     private vehicleService: VehicleService,
-    public popupCreateVehicle: MatDialog) { }
+    public popupVehicle: MatDialog) { }
 
   ngOnInit() {
     this.fetchVehicles();
@@ -77,29 +135,67 @@ export class DashboardPageComponent implements OnInit {
     return this.areThereAnyVehicles;
   }
 
-  select(item: any) {
-    this.selected = item;
+  vehicleClickSetSelectedState(vehicle: any, index: any) {
+    if (vehicle === this.selectedVehicle) {
+      this.selectedVehicle = '';
+      this.selectedVehicleIndex = null;
+      this.isSelectedVehicle = false;
+    } else {
+      this.selectedVehicle = vehicle;
+      this.selectedVehicleIndex = index;
+      this.isSelectedVehicle = true;
+    }
   }
 
-  isActive(item: any) {
-      return this.selected === item;
+  vehicleSelectedStateFalse(vehicle: any, index: any) {
+    console.log('test');
   }
 
-  openDialog() {
-
+  // Add dialog popup
+  openAddDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '1000px';
+    dialogConfig.width = '600px';
     dialogConfig.position = {
       top: '100px'
     };
 
-    const dialogRef = this.popupCreateVehicle.open(CreateDialogComponent, dialogConfig);
+    const dialogRef = this.popupVehicle.open(CreateVehicleDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
       this.dialogResult = result;
+      this.fetchVehicles();
+      this.isSelectedVehicle = false;
+    });
+  }
+
+  // Edit dialog popup
+  openEditDialog(id: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '600px';
+    dialogConfig.position = {
+      top: '100px'
+    };
+    dialogConfig.data = this.selectedVehicle;
+
+    const dialogRef = this.popupVehicle.open(EditVehicleDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+      this.fetchVehicles();
+      this.isSelectedVehicle = false;
+    });
+  }
+
+  // Delete specific vehicle
+  deleteVehicle(id: any) {
+    this.vehicleService.deleteVehicle(id)
+    .subscribe(() => {
+      this.fetchVehicles();
+      this.isSelectedVehicle = false;
     });
   }
 }

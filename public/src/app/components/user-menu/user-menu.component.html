@@ -1,18 +1,19 @@
-<div class="user-menu__background" [@userMenuBackgroundFadeIn]></div>
-<div class="user-menu__content" [@userMenuContentFadeIn]>
-  <div class="user-menu__profile">
-    <div class="user-menu__avatar" [class.header__avatar--default]="!authService.userData.photoURL">
-      <div class="user-menu__avatar-wrapper">
-        <img class="user-menu__avatar-image" src="{{(authService.userData.photoURL) ? authService.userData.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{authService.userData.displayName}}">
-      </div>
-  </div>
-    <div class="user-menu__profile-text">
-      <div class="user-menu__profile-item">{{authService.userData.displayName}}</div>
-      <div class="user-menu__profile-item">{{authService.userData.email}}</div>
+<div class="user-menu__wrapper">
+  <div class="user-menu__background" [@userMenuBackgroundFadeIn]="userMenuState"></div>
+  <div class="user-menu__content" [@userMenuContentFadeIn]="userMenuState">
+    <div *ngIf="authService.userData as user" class="user-menu__profile" routerLink="/user">
+      <div class="user-menu__avatar" [class.header__avatar--default]="!user.photoURL">
+        <div class="user-menu__avatar-wrapper">
+          <img class="user-menu__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
+        </div>
     </div>
+      <div class="user-menu__profile-text">
+        <div class="user-menu__profile-item" (click)="message()">{{user.displayName}}</div>
+        <div class="user-menu__profile-item">{{user.email}}</div>
+      </div>
+    </div>
+    <div class="user-menu__item user-menu__item--menu" routerLinkActive="user-menu__item--active" routerLink="/user">Uporabniški profil</div>
+    <div class="user-menu__item user-menu__item--menu" (click)="authService.SignOut()" routerLink="/user">Potrebuješ pomoč?</div>
+    <div class="user-menu__item user-menu__item--menu" (click)="authService.SignOut()" routerLink="/user">Odjava</div>
   </div>
-
-  <div class="user-menu__item user-menu__item--menu" routerLinkActive="user-menu__item--active" routerLink="/user">Uporabniški profil</div>
-  <div class="user-menu__item user-menu__item--menu" (click)="authService.SignOut()" routerLink="/user">Potrebuješ pomoč?</div>
-  <div class="user-menu__item user-menu__item--menu" (click)="authService.SignOut()" routerLink="/user">Odjava</div>
 </div>

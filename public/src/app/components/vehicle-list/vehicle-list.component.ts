@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VehicleService } from '../../core/vehicle.service';
-import { Vehicle } from '../../core/vehicle.module';
+import { VehicleService } from '../../core/vehicle/vehicle.service';
+import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,6 @@ export class VehicleListComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
   displayedColumns: string[] = [
-    'vehicleRegistrationPlate',
     'vehicleType',
     'vehicleBrand',
     'vehicleName',
@@ -23,6 +22,7 @@ export class VehicleListComponent implements OnInit {
     'vehicleColor',
     'vehicleSeats',
     'vehicleMaxLuggage',
+    'vehicleID',
     'actions'
   ];
 
@@ -58,7 +58,7 @@ export class VehicleListComponent implements OnInit {
     this.vehicleService.deleteVehicle(id)
     .subscribe(() => {
       this.fetchVehicles();
+      console.log(id);
     });
   }
-
 }

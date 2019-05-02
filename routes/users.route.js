@@ -1,7 +1,8 @@
 import passport from 'passport';
+
+const userSchema = require('../models/user.model');
 const router = require('express').Router();
 const auth = require('./auth');
-const userSchema = require('../models/user.model');
 
 // POST new user route (optional, everyone has access)
 router.post('/register', auth.optional, (req, res, next) => {

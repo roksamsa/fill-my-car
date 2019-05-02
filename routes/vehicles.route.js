@@ -1,9 +1,11 @@
 import express from 'express';
-const router = express.Router();
+
 const vehicleSchema = require('../models/vehicle.model');
+const router = express.Router();
+const vehiclesURI = '/vehicles';
 
 // Get vehicles list
-router.get('/vehicles', function (req, res) {
+router.get(vehiclesURI, function (req, res) {
   vehicleSchema.find((err, vehicles) => {
     if (err)
       console.log(err);
@@ -13,7 +15,7 @@ router.get('/vehicles', function (req, res) {
 });
 
 // Get vehicles for specific user
-router.get('/vehicles/user/:belongsToUser', function (req, res) {
+router.get(vehiclesURI + '/user/:belongsToUser', function (req, res) {
   vehicleSchema.find({belongsToUser: req.params.belongsToUser}, (err, vehicles) => {
     if (err)
       console.log(err);
@@ -23,7 +25,7 @@ router.get('/vehicles/user/:belongsToUser', function (req, res) {
 });
 
 // Get vehicle by specific id
-router.get('/vehicles/:id', function (req, res) {
+router.get(vehiclesURI + '/:id', function (req, res) {
   vehicleSchema.findById(req.params.id, (err, vehicles) => {
     if (err)
       console.log(err);
@@ -33,7 +35,7 @@ router.get('/vehicles/:id', function (req, res) {
 });
 
 // Add vehicle
-router.post('/vehicles/add', function (req, res) {
+router.post(vehiclesURI + '/add', function (req, res) {
   var vehicle = new vehicleSchema(req.body);
   vehicle.save()
     .then(vehicle => {
@@ -44,30 +46,29 @@ router.post('/vehicles/add', function (req, res) {
     });
 });
 
-router.route('/vehicles/edit/:id').patch((req, res) => {
-  vehicleSchema.findById(req.params.id, (err, vehicles) => {
-    if (!vehicles)
-      return next(new Error('Error! Could not load document'));
-    else {
-      vehicleSchema.vehicleType = req.body.vehicleType;
-      vehicleSchema.vehicleRegistrationPlate = req.body.vehicleRegistrationPlate;
-      vehicleSchema.vehicleBrand = req.body.vehicleBrand;
-      vehicleSchema.vehicleName = req.body.vehicleName;
-      vehicleSchema.vehicleModelYear = req.body.vehicleModelYear;
-      vehicleSchema.vehicleColor = req.body.vehicleColor;
-      vehicleSchema.vehicleSeats = req.body.vehicleSeats;
-      vehicleSchema.vehicleMaxLuggage = req.body.vehicleMaxLuggage;
+// Update data for specific vehicle
+router.route(vehiclesURI + '/update/:id').patch((req, res, next) => {
+  var vehicleId = req.params.id;
+  var vehicleUpdatedData = req.body;
 
-      vehicleSchema.save().then(vehicles => {
-        res.json('Vehicle edit done!');
-      }).catch(err => {
-        res.status(400).send('Vehicle edit failed!');
+  vehicleSchema.findByIdAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
+    // Handle the error using the Express error middleware
+    if (error) {
+      return next('Error: ' + error);
+    }
+    // Render not found error
+    else if (!vehicle) {
+      return res.status(404).json({
+        message: 'Vehicle with id: ' + vehicleId + ' can not be found! Sorry :/'
       });
+    } else {
+      res.json(vehicle);
     }
   });
 });
 
-router.route('/vehicles/delete/:id').delete((req, res) => {
+// Delete specific vehicle
+router.route(vehiclesURI + '/delete/:id').delete((req, res) => {
   vehicleSchema.findByIdAndRemove({ _id: req.params.id }, (err, vehicles) => {
     if (err)
       res.json(err);

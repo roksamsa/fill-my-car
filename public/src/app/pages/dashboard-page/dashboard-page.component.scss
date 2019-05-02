@@ -3,7 +3,7 @@
 @import '../../sass/global_elements.scss';
 @import '../../sass/global_fonts.scss';
 
-.empty-data{
+.empty-data {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 160px;
+    height: 180px;
   }
 
   &__title {
@@ -59,8 +59,62 @@
     overflow: hidden;
   }
 
-  &__button {
+  &__actions {
     display: flex;
     flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    padding-left: 20px;
+    margin-left: 20px;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background-color: $color__blue--lighter;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: relative;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 15px;
+    outline: none;
+    border-radius: 50%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background-color: $color__blue--lighter;
+    }
+  }
+
+  &__button-icon {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    fill: $color__pink--primary;
+    cursor: pointer;
+
+    &--delete,
+    &--edit {
+      width: 22px;
+      height: 22px;
+      fill: $color__blue--primary;
+    }
   }
 }

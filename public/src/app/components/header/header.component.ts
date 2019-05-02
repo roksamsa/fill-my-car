@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
-import { trigger, query, style, group, animate, transition } from '@angular/animations';
-import { AuthService } from '../../core/auth.service';
+import { trigger, query, style, group, animate, transition, state } from '@angular/animations';
+import { AuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
 
 export const defaultAnimationFunction = 'ease-in-out';
@@ -56,26 +56,6 @@ export const headerAnimationDelay = '450ms';
             }))
           ])
         ])
-      ]),
-      transition(':leave', [
-        style({
-          height: '56px'
-        }),
-        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
-          height: '0'
-        })),
-        group([
-          query('.header__logo', [
-            style({
-              opacity: 1,
-              transform: 'translateX(0)'
-            }),
-            animate(`${logoFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
-              opacity: 0,
-              transform: 'translateX(-40px)'
-            }))
-          ])
-        ])
       ])
     ])
   ]
@@ -83,23 +63,34 @@ export const headerAnimationDelay = '450ms';
 
 export class HeaderComponent implements OnInit {
 
+  public clickActiveState  = false;
+
   @Output()
-  public clickActiveState: EventEmitter<boolean> = new EventEmitter<boolean>();
+  public clickActiveStateEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     public authService: AuthService,
     public router: Router,
     public ngZone: NgZone) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   setUserMenuVisibility() {
-    // return this.clickActiveState = !this.clickActiveState;
-    return this.clickActiveState.emit(!this.clickActiveState);
+    this.clickActiveState = !this.clickActiveState;
+    if (this.authService.userData.uid.length < 0) {
+      this.clickActiveState = false;
+    }
+    console.log(this.authService.userData.uid);
+    this.setUserMenuVisibilityEmitter();
   }
 
   closeUserMenu() {
-    // return this.clickActiveState = false;
-    return this.clickActiveState.emit(false);
+    this.clickActiveState = false;
+    this.setUserMenuVisibilityEmitter();
+  }
+
+  setUserMenuVisibilityEmitter() {
+    this.clickActiveStateEmitter.emit(this.clickActiveState);
   }
 }

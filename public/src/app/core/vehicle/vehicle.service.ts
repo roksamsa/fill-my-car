@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Vehicle } from './vehicle.module';
 
 @Injectable({
@@ -35,10 +34,9 @@ export class VehicleService {
     return this.http.get<Vehicle[]>(this.uriVehiclesForUser + belongsToUser);
   }
 
-  // Add vehicle to database
+  // Add new vehicle to database
   addVehicle(
     belongsToUser: any,
-    vehicleRegistrationPlate: any,
     vehicleType: any,
     vehicleBrand: any,
     vehicleName: any,
@@ -48,7 +46,6 @@ export class VehicleService {
     vehicleMaxLuggage: number) {
     const vehicle = {
       belongsToUser: belongsToUser,
-      vehicleRegistrationPlate: vehicleRegistrationPlate,
       vehicleType: vehicleType,
       vehicleBrand: vehicleBrand,
       vehicleName: vehicleName,
@@ -63,18 +60,15 @@ export class VehicleService {
   // Update vehicle from database
   updateVehicle(
     id: any,
-    belongsToUser: any,
-    vehicleRegistrationPlate: any,
     vehicleType: any,
     vehicleBrand: any,
     vehicleName: any,
     vehicleModelYear: number,
     vehicleColor: any,
     vehicleSeats: number,
-    vehicleMaxLuggage: number) {
+    vehicleMaxLuggage: number): Observable<Vehicle[]> {
     const vehicle = {
-      belongsToUser: belongsToUser,
-      vehicleRegistrationPlate: vehicleRegistrationPlate,
+      id: id,
       vehicleType: vehicleType,
       vehicleBrand: vehicleBrand,
       vehicleName: vehicleName,
@@ -83,7 +77,7 @@ export class VehicleService {
       vehicleSeats: vehicleSeats,
       vehicleMaxLuggage: vehicleMaxLuggage
     };
-    return this.http.post(this.uriVehicleUpdate, vehicle);
+    return this.http.patch<Vehicle[]>(this.uriVehicleUpdate + id, vehicle);
   }
 
   // Delete vehicle from database

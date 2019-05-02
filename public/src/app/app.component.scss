@@ -12,3 +12,12 @@
   width: $page__width;
   margin: 0 auto;
 }
+
+.user-menu__backdrop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $color__backdrop;
+}

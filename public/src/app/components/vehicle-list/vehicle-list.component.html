@@ -1,9 +1,4 @@
 <table mat-table [dataSource]="vehicles">
-  <ng-container matColumnDef="vehicleRegistrationPlate">
-    <th mat-header-cell *matHeaderCellDef>vehicleRegistrationPlate</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.vehicleRegistrationPlate }} </td>
-  </ng-container>
-
   <ng-container matColumnDef="vehicleType">
     <th mat-header-cell *matHeaderCellDef>vehicleType</th>
     <td mat-cell *matCellDef="let element"> {{ element?.vehicleType }} </td>
@@ -37,6 +32,11 @@
   <ng-container matColumnDef="vehicleMaxLuggage">
     <th mat-header-cell *matHeaderCellDef>vehicleMaxLuggage</th>
     <td mat-cell *matCellDef="let element"> {{ element?.vehicleMaxLuggage }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="vehicleID">
+    <th mat-header-cell *matHeaderCellDef>vehicleID</th>
+    <td mat-cell *matCellDef="let element"> {{ element?._id }} </td>
   </ng-container>
 
   <ng-container matColumnDef="actions">

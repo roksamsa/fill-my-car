@@ -1,6 +1,7 @@
 @import '../../sass/global_variables.scss';
 
 $header__background-color: #fff;
+$header__shadow-color: rgba(38, 42, 77, .15); // #262A4D
 
 :host {
   position: fixed;
@@ -25,15 +26,6 @@ $header__background-color: #fff;
     width: 100%;
     background-color: $header__background-color;
     box-shadow: 0 0 12px $header__shadow-color;
-  }
-
-  &__user-menu-wrapper {
-    position: absolute;
-    width: 1200px;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 100%;
   }
 
   &__wrapper {
@@ -117,14 +109,6 @@ $header__background-color: #fff;
     }
   }
 
-  &__user-menu-backdrop {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-
   &__user {
     display: flex;
     flex-direction: row;
@@ -135,6 +119,13 @@ $header__background-color: #fff;
         background-color: rgba(207, 216, 232, 0.3);
       }
     }
+  }
+
+  &__username {
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   &__register {

@@ -1,18 +1,17 @@
 <header class="header" [@headerFadeIn]>
-  <div *ngIf="authService.isLoggedIn && clickActiveState" class="header__user-menu-wrapper">
-    <app-user-menu *ngIf="clickActiveState"></app-user-menu>
-  </div>
+  <app-user-menu *ngIf="authService.isLoggedIn && clickActiveState"
+                 [userMenuState]="clickActiveState"></app-user-menu>
   <div class="header__background"></div>
   <div class="header__wrapper">
     <div class="header__left">
       <div routerLink="/nadzorna-plosca" class="header__logo">
         Napolni<span class="header__logo-pink">moj</span>avto
       </div>
-      <app-navigation-main *ngIf="authService.isLoggedIn"></app-navigation-main>
+      <app-navigation-main *ngIf="authService.isLoggedIn" class="header__menu"></app-navigation-main>
     </div>
     <div class="header__right">
       <div *ngIf="authService.isLoggedIn; else loggedOut" class="header__user" [class.header__user--open]="clickActiveState">
-        <div *ngIf="authService.userData as user" class="header__user-wrapper" (appClickOutside)="closeUserMenu.emit()" (click)="setUserMenuVisibility.emit()">
+        <div *ngIf="authService.userData as user" class="header__user-wrapper" (click)="setUserMenuVisibility()">
           <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
             <img class="header__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
           </div>
