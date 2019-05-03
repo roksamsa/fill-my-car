@@ -38,6 +38,8 @@ export class TripService {
   addTrip(
     belongsToUser: String,
     selectedVehicle: String,
+    tripIdTag: String,
+    tripStatus: String,
     tripFromLocation: String,
     tripToLocation: String,
     tripDateAndTime: Date,
@@ -54,6 +56,8 @@ export class TripService {
     const trip = {
       belongsToUser: belongsToUser,
       selectedVehicle: selectedVehicle,
+      tripIdTag: tripIdTag,
+      tripStatus: tripStatus,
       tripFromLocation: tripFromLocation,
       tripToLocation: tripToLocation,
       tripDateAndTime: tripDateAndTime,

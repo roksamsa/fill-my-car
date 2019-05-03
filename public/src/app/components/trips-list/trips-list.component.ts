@@ -15,6 +15,8 @@ export class TripsListComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
   displayedColumns: string[] = [
+    'tripStatus',
+    'tripIdTag',
     'selectedVehicle',
     'tripFromLocation',
     'tripToLocation',

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
-import { trigger, style, animate, transition, state } from '@angular/animations';
+import { HeaderService } from '../header/header.service';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 export const headerFadeInAnimationTiming = '300ms';
 export const headerFadeOutAnimationTiming = '150ms';
@@ -56,16 +57,14 @@ export const defaultAnimationFunction = 'ease-in-out';
 
 export class UserMenuComponent implements OnInit {
 
-  @Input() userMenuState: boolean;
+  userMenuVisibility: boolean;
 
   constructor(
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private headerData: HeaderService) {
+  }
 
   ngOnInit() {
+    this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
   }
-
-  message() {
-    console.log(this.userMenuState);
-  }
-
 }

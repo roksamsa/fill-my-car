@@ -1,25 +1,25 @@
-import { Directive, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
+import { Directive, OnInit, OnDestroy, Input, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appClickOutside]'
 })
 
-export class ClickOutsideDirective {
-  constructor(private _elementRef: ElementRef) {
+export class ClickOutsideDirective implements OnInit, OnDestroy {
+  @Input() appClickOutside: any;
+
+  @HostListener('mouseenter') onMouseEnter($event: any) {
+    $event.stopPropagation();
   }
 
-  @Output()
-  public appClickOutside = new EventEmitter<MouseEvent>();
+  constructor() {}
 
-  @HostListener('document:click', ['$event', '$event.target'])
-  public onClick(event: MouseEvent, targetElement: HTMLElement): void {
-    if (!targetElement) {
-      return;
-    }
+  ngOnInit() {
+    const self = this;
+    setTimeout(() => { document.addEventListener('click', self.appClickOutside); }, 0);
+  }
 
-    const clickedInside = this._elementRef.nativeElement.contains(targetElement);
-    if (!clickedInside) {
-      this.appClickOutside.emit(event);
-    }
+  ngOnDestroy() {
+    const self = this;
+    document.removeEventListener('click', self.appClickOutside);
   }
 }

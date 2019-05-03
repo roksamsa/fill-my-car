@@ -1,7 +1,7 @@
 
-@import '../../sass/global_variables.scss';
-@import '../../sass/global_elements.scss';
-@import '../../sass/global_fonts.scss';
+@import '../../sass/global_variables';
+@import '../../sass/global_elements';
+@import '../../sass/global_fonts';
 
 .empty-data {
   display: flex;
@@ -26,28 +26,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 180px;
-  }
-
-  &__title {
-    @include font-titillium-semibold;
-    display: flex;
-    flex-shrink: 0;
-    position: relative;
-    font-size: 22px;
-    padding-right: 20px;
-    margin-right: 20px;
-    color: $color__blue--primary;
-
-    &::before {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: -20px;
-      bottom: -20px;
-      width: 2px;
-      background-color: $color__blue--lighter;
-    }
   }
 
   &__items {
@@ -78,7 +56,7 @@
       top: 20px;
       bottom: 20px;
       width: 2px;
-      background-color: $color__blue--lighter;
+      background-color: $color__blue--lightest;
     }
   }
 
@@ -88,33 +66,33 @@
     align-items: center;
     flex-shrink: 0;
     position: relative;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     margin-bottom: 15px;
     outline: none;
     border-radius: 50%;
+    transition: background-color 200ms ease-in-out;
+    cursor: pointer;
 
     &:last-child {
       margin-bottom: 0;
     }
 
     &:hover {
-      background-color: $color__blue--lighter;
+      background-color: $color__blue--lightest;
     }
   }
 
   &__button-icon {
     position: relative;
-    width: 30px;
-    height: 30px;
-    fill: $color__pink--primary;
-    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    fill: $color__blue--primary;
 
     &--delete,
     &--edit {
-      width: 22px;
-      height: 22px;
-      fill: $color__blue--primary;
+      width: 20px;
+      height: 20px;
     }
   }
 }

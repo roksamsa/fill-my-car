@@ -1,0 +1,27 @@
+@import './global_variables';
+@import './global_fonts';
+
+.table {
+  display: flex;
+  flex-direction: column;
+
+  &__row {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    position: relative;
+    height: 54px;
+    font-size: 15px;
+    color: $color__blue--primary;
+    border-bottom: 1px solid $color__blue--lighter;
+    transition: background-color 100ms ease-in-out;
+
+    &:hover {
+      background-color: $color__blue-grey--light;
+    }
+  }
+
+  &__column {
+    width: 160px;
+  }
+}

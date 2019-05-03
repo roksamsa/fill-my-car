@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
+import { VehicleTileService } from '../../../app/components/vehicle-tile/vehicle-tile.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
@@ -96,6 +97,9 @@ export const headerAnimationDelay = '450ms';
 
 export class DashboardPageComponent implements OnInit {
 
+  tileTitleVehicles = 'Moja vozila';
+  tileTitleTrips = 'Moja potovanja';
+
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
 
@@ -109,11 +113,13 @@ export class DashboardPageComponent implements OnInit {
 
   constructor(
     private vehicleService: VehicleService,
-    public popupVehicle: MatDialog) { }
+    public popupVehicle: MatDialog,
+    private vehicleTileData: VehicleTileService) { }
 
   ngOnInit() {
     this.fetchVehicles();
     this.isVehicleListEmpty();
+    this.vehicleTileData.currentVehicleSelectState.subscribe(clickActiveState => this.isSelectedVehicle = clickActiveState);
   }
 
   // Fetch all vehicles for specific user
@@ -147,8 +153,9 @@ export class DashboardPageComponent implements OnInit {
     }
   }
 
-  vehicleSelectedStateFalse(vehicle: any, index: any) {
-    console.log('test');
+  deselectAllVehicles() {
+    this.selectedVehicle = '';
+    this.isSelectedVehicle = false;
   }
 
   // Add dialog popup

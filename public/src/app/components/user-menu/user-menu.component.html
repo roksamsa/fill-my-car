@@ -1,12 +1,12 @@
 <div class="user-menu__wrapper">
-  <div class="user-menu__background" [@userMenuBackgroundFadeIn]="userMenuState"></div>
-  <div class="user-menu__content" [@userMenuContentFadeIn]="userMenuState">
+  <div class="user-menu__background" [@userMenuBackgroundFadeIn]="userMenuVisibility"></div>
+  <div class="user-menu__content" [@userMenuContentFadeIn]="userMenuVisibility">
     <div *ngIf="authService.userData as user" class="user-menu__profile" routerLink="/user">
       <div class="user-menu__avatar" [class.header__avatar--default]="!user.photoURL">
         <div class="user-menu__avatar-wrapper">
           <img class="user-menu__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
         </div>
-    </div>
+      </div>
       <div class="user-menu__profile-text">
         <div class="user-menu__profile-item" (click)="message()">{{user.displayName}}</div>
         <div class="user-menu__profile-item">{{user.email}}</div>

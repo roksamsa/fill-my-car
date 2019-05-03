@@ -1,6 +1,7 @@
 <app-content></app-content>
 <app-footer></app-footer>
-<div *ngIf="_userMenuVisibility"
+<div *ngIf="userMenuVisibility"
      class="user-menu__backdrop"
+     (click)="clickOutsideUserMenuVisibility()"
      @userMenuBackDropAnimation></div>
-<app-header (clickActiveStateEmitter)="userMenuState($event)"></app-header>
+<app-header></app-header>

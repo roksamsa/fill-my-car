@@ -1,7 +1,11 @@
-import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { trigger, query, style, group, animate, transition, state } from '@angular/animations';
 import { AuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
+import { HeaderService } from './header.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
+import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 
 export const defaultAnimationFunction = 'ease-in-out';
 
@@ -57,40 +61,86 @@ export const headerAnimationDelay = '450ms';
           ])
         ])
       ])
+    ]),
+    trigger('createContentWrapperAnimation', [
+      state('true', style({
+        transform: 'translateX(0)'
+      })),
+      state('false', style({
+        transform: 'translateX(235px)'
+      })),
+      transition('false <=> true', animate(`300ms ${defaultAnimationFunction}`))
     ])
   ]
 })
 
 export class HeaderComponent implements OnInit {
 
-  public clickActiveState  = false;
-
-  @Output()
-  public clickActiveStateEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  clickActiveState  = false;
+  dialogResult = '';
+  createContentVisibility = false;
 
   constructor(
-    public authService: AuthService,
+    private authService: AuthService,
+    private headerData: HeaderService,
+    private popupTrip: MatDialog,
     public router: Router,
     public ngZone: NgZone) {}
 
   ngOnInit() {
+    this.headerData.currentUserMenuState.subscribe(clickActiveState => this.clickActiveState = clickActiveState);
   }
 
   setUserMenuVisibility() {
     this.clickActiveState = !this.clickActiveState;
+    this.headerData.changeUserMenuVisibility(this.clickActiveState);
+
+    // If user logs out
     if (this.authService.userData.uid.length < 0) {
-      this.clickActiveState = false;
+      this.headerData.changeUserMenuVisibility(false);
     }
-    console.log(this.authService.userData.uid);
-    this.setUserMenuVisibilityEmitter();
   }
 
-  closeUserMenu() {
-    this.clickActiveState = false;
-    this.setUserMenuVisibilityEmitter();
+  clickOutsideUserMenuVisibility() {
+    this.headerData.changeUserMenuVisibility(false);
   }
 
-  setUserMenuVisibilityEmitter() {
-    this.clickActiveStateEmitter.emit(this.clickActiveState);
+  isCreateContentVisible() {
+    this.createContentVisibility = !this.createContentVisibility;
+    console.log(this.createContentVisibility);
+  }
+
+  // Add vehicle dialog popup
+  openAddDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '600px';
+    dialogConfig.position = {
+      top: '100px'
+    };
+
+    const dialogRef = this.popupTrip.open(CreateVehicleDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+    });
+  }
+
+  // Add trip dialog popup
+  openAddTripDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '600px';
+    dialogConfig.position = {
+      top: '100px'
+    };
+
+    const dialogRef = this.popupTrip.open(CreateTripDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+    });
   }
 }

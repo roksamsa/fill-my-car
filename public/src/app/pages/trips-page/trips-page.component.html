@@ -1,8 +1,4 @@
-<app-tile class="trips__content">
-  <div class="tile__headline">
-    <h2 class="tile__title" (click)="openAddTripDialog()">
-      Moja potovanja
-    </h2>
-  </div>
+<app-tile class="tile tile--default"
+          [tileTitle]="tileTitle">
   <app-trips-list></app-trips-list>
 </app-tile>

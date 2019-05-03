@@ -1,16 +1,37 @@
-<header class="header" [@headerFadeIn]>
-  <app-user-menu *ngIf="authService.isLoggedIn && clickActiveState"
-                 [userMenuState]="clickActiveState"></app-user-menu>
+<header class="header"
+        [@headerFadeIn]>
+  <app-user-menu *ngIf="authService.isLoggedIn && clickActiveState"></app-user-menu>
   <div class="header__background"></div>
   <div class="header__wrapper">
-    <div class="header__left">
+    <div class="header__left"
+         (click)="clickOutsideUserMenuVisibility()">
       <div routerLink="/nadzorna-plosca" class="header__logo">
         Napolni<span class="header__logo-pink">moj</span>avto
       </div>
       <app-navigation-main *ngIf="authService.isLoggedIn" class="header__menu"></app-navigation-main>
     </div>
+
     <div class="header__right">
       <div *ngIf="authService.isLoggedIn; else loggedOut" class="header__user" [class.header__user--open]="clickActiveState">
+
+        <div class="header__create">
+          <div class="header__create-wrapper" [@createContentWrapperAnimation]="createContentVisibility">
+            <button class="header__create-button"
+                    matTooltip="Dodaj novo vozilo ali potovanje"
+                    [ngClass]="{'header__create-button--rotated': createContentVisibility}"
+                    (click)="isCreateContentVisible()">
+              <svg class="header__create-button-icon"
+                   xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/>
+              </svg>
+            </button>
+            <div class="header__create-content">
+              <div class="header__create-content-item" (click)="openAddDialog()">Novo vozilo</div>
+              <div class="header__create-content-item" (click)="openAddTripDialog()">Novo potovanje</div>
+            </div>
+          </div>
+        </div>
+
         <div *ngIf="authService.userData as user" class="header__user-wrapper" (click)="setUserMenuVisibility()">
           <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
             <img class="header__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
@@ -19,6 +40,7 @@
           <div *ngIf="user.email && !user.displayName" class="header__email">{{user.email}}</div>
         </div>
       </div>
+
       <ng-template #loggedOut>
         <div class="header__register" routerLink="/prijava">
           Prijava

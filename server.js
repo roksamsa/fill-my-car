@@ -38,6 +38,11 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+app.use(function(err, req, res, next) {
+  // Do logging and user-friendly error message display
+  console.error(err);
+  res.status(500).send();
+});
 
 // Passport.js
 app.use(passport.initialize());
@@ -47,8 +52,6 @@ app.use(passport.session());
 app.use(require('./routes/index'));
 app.use(require('./routes/vehicles.route'));
 app.use(require('./routes/trips.route'));
-app.use(require('./routes/users.route'));
-require('./config/passport');
 require('./routes/auth');
 app.use('/', router);
 

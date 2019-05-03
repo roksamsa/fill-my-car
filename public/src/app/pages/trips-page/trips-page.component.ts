@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
+import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 
 @Component({
   selector: 'app-trips-page',
@@ -9,24 +9,13 @@ import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialo
 })
 export class TripsPageComponent implements OnInit {
 
-  tripIdTagCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  tripIdTagCharactersLength = this.tripIdTagCharacters.length;
   dialogResult = '';
+  tileTitle = 'Moja potovanja';
 
-  constructor(public popupVehicle: MatDialog) { }
+  constructor(public popupTrip: MatDialog) { }
 
   ngOnInit() {
-    console.log(this.createTripIdTag(10));
   }
-
-  createTripIdTag(length: number) {
-    let tripIdTag = '';
-    for (let i = 0; i < length; i++) {
-      tripIdTag += this.tripIdTagCharacters.charAt(Math.floor(Math.random() * this.tripIdTagCharactersLength));
-    }
-    return tripIdTag;
-  }
-
   // Add dialog popup
   openAddTripDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -37,7 +26,7 @@ export class TripsPageComponent implements OnInit {
       top: '100px'
     };
 
-    const dialogRef = this.popupVehicle.open(CreateVehicleDialogComponent, dialogConfig);
+    const dialogRef = this.popupTrip.open(CreateTripDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;

@@ -1,7 +1,7 @@
-@import '../../sass/global_variables.scss';
+@import '../../sass/global_variables';
 
 $header__background-color: #fff;
-$header__shadow-color: rgba(38, 42, 77, .15); // #262A4D
+$header__shadow-color: rgba(48, 26, 138, .2);
 
 :host {
   position: fixed;
@@ -130,5 +130,75 @@ $header__shadow-color: rgba(38, 42, 77, .15); // #262A4D
 
   &__register {
     cursor: pointer;
+  }
+
+  &__create {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 280px;
+    margin-right: 10px;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background-color: $color__blue--lightest;
+    }
+  }
+
+  &__create-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__create-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: none;
+    border: 0 none;
+    cursor: pointer;
+    border-radius: 50%;
+    outline: none;
+    transform: rotate(0);
+    transition: background-color 200ms ease-in-out, transform 400ms ease-in-out;
+
+    &:hover {
+      background-color: rgba(207, 216, 232, 0.3);
+    }
+
+    &--rotated {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__create-button-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  &__create-content {
+    display: flex;
+  }
+
+  &__create-content-item {
+    padding: 7px 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: $color__pink--primary;
+    transition: background-color 200ms ease-in-out;
+
+    &:hover {
+      background-color: rgba(207, 216, 232, 0.3);
+    }
   }
 }

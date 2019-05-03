@@ -2,6 +2,8 @@ export interface Trip {
   _id: String;
   belongsToUser: String;
   selectedVehicle: String;
+  tripIdTag: String;
+  tripStatus: String;
   tripFromLocation: String;
   tripToLocation: String;
   tripDate: Date;

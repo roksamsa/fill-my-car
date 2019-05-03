@@ -1,5 +1,5 @@
 @import './global_mixins';
-@import './global_fonts.scss';
+@import './global_fonts';
 
 $scale__factor: 1;
 
@@ -60,8 +60,9 @@ $color__white--10: #1a1a1a;
 $color__blue--primary: #242B61;
 $color__blue--darker: #000846;
 $color__blue--default: #A9AED5;
-$color__blue--light: #EDF1F8;
-$color__blue--lighter: #F4F7FC;
+$color__blue--light: #C8D6F1;
+$color__blue--lighter: #EDF1F8;
+$color__blue--lightest: #F4F7FC;
 $color__blue--empty: #9FB1D1;
 
 $color__blue-grey--dark: #EEF0F5;

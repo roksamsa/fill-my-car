@@ -1,4 +1,5 @@
-@import '../../sass/global_variables.scss';
+@import '../../sass/global_variables';
+@import '../../sass/global_table';
 
 :host {
   display: flex;
@@ -16,5 +17,28 @@
 
   &:hover {
     background-color: $color__blue-grey--light;
+  }
+}
+
+.trip {
+  &__status {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50px;
+
+    &--active {
+      .trip__status-icon {
+        background-color: #8BCF47;
+      }
+    }
+  }
+
+  &__status-icon {
+    width: 12px;
+    height: 12px;
+    margin-left: 15px;
+    border-radius: 50%;
+    border: 2px solid $color__blue--primary;
   }
 }

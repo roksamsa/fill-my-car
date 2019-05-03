@@ -8,23 +8,29 @@ import {
   MatInputModule,
   MatOptionModule,
   MatSelectModule,
+  MatTooltipModule,
   MatIconModule,
   MatButtonModule,
   MatCardModule,
   MatTableModule,
   MatDialogModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
   MatDividerModule,
   MatCheckboxModule,
   MatSnackBarModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VehicleService } from './core/vehicle/vehicle.service';
+import { HeaderService } from '../app/components/header/header.service';
+import { VehicleTileService } from '../app/components/vehicle-tile/vehicle-tile.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { CreateVehicleDialogComponent } from './dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { EditVehicleDialogComponent } from './dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
+import { CreateTripDialogComponent } from './dialogs/create-trip-dialog/create-trip-dialog.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -69,6 +75,7 @@ const routes: Routes = [
     FooterComponent,
     DashboardPageComponent,
     CreateVehicleDialogComponent,
+    CreateTripDialogComponent,
     EditVehicleDialogComponent,
     RegisterComponent,
     LoginComponent,
@@ -99,6 +106,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatToolbarModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTooltipModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
@@ -111,10 +121,20 @@ const routes: Routes = [
     MatSnackBarModule,
     MatDialogModule
   ],
-  providers: [VehicleService, AuthService, UserService, AuthGuard, {provide: FirestoreSettingsToken, useValue: {}}],
+  providers: [
+    VehicleService,
+    AuthService,
+    UserService,
+    HeaderService,
+    VehicleTileService,
+    MatDatepickerModule,
+    AuthGuard,
+    {provide: FirestoreSettingsToken, useValue: {}}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
-    CreateVehicleDialogComponent
+    CreateVehicleDialogComponent,
+    CreateTripDialogComponent
   ],
 })
 

@@ -1,7 +1,7 @@
-@import 'app/sass/global_variables.scss';
-@import 'app/sass/global_fonts.scss';
+@import 'app/sass/global_variables';
+@import 'app/sass/global_fonts';
 
-$color--main-background: $color__blue--light;
+$color--main-background: $color__blue--lighter;
 
 ::-moz-selection {
   background-color: $color__pink--primary;

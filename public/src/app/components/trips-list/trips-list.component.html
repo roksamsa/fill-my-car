@@ -1,13 +1,23 @@
-<table mat-table [dataSource]="trips">
-  <ng-container matColumnDef="tripFromLocation">
-    <th mat-header-cell *matHeaderCellDef>tripFromLocation</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.tripFromLocation }} </td>
+<!--<table mat-table [dataSource]="trips">
+  <ng-container matColumnDef="tripStatus">
+    <th mat-header-cell *matHeaderCellDef>tripStatus</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripStatus }} </td>
   </ng-container>
 
-  <ng-container matColumnDef="tripToLocation">
-    <th mat-header-cell *matHeaderCellDef>tripToLocation</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.tripToLocation }} </td>
+  <ng-container matColumnDef="tripIdTag">
+    <th mat-header-cell *matHeaderCellDef>tripIdTag</th>
+    <td mat-cell *matCellDef="let element"> {{ element?.tripIdTag }} </td>
   </ng-container>
+
+  <ng-container matColumnDef="tripFromLocation">
+      <th mat-header-cell *matHeaderCellDef>tripFromLocation</th>
+      <td mat-cell *matCellDef="let element"> {{ element?.tripFromLocation }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tripToLocation">
+      <th mat-header-cell *matHeaderCellDef>tripToLocation</th>
+      <td mat-cell *matCellDef="let element"> {{ element?.tripToLocation }} </td>
+    </ng-container>
 
   <ng-container matColumnDef="tripDateAndTime">
     <th mat-header-cell *matHeaderCellDef>tripDateAndTime</th>
@@ -55,3 +65,19 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+-->
+
+<div class="table">
+  <div *ngFor="let trip of trips; let i = index;" class="table__row">
+    <div class="table__column trip__status trip__status--{{trip?.tripStatus | lowercase}}">
+      <div class="trip__status-icon"></div>
+    </div>
+    <div class="table__column trip__id-tag">{{ trip?.tripIdTag }}</div>
+    <div class="table__column trip__from-location">{{ trip?.tripFromLocation }}</div>
+    <div class="table__column trip__to-location">{{ trip?.tripToLocation }}</div>
+    <div class="table__column trip__date">{{ trip?.tripDateAndTime }}</div>
+    <div class="table__column trip__time">{{ trip?.tripDateAndTime }}</div>
+    <div class="table__column trip__price">{{ trip?.tripPrice }}</div>
+    <div class="table__column trip__luggage-space">{{ trip?.tripLuggageSpace }}</div>
+  </div>
+</div>

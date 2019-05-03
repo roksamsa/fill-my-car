@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
 })
 
 export class VehiclesPageComponent {
+
+  tileTitle = 'Moja vozila';
+
   constructor() { }
 }
