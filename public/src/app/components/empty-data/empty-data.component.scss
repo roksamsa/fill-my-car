@@ -1,0 +1,61 @@
+@import '../../sass/global_variables';
+@import '../../sass/elements/global_button';
+
+:host {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.empty-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  &--horizontal {
+    flex-direction: row;
+    justify-content: flex-start;
+    justify-content: space-between;
+
+    .empty-data__visual {
+      flex-direction: row;
+    }
+
+    .empty-data__icon {
+      margin-right: 20px;
+    }
+  }
+
+  &--vertical {
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+
+    .empty-data__visual {
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    .empty-data__icon {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__visual {
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    width: 80px;
+    fill: #DCE4F2;
+  }
+
+  &__text {
+    margin-top: 15px;
+    font-size: 24px;
+    color: #9FB1D1;
+  }
+}

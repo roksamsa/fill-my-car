@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -8,7 +10,26 @@ import { Component } from '@angular/core';
 
 export class VehiclesPageComponent {
 
+  dialogResult = '';
   tileTitle = 'Moja vozila';
+  tileHeadlineAddButtonTooltipText = 'Dodaj novo vozilo';
 
-  constructor() { }
+  constructor(private popupVehicle: MatDialog) { }
+
+  // Add dialog popup
+  openAddDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '600px';
+    dialogConfig.position = {
+      top: '100px'
+    };
+
+    const dialogRef = this.popupVehicle.open(CreateVehicleDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+    });
+  }
 }

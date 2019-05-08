@@ -17,7 +17,8 @@
         <div class="header__create">
           <div class="header__create-wrapper" [@createContentWrapperAnimation]="createContentVisibility">
             <button class="header__create-button"
-                    matTooltip="Dodaj novo vozilo ali potovanje"
+                    matTooltip="{{createButtonTooltipText}}"
+                    matTooltipPosition="left"
                     [ngClass]="{'header__create-button--rotated': createContentVisibility}"
                     (click)="isCreateContentVisible()">
               <svg class="header__create-button-icon"

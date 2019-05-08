@@ -56,6 +56,8 @@ import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.com
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { TripsListComponent } from './components/trips-list/trips-list.component';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { EmptyDataComponent } from './components/empty-data/empty-data.component';
 
 const routes: Routes = [
   { path: 'edit/:id', component: EditVehicleDialogComponent, canActivate: [AuthGuard] },
@@ -93,7 +95,8 @@ const routes: Routes = [
     VehicleTileComponent,
     UserMenuComponent,
     ClickOutsideDirective,
-    TripsListComponent
+    TripsListComponent,
+    EmptyDataComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -119,7 +122,11 @@ const routes: Routes = [
     MatDividerModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxMapboxGLModule.withConfig({
+      accessToken: 'pk.eyJ1Ijoicm9rc2Ftc2EiLCJhIjoiY2p2OG5nOW9pMGdqYjQwcGYwZHVqdTRtcCJ9.IMNFrJwAlUTvKNhl_luspw',
+      geocoderAccessToken: 'pk.eyJ1Ijoicm9rc2Ftc2EiLCJhIjoiY2p2OG5nOW9pMGdqYjQwcGYwZHVqdTRtcCJ9.IMNFrJwAlUTvKNhl_luspw'
+    })
   ],
   providers: [
     VehicleService,

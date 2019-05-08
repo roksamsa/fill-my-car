@@ -41,4 +41,16 @@
     border-radius: 50%;
     border: 2px solid $color__blue--primary;
   }
+
+  &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+  }
+
+  &__arrow-icon {
+    width: 28px;
+    fill: $color__blue--primary;
+  }
 }

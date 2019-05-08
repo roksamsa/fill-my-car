@@ -1,6 +1,6 @@
 
 @import '../../sass/global_variables';
-@import '../../sass/global_elements';
+@import '../../sass/elements/global_button';
 @import '../../sass/global_fonts';
 
 .empty-data {
@@ -93,6 +93,27 @@
     &--edit {
       width: 20px;
       height: 20px;
+    }
+  }
+}
+
+.tile {
+  &__title {
+    @include font-titillium-semibold;
+    position: relative;
+    margin-right: 20px;
+    padding-right: 20px;
+    font-size: 22px;
+    color: $color__blue--primary;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -10px;
+      bottom: -10px;
+      width: 2px;
+      background-color: $color__blue--lightest;
     }
   }
 }

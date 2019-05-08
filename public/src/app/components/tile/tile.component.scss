@@ -83,6 +83,7 @@ $tile__border-radius: 3px;
     border: 0 none;
     border-radius: 50%;
     cursor: pointer;
+    outline: none;
     transition: background-color 200ms ease-in-out;
 
     &:hover {

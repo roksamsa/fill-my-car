@@ -1,5 +1,5 @@
 @import '../../sass/global_variables';
-@import '../../sass/global_elements';
+@import '../../sass/elements/global_button';
 
 .popup {
   &__header {
@@ -32,7 +32,21 @@
   }
 }
 
+.mat-dialog-content {
+  display: flex;
+}
+
 .mat-dialog-actions {
   justify-content: flex-end;
   margin: 0;
+}
+
+mgl-map {
+  height: 100%;
+  width: 100%;
+}
+
+.trip__map {
+  width: 400px;
+  height: 500px;
 }

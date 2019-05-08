@@ -21,6 +21,7 @@
     "babel-watch": "^7.0.0"
   },
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.5",
     "bcrypt-nodejs": "^0.0.3",
     "bcryptjs": "^2.4.3",
     "bindings": "^1.5.0",
@@ -33,18 +34,16 @@
     "express-jwt": "^5.3.1",
     "express-session": "^1.16.1",
     "firebase": "^5.11.0",
+    "mapbox-gl": "^0.54.0",
     "mongoose": "^5.5.5",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
-    "ng-click-outside": "^4.0.0",
     "node-sass": "^4.12.0",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "sass-lint": "^1.13.1",
-    "serve-favicon": "^2.5.0",
-    "watchify": "^3.11.1",
-    "tar": ">=4.4.8"
+    "serve-favicon": "^2.5.0"
   }
 }

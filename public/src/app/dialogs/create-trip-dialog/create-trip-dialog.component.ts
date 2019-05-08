@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TripService } from '../../core/trip/trip.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { AuthService } from '../../core/auth/auth.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange, MatDatepicker } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';

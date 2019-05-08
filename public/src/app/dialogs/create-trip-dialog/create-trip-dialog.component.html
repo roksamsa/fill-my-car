@@ -57,7 +57,31 @@
       <input matInput placeholder="tripNewPassengersAcceptance" formControlName="tripNewPassengersAcceptance" #tripNewPassengersAcceptance>
     </mat-form-field>
   </form>
+
+  <mgl-map [style]="'mapbox://styles/mapbox/light-v9'"
+           [zoom]="[2]"
+           [center]="[-74.50, 40]"
+           [interactive]="true"
+           (load)="map = $event"
+           class="trip__map">
+  <mgl-control
+    mglNavigation></mgl-control>
+    <mgl-control>
+        Hello
+      </mgl-control>
+      <mgl-marker
+     [lngLat]="[-66.324462890625, -16.024695711685304]"
+   >
+     <div
+       (click)="alert('Foo')"
+       class="marker"
+     >
+	   Hello
+     </div>
+   </mgl-marker>
+  </mgl-map>
 </mat-dialog-content>
+
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button mat-raised-button class="button button--primary"

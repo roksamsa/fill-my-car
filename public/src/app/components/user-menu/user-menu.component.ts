@@ -67,4 +67,9 @@ export class UserMenuComponent implements OnInit {
   ngOnInit() {
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
   }
+
+  userMenuSignOut() {
+    this.authService.SignOut();
+    this.headerData.changeUserMenuVisibility(false);
+  }
 }

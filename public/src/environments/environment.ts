@@ -11,8 +11,12 @@ export const environment = {
     projectId: 'fill-my-car',
     storageBucket: 'fill-my-car.appspot.com',
     messagingSenderId: '787032903752'
+  },
+  mapbox: {
+    accessToken: 'YOUR_TOKEN'
   }
 };
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

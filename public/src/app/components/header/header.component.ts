@@ -79,6 +79,7 @@ export class HeaderComponent implements OnInit {
   clickActiveState  = false;
   dialogResult = '';
   createContentVisibility = false;
+  createButtonTooltipText: String = 'Dodaj novo vozilo ali potovanje';
 
   constructor(
     private authService: AuthService,
@@ -107,7 +108,11 @@ export class HeaderComponent implements OnInit {
 
   isCreateContentVisible() {
     this.createContentVisibility = !this.createContentVisibility;
-    console.log(this.createContentVisibility);
+    if (this.createContentVisibility === true) {
+      this.createButtonTooltipText = 'Zapri dodajanje';
+    } else {
+      this.createButtonTooltipText = 'Dodaj novo vozilo ali potovanje';
+    }
   }
 
   // Add vehicle dialog popup
@@ -132,7 +137,7 @@ export class HeaderComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '600px';
+    dialogConfig.width = '1100px';
     dialogConfig.position = {
       top: '100px'
     };

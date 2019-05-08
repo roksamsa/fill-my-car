@@ -1,3 +1,6 @@
-<app-tile class="tile tile--default" [tileTitle]="tileTitle">
+<app-tile class="tile tile--default"
+          [tileTitle]="tileTitle"
+          [tileHeadlineAddButtonTooltipText]="tileHeadlineAddButtonTooltipText"
+          (clicked)="openAddDialog($event)">
   <app-vehicle-list></app-vehicle-list>
 </app-tile>

@@ -6,7 +6,7 @@
   justify-content: space-between;
   height: 100%;
   margin-top: 10px;
-  font-size: 12px;
+  font-size: 13px;
   color: $color__blue--primary;
 
   &__wrapper {
@@ -20,6 +20,10 @@
   }
 }
 
-.logo--pink {
-  color: $color__pink--primary;
+.logo {
+  @include font-titillium-semibold;
+
+  &--pink {
+    color: $color__pink--primary;
+  }
 }

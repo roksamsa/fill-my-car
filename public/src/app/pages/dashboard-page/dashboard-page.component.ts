@@ -5,6 +5,7 @@ import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
+import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 import { trigger, stagger, query, style, animate, transition, animateChild, group } from '@angular/animations';
 
 export const defaultAnimationFunction = 'ease-in-out';
@@ -23,7 +24,7 @@ export const headerAnimationDelay = '450ms';
     trigger('vehiclesListFadeIn', [
       transition(':enter', [
         group([
-          query('@vehicleFadeIn', stagger(330, animateChild()))
+          query('@vehicleFadeIn', stagger(200, animateChild()))
         ])
       ]),
     ]),
@@ -33,7 +34,7 @@ export const headerAnimationDelay = '450ms';
           transform: 'translateX(-50px)',
           opacity: 0
         }),
-        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+        animate('300ms cubic-bezier(.8,-0.6,0.2,1.5)',
           style({
             transform: 'translateX(0)',
             opacity: 1
@@ -46,7 +47,7 @@ export const headerAnimationDelay = '450ms';
           transform: 'translateY(-50px)',
           opacity: 0
         }),
-        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+        animate('300ms cubic-bezier(.8,-0.6,0.2,1.5)',
           style({
             transform: 'translateX(0)',
             opacity: 1
@@ -58,7 +59,7 @@ export const headerAnimationDelay = '450ms';
           transform: 'translateY(0)',
           opacity: 1
         }),
-        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+        animate('300ms cubic-bezier(.8,-0.6,0.2,1.5)',
           style({
             transform: 'translateY(-50px)',
             opacity: 0
@@ -72,7 +73,7 @@ export const headerAnimationDelay = '450ms';
           transform: 'translateY(50px)',
           opacity: 0
         }),
-        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+        animate('300ms cubic-bezier(.8,-0.6,0.2,1.5)',
           style({
             transform: 'translateX(0)',
             opacity: 1
@@ -84,7 +85,7 @@ export const headerAnimationDelay = '450ms';
           transform: 'translateY(0)',
           opacity: 1
         }),
-        animate('330ms cubic-bezier(.8,-0.6,0.2,1.5)',
+        animate('300ms cubic-bezier(.8,-0.6,0.2,1.5)',
           style({
             transform: 'translateY(50px)',
             opacity: 0
@@ -97,8 +98,12 @@ export const headerAnimationDelay = '450ms';
 
 export class DashboardPageComponent implements OnInit {
 
-  tileTitleVehicles = 'Moja vozila';
+  emptyDataType = 'horizontal';
   tileTitleTrips = 'Moja potovanja';
+  tileHeadlineAddButtonTooltipText = 'Dodaj novo potovanje';
+  emptyDataText = 'Tvoja garaža je še vedno prazna.';
+  emptyDataIcon = 'vehicle';
+  emptyDataButtonText = 'Dodaj novo vozilo';
 
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
@@ -113,7 +118,7 @@ export class DashboardPageComponent implements OnInit {
 
   constructor(
     private vehicleService: VehicleService,
-    public popupVehicle: MatDialog,
+    public popupDialog: MatDialog,
     private vehicleTileData: VehicleTileService) { }
 
   ngOnInit() {
@@ -163,12 +168,12 @@ export class DashboardPageComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '600px';
+    dialogConfig.width = '1100px';
     dialogConfig.position = {
       top: '100px'
     };
 
-    const dialogRef = this.popupVehicle.open(CreateVehicleDialogComponent, dialogConfig);
+    const dialogRef = this.popupDialog.open(CreateVehicleDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
@@ -188,7 +193,7 @@ export class DashboardPageComponent implements OnInit {
     };
     dialogConfig.data = this.selectedVehicle;
 
-    const dialogRef = this.popupVehicle.open(EditVehicleDialogComponent, dialogConfig);
+    const dialogRef = this.popupDialog.open(EditVehicleDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
@@ -203,6 +208,23 @@ export class DashboardPageComponent implements OnInit {
     .subscribe(() => {
       this.fetchVehicles();
       this.isSelectedVehicle = false;
+    });
+  }
+
+  // Add trip dialog popup
+  openAddTripDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '1100px';
+    dialogConfig.position = {
+      top: '100px'
+    };
+
+    const dialogRef = this.popupDialog.open(CreateTripDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
     });
   }
 }

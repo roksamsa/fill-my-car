@@ -11,17 +11,19 @@ export class TripsPageComponent implements OnInit {
 
   dialogResult = '';
   tileTitle = 'Moja potovanja';
+  tileHeadlineAddButtonTooltipText = 'Dodaj novo potovanje';
 
   constructor(public popupTrip: MatDialog) { }
 
   ngOnInit() {
   }
-  // Add dialog popup
+
+  // Add trip dialog popup
   openAddTripDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '600px';
+    dialogConfig.width = '1100px';
     dialogConfig.position = {
       top: '100px'
     };
