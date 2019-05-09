@@ -6,7 +6,7 @@
   "scripts": {
     "start--server": "babel-watch server.js",
     "start--angular": "cd public & ng serve --port 4444",
-    "start": "concurrently \"babel-watch server.js\" \"cd public & ng serve --port 4444\"",
+    "start": "concurrently \"babel-watch server.js\" \"cd public & ng serve --open --port 4444\"",
     "ts-lint": "ng lint fill-my-car",
     "sass-lint": "sass-lint -v -c .sass-lint.yml",
     "lint": "concurrently \"cd public & ng lint frontend\" \"sass-lint -v -c .sass-lint.yml\""
