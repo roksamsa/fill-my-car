@@ -59,6 +59,7 @@ import { TripsListComponent } from './components/trips-list/trips-list.component
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
 import { MapBoxComponent } from './components/map-box/map-box.component';
+import { HereMapsComponent } from './components/here-maps/here-maps.component';
 
 const routes: Routes = [
   { path: 'edit/:id', component: EditVehicleDialogComponent, canActivate: [AuthGuard] },
@@ -98,7 +99,8 @@ const routes: Routes = [
     ClickOutsideDirective,
     TripsListComponent,
     EmptyDataComponent,
-    MapBoxComponent
+    MapBoxComponent,
+    HereMapsComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

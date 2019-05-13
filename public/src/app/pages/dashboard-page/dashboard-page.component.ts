@@ -168,6 +168,7 @@ export class DashboardPageComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '1100px';
     dialogConfig.position = {
       top: '100px'
@@ -187,6 +188,7 @@ export class DashboardPageComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '600px';
     dialogConfig.position = {
       top: '100px'
@@ -216,6 +218,7 @@ export class DashboardPageComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '1100px';
     dialogConfig.position = {
       top: '100px'

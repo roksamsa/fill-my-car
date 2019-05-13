@@ -21,6 +21,7 @@ export class VehiclesPageComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '600px';
     dialogConfig.position = {
       top: '100px'

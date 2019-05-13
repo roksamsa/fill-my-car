@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TripService } from '../../core/trip/trip.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
@@ -13,7 +13,7 @@ import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-da
   templateUrl: './create-trip-dialog.component.html',
   styleUrls: ['./create-trip-dialog.component.scss']
 })
-export class CreateTripDialogComponent implements OnInit {
+export class CreateTripDialogComponent implements OnInit, OnChanges {
 
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
@@ -24,6 +24,9 @@ export class CreateTripDialogComponent implements OnInit {
   selectedTypeData = '';
   selectedBrandData = '';
   selectedColorData = '';
+
+  hereMapStart = '';
+  hereMapFinish = '';
 
   constructor (
     public authService: AuthService,
@@ -49,10 +52,12 @@ export class CreateTripDialogComponent implements OnInit {
       tripComfortable: '',
       tripNewPassengersAcceptance: ''
     });
+    this.hereMapStart = 'Koper, Slovenia';
+    this.hereMapFinish = 'Ljubljana, Slovenia';
   }
 
   ngOnInit() {
-    console.log(this.createTripIdTag(10));
+    console.log('My trip ID: ' + this.createTripIdTag(10));
   }
 
   createTripIdTag(length: number) {
@@ -91,6 +96,10 @@ export class CreateTripDialogComponent implements OnInit {
   selectedVehicleColor(event: MatSelectChange) {
     this.selectedColorData = event.source.value;
     console.log(this.selectedColorData);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes['tripToLocation'].currentValue);
   }
 
   // Add vehicle on popup close

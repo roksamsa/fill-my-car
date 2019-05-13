@@ -5,59 +5,64 @@
   </div>
 </div>
 
-<mat-dialog-content>
-  <form [formGroup]="createForm" class="create-form">
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripFromLocation" formControlName="tripFromLocation" #tripFromLocation>
-    </mat-form-field>
+<div class="popup__content">
+  <mat-dialog-content>
+    <form [formGroup]="createForm" class="create-form">
+      <mat-form-field class="create-form__field">
+        <input (input)="valueChangeFromDestination($event.target.value)" matInput placeholder="tripFromLocation" formControlName="tripFromLocation" #tripFromLocation>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripToLocation" formControlName="tripToLocation" #tripToLocation>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input (input)="valueChangeToDestination($event.target.value)" matInput placeholder="tripToLocation" formControlName="tripToLocation" #tripToLocation>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="tripDateAndTime" formControlName="tripDateAndTime" #tripDateAndTime>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="tripDateAndTime" formControlName="tripDateAndTime" #tripDateAndTime>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripCategory" formControlName="tripCategory" #tripCategory>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripCategory" formControlName="tripCategory" #tripCategory>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripCO2Emissions" formControlName="tripCO2Emissions" #tripCO2Emissions>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripCO2Emissions" formControlName="tripCO2Emissions" #tripCO2Emissions>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripDistance" formControlName="tripDistance" #tripDistance>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripDistance" formControlName="tripDistance" #tripDistance>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripDuration" formControlName="tripDuration" #tripDuration>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripDuration" formControlName="tripDuration" #tripDuration>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripFreeSeats" formControlName="tripFreeSeats" #tripFreeSeats>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripFreeSeats" formControlName="tripFreeSeats" #tripFreeSeats>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripPrice" formControlName="tripPrice" #tripPrice>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripPrice" formControlName="tripPrice" #tripPrice>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripLuggageSpace" formControlName="tripLuggageSpace" #tripLuggageSpace>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripLuggageSpace" formControlName="tripLuggageSpace" #tripLuggageSpace>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripComfortable" formControlName="tripComfortable" #tripComfortable>
-    </mat-form-field>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripComfortable" formControlName="tripComfortable" #tripComfortable>
+      </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="tripNewPassengersAcceptance" formControlName="tripNewPassengersAcceptance" #tripNewPassengersAcceptance>
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
+      <mat-form-field class="create-form__field">
+        <input matInput placeholder="tripNewPassengersAcceptance" formControlName="tripNewPassengersAcceptance" #tripNewPassengersAcceptance>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <!--<app-map-box [mapBoxFromDestination]="mapBoxFromDestination" [mapBoxToDestination]="mapBoxToDestination"></app-map-box>-->
+  <app-here-maps></app-here-maps>
+</div>
 
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
