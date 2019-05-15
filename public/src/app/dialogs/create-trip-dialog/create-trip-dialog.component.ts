@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TripService } from '../../core/trip/trip.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { AuthService } from '../../core/auth/auth.service';
+import { HereMapsService } from '../../../app/components/here-maps/here-maps.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
@@ -13,7 +14,7 @@ import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-da
   templateUrl: './create-trip-dialog.component.html',
   styleUrls: ['./create-trip-dialog.component.scss']
 })
-export class CreateTripDialogComponent implements OnInit, OnChanges {
+export class CreateTripDialogComponent implements OnInit {
 
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
@@ -28,9 +29,13 @@ export class CreateTripDialogComponent implements OnInit, OnChanges {
   hereMapStart = '';
   hereMapFinish = '';
 
+  locationSuggestions: any;
+  locationSelected: any;
+
   constructor (
     public authService: AuthService,
     private tripService: TripService,
+    public hereMap: HereMapsService,
     private fb: FormBuilder,
     public thisDialogRef: MatDialogRef<CreateTripDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
     this.createForm = this.fb.group({
@@ -52,12 +57,39 @@ export class CreateTripDialogComponent implements OnInit, OnChanges {
       tripComfortable: '',
       tripNewPassengersAcceptance: ''
     });
-    this.hereMapStart = 'Koper, Slovenia';
-    this.hereMapFinish = 'Ljubljana, Slovenia';
   }
 
   ngOnInit() {
     console.log('My trip ID: ' + this.createTripIdTag(10));
+  }
+
+  valueChangeFromDestination(event) {
+    this.showStartLocationSuggestions();
+  }
+
+  showStartLocationSuggestions() {
+    const queryLocationStart = this.hereMap.getCoordinates(this.hereMapStart);
+    return Promise.all([queryLocationStart]).then(geocoderResult => {
+      this.locationSuggestions = geocoderResult[0];
+      this.hereMapStart = this.locationSelected;
+    });
+  }
+
+  changeClient(value) {
+    console.log(value);
+    this.locationSelected = value;
+  }
+
+  valueChangeToDestination(event) {
+    this.showFinishLocationSuggestions();
+  }
+
+  showFinishLocationSuggestions() {
+    const queryLocationFinish = this.hereMap.getCoordinates(this.hereMapFinish);
+    return Promise.all([queryLocationFinish]).then(geocoderResult => {
+      this.locationSuggestions = geocoderResult[0];
+      this.hereMapFinish = this.locationSelected;
+    });
   }
 
   createTripIdTag(length: number) {
@@ -96,10 +128,6 @@ export class CreateTripDialogComponent implements OnInit, OnChanges {
   selectedVehicleColor(event: MatSelectChange) {
     this.selectedColorData = event.source.value;
     console.log(this.selectedColorData);
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes['tripToLocation'].currentValue);
   }
 
   // Add vehicle on popup close

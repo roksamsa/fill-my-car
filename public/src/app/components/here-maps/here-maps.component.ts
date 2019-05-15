@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit, OnChanges, SimpleChanges, Input, ViewChild, ElementRef } from '@angular/core';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Component, OnInit, AfterViewInit, OnChanges, Input, ViewChild, ElementRef } from '@angular/core';
+import { HereMapsService } from './here-maps.service';
 
 declare var H: any;
 
@@ -11,48 +11,24 @@ declare var H: any;
 
 export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
-  appId = 'Y24GW4waR5Z72Hqxj3PT';
-  appCode = '-coOP6S8RnEsWPuHwc9lHA';
-
-  private platform: any;
   private map: any;
-  private router: any;
-  private geocoder: any;
-  public directions: any;
-  private hereMapRouteLatLng: any;
   hereMapRouteStartLatLng: any;
   hereMapRouteFinishLatLng: any;
+  defaultBounds = new H.geo.Rect(42.3736, -71.0751, 42.3472, -71.0408);
 
   @ViewChild('hereMaps') mapElement: ElementRef;
   @Input() hereMapCenterLAT: any = '50.1120423728813';
   @Input() hereMapCenterLNG: any = '8.68340740740811';
-  @Input() hereMapStart: any = 'Ljubljana, Slovenija';
-  @Input() hereMapFinish: any = 'Koper, Slovenija';
+  @Input() hereMapStart: any;
+  @Input() hereMapFinish: any;
 
-  constructor() { }
+  constructor(public hereMap: HereMapsService) { }
 
   ngOnInit() {
-    this.platform = new H.service.Platform({
-      'app_id': this.appId,
-      'app_code': this.appCode
-    });
-    this.directions = [];
-    this.router = this.platform.getRoutingService();
-    this.geocoder = this.platform.getGeocodingService();
-
-    this.getCoordinates(this.hereMapStart).then(geocoderResult => {
-      this.hereMapRouteStartLatLng =
-      geocoderResult[0].Location.DisplayPosition.Latitude + ',' + geocoderResult[0].Location.DisplayPosition.Longitude;
-    });
-
-    this.getCoordinates(this.hereMapFinish).then(geocoderResult => {
-      this.hereMapRouteFinishLatLng =
-      geocoderResult[0].Location.DisplayPosition.Latitude + ',' + geocoderResult[0].Location.DisplayPosition.Longitude;
-    });
   }
 
   ngAfterViewInit() {
-    const defaultLayers = this.platform.createDefaultLayers();
+    const defaultLayers = this.hereMap.platform.createDefaultLayers();
     this.map = new H.Map(
       this.mapElement.nativeElement,
       defaultLayers.normal.map, {
@@ -66,47 +42,46 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
     const mapUI = H.ui.UI.createDefault(this.map, defaultLayers);
     const mapEvents = new H.mapevents.MapEvents(this.map);
     const behavior = new H.mapevents.Behavior(mapEvents);
+  }
+
+  ngOnChanges() {
     this.hereMapsRoute(this.hereMapStart, this.hereMapFinish);
-    console.log(this.hereMapRouteStartLatLng);
-    console.log(this.hereMapRouteFinishLatLng);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if ((changes['start'] && !changes['start'].isFirstChange()) || (changes['finish'] && !changes['finish'].isFirstChange())) {
-      this.hereMapsRoute(this.hereMapStart, this.hereMapFinish);
-    }
-  }
+  hereMapsRoute(start: string, finish: string) {
+    if (start !== '' || finish !== '') {
+      if (this.map) {
+        this.map.removeObjects(this.map.getObjects());
+      }
+      this.hereMap.getCoordinatesforRoute(start, finish).then(geocoderResult => {
+        this.hereMapRouteStartLatLng =
+          geocoderResult[0][0].Location.DisplayPosition.Latitude + ',' + geocoderResult[0][0].Location.DisplayPosition.Longitude;
 
-  public hereMapsRoute(start: any, finish: any) {
-    const params = {
-      'mode': 'fastest;car;traffic:enabled',
-      'waypoint0': 'geo!' + this.hereMapRouteStartLatLng,
-      'waypoint1': 'geo!' + this.hereMapRouteFinishLatLng,
-      'representation': 'display',
-      'departure': 'Now'
-    };
-    if (this.map.getObjects()) {
-      this.map.removeObjects(this.map.getObjects());
-    }
-    this.router.calculateRoute(params, data => {
-      console.log(data);
-      if (data.response) {
-        this.directions = data.response.route[0].leg[0].maneuver;
-        data = data.response.route[0];
-        const lineString = new H.geo.LineString();
-        data.shape.forEach(point => {
-          const parts = point.split(',');
-          lineString.pushLatLngAlt(parts[0], parts[1]);
-        });
-        const routeLine = new H.map.Polyline(lineString, {
-          style: { strokeColor: '#242B61', lineWidth: 5 }
-        });
-        this.getCoordinates(start).then(geocoderResult1 => {
-          this.getCoordinates(finish).then(geocoderResult2 => {
-            this.hereMapRouteStartLatLng =
-            geocoderResult1[0].Location.DisplayPosition.Latitude + ',' + geocoderResult1[0].Location.DisplayPosition.Longitude;
-            this.hereMapRouteFinishLatLng =
-            geocoderResult2[0].Location.DisplayPosition.Latitude + ',' + geocoderResult2[0].Location.DisplayPosition.Longitude;
+        this.hereMapRouteFinishLatLng =
+          geocoderResult[1][0].Location.DisplayPosition.Latitude + ',' + geocoderResult[1][0].Location.DisplayPosition.Longitude;
+
+        const routeParameters = {
+          'mode': 'fastest;car;traffic:enabled',
+          'waypoint0': 'geo!' + this.hereMapRouteStartLatLng,
+          'waypoint1': 'geo!' + this.hereMapRouteFinishLatLng,
+          'representation': 'display',
+          'departure': 'Now',
+          'language ': 'sl-sl',
+          'country ': 'SVN'
+        };
+
+        this.hereMap.router.calculateRoute(routeParameters, data => {
+          if (data.response) {
+            this.hereMap.directions = data.response.route[0].leg[0].maneuver;
+            data = data.response.route[0];
+            const lineString = new H.geo.LineString();
+            data.shape.forEach(point => {
+              const parts = point.split(',');
+              lineString.pushLatLngAlt(parts[0], parts[1]);
+            });
+            const routeLine = new H.map.Polyline(lineString, {
+              style: { strokeColor: '#D93362', lineWidth: 7 }
+            });
             const startMarker = new H.map.Marker({
               lat: this.hereMapRouteStartLatLng.split(',')[0],
               lng: this.hereMapRouteStartLatLng.split(',')[1]
@@ -115,64 +90,21 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
               lat: this.hereMapRouteFinishLatLng.split(',')[0],
               lng: this.hereMapRouteFinishLatLng.split(',')[1]
             });
-            this.map.addObjects([routeLine, startMarker, finishMarker]);
-          });
-        });
-        this.map.setViewBounds(routeLine.getBounds());
-      }
-    }, error => {
-      console.error(error);
-    });
-  }
-
-  private getCoordinates(query: string) {
-    return new Promise((resolve, reject) => {
-      this.geocoder.geocode({ searchText: query }, result => {
-        if (result.Response.View.length > 0) {
-          if (result.Response.View[0].Result.length > 0) {
-            resolve(result.Response.View[0].Result);
-          } else {
-            reject({ message: 'No results found' });
+            this.map.addObjects([startMarker, finishMarker, routeLine]);
+            this.map.setViewBounds(routeLine.getBounds());
           }
-        } else {
-          reject({ message: 'No results found' });
-        }
-      }, error => {
-        reject(error);
+        }, error => {
+          console.error(error);
+        });
       });
-    });
+    } else {
+      if (this.map) {
+        this.map.removeObjects(this.map.getObjects());
+        this.map.setViewBounds(this.defaultBounds.getBounds());
+      }
+    }
   }
 
-  /*private getCoordinatesforRoute(queryStartLocation: string, queryFinishLocation: string) {
-    const queryLocationStart = new Promise((resolve, reject) => {
-      this.geocoder.geocode({ searchText: queryStartLocation }, result1 => {
-        if (result1.Response.View.length > 0) {
-          resolve (result1.Response.View[0].Result);
-        } else {
-          reject({ message: 'No results found' });
-        }
-      }, error => {
-        reject(error);
-      });
-    });
-    const queryLocationFinish = new Promise((resolve, reject) => {
-      this.geocoder.geocode({ searchText: queryFinishLocation }, result2 => {
-        if (result2.Response.View.length > 0) {
-          resolve (result2.Response.View[0].Result);
-        } else {
-          reject({ message: 'No results found' });
-        }
-      }, error => {
-        reject(error);
-      });
-    });
-    const queryRoute = {queryLocationStart, queryLocationFinish};
-    console.log(queryLocationStart);
-    console.log(queryLocationFinish);
-    console.log(queryRoute);
-    return queryRoute;
-  }
-*/
   moveMapToBerlin(map) {
     map = this.map;
     map.setCenter({ lat: 52.5159, lng: 13.3777 });

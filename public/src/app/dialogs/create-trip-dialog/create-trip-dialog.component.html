@@ -9,12 +9,16 @@
   <mat-dialog-content>
     <form [formGroup]="createForm" class="create-form">
       <mat-form-field class="create-form__field">
-        <input (input)="valueChangeFromDestination($event.target.value)" matInput placeholder="tripFromLocation" formControlName="tripFromLocation" #tripFromLocation>
+        <input (keyup)="valueChangeFromDestination($event)" matInput placeholder="tripFromLocation" formControlName="tripFromLocation" #tripFromLocation [matAutocomplete]="auto">
       </mat-form-field>
 
       <mat-form-field class="create-form__field">
-        <input (input)="valueChangeToDestination($event.target.value)" matInput placeholder="tripToLocation" formControlName="tripToLocation" #tripToLocation>
+        <input (keyup)="valueChangeToDestination($event)" matInput placeholder="tripToLocation" formControlName="tripToLocation" #tripToLocation [matAutocomplete]="auto">
       </mat-form-field>
+
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="changeClient($event.option.value)">
+        <mat-option *ngFor="let hereMapsLocation of locationSuggestions" [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}</mat-option>
+      </mat-autocomplete>
 
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="tripDateAndTime" formControlName="tripDateAndTime" #tripDateAndTime>
@@ -61,7 +65,7 @@
   </mat-dialog-content>
 
   <!--<app-map-box [mapBoxFromDestination]="mapBoxFromDestination" [mapBoxToDestination]="mapBoxToDestination"></app-map-box>-->
-  <app-here-maps></app-here-maps>
+  <app-here-maps [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
 </div>
 
 <mat-dialog-actions>

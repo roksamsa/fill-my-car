@@ -14,6 +14,7 @@ import {
   MatCardModule,
   MatTableModule,
   MatDialogModule,
+  MatAutocompleteModule,
   MatNativeDateModule,
   MatDatepickerModule,
   MatDividerModule,
@@ -58,7 +59,6 @@ import { ClickOutsideDirective } from './click-outside.directive';
 import { TripsListComponent } from './components/trips-list/trips-list.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
-import { MapBoxComponent } from './components/map-box/map-box.component';
 import { HereMapsComponent } from './components/here-maps/here-maps.component';
 
 const routes: Routes = [
@@ -99,7 +99,6 @@ const routes: Routes = [
     ClickOutsideDirective,
     TripsListComponent,
     EmptyDataComponent,
-    MapBoxComponent,
     HereMapsComponent
   ],
   imports: [
@@ -119,6 +118,7 @@ const routes: Routes = [
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
