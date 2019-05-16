@@ -30,6 +30,8 @@ export class CreateTripDialogComponent implements OnInit {
   hereMapFinish = '';
 
   locationSuggestions: any;
+  locationStartInput: any;
+  locationFinishInput: any;
   locationSelected: any;
 
   constructor (
@@ -63,33 +65,45 @@ export class CreateTripDialogComponent implements OnInit {
     console.log('My trip ID: ' + this.createTripIdTag(10));
   }
 
-  valueChangeFromDestination(event) {
+  // Start location selection
+  valueChangeStartDestination(event) {
+    this.locationStartInput = event.target.value;
+    console.log(this.locationStartInput);
     this.showStartLocationSuggestions();
   }
 
   showStartLocationSuggestions() {
-    const queryLocationStart = this.hereMap.getCoordinates(this.hereMapStart);
+    const queryLocationStart = this.hereMap.getCoordinates(this.locationStartInput);
     return Promise.all([queryLocationStart]).then(geocoderResult => {
       this.locationSuggestions = geocoderResult[0];
+      console.log(geocoderResult[0]);
       this.hereMapStart = this.locationSelected;
     });
   }
 
-  changeClient(value) {
-    console.log(value);
+  selectStartLocationSuggestion(value) {
     this.locationSelected = value;
+    console.log(this.locationSelected);
   }
 
-  valueChangeToDestination(event) {
+  // Finish location selection
+  valueChangeFinishDestination(event) {
+    this.locationFinishInput = event.target.value;
+    console.log(this.locationFinishInput);
     this.showFinishLocationSuggestions();
   }
 
   showFinishLocationSuggestions() {
-    const queryLocationFinish = this.hereMap.getCoordinates(this.hereMapFinish);
+    const queryLocationFinish = this.hereMap.getCoordinates(this.locationFinishInput);
     return Promise.all([queryLocationFinish]).then(geocoderResult => {
       this.locationSuggestions = geocoderResult[0];
       this.hereMapFinish = this.locationSelected;
     });
+  }
+
+  selectFinishLocationSuggestion(value) {
+    this.locationSelected = value;
+    console.log(this.locationSelected);
   }
 
   createTripIdTag(length: number) {

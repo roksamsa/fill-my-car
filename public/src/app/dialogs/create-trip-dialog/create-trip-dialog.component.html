@@ -9,15 +9,19 @@
   <mat-dialog-content>
     <form [formGroup]="createForm" class="create-form">
       <mat-form-field class="create-form__field">
-        <input (keyup)="valueChangeFromDestination($event)" matInput placeholder="tripFromLocation" formControlName="tripFromLocation" #tripFromLocation [matAutocomplete]="auto">
+        <input (keyup)="valueChangeStartDestination($event)" matInput placeholder="tripFromLocation" formControlName="tripFromLocation" #tripFromLocation [matAutocomplete]="auto">
       </mat-form-field>
 
       <mat-form-field class="create-form__field">
-        <input (keyup)="valueChangeToDestination($event)" matInput placeholder="tripToLocation" formControlName="tripToLocation" #tripToLocation [matAutocomplete]="auto">
+        <input (keyup)="valueChangeFinishDestination($event)" matInput placeholder="tripToLocation" formControlName="tripToLocation" #tripToLocation [matAutocomplete]="auto">
       </mat-form-field>
 
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="changeClient($event.option.value)">
-        <mat-option *ngFor="let hereMapsLocation of locationSuggestions" [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}</mat-option>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectStartLocationSuggestion($event.option.value)">
+        <mat-option *ngFor="let hereMapsLocation of locationSuggestions" [value]="hereMapsLocation.Location.Address.City">{{hereMapsLocation.Location.Address.Label}}</mat-option>
+      </mat-autocomplete>
+
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectFinishLocationSuggestion($event.option.value)">
+        <mat-option *ngFor="let hereMapsLocation of locationSuggestions" [value]="hereMapsLocation.Location.Address.City">{{hereMapsLocation.Location.Address.Label}}</mat-option>
       </mat-autocomplete>
 
       <mat-form-field>

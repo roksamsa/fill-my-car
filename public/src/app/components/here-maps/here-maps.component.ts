@@ -67,7 +67,8 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
           'representation': 'display',
           'departure': 'Now',
           'language ': 'sl-sl',
-          'country ': 'SVN'
+          'country ': 'SVN',
+          'country': 'SVN'
         };
 
         this.hereMap.router.calculateRoute(routeParameters, data => {
