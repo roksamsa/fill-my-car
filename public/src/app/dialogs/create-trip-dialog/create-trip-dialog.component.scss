@@ -1,5 +1,6 @@
 @import '../../sass/global_variables';
 @import '../../sass/elements/global_button';
+@import '../../sass/elements/global_forms';
 
 .popup {
   &__header {
@@ -45,11 +46,6 @@
   justify-content: flex-end;
   margin: 20px 0 0 0;
   padding: 0;
-}
-
-mgl-map {
-  height: 100%;
-  width: 100%;
 }
 
 .trip__map {

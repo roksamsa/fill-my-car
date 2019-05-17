@@ -10,6 +10,7 @@ export class HereMapsService {
   appId = 'Y24GW4waR5Z72Hqxj3PT';
   appCode = '-coOP6S8RnEsWPuHwc9lHA';
 
+  public queryCountry = 'Slovenija';
   public platform: any;
   public geocoder: any;
   public directions: any;
@@ -19,7 +20,8 @@ export class HereMapsService {
     this.platform = new H.service.Platform({
       'app_id': this.appId,
       'app_code': this.appCode,
-      'country': 'Slovenija'
+      'maxresults': 50,
+      'country': 'SVN'
     });
     this.directions = [];
     this.router = this.platform.getRoutingService();
@@ -38,25 +40,6 @@ export class HereMapsService {
           }
         } else {
           reject({ message: 'No results found' });
-        }
-      }, error => {
-        reject(error);
-      });
-    });
-  }
-
-  // Get coordinates for Location LatLng query
-  public getCoordinatesFromLatLng(query: string) {
-    return new Promise((resolve, reject) => {
-      this.geocoder.reverseGeocode({ prox: query, mode: 'retrieveAddress' }, result => {
-        if (result.Response.View.length > 0) {
-          if (result.Response.View[0].Result.length > 0) {
-            resolve(result.Response.View[0].Result);
-          } else {
-            reject({ message: 'no results found' });
-          }
-        } else {
-          reject({ message: 'no results found' });
         }
       }, error => {
         reject(error);

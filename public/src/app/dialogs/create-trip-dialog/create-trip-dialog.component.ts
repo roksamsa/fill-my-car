@@ -29,10 +29,12 @@ export class CreateTripDialogComponent implements OnInit {
   hereMapStart = '';
   hereMapFinish = '';
 
-  locationSuggestions: any;
+  locationStartSuggestions: any;
   locationStartInput: any;
+  locationStartSelected: any;
   locationFinishInput: any;
-  locationSelected: any;
+  locationFinishSuggestions: any;
+  locationFinishSelected: any;
 
   constructor (
     public authService: AuthService,
@@ -68,42 +70,38 @@ export class CreateTripDialogComponent implements OnInit {
   // Start location selection
   valueChangeStartDestination(event) {
     this.locationStartInput = event.target.value;
-    console.log(this.locationStartInput);
-    this.showStartLocationSuggestions();
+    this.showStartLocationSuggestions(this.locationStartInput);
   }
 
-  showStartLocationSuggestions() {
-    const queryLocationStart = this.hereMap.getCoordinates(this.locationStartInput);
+  showStartLocationSuggestions(location) {
+    const queryLocationStart = this.hereMap.getCoordinates(location);
+    console.log(this.hereMap.getCoordinates(location));
     return Promise.all([queryLocationStart]).then(geocoderResult => {
-      this.locationSuggestions = geocoderResult[0];
-      console.log(geocoderResult[0]);
-      this.hereMapStart = this.locationSelected;
+      this.locationStartSuggestions = geocoderResult[0];
+      console.log(this.hereMap.getCoordinates(location));
     });
   }
 
   selectStartLocationSuggestion(value) {
-    this.locationSelected = value;
-    console.log(this.locationSelected);
+    this.hereMapStart = value;
   }
 
   // Finish location selection
   valueChangeFinishDestination(event) {
     this.locationFinishInput = event.target.value;
-    console.log(this.locationFinishInput);
-    this.showFinishLocationSuggestions();
+    this.showFinishLocationSuggestions(this.locationFinishInput);
   }
 
-  showFinishLocationSuggestions() {
-    const queryLocationFinish = this.hereMap.getCoordinates(this.locationFinishInput);
+  showFinishLocationSuggestions(location) {
+    const queryLocationFinish = this.hereMap.getCoordinates(location);
+    console.log(this.hereMap.getCoordinates(location));
     return Promise.all([queryLocationFinish]).then(geocoderResult => {
-      this.locationSuggestions = geocoderResult[0];
-      this.hereMapFinish = this.locationSelected;
+      this.locationFinishSuggestions = geocoderResult[0];
     });
   }
 
   selectFinishLocationSuggestion(value) {
-    this.locationSelected = value;
-    console.log(this.locationSelected);
+    this.hereMapFinish = value;
   }
 
   createTripIdTag(length: number) {

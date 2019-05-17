@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatToolbarModule,
+  MAT_LABEL_GLOBAL_OPTIONS,
   MatFormFieldModule,
   MatInputModule,
   MatOptionModule,
@@ -17,6 +18,7 @@ import {
   MatAutocompleteModule,
   MatNativeDateModule,
   MatDatepickerModule,
+  MatStepperModule,
   MatDividerModule,
   MatCheckboxModule,
   MatSnackBarModule } from '@angular/material';
@@ -115,6 +117,7 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatStepperModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
@@ -140,7 +143,8 @@ const routes: Routes = [
     VehicleTileService,
     MatDatepickerModule,
     AuthGuard,
-    {provide: FirestoreSettingsToken, useValue: {}}
+    {provide: FirestoreSettingsToken, useValue: {}},
+    {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'never'}}
   ],
   bootstrap: [AppComponent],
   entryComponents: [

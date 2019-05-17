@@ -11,9 +11,12 @@ declare var H: any;
 
 export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
+  mapUI: any;
   private map: any;
-  hereMapRouteStartLatLng: any;
-  hereMapRouteFinishLatLng: any;
+  hereMapRouteStartLat: any;
+  hereMapRouteStartLng: any;
+  hereMapRouteFinishLat: any;
+  hereMapRouteFinishLng: any;
   defaultBounds = new H.geo.Rect(42.3736, -71.0751, 42.3472, -71.0408);
 
   @ViewChild('hereMaps') mapElement: ElementRef;
@@ -39,9 +42,12 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
         }
       }
     );
-    const mapUI = H.ui.UI.createDefault(this.map, defaultLayers);
+
     const mapEvents = new H.mapevents.MapEvents(this.map);
     const behavior = new H.mapevents.Behavior(mapEvents);
+    this.mapUI = H.ui.UI.createDefault(this.map, defaultLayers);
+    this.map.setCenter({lat: 46.119944, lng: 14.815333}); // Center is GEOSS
+    this.map.setZoom(7.2);
   }
 
   ngOnChanges() {
@@ -54,21 +60,23 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
         this.map.removeObjects(this.map.getObjects());
       }
       this.hereMap.getCoordinatesforRoute(start, finish).then(geocoderResult => {
-        this.hereMapRouteStartLatLng =
-          geocoderResult[0][0].Location.DisplayPosition.Latitude + ',' + geocoderResult[0][0].Location.DisplayPosition.Longitude;
+        this.hereMapRouteStartLat = geocoderResult[0][0].Location.DisplayPosition.Latitude;
+        this.hereMapRouteStartLng = geocoderResult[0][0].Location.DisplayPosition.Longitude;
+        this.hereMapRouteFinishLat = geocoderResult[1][0].Location.DisplayPosition.Latitude;
+        this.hereMapRouteFinishLng = geocoderResult[1][0].Location.DisplayPosition.Longitude;
 
-        this.hereMapRouteFinishLatLng =
-          geocoderResult[1][0].Location.DisplayPosition.Latitude + ',' + geocoderResult[1][0].Location.DisplayPosition.Longitude;
+        console.log(this.hereMapRouteStartLat + ',' + this.hereMapRouteStartLng);
+        console.log(this.hereMapRouteFinishLat + ',' + this.hereMapRouteFinishLng);
 
         const routeParameters = {
           'mode': 'fastest;car;traffic:enabled',
-          'waypoint0': 'geo!' + this.hereMapRouteStartLatLng,
-          'waypoint1': 'geo!' + this.hereMapRouteFinishLatLng,
+          'waypoint0': 'geo!' + this.hereMapRouteStartLat + ',' + this.hereMapRouteStartLng,
+          'waypoint1': 'geo!' + this.hereMapRouteFinishLat + ',' + this.hereMapRouteFinishLng,
           'representation': 'display',
           'departure': 'Now',
           'language ': 'sl-sl',
-          'country ': 'SVN',
-          'country': 'SVN'
+          'country': 'SVN',
+          'metricSystem': 'metric'
         };
 
         this.hereMap.router.calculateRoute(routeParameters, data => {
@@ -81,15 +89,20 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
               lineString.pushLatLngAlt(parts[0], parts[1]);
             });
             const routeLine = new H.map.Polyline(lineString, {
-              style: { strokeColor: '#D93362', lineWidth: 7 }
+              style: {
+                strokeColor: 'rgba(217, 51, 98, .75)',
+                lineWidth: 8,
+                lineCap: 'round'
+              }
             });
             const startMarker = new H.map.Marker({
-              lat: this.hereMapRouteStartLatLng.split(',')[0],
-              lng: this.hereMapRouteStartLatLng.split(',')[1]
+              lat: this.hereMapRouteStartLat,
+              lng: this.hereMapRouteStartLng
             });
+
             const finishMarker = new H.map.Marker({
-              lat: this.hereMapRouteFinishLatLng.split(',')[0],
-              lng: this.hereMapRouteFinishLatLng.split(',')[1]
+              lat: this.hereMapRouteFinishLat,
+              lng: this.hereMapRouteFinishLng
             });
             this.map.addObjects([startMarker, finishMarker, routeLine]);
             this.map.setViewBounds(routeLine.getBounds());
