@@ -3,8 +3,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
+  DateAdapter,
   MatToolbarModule,
   MAT_LABEL_GLOBAL_OPTIONS,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
   MatFormFieldModule,
   MatInputModule,
   MatOptionModule,
@@ -15,13 +18,16 @@ import {
   MatCardModule,
   MatTableModule,
   MatDialogModule,
+  MatProgressSpinnerModule,
   MatAutocompleteModule,
   MatNativeDateModule,
+  NativeDateModule,
   MatDatepickerModule,
   MatStepperModule,
   MatDividerModule,
   MatCheckboxModule,
-  MatSnackBarModule } from '@angular/material';
+  MatSnackBarModule
+} from '@angular/material';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VehicleService } from './core/vehicle/vehicle.service';
@@ -42,7 +48,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserComponent } from './components/user/user.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { FirestoreSettingsToken} from '@angular/fire/firestore';
+import { FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './core/auth/auth.service';
 import { UserService } from './core/user/user.service';
@@ -57,11 +63,13 @@ import { NavigationMainComponent } from './components/navigation-main/navigation
 import { TileComponent } from './components/tile/tile.component';
 import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
-import { ClickOutsideDirective } from './click-outside.directive';
+import { ClickOutsideDirective } from './core/other/click-outside.directive';
 import { TripsListComponent } from './components/trips-list/trips-list.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
 import { HereMapsComponent } from './components/here-maps/here-maps.component';
+import { CustomDateAdapter, MY_DATE_FORMATS } from './core/other/date-picker.module';
+import { PreloadingSpinnerComponent } from './components/preloading-spinner/preloading-spinner.component';
 
 const routes: Routes = [
   { path: 'edit/:id', component: EditVehicleDialogComponent, canActivate: [AuthGuard] },
@@ -101,7 +109,8 @@ const routes: Routes = [
     ClickOutsideDirective,
     TripsListComponent,
     EmptyDataComponent,
-    HereMapsComponent
+    HereMapsComponent,
+    PreloadingSpinnerComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -113,6 +122,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -122,6 +132,8 @@ const routes: Routes = [
     MatOptionModule,
     MatSelectModule,
     MatAutocompleteModule,
+    MatDatepickerModule,
+    NativeDateModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
@@ -143,8 +155,11 @@ const routes: Routes = [
     VehicleTileService,
     MatDatepickerModule,
     AuthGuard,
-    {provide: FirestoreSettingsToken, useValue: {}},
-    {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'never'}}
+    { provide: FirestoreSettingsToken, useValue: {} },
+    { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'never' } },
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'sl-SI' }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

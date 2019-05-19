@@ -28,30 +28,3 @@ body {
   background-color: $color--main-background;
   box-sizing: border-box;
 }
-
-.cdk-overlay-dark-backdrop {
-  background-color: rgba(0, 4, 60, 0.4);
-}
-
-.mat-stepper-horizontal-line {
-  display: none;
-}
-
-.mat-form-field-appearance-legacy .mat-form-field-wrapper {
-  padding-bottom: 0;
-}
-
-.mat-form-field-appearance-legacy .mat-form-field-underline {
-  display: none;
-}
-
-.mat-form-field-appearance-legacy .mat-form-field-infix {
-  padding: 5px 0;
-  border-top: 0  none;
-}
-
-:host-context(.dialog-wizard) {
-  .mat-horizontal-content-container {
-    padding: 0;
-  }
-}

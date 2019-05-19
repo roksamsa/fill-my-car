@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { AuthService } from './core/auth/auth.service';
 import { HeaderService } from '../app/components/header/header.service';
@@ -40,11 +41,13 @@ export class AppComponent implements OnInit {
   userMenuVisibility: boolean;
 
   constructor(
+    private adapter: DateAdapter<any>,
     private authService: AuthService,
     private headerData: HeaderService) {
   }
 
   ngOnInit() {
+    this.adapter.setLocale('sl');
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
   }
 

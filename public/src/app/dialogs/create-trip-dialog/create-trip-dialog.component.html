@@ -9,82 +9,119 @@
 
 <div class="popup__content">
   <mat-dialog-content>
-    <mat-horizontal-stepper class="dialog-wizard" [linear]="isLinear" #stepper>
-      <mat-step [stepControl]="firstFormGroup">
+    <mat-horizontal-stepper class="popup__wizard" [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="addTripFormStep1">
         <ng-template matStepLabel>Potek vožnje</ng-template>
-        <form [formGroup]="createForm" class="create-form">
-          <mat-form-field class="create-form__field">
-            <input (keyup)="valueChangeStartDestination($event)" matInput placeholder="tripFromLocation"
-              formControlName="tripFromLocation" #tripFromLocation [matAutocomplete]="matAutocompleteStart">
-          </mat-form-field>
+        <form [formGroup]="addTripFormStep1" class="form">
 
-          <mat-autocomplete #matAutocompleteStart="matAutocomplete"
-            (optionSelected)="selectStartLocationSuggestion($event.option.value)">
-            <mat-option *ngFor="let hereMapsLocation of locationStartSuggestions"
-              [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}</mat-option>
-          </mat-autocomplete>
+          <section class="form__row form__row--2-input-fields">
+            <div class="form__input">
+              <label class="form__label">Odhod iz</label>
+              <mat-form-field class="form__field">
+                <input (keyup)="valueChangeStartDestination($event)" matInput
+                  placeholder="Ljubljana, Maribor, Koper, ..." formControlName="tripFromLocation" #tripFromLocation
+                  [matAutocomplete]="matAutocompleteStart">
+              </mat-form-field>
+            </div>
 
-          <mat-form-field class="create-form__field">
-            <input (keyup)="valueChangeFinishDestination($event)" matInput placeholder="tripToLocation"
-              formControlName="tripToLocation" #tripToLocation [matAutocomplete]="matAutocompleteFinish">
-          </mat-form-field>
+            <mat-autocomplete #matAutocompleteStart="matAutocomplete"
+              (optionSelected)="selectStartLocationSuggestion($event.option.value)">
+              <mat-option *ngFor="let hereMapsLocation of locationStartSuggestions"
+                [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}
+              </mat-option>
+            </mat-autocomplete>
 
-          <mat-autocomplete #matAutocompleteFinish="matAutocomplete"
-            (optionSelected)="selectFinishLocationSuggestion($event.option.value)">
-            <mat-option *ngFor="let hereMapsLocation of locationFinishSuggestions"
-              [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}</mat-option>
-          </mat-autocomplete>
+            <div class="form__button form__button--just-icon form__button--space-left-right"
+              (click)="swapStartFinishLocation()">
+              <svg class="form__svg-icon form__svg-icon--change-arrows" xmlns="http://www.w3.org/2000/svg" width="24"
+                height="18.667" viewBox="0 0 24 18.667">
+                <path d="M5.333,0,0,5.32H4v9.347H6.667V5.32h4Zm9.333,18.68V9.333H12V18.68H8L13.333,24l5.333-5.32Z"
+                  transform="translate(24) rotate(90)" /></svg>
+            </div>
 
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="tripDateAndTime" formControlName="tripDateAndTime"
-              #tripDateAndTime>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+            <div class="form__input">
+              <label class="form__label">Prihod v</label>
+              <mat-form-field class="form__field">
+                <input (keyup)="valueChangeFinishDestination($event)" matInput
+                  placeholder="Ljubljana, Maribor, Koper, ..." formControlName="tripToLocation" #tripToLocation
+                  [matAutocomplete]="matAutocompleteFinish">
+              </mat-form-field>
+            </div>
 
-          <mat-form-field class="create-form__field">
+            <mat-autocomplete #matAutocompleteFinish="matAutocomplete"
+              (optionSelected)="selectFinishLocationSuggestion($event.option.value)">
+              <mat-option *ngFor="let hereMapsLocation of locationFinishSuggestions"
+                [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}
+              </mat-option>
+            </mat-autocomplete>
+          </section>
+
+          <section class="form__row form__row--2-input-fields">
+            <div class="form__input">
+              <mat-checkbox class="example-margin">Ustavljam v krajih na poti do cilja po dogovoru z iskalci prevoza.
+              </mat-checkbox>
+            </div>
+          </section>
+
+          <div class="form__row form__row--2-input-fields">
+            <div class="form__input">
+              <label class="form__label">Datum in ura odhoda</label>
+              <mat-form-field class="form__field">
+                <input matInput [matDatepicker]="picker" placeholder="Datum ..." formControlName="tripDateAndTime"
+                  #tripDateAndTime>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker startAt="{{curDate | date:'dd. MM yyyy'}}" weekStartsOn="1" #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="form__input">
+              <mat-form-field class="form__field">
+                <input (keyup)="valueChangeFinishDestination($event)" matInput placeholder="Čas odhoda ..."
+                  formControlName="tripToLocation" #tripToLocation [matAutocomplete]="matAutocompleteFinish">
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="addTripFormStep2">
+        <form [formGroup]="addTripFormStep2">
+          <ng-template matStepLabel>Podrobnosti</ng-template>
+
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripCategory" formControlName="tripCategory" #tripCategory>
           </mat-form-field>
 
-          <mat-form-field class="create-form__field">
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripCO2Emissions" formControlName="tripCO2Emissions" #tripCO2Emissions>
           </mat-form-field>
 
-          <mat-form-field class="create-form__field">
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripDistance" formControlName="tripDistance" #tripDistance>
           </mat-form-field>
 
-          <mat-form-field class="create-form__field">
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripDuration" formControlName="tripDuration" #tripDuration>
           </mat-form-field>
 
-          <mat-form-field class="create-form__field">
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripFreeSeats" formControlName="tripFreeSeats" #tripFreeSeats>
           </mat-form-field>
 
-          <mat-form-field class="create-form__field">
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripPrice" formControlName="tripPrice" #tripPrice>
           </mat-form-field>
 
-          <mat-form-field class="create-form__field">
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripLuggageSpace" formControlName="tripLuggageSpace" #tripLuggageSpace>
           </mat-form-field>
 
-          <mat-form-field class="create-form__field">
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripComfortable" formControlName="tripComfortable" #tripComfortable>
           </mat-form-field>
 
-          <mat-form-field class="create-form__field">
+          <mat-form-field class="form__field">
             <input matInput placeholder="tripNewPassengersAcceptance" formControlName="tripNewPassengersAcceptance"
               #tripNewPassengersAcceptance>
-          </mat-form-field>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Podrobnosti</ng-template>
-          <mat-form-field>
-            <input matInput placeholder="Address" formControlName="secondCtrl" required>
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
@@ -92,7 +129,7 @@
           </div>
         </form>
       </mat-step>
-      <mat-step>
+      <mat-step [stepControl]="addTripFormStep3">
         <ng-template matStepLabel>Zaključek</ng-template>
         You are now done.
         <div>
@@ -103,8 +140,14 @@
     </mat-horizontal-stepper>
   </mat-dialog-content>
 
-  <!--<app-map-box [mapBoxFromDestination]="mapBoxFromDestination" [mapBoxToDestination]="mapBoxToDestination"></app-map-box>-->
-  <app-here-maps [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
+  <div class="here-maps__wrapper">
+    <app-preloading-spinner [visibility]="preloadingSpinnerVisibility"
+                            [diameter]="preloadingSpinnerDiameter"
+                            [strokeWidth]="preloadingSpinnerStrokeWidth"
+                            [mode]="preloadingSpinnerMode">
+      <app-here-maps [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
+    </app-preloading-spinner>
+  </div>
 </div>
 
 <mat-dialog-actions>

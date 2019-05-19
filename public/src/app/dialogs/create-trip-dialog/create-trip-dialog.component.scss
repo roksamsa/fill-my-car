@@ -40,10 +40,14 @@
 
 .mat-dialog-content {
   display: flex;
+  margin: 0 24px 0 0;
+  padding: 0;
+  overflow: unset;
 }
 
 .mat-dialog-actions {
   justify-content: flex-end;
+  min-height: auto;
   margin: 20px 0 0 0;
   padding: 0;
 }

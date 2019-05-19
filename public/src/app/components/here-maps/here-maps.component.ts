@@ -11,13 +11,13 @@ declare var H: any;
 
 export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
-  mapUI: any;
   private map: any;
+  hereMapUI: any;
   hereMapRouteStartLat: any;
   hereMapRouteStartLng: any;
   hereMapRouteFinishLat: any;
   hereMapRouteFinishLng: any;
-  defaultBounds = new H.geo.Rect(42.3736, -71.0751, 42.3472, -71.0408);
+  hereMapDefaultBounds = new H.geo.Rect(42.3736, -71.0751, 42.3472, -71.0408);
 
   @ViewChild('hereMaps') mapElement: ElementRef;
   @Input() hereMapCenterLAT: any = '50.1120423728813';
@@ -45,7 +45,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
     const mapEvents = new H.mapevents.MapEvents(this.map);
     const behavior = new H.mapevents.Behavior(mapEvents);
-    this.mapUI = H.ui.UI.createDefault(this.map, defaultLayers);
+    this.hereMapUI = H.ui.UI.createDefault(this.map, defaultLayers);
     this.map.setCenter({lat: 46.119944, lng: 14.815333}); // Center is GEOSS
     this.map.setZoom(7.2);
   }
@@ -114,7 +114,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
     } else {
       if (this.map) {
         this.map.removeObjects(this.map.getObjects());
-        this.map.setViewBounds(this.defaultBounds.getBounds());
+        this.map.setViewBounds(this.hereMapDefaultBounds.getBounds());
       }
     }
   }

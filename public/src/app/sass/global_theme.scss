@@ -1,6 +1,8 @@
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
+@import './global_variables';
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -10,10 +12,10 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $candy-app-primary: mat-palette($mat-indigo);
-$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$candy-app-warn:    mat-palette($mat-red);
+$candy-app-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
@@ -22,3 +24,94 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($candy-app-theme);
+
+.cdk-overlay-dark-backdrop {
+  background-color: rgba(0, 4, 60, 0.4);
+}
+
+.mat-stepper-horizontal-line {
+  display: none;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  height: 100%;
+  padding-bottom: 0;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  display: none;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: 5px 0;
+  border-top: 0  none;
+}
+
+// Angular Material Stepper component
+.mat-horizontal-stepper-header-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.mat-step-header.mat-horizontal-stepper-header {
+  padding: 0 24px;
+}
+
+.popup__wizard {
+  .mat-horizontal-content-container {
+    padding: 0;
+    overflow: unset;
+  }
+
+  .mat-horizontal-stepper-header {
+    height: 56px;
+  }
+}
+
+// Angular Material Input field component
+.form__field {
+  .mat-form-field-infix {
+    padding: 14px;
+    color: $color__blue--primary;
+  }
+
+  .mat-form-field-suffix {
+    right: 14px;
+
+    &:hover {
+      .mat-datepicker-toggle {
+        color: $color__pink--primary;
+      }
+    }
+  }
+
+  .mat-datepicker-toggle {
+    transition: color 200ms ease-in-out;
+    color: $color__blue--primary;
+  }
+
+  &.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+    width: 20px;
+  }
+
+  .mat-form-field-label-wrapper {
+    display: flex;
+    align-items: center;
+    top: 0;
+    padding-top: 0;
+  }
+
+  .mat-form-field-label {
+    position: static;
+    padding-left: 14px;
+  }
+
+  .mat-input-element {
+    @include font-titillium-semibold;
+  }
+}
+
+.mat-form-field {
+  height: 44px;
+}

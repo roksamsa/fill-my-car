@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, Input, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TripService } from '../../core/trip/trip.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
@@ -16,7 +16,9 @@ import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-da
 })
 export class CreateTripDialogComponent implements OnInit {
 
-  createForm: FormGroup;
+  addTripFormStep1: FormGroup;
+  addTripFormStep2: FormGroup;
+  addTripFormStep3: FormGroup;
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
   tripIdTagCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -36,13 +38,62 @@ export class CreateTripDialogComponent implements OnInit {
   locationFinishSuggestions: any;
   locationFinishSelected: any;
 
-  constructor (
+  curDate = new Date();
+
+  @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
+  @ViewChild('tripToLocation') tripToLocation: ElementRef;
+  @ViewChild('swapLocationButton') swapLocationButton: ElementRef;
+  @ViewChild('hereMapLoading') preloadingSpinnerVisibility: ElementRef;
+
+  preloadingSpinnerDiameter = 42;
+  preloadingSpinnerStrokeWidth = 5;
+  preloadingSpinnerMode = 'indeterminate';
+
+  constructor(
     public authService: AuthService,
     private tripService: TripService,
     public hereMap: HereMapsService,
-    private fb: FormBuilder,
+    private form: FormBuilder,
     public thisDialogRef: MatDialogRef<CreateTripDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
-    this.createForm = this.fb.group({
+    this.addTripFormStep1 = this.form.group({
+      belongsToUser: '',
+      selectedVehicle: ['', Validators.required],
+      tripIdTag: '',
+      tripStatus: '',
+      tripFromLocation: '',
+      tripToLocation: '',
+      tripDateAndTime: '',
+      tripStopsOnTheWayToFinalDestination: '',
+      tripCategory: '',
+      tripCO2Emissions: '',
+      tripDistance: '',
+      tripDuration: '',
+      tripFreeSeats: '',
+      tripPrice: '',
+      tripLuggageSpace: '',
+      tripComfortable: '',
+      tripNewPassengersAcceptance: ''
+    });
+    this.addTripFormStep2 = this.form.group({
+      belongsToUser: '',
+      selectedVehicle: ['', Validators.required],
+      tripIdTag: '',
+      tripStatus: '',
+      tripFromLocation: '',
+      tripToLocation: '',
+      tripDateAndTime: '',
+      tripStopsOnTheWayToFinalDestination: '',
+      tripCategory: '',
+      tripCO2Emissions: '',
+      tripDistance: '',
+      tripDuration: '',
+      tripFreeSeats: '',
+      tripPrice: '',
+      tripLuggageSpace: '',
+      tripComfortable: '',
+      tripNewPassengersAcceptance: ''
+    });
+    this.addTripFormStep3 = this.form.group({
       belongsToUser: '',
       selectedVehicle: ['', Validators.required],
       tripIdTag: '',
@@ -64,6 +115,7 @@ export class CreateTripDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.preloadingSpinnerVisibility);
     console.log('My trip ID: ' + this.createTripIdTag(10));
   }
 
@@ -104,6 +156,23 @@ export class CreateTripDialogComponent implements OnInit {
     this.hereMapFinish = value;
   }
 
+  // Change Start for Finish location
+  swapStartFinishLocation() {
+    const data1 = this.tripFromLocation.nativeElement.value;
+    const data2 = this.tripToLocation.nativeElement.value;
+
+    if (this.tripFromLocation.nativeElement !== undefined || this.tripToLocation.nativeElement !== undefined) {
+      this.tripFromLocation.nativeElement.value = data2;
+      this.tripToLocation.nativeElement.value = data1;
+      this.hereMapStart = data2;
+      this.hereMapFinish = data1;
+      this.swapLocationButton.nativeElement.onclick = this.swapStartFinishLocation();
+    } else {
+      console.log('Empty as hell :D');
+    }
+  }
+
+  // Generate random ID for trip
   createTripIdTag(length: number) {
     let tripIdTag = '';
     for (let i = 0; i < length; i++) {
@@ -143,7 +212,7 @@ export class CreateTripDialogComponent implements OnInit {
   }
 
   // Add vehicle on popup close
-  addTrip (
+  addTrip(
     belongsToUser: String,
     selectedVehicle: String,
     tripIdTag: String,
@@ -156,7 +225,7 @@ export class CreateTripDialogComponent implements OnInit {
     tripCO2Emissions: Number,
     tripDistance: Number,
     tripDuration: Number,
-    tripFreeSeats:  Number,
+    tripFreeSeats: Number,
     tripPrice: Number,
     tripLuggageSpace: Number,
     tripComfortable: Boolean,
@@ -181,23 +250,23 @@ export class CreateTripDialogComponent implements OnInit {
       tripNewPassengersAcceptance).subscribe(() => {
         this.thisDialogRef.close('Confirm');
       });
-      console.log(belongsToUser,
-        selectedVehicle,
-        tripIdTag = this.createTripIdTag(10),
-        tripStatus,
-        tripFromLocation,
-        tripToLocation,
-        tripDateAndTime,
-        tripStopsOnTheWayToFinalDestination,
-        tripCategory,
-        tripCO2Emissions,
-        tripDistance,
-        tripDuration,
-        tripFreeSeats,
-        tripPrice,
-        tripLuggageSpace,
-        tripComfortable,
-        tripNewPassengersAcceptance);
+    console.log(belongsToUser,
+      selectedVehicle,
+      tripIdTag = this.createTripIdTag(10),
+      tripStatus,
+      tripFromLocation,
+      tripToLocation,
+      tripDateAndTime,
+      tripStopsOnTheWayToFinalDestination,
+      tripCategory,
+      tripCO2Emissions,
+      tripDistance,
+      tripDuration,
+      tripFreeSeats,
+      tripPrice,
+      tripLuggageSpace,
+      tripComfortable,
+      tripNewPassengersAcceptance);
   }
 
   // Cancel adding vehicle on popup close

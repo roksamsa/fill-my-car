@@ -9,6 +9,7 @@ export class HereMapsService {
 
   appId = 'Y24GW4waR5Z72Hqxj3PT';
   appCode = '-coOP6S8RnEsWPuHwc9lHA';
+  hereMapLoading: boolean;
 
   public queryCountry = 'Slovenija';
   public platform: any;
@@ -39,6 +40,7 @@ export class HereMapsService {
             reject({ message: 'No results found' });
           }
         } else {
+          this.hereMapLoading = false;
           reject({ message: 'No results found' });
         }
       }, error => {

@@ -1,0 +1,9 @@
+<div class="preloading-spinner">
+  <ng-content></ng-content>
+  <div *ngIf="visibility" class="preloading-spinner__wrapper">
+    <mat-progress-spinner class="preloading-spinner__loader"
+                          [mode]="mode"
+                          [diameter]="diameter"
+                          [strokeWidth]=[strokeWidth]></mat-progress-spinner>
+  </div>
+</div>
