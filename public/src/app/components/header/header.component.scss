@@ -174,6 +174,10 @@ $header__shadow-color: rgba(48, 26, 138, .2);
 
     &:hover {
       background-color: rgba(207, 216, 232, 0.3);
+
+      .header__create-button-icon {
+        fill: $color__pink--primary;
+      }
     }
 
     &--rotated {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 declare var H: any;
 
@@ -9,7 +10,9 @@ export class HereMapsService {
 
   appId = 'Y24GW4waR5Z72Hqxj3PT';
   appCode = '-coOP6S8RnEsWPuHwc9lHA';
-  hereMapLoading: boolean;
+
+  private hereMapsLoadingState = new BehaviorSubject(false);
+  hereMapLoading = this.hereMapsLoadingState.asObservable();
 
   public queryCountry = 'Slovenija';
   public platform: any;
@@ -29,6 +32,10 @@ export class HereMapsService {
     this.geocoder = this.platform.getGeocodingService();
   }
 
+  isHereMapsLoading(hereMapsLoading: boolean) {
+    this.hereMapsLoadingState.next(hereMapsLoading);
+  }
+
   // Get coordinates for Location string query
   public getCoordinates(query: string) {
     return new Promise((resolve, reject) => {
@@ -40,7 +47,7 @@ export class HereMapsService {
             reject({ message: 'No results found' });
           }
         } else {
-          this.hereMapLoading = false;
+          this.hereMapsLoadingState.next(false);
           reject({ message: 'No results found' });
         }
       }, error => {

@@ -88,6 +88,10 @@ $tile__border-radius: 3px;
 
     &:hover {
       background-color: rgba(207, 216, 232, 0.3);
+
+      .tile__headline-button-icon {
+        fill: $color__pink--primary;
+      }
     }
   }
 

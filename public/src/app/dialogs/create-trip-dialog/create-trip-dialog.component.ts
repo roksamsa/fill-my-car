@@ -43,11 +43,12 @@ export class CreateTripDialogComponent implements OnInit {
   @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
   @ViewChild('tripToLocation') tripToLocation: ElementRef;
   @ViewChild('swapLocationButton') swapLocationButton: ElementRef;
-  @ViewChild('hereMapLoading') preloadingSpinnerVisibility: ElementRef;
 
   preloadingSpinnerDiameter = 42;
   preloadingSpinnerStrokeWidth = 5;
   preloadingSpinnerMode = 'indeterminate';
+
+  preloadingSpinnerVisibility: boolean;
 
   constructor(
     public authService: AuthService,
@@ -115,6 +116,7 @@ export class CreateTripDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.hereMap.hereMapLoading.subscribe(message => this.preloadingSpinnerVisibility = message);
     console.log(this.preloadingSpinnerVisibility);
     console.log('My trip ID: ' + this.createTripIdTag(10));
   }

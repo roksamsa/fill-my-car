@@ -4,6 +4,25 @@
   &__field {
     background-color: $color__blue--lighter;
     border-radius: 3px;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      border-radius: 3px;
+      border: 2px solid $color__blue--primary;
+      transition: opacity 200ms ease-in-out;
+      opacity: 0;
+      content: '';
+    }
+
+    &:hover {
+      &::before {
+        opacity: 1;
+      }
+    }
   }
 
   &__row {
@@ -28,6 +47,14 @@
   &__input {
     display: flex;
     flex-direction: column;
+
+    &--without-label {
+      justify-content: flex-end;
+    }
+
+    &--space-left {
+      margin-left: 40px;
+    }
   }
 
   &__button {
@@ -38,6 +65,8 @@
     width: 44px;
     height: 44px;;
     cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 200ms ease-in-out;
 
     &--space-left-right {
       margin-left: 15px;
@@ -45,6 +74,8 @@
     }
 
     &:hover {
+      background-color: $color__blue--lightest;
+
       .form__svg-icon {
         fill: $color__pink--primary;
       }

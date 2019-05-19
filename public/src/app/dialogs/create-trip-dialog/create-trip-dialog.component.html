@@ -74,10 +74,9 @@
               </mat-form-field>
             </div>
 
-            <div class="form__input">
+            <div class="form__input form__input--without-label form__input--space-left">
               <mat-form-field class="form__field">
-                <input (keyup)="valueChangeFinishDestination($event)" matInput placeholder="Čas odhoda ..."
-                  formControlName="tripToLocation" #tripToLocation [matAutocomplete]="matAutocompleteFinish">
+                <input matInput placeholder="Čas odhoda ..." formControlName="tripTime" #tripTime>
               </mat-form-field>
             </div>
           </div>

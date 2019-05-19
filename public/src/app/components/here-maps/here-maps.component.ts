@@ -56,7 +56,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
   hereMapsRoute(start: string, finish: string) {
     if (start !== '' || finish !== '') {
-      if (this.map) {
+      if (this.map.getObjects()) {
         this.map.removeObjects(this.map.getObjects());
       }
       this.hereMap.getCoordinatesforRoute(start, finish).then(geocoderResult => {
@@ -81,6 +81,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
         this.hereMap.router.calculateRoute(routeParameters, data => {
           if (data.response) {
+            this.hereMap.isHereMapsLoading(false);
             this.hereMap.directions = data.response.route[0].leg[0].maneuver;
             data = data.response.route[0];
             const lineString = new H.geo.LineString();
@@ -95,17 +96,24 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
                 lineCap: 'round'
               }
             });
+
+            const startMarkerIcon = new H.map.Icon('assets/icons/icon-map-start-pin.svg');
+            const finishMarkerIcon = new H.map.Icon('assets/icons/icon-map-finish-pin.svg');
+
             const startMarker = new H.map.Marker({
               lat: this.hereMapRouteStartLat,
               lng: this.hereMapRouteStartLng
-            });
+            }, {icon: startMarkerIcon});
 
+            console.log(finishMarkerIcon);
             const finishMarker = new H.map.Marker({
               lat: this.hereMapRouteFinishLat,
               lng: this.hereMapRouteFinishLng
-            });
+            }, {icon: finishMarkerIcon});
             this.map.addObjects([startMarker, finishMarker, routeLine]);
             this.map.setViewBounds(routeLine.getBounds());
+          } else {
+            this.hereMap.isHereMapsLoading(true);
           }
         }, error => {
           console.error(error);
