@@ -71,13 +71,31 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 
 // Angular Material Input field component
 .form__field {
+  .mat-form-field-flex {
+    height: 100%;
+    align-items: center;
+  }
+
   .mat-form-field-infix {
+    padding: 0;
+  }
+
+  .mat-input-element {
     padding: 14px;
     color: $color__blue--primary;
   }
 
+  .mat-icon-button {
+    height: unset;
+    width: unset;
+    padding: 10px;
+  }
+
   .mat-form-field-suffix {
-    right: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 
     &:hover {
       .mat-datepicker-toggle {

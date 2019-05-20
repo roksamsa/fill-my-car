@@ -60,7 +60,7 @@ export class UserMenuComponent implements OnInit {
   userMenuVisibility: boolean;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private headerData: HeaderService) {
   }
 

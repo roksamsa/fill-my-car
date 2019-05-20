@@ -50,6 +50,8 @@ export class CreateTripDialogComponent implements OnInit {
 
   preloadingSpinnerVisibility: boolean;
 
+  date = new Date(Date.now());
+
   constructor(
     public authService: AuthService,
     private tripService: TripService,

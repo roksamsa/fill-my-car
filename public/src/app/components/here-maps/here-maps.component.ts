@@ -97,15 +97,14 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
               }
             });
 
-            const startMarkerIcon = new H.map.Icon('assets/icons/icon-map-start-pin.svg');
-            const finishMarkerIcon = new H.map.Icon('assets/icons/icon-map-finish-pin.svg');
+            const startMarkerIcon = new H.map.Icon('assets/icons/icon-map-start-pin.svg', {size: {w: 18, h: 18}});
+            const finishMarkerIcon = new H.map.Icon('assets/icons/icon-map-finish-pin.svg', {anchor: {x: 20, y: 36}});
 
             const startMarker = new H.map.Marker({
               lat: this.hereMapRouteStartLat,
               lng: this.hereMapRouteStartLng
             }, {icon: startMarkerIcon});
 
-            console.log(finishMarkerIcon);
             const finishMarker = new H.map.Marker({
               lat: this.hereMapRouteFinishLat,
               lng: this.hereMapRouteFinishLng

@@ -9,7 +9,7 @@
 
 <div class="popup__content">
   <mat-dialog-content>
-    <mat-horizontal-stepper class="popup__wizard" [linear]="isLinear" #stepper>
+    <mat-horizontal-stepper class="popup__wizard" #stepper>
       <mat-step [stepControl]="addTripFormStep1">
         <ng-template matStepLabel>Potek vožnje</ng-template>
         <form [formGroup]="addTripFormStep1" class="form">
@@ -152,5 +152,5 @@
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button mat-raised-button class="button button--primary"
-    (click)="addTrip(authService.userData.uid, '5cc9a86bd5fd5b3c34b3083e', 'Active', '3r34f45f', tripFromLocation.value, tripToLocation.value, '2012-04-23T18:25:43.511Z', true, tripCategory.value, tripCO2Emissions.value, tripDistance.value, tripDuration.value, tripFreeSeats.value, tripPrice.value, tripLuggageSpace.value, tripComfortable.value, tripNewPassengersAcceptance.value)">Shrani</button>
+    (click)="addTrip(authService.userData.uid, '5cc9a86bd5fd5b3c34b3083e', 'Active', '3r34f45f', tripFromLocation.value, tripToLocation.value, date, true, tripCategory.value, tripCO2Emissions.value, tripDistance.value, tripDuration.value, tripFreeSeats.value, tripPrice.value, tripLuggageSpace.value, tripComfortable.value, tripNewPassengersAcceptance.value)">Shrani</button>
 </mat-dialog-actions>

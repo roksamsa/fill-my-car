@@ -82,7 +82,7 @@ export class HeaderComponent implements OnInit {
   createButtonTooltipText: String = 'Dodaj novo vozilo ali potovanje';
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private headerData: HeaderService,
     private popupTrip: MatDialog,
     public router: Router,
