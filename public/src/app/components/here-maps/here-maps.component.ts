@@ -25,9 +25,11 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() hereMapStart: any;
   @Input() hereMapFinish: any;
 
-  constructor(public hereMap: HereMapsService) { }
+  constructor(public hereMap: HereMapsService) {
+  }
 
   ngOnInit() {
+    this.hereMap.isHereMapsLoading(true);
   }
 
   ngAfterViewInit() {
@@ -48,10 +50,17 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
     this.hereMapUI = H.ui.UI.createDefault(this.map, defaultLayers);
     this.map.setCenter({lat: 46.119944, lng: 14.815333}); // Center is GEOSS
     this.map.setZoom(7.2);
+    setTimeout(() => {
+      this.hereMap.isHereMapsLoading(false);
+    }, 1000);
   }
 
   ngOnChanges() {
     this.hereMapsRoute(this.hereMapStart, this.hereMapFinish);
+    this.hereMap.isHereMapsLoading(true);
+    setTimeout(() => {
+      this.hereMap.isHereMapsLoading(false);
+    }, 1000);
   }
 
   hereMapsRoute(start: string, finish: string) {
