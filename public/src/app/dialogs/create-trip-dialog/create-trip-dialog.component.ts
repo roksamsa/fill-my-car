@@ -131,15 +131,14 @@ export class CreateTripDialogComponent implements OnInit {
 
   showStartLocationSuggestions(location) {
     const queryLocationStart = this.hereMap.getCoordinates(location);
-    console.log(this.hereMap.getCoordinates(location));
     return Promise.all([queryLocationStart]).then(geocoderResult => {
       this.locationStartSuggestions = geocoderResult[0];
-      console.log(this.hereMap.getCoordinates(location));
     });
   }
 
-  selectStartLocationSuggestion(value) {
-    this.hereMapStart = value;
+  selectStartLocationSuggestion(selectedStartLocation) {
+    this.hereMapStart = selectedStartLocation.value;
+    console.log(this.hereMapStart);
   }
 
   // Finish location selection
@@ -150,14 +149,13 @@ export class CreateTripDialogComponent implements OnInit {
 
   showFinishLocationSuggestions(location) {
     const queryLocationFinish = this.hereMap.getCoordinates(location);
-    console.log(this.hereMap.getCoordinates(location));
     return Promise.all([queryLocationFinish]).then(geocoderResult => {
       this.locationFinishSuggestions = geocoderResult[0];
     });
   }
 
-  selectFinishLocationSuggestion(value) {
-    this.hereMapFinish = value;
+  selectFinishLocationSuggestion(selectedFinishLocation) {
+    this.hereMapFinish = selectedFinishLocation.value;
   }
 
   // Change Start for Finish location
@@ -172,7 +170,7 @@ export class CreateTripDialogComponent implements OnInit {
       this.hereMapFinish = data1;
       this.swapLocationButton.nativeElement.onclick = this.swapStartFinishLocation();
     } else {
-      console.log('Empty as hell :D');
+      console.log('Empty as hell :D'); // TODO
     }
   }
 

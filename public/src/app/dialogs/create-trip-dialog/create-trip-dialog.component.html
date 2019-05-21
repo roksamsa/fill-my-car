@@ -49,7 +49,7 @@
             </div>
 
             <mat-autocomplete #matAutocompleteFinish="matAutocomplete"
-              (optionSelected)="selectFinishLocationSuggestion($event.option.value)">
+              (optionSelected)="selectFinishLocationSuggestion($event)">
               <mat-option *ngFor="let hereMapsLocation of locationFinishSuggestions"
                 [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}
               </mat-option>
