@@ -70,6 +70,7 @@ import { EmptyDataComponent } from './components/empty-data/empty-data.component
 import { HereMapsComponent } from './components/here-maps/here-maps.component';
 import { CustomDateAdapter, MY_DATE_FORMATS } from './core/other/date-picker.module';
 import { PreloadingSpinnerComponent } from './components/preloading-spinner/preloading-spinner.component';
+import { NumberPickerComponent } from './components/number-picker/number-picker.component';
 
 const routes: Routes = [
   { path: 'edit/:id', component: EditVehicleDialogComponent, canActivate: [AuthGuard] },
@@ -110,7 +111,8 @@ const routes: Routes = [
     TripsListComponent,
     EmptyDataComponent,
     HereMapsComponent,
-    PreloadingSpinnerComponent
+    PreloadingSpinnerComponent,
+    NumberPickerComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

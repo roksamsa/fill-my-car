@@ -32,9 +32,9 @@ export class CreateTripDialogComponent implements OnInit {
   hereMapFinish = '';
 
   locationStartSuggestions: any;
-  locationStartInput: any;
+  locationStartInputValue: any;
   locationStartSelected: any;
-  locationFinishInput: any;
+  locationFinishInputValue: any;
   locationFinishSuggestions: any;
   locationFinishSelected: any;
 
@@ -119,43 +119,43 @@ export class CreateTripDialogComponent implements OnInit {
 
   ngOnInit() {
     this.hereMap.hereMapLoading.subscribe(message => this.preloadingSpinnerVisibility = message);
-    console.log(this.preloadingSpinnerVisibility);
     console.log('My trip ID: ' + this.createTripIdTag(10));
   }
 
-  // Start location selection
+  // START LOCATION SELECTION
+  // [1] Get input value for start destintaion
   valueChangeStartDestination(event) {
-    this.locationStartInput = event.target.value;
-    this.showStartLocationSuggestions(this.locationStartInput);
+    this.locationStartInputValue = event.target.value;
+    this.showStartLocationSuggestions(this.locationStartInputValue);
   }
 
+  // [2] Show start location suggestions
   showStartLocationSuggestions(location) {
-    const queryLocationStart = this.hereMap.getCoordinates(location);
-    return Promise.all([queryLocationStart]).then(geocoderResult => {
-      this.locationStartSuggestions = geocoderResult[0];
+    this.hereMap.getCoordinates(location).then(geocoderResult => {
+      this.locationStartSuggestions = geocoderResult;
     });
   }
 
   selectStartLocationSuggestion(selectedStartLocation) {
-    this.hereMapStart = selectedStartLocation.value;
-    console.log(this.hereMapStart);
+    this.hereMapStart = selectedStartLocation;
   }
 
-  // Finish location selection
+  // FINISH LOCATION SELECTION
+  // [1] Get input value for finish destintaion
   valueChangeFinishDestination(event) {
-    this.locationFinishInput = event.target.value;
-    this.showFinishLocationSuggestions(this.locationFinishInput);
+    this.locationFinishInputValue = event.target.value;
+    this.showFinishLocationSuggestions(this.locationFinishInputValue);
   }
 
+  // [2] Show finish location suggestions
   showFinishLocationSuggestions(location) {
-    const queryLocationFinish = this.hereMap.getCoordinates(location);
-    return Promise.all([queryLocationFinish]).then(geocoderResult => {
-      this.locationFinishSuggestions = geocoderResult[0];
+    this.hereMap.getCoordinates(location).then(geocoderResult => {
+      this.locationFinishSuggestions = geocoderResult;
     });
   }
 
   selectFinishLocationSuggestion(selectedFinishLocation) {
-    this.hereMapFinish = selectedFinishLocation.value;
+    this.hereMapFinish = selectedFinishLocation;
   }
 
   // Change Start for Finish location

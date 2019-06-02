@@ -49,7 +49,7 @@
             </div>
 
             <mat-autocomplete #matAutocompleteFinish="matAutocomplete"
-              (optionSelected)="selectFinishLocationSuggestion($event)">
+              (optionSelected)="selectFinishLocationSuggestion($event.option.value)">
               <mat-option *ngFor="let hereMapsLocation of locationFinishSuggestions"
                 [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}
               </mat-option>
@@ -76,6 +76,7 @@
 
             <div class="form__input form__input--without-label form__input--space-left">
               <mat-form-field class="form__field">
+                <app-number-picker></app-number-picker>
                 <input matInput placeholder="Čas odhoda ..." formControlName="tripTime" #tripTime>
               </mat-form-field>
             </div>

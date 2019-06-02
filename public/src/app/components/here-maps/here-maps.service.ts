@@ -39,10 +39,16 @@ export class HereMapsService {
   // Get coordinates for Location string query
   public getCoordinates(query: string) {
     return new Promise((resolve, reject) => {
+      const searchQuery = query;
       this.geocoder.geocode({ searchText: query }, result => {
-        console.log(result.Response);
-        if (result.Response.View[0].Result.length > 0) {
-          resolve(result.Response.View[0].Result);
+        console.log(searchQuery);
+        console.log(result);
+        if (result.Response.View.length > 0) {
+          if (result.Response.View[0].Result.length > 0) {
+            resolve(result.Response.View[0].Result);
+          } else {
+            reject({ message: 'No results found' });
+          }
         } else {
           reject({ message: 'No results found' });
         }
@@ -54,11 +60,32 @@ export class HereMapsService {
 
   // Get coordinates for Route from Start & Finish locations
   public getCoordinatesforRoute(queryStartLocation: string, queryFinishLocation: string) {
-    const queryLocationStart = this.getCoordinates(queryStartLocation);
-    const queryLocationFinish = this.getCoordinates(queryFinishLocation);
-
-    return Promise.all([queryLocationStart, queryLocationFinish]).then(geocoderResult => {
-      return geocoderResult;
+    this.getCoordinates(queryStartLocation).then(geocoderResult1 => {
+      return geocoderResult1;
     });
+    /*const queryLocationStart = this.getCoordinates(queryStartLocation);
+    const queryLocationFinish = this.getCoordinates(queryFinishLocation);*/
+
+    /*if (queryLocationStart && !queryLocationFinish) {
+      return queryLocationStart.then(geocoderResult => {
+        console.log(geocoderResult);
+        return geocoderResult;
+      });
+    } else if (!queryLocationStart && queryLocationFinish) {
+      return queryLocationFinish.then(geocoderResult => {
+        console.log(geocoderResult);
+        return geocoderResult;
+      });
+    } else {
+      return Promise.all([queryLocationStart, queryLocationFinish]).then(geocoderResult => {
+        console.log(geocoderResult);
+        return geocoderResult;
+      });
+    }*/
+
+    /*return Promise.all([queryLocationStart, queryLocationFinish]).then(geocoderResult => {
+      console.log(geocoderResult);
+      return geocoderResult;
+    });*/
   }
 }

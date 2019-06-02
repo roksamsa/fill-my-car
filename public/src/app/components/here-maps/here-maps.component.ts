@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnChanges, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import { HereMapsService } from './here-maps.service';
 
 declare var H: any;
@@ -60,6 +60,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges() {
     this.hereMapsRoute(this.hereMapStart, this.hereMapFinish);
     this.hereMap.isHereMapsLoading(true);
+
     setTimeout(() => {
       this.hereMap.isHereMapsLoading(false);
     }, 1000);
@@ -70,11 +71,97 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
       if (this.map.getObjects()) {
         this.map.removeObjects(this.map.getObjects());
       }
-      this.hereMap.getCoordinatesforRoute(start, finish).then(geocoderResult => {
+      this.hereMap.getCoordinates(start).then(geocoderResult1 => {
+        this.hereMapRouteStartLat = geocoderResult1[0].Location.DisplayPosition.Latitude;
+        this.hereMapRouteStartLng = geocoderResult1[0].Location.DisplayPosition.Longitude;
+
+        // Start marker
+        const startMarker = new H.map.Marker({
+          lat: this.hereMapRouteStartLat,
+          lng: this.hereMapRouteStartLng
+        }, { icon: this.hereMapStartMarkerIcon });
+
+        this.map.addObject(startMarker);
+
+        this.hereMap.getCoordinates(finish).then(geocoderResult2 => {
+          console.log(geocoderResult2[0].Location.DisplayPosition.Latitude);
+          console.log(start);
+          this.hereMapRouteFinishLat = geocoderResult2[0].Location.DisplayPosition.Latitude;
+          this.hereMapRouteFinishLng = geocoderResult2[0].Location.DisplayPosition.Longitude;
+
+          // Finish marker
+          const finishMarker = new H.map.Marker({
+            lat: this.hereMapRouteFinishLat,
+            lng: this.hereMapRouteFinishLng
+          }, { icon: this.hereMapFinishMarkerIcon });
+
+          this.map.addObject(finishMarker);
+
+          const routeParameters = {
+            'mode': 'fastest;car;traffic:enabled',
+            'waypoint0': 'geo!' + this.hereMapRouteStartLat + ',' + this.hereMapRouteStartLng,
+            'waypoint1': 'geo!' + this.hereMapRouteFinishLat + ',' + this.hereMapRouteFinishLng,
+            'representation': 'display',
+            'departure': 'Now',
+            'language ': 'sl-sl',
+            'country': 'SVN',
+            'metricSystem': 'metric'
+          };
+
+          this.hereMap.router.calculateRoute(routeParameters, data => {
+            if (data.response) {
+              this.hereMap.isHereMapsLoading(false);
+              this.hereMap.directions = data.response.route[0].leg[0].maneuver;
+              data = data.response.route[0];
+
+              const lineString = new H.geo.LineString();
+              data.shape.forEach(point => {
+                const parts = point.split(',');
+                lineString.pushLatLngAlt(parts[0], parts[1]);
+              });
+
+              const routeLine = new H.map.Polyline(lineString, {
+                style: {
+                  strokeColor: 'rgba(217, 51, 98, .75)',
+                  lineWidth: 8,
+                  lineCap: 'round'
+                }
+              });
+
+              this.map.addObject(routeLine);
+              this.map.setViewBounds(routeLine.getBounds());
+            } else {
+              this.hereMap.isHereMapsLoading(true);
+            }
+          }, error => {
+            console.log(error);
+          });
+
+        });
+
+      });
+
+      /*this.hereMap.getCoordinatesforRoute(start, finish).then(geocoderResult => {
+        console.log(start);
         this.hereMapRouteStartLat = geocoderResult[0][0].Location.DisplayPosition.Latitude;
         this.hereMapRouteStartLng = geocoderResult[0][0].Location.DisplayPosition.Longitude;
         this.hereMapRouteFinishLat = geocoderResult[1][0].Location.DisplayPosition.Latitude;
         this.hereMapRouteFinishLng = geocoderResult[1][0].Location.DisplayPosition.Longitude;
+
+        // Start marker
+        const startMarker = new H.map.Marker({
+          lat: this.hereMapRouteStartLat,
+          lng: this.hereMapRouteStartLng
+        }, { icon: this.hereMapStartMarkerIcon });
+
+        // Finish marker
+        const finishMarker = new H.map.Marker({
+          lat: this.hereMapRouteFinishLat,
+          lng: this.hereMapRouteFinishLng
+        }, { icon: this.hereMapFinishMarkerIcon });
+
+        this.map.addObject(startMarker);
+        this.map.addObject(finishMarker);
 
         const routeParameters = {
           'mode': 'fastest;car;traffic:enabled',
@@ -99,20 +186,6 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
               lineString.pushLatLngAlt(parts[0], parts[1]);
             });
 
-            const startMarker = new H.map.Marker({
-              lat: this.hereMapRouteStartLat,
-              lng: this.hereMapRouteStartLng
-            }, { icon: this.hereMapStartMarkerIcon });
-
-            this.map.addObject(startMarker);
-
-            const finishMarker = new H.map.Marker({
-              lat: this.hereMapRouteFinishLat,
-              lng: this.hereMapRouteFinishLng
-            }, { icon: this.hereMapFinishMarkerIcon });
-
-            this.map.addObject(finishMarker);
-
             const routeLine = new H.map.Polyline(lineString, {
               style: {
                 strokeColor: 'rgba(217, 51, 98, .75)',
@@ -120,26 +193,19 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
                 lineCap: 'round'
               }
             });
+
             this.map.addObject(routeLine);
             this.map.setViewBounds(routeLine.getBounds());
           } else {
             this.hereMap.isHereMapsLoading(true);
           }
         }, error => {
-          console.error(error);
+          console.log(error);
         });
       });
     } else {
-      if (this.map) {
-        this.map.removeObjects(this.map.getObjects());
-        this.map.setViewBounds(this.hereMapDefaultBounds.getBounds());
-      }
+      console.log('Iskanje po zemljevidu še ni pognano.');
+    }*/
     }
-  }
-
-  moveMapToBerlin(map) {
-    map = this.map;
-    map.setCenter({ lat: 52.5159, lng: 13.3777 });
-    map.setZoom(14);
   }
 }

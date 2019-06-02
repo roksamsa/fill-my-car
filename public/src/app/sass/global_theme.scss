@@ -55,7 +55,7 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 }
 
 .mat-step-header.mat-horizontal-stepper-header {
-  padding: 0 24px;
+  padding: 0 20px;
 }
 
 .popup__wizard {
@@ -65,7 +65,8 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   }
 
   .mat-horizontal-stepper-header {
-    height: 56px;
+    height: 46px;
+    border-radius: 10px;
   }
 }
 
