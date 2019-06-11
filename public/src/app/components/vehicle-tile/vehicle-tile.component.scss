@@ -49,7 +49,7 @@
 
     &--van {
       .vehicle-tile__icon-background {
-        height: 35px;
+        height: 36px;
         clip-path: polygon(0% 15%, 10% 2%, 64% 0%, 62% 0%, 73% 14%, 86% 54%, 96% 61%, 97% 100%, 90% 100%, 84% 87%, 81% 87%, 77% 100%, 31% 100%, 22% 100%, 16% 87%, 6% 100%, 2% 100%);
       }
     }
@@ -182,5 +182,37 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .vehicle-tile {
+    padding: 0 10%;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  :host {
+    margin-right: 0;
+    padding: 15% 0;
+  }
+
+  .vehicle-tile__icon {
+    width: 120px;
+    margin-bottom: 10%;
+  }
+
+  .vehicle-tile__icon {
+    &--van {
+      .vehicle-tile__icon-background {
+        height: 53px;
+      }
+    }
+
+    &--car {
+      .vehicle-tile__icon-background {
+        height: 48px;
+      }
+    }
   }
 }

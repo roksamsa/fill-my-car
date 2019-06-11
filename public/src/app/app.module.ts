@@ -12,6 +12,7 @@ import {
   MatInputModule,
   MatOptionModule,
   MatSelectModule,
+  MatRadioModule,
   MatTooltipModule,
   MatIconModule,
   MatButtonModule,
@@ -64,6 +65,7 @@ import { TileComponent } from './components/tile/tile.component';
 import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { ClickOutsideDirective } from './core/other/click-outside.directive';
+import { AppLongPressDirective } from './core/other/long-press.directive';
 import { TripsListComponent } from './components/trips-list/trips-list.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
@@ -108,6 +110,7 @@ const routes: Routes = [
     VehicleTileComponent,
     UserMenuComponent,
     ClickOutsideDirective,
+    AppLongPressDirective,
     TripsListComponent,
     EmptyDataComponent,
     HereMapsComponent,
@@ -116,12 +119,12 @@ const routes: Routes = [
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
+    RouterModule.forRoot(routes),
     AngularFirestoreModule,
     AngularFireAuthModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
     ReactiveFormsModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
@@ -133,6 +136,7 @@ const routes: Routes = [
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
+    MatRadioModule,
     MatAutocompleteModule,
     MatDatepickerModule,
     NativeDateModule,

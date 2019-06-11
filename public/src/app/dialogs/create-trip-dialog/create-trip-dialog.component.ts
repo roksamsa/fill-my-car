@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject, ViewChild, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
+import { MatStepper } from '@angular/material/stepper';
 import { TripService } from '../../core/trip/trip.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { AuthService } from '../../core/auth/auth.service';
 import { HereMapsService } from '../../../app/components/here-maps/here-maps.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
@@ -38,26 +39,24 @@ export class CreateTripDialogComponent implements OnInit {
   locationFinishSuggestions: any;
   locationFinishSelected: any;
 
-  curDate = new Date();
-
-  @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
-  @ViewChild('tripToLocation') tripToLocation: ElementRef;
-  @ViewChild('swapLocationButton') swapLocationButton: ElementRef;
-
   preloadingSpinnerDiameter = 42;
   preloadingSpinnerStrokeWidth = 5;
   preloadingSpinnerMode = 'indeterminate';
 
   preloadingSpinnerVisibility: boolean;
 
-  date = new Date(Date.now());
+  @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
+  @ViewChild('tripToLocation') tripToLocation: ElementRef;
+  @ViewChild('swapLocationButton') swapLocationButton: ElementRef;
+  @ViewChild('stepper') stepper: MatStepper;
 
   constructor(
     public authService: AuthService,
     private tripService: TripService,
     public hereMap: HereMapsService,
     private form: FormBuilder,
-    public thisDialogRef: MatDialogRef<CreateTripDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
+    public thisDialogRef: MatDialogRef<CreateTripDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string) {
     this.addTripFormStep1 = this.form.group({
       belongsToUser: '',
       selectedVehicle: ['', Validators.required],
@@ -120,6 +119,14 @@ export class CreateTripDialogComponent implements OnInit {
   ngOnInit() {
     this.hereMap.hereMapLoading.subscribe(message => this.preloadingSpinnerVisibility = message);
     console.log('My trip ID: ' + this.createTripIdTag(10));
+  }
+
+  stepperGoPreviousStep() {
+    this.stepper.previous();
+  }
+
+  stepperGoNextStep() {
+    this.stepper.next();
   }
 
   // START LOCATION SELECTION

@@ -1,10 +1,29 @@
-<span class="input-group">
-  <div class="input-group-btn">
-    <button class="btn btn-primary" (click)="decreaseValue()">-</button>
+<div class="form-number-picker" [class.form-number-picker--active]="isNumberPickerActivated">
+  <input [formControl]="numberPicker"
+         class="form-number-picker__input"
+         type="number"
+         min="{{min}}"
+         max="{{max}}"
+         pattern="{{pattern}}"
+         matInput
+         placeholder="12"
+         formControlName="tripTime"
+         #tripTime>
+  <div class="form-number-picker__button">
+    <button mat-button class="button button--just-icon" appLongPress (appOnLongPress)="decreaseValue()" (onRelease)="decreaseValue()" (click)="decreaseValue()">
+      <svg class="form-number-picker__button__icon form-number-picker__button__icon--minus"
+           xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M19 13H5v-2h14v2z"/>
+        <path d="M0 0h24v24H0z" fill="none"/>
+      </svg>
+    </button>
   </div>
-  <input [formControl]="numberPicker" class="form-control" type="number" min="{{min}}" max="{{max}}"
-    pattern="{{pattern}}" />
-  <div class="input-group-btn">
-    <button class="btn btn-primary" (click)="increaseValue()">+</button>
+  <div class="form-number-picker__button">
+    <button mat-button class="button button--just-icon" appLongPress (appOnLongPress)="increaseValue()" (onRelease)="increaseValue()" (click)="increaseValue()">
+      <svg class="form-number-picker__button__icon form-number-picker__button__icon--plus"
+           xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/>
+      </svg>
+    </button>
   </div>
-</span>
+</div>

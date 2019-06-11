@@ -40,10 +40,10 @@
 
 .mat-dialog-content {
   display: flex;
+  flex-grow: 1;
   position: relative;
   margin: 0 24px 0 0;
   padding: 0;
-  overflow: unset;
 }
 
 .mat-dialog-actions {
@@ -56,4 +56,15 @@
 .trip__map {
   width: 400px;
   height: 500px;
+}
+
+.form {
+  &__time-input-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 100%;
+    margin: 0 5px;
+  }
 }

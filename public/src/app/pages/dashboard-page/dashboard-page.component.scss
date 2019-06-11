@@ -121,3 +121,54 @@
     }
   }
 }
+
+@media only screen and (max-width: 890px) {
+  .tile__title--vehicles {
+    display: none;
+  }
+}
+
+    /* flex-direction: column;
+    grid-template-columns: 50% 50%;
+    /* grid-template-rows: 20%; */
+    /* grid-column-gap: 20%; */
+
+@media only screen and (max-width: 770px) {
+  .vehicles__items {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 100%;
+  }
+
+  .tile.tile--vehicles {
+    height: unset;
+    padding: 0;
+  }
+
+  .vehicles__actions {
+    flex-direction: row;
+    width: 100%;
+    padding: 0;
+    margin-left: 0;
+    margin-bottom: 5%;
+
+    &::before {
+      content: '';
+      left: 5%;
+      bottom: 0;
+      top: unset;
+      right: 5%;
+      width: auto;
+      height: 2px;
+      background-color: #F4F7FC;
+    }
+  }
+
+  .vehicles__button {
+    width: 33.33%;
+    height: 70px;
+    margin-bottom: 0;
+    padding: 5%;
+    border-radius: 0;
+  }
+}

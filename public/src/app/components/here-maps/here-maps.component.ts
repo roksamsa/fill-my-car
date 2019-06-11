@@ -10,7 +10,6 @@ declare var H: any;
 })
 
 export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
-
   private map: any;
   hereMapUI: any;
   hereMapRouteStartLat: any;
@@ -36,6 +35,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit() {
     const defaultLayers = this.hereMap.platform.createDefaultLayers();
+    defaultLayers.normal.map.setMin(3);
     this.map = new H.Map(
       this.mapElement.nativeElement,
       defaultLayers.normal.map, {

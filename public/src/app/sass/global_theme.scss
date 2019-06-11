@@ -54,14 +54,39 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   margin-bottom: 24px;
 }
 
+.mat-step-header {
+  &.cdk-keyboard-focused,
+  &.cdk-program-focused,
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.mat-step-header-ripple {
+  display: none;
+}
+
 .mat-step-header.mat-horizontal-stepper-header {
   padding: 0 20px;
 }
 
+.mat-step-header .mat-step-icon-selected {
+  background-color: $color__pink--primary;
+}
+
+.mat-step-label {
+  text-transform: uppercase;
+
+  &.mat-step-label-selected.mat-step-label-active {
+    color: $color__pink--primary;
+  }
+}
+
 .popup__wizard {
+  width: 100%;
+
   .mat-horizontal-content-container {
     padding: 0;
-    overflow: unset;
   }
 
   .mat-horizontal-stepper-header {

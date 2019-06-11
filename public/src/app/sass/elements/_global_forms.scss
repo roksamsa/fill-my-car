@@ -51,10 +51,16 @@
 
     &--without-label {
       justify-content: flex-end;
+      margin-top: 23px;
     }
 
     &--space-left {
       margin-left: 40px;
+    }
+
+    &--2-inputs {
+      display: flex;
+      flex-direction: row;
     }
   }
 
@@ -80,6 +86,16 @@
       .form__svg-icon {
         fill: $color__pink--primary;
       }
+    }
+  }
+
+  &__icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--icon-label {
+      margin-right: 10px;
     }
   }
 

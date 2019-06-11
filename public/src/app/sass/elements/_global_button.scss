@@ -31,4 +31,18 @@
   &.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]) {
     box-shadow: 0 0 10px $color__default-shadow;
   }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
+
+  &__icon--on-left {
+    margin-right: 5px;
+  }
+
+  &__icon--on-right {
+    margin-left: 5px;
+  }
 }

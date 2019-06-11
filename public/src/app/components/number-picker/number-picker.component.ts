@@ -14,8 +14,10 @@ export class NumberPickerComponent implements OnInit {
   @Input() inputDisabled: boolean;
 
   @Output() change: EventEmitter<any> = new EventEmitter();
+  @Output() inputValue = new EventEmitter<number>();
 
-  private numberPicker: FormControl;
+  numberPicker: FormControl;
+  isNumberPickerActivated: boolean;
 
   constructor() { }
 
@@ -50,7 +52,10 @@ export class NumberPickerComponent implements OnInit {
         currentValue = this.round(currentValue, this.precision);
       }
       this.numberPicker.setValue(currentValue);
+    } else if (currentValue === this.max) {
+      this.numberPicker.setValue(this.min);
     }
+    this.isNumberPickerActivated = true;
   }
 
   private decreaseValue(): void {
@@ -61,7 +66,10 @@ export class NumberPickerComponent implements OnInit {
         currentValue = this.round(currentValue, this.precision);
       }
       this.numberPicker.setValue(currentValue);
+    } else if (currentValue === this.min) {
+      this.numberPicker.setValue(this.max);
     }
+    this.isNumberPickerActivated = true;
   }
 
   private round(value: number, precision: number): number {

@@ -105,3 +105,9 @@ $tile__border-radius: 3px;
     width: 100%;
   }
 }
+
+@media only screen and (max-width: 770px) {
+  .tile__content {
+    flex-direction: column-reverse;
+  }
+}

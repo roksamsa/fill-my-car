@@ -1,9 +1,47 @@
+@import '../../sass/global_variables';
+
+:host {
+  display: flex;
+  flex-grow: 1;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number] {
-	text-align: center;
+.form-number-picker {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 3px;
+  background-color: #EDF1F8;
+  color: $color__white--60;
+
+  &--active {
+    color: $color__blue--primary;
+  }
+
+  &__input {
+    @include font-titillium-semibold;
+    padding: 14px;
+  }
+
+  &__button {
+    display: flex;
+    align-content: center;
+
+    .button {
+      min-width: 34px;
+      padding: 0;
+    }
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }

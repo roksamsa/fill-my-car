@@ -13,6 +13,10 @@ $color--main-background: $color__blue--lighter;
   color: white;
 }
 
+::placeholder {
+  color: $color__white--60;
+}
+
 * {
   box-sizing: border-box;
 }

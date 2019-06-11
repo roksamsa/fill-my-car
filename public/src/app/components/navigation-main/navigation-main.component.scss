@@ -118,3 +118,13 @@
     position: relative;
   }
 }
+
+@media only screen and (max-width: 890px) {
+  .menu__item-text {
+    display: none;
+  }
+
+  .menu__item-icon-wrapper {
+    margin-right: 0;
+  }
+}

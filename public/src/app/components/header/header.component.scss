@@ -206,3 +206,23 @@ $header__shadow-color: rgba(48, 26, 138, .2);
     }
   }
 }
+
+@media only screen and (max-width: 890px) {
+  .header__wrapper {
+    width: 90%;
+  }
+
+  .header__create {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .header__username {
+    display: none;
+  }
+
+  .header__avatar {
+    margin-right: 0;
+  }
+}
