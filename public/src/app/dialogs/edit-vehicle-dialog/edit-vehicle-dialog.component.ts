@@ -28,7 +28,7 @@ export class EditVehicleDialogComponent implements OnInit {
     public authService: AuthService,
     private vehicleService: VehicleService,
     private fb: FormBuilder,
-    public thisDialogRef: MatDialogRef<EditVehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
+    public thisDialogRef: MatDialogRef<EditVehicleDialogComponent>) {
     this.createForm = this.fb.group({
       belongsToUser: selectedVehicleData.belongsToUser,
       vehicleType: [selectedVehicleData.vehicleType, Validators.required],
@@ -39,14 +39,18 @@ export class EditVehicleDialogComponent implements OnInit {
       vehicleSeats: selectedVehicleData.vehicleSeats,
       vehicleMaxLuggage: selectedVehicleData.vehicleMaxLuggage
     });
+
+    this.selectedTypeData = selectedVehicleData.vehicleType;
+    this.selectedBrandData = selectedVehicleData.vehicleBrand;
+    this.selectedColorData = selectedVehicleData.vehicleColor;
   }
 
   // Fetch all vehicles for specific user
   fetchVehicles() {
     this.vehicleService.getVehicleByUser(this.currentUser.uid)
-    .subscribe((data: Vehicle[]) => {
-      if (data.length > 0) {
-        this.vehicles = data;
+    .subscribe((selectedVehicleData: Vehicle[]) => {
+      if (selectedVehicleData.length > 0) {
+        this.vehicles = selectedVehicleData;
       } else {
         this.vehicles = null;
       }

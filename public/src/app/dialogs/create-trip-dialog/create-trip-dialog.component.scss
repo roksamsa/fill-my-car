@@ -1,6 +1,7 @@
 @import '../../sass/global_variables';
 @import '../../sass/elements/global_button';
 @import '../../sass/elements/global_forms';
+@import '../../components/info-box/info-box.component.scss';
 
 .popup {
   &__header {
@@ -56,6 +57,11 @@
 .trip__map {
   width: 400px;
   height: 500px;
+}
+
+.info-box__icon--police-man {
+  width: 36px;
+  height: auto;
 }
 
 .form {

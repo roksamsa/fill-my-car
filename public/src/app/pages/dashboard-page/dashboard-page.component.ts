@@ -163,13 +163,13 @@ export class DashboardPageComponent implements OnInit {
     this.isSelectedVehicle = false;
   }
 
-  // Add dialog popup
-  openAddDialog() {
+  // Add vehicle dialog popup
+  openAddVehicleDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
-    dialogConfig.width = '1100px';
+    dialogConfig.width = '600px';
     dialogConfig.position = {
       top: '100px'
     };
@@ -183,8 +183,8 @@ export class DashboardPageComponent implements OnInit {
     });
   }
 
-  // Edit dialog popup
-  openEditDialog(id: any) {
+  // Edit vehicle dialog popup
+  openEditVehicleDialog(vehicleID) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;

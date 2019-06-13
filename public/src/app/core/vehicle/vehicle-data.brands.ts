@@ -82,7 +82,7 @@ export const vehicleBrands: VehicleBrandsSetup[] = [
   },
   {
     id: 'vehicle-id3',
-    vehicleBrand: 'Citroen'
+    vehicleBrand: 'Citroën'
   },
   {
     id: 'vehicle-id3',

@@ -82,6 +82,19 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   }
 }
 
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: $color__pink--primary;
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+  background-color: $color__pink--primary;
+}
+
+.mat-radio-label-content {
+  white-space: pre-wrap;
+}
+
 .popup__wizard {
   width: 100%;
 
@@ -154,6 +167,13 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   .mat-input-element {
     @include font-titillium-semibold;
   }
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+  min-height: auto;
+  margin: 20px 0 0 0;
+  padding: 0;
 }
 
 .mat-form-field {

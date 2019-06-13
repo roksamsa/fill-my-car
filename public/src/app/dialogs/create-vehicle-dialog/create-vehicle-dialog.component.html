@@ -1,27 +1,39 @@
 <div class="popup__header">
   <h2 class="popup__headline">Dodajanje novega vozila</h2>
   <div class="popup__close" (click)="onCloseCancel()">
-      <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+    <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+      <path d="M0 0h24v24H0z" fill="none" /></svg>
   </div>
 </div>
 <app-vehicle-tile></app-vehicle-tile>
+
+<app-vehicle-tile [id]="'vehicleID_' + i" [ngClass]="{'selected': selectedVehicle === vehicle}"
+  [vehicleID]="vehicle.vehicleId" [vehicleBrand]="getVehicleBrands().vehicleBrand" [vehicleName]="vehicle.vehicleName"
+  [vehicleType]="getVehicleTypes().vehicleType" [vehicleColor]="getVehicleColors().vehicleColor"></app-vehicle-tile>
+
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">
-    <mat-form-field class="create-form__field">
-      <mat-select matInput placeholder="Tip vozila" formControlName="vehicleType" #vehicleType name="food" (selectionChange)="selectedVehicleType($event)">
-        <mat-option *ngFor="let type of getVehicleTypes()" [value]="type.id">
-          {{type.vehicleType}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
 
-    <mat-form-field class="create-form__field">
-      <mat-select matInput placeholder="Znamka vozila" formControlName="vehicleBrand" #vehicleBrand (selectionChange)="selectedVehicleBrand($event)">
-        <mat-option *ngFor="let brand of getVehicleBrands()" [value]="brand.vehicleBrand">
-          {{brand.vehicleBrand}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <section class="form__row">
+      <mat-form-field class="create-form__field">
+        <mat-select matInput placeholder="Tip vozila" formControlName="vehicleType" #vehicleType name="food"
+          (selectionChange)="selectedVehicleType($event)">
+          <mat-option *ngFor="let type of getVehicleTypes()" [value]="type.id">
+            {{type.vehicleType}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="create-form__field">
+        <mat-select matInput placeholder="Znamka vozila" formControlName="vehicleBrand" #vehicleBrand
+          (selectionChange)="selectedVehicleBrand($event)">
+          <mat-option *ngFor="let brand of getVehicleBrands()" [value]="brand.vehicleBrand">
+            {{brand.vehicleBrand}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </section>
 
     <mat-form-field class="create-form__field">
       <input matInput placeholder="Vehicle name" formControlName="vehicleName" #vehicleName>
@@ -32,7 +44,8 @@
     </mat-form-field>
 
     <mat-form-field class="create-form__field">
-      <mat-select matInput placeholder="Vehicle color" formControlName="vehicleColor" #vehicleColor (selectionChange)="selectedVehicleColor($event)">
+      <mat-select matInput placeholder="Vehicle color" formControlName="vehicleColor" #vehicleColor
+        (selectionChange)="selectedVehicleColor($event)">
         <mat-option *ngFor="let color of getVehicleColors()" [value]="color.id">
           {{color.vehicleColor}}
         </mat-option>
@@ -47,7 +60,8 @@
       <input matInput placeholder="Vehicle max luggage" formControlName="vehicleMaxLuggage" #vehicleMaxLuggage>
     </mat-form-field>
 
-    <mat-checkbox matInput formControlName="vehicleInsurance" #vehicleInsurance>Imam nezgodno zavarovanje za potnike v tem vozilu.</mat-checkbox>
+    <mat-checkbox matInput formControlName="vehicleInsurance" #vehicleInsurance>Imam nezgodno zavarovanje za potnike v
+      tem vozilu.</mat-checkbox>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

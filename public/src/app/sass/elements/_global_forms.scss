@@ -43,11 +43,16 @@
     margin-bottom: 5px;
     font-size: 13px;
     color: $color__pink--primary;
+
+    &--bigger-margin {
+      margin-bottom: 20px;
+    }
   }
 
   &__input {
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     &--without-label {
       justify-content: flex-end;
@@ -104,5 +109,10 @@
     height: 24px;
     fill: $color__blue--primary;
     transition: fill 250ms ease-in-out;
+  }
+
+  &__radio-button {
+    max-width: 100%;
+    margin-bottom: 20px;
   }
 }

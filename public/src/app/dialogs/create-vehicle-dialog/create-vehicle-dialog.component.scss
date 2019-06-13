@@ -1,5 +1,6 @@
 @import '../../sass/global_variables';
 @import '../../sass/elements/global_button';
+@import '../../sass/elements/global_dialog';
 
 .popup {
   &__header {
@@ -30,9 +31,4 @@
   &__close-icon {
     fill: $color__blue--primary;
   }
-}
-
-.mat-dialog-actions {
-  justify-content: flex-end;
-  margin: 0;
 }
