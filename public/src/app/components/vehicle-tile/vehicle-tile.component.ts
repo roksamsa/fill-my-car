@@ -11,6 +11,7 @@ export class VehicleTileComponent implements OnInit {
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
 
+  @Input() vehicleTextVisible = true;
   private _vehicleID = '';
   private _vehicleBrand = '';
   private _vehicleName = '';

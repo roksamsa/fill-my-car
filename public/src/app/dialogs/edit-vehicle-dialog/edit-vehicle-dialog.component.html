@@ -7,12 +7,13 @@
   </div>
 </div>
 
-<app-vehicle-tile class="single" [vehicleType]="selectedTypeData" [vehicleColor]="selectedColorData"></app-vehicle-tile>
+<app-vehicle-tile class="single" [vehicleType]="selectedTypeData" [vehicleColor]="selectedColorData"
+  [vehicleTextVisible]="false"></app-vehicle-tile>
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">
 
-    <section class="form__row">
+    <section class="form__row form__row--2-input-fields form__row--inputs-with-space">
       <div class="form__input">
         <label class="form__label">Tip</label>
         <mat-form-field class="form__field">
@@ -38,7 +39,7 @@
       </div>
     </section>
 
-    <section class="form__row">
+    <section class="form__row form__row--2-input-fields form__row--inputs-with-space">
       <div class="form__input">
         <label class="form__label">Znamka</label>
         <mat-form-field class="form__field">
@@ -59,24 +60,27 @@
       </div>
     </section>
 
+    <section class="form__row form__row--2-input-fields form__row--inputs-with-space">
+      <div class="form__input">
+        <label class="form__label">Število sedežev</label>
+        <mat-form-field class="form__field">
+          <input matInput placeholder="Število sedežev" formControlName="vehicleSeats" #vehicleSeats>
+        </mat-form-field>
+      </div>
+
+      <div class="form__input">
+        <label class="form__label">Največja količina prtljage</label>
+        <mat-form-field class="form__field">
+          <input matInput placeholder="Največja količina prtljage" formControlName="vehicleMaxLuggage"
+            #vehicleMaxLuggage>
+        </mat-form-field>
+      </div>
+    </section>
+
     <div class="form__input">
       <label class="form__label">Leto proizvodnje</label>
       <mat-form-field class="form__field">
         <input matInput placeholder="Leto proizvodnje" formControlName="vehicleModelYear" #vehicleModelYear>
-      </mat-form-field>
-    </div>
-
-    <div class="form__input">
-      <label class="form__label">Število sedežev</label>
-      <mat-form-field class="form__field">
-        <input matInput placeholder="Število sedežev" formControlName="vehicleSeats" #vehicleSeats>
-      </mat-form-field>
-    </div>
-
-    <div class="form__input">
-      <label class="form__label">Največja količina prtljage</label>
-      <mat-form-field class="form__field">
-        <input matInput placeholder="Največja količina prtljage" formControlName="vehicleMaxLuggage" #vehicleMaxLuggage>
       </mat-form-field>
     </div>
   </form>

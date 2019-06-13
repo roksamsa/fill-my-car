@@ -36,6 +36,14 @@
         flex-grow: 1;
       }
     }
+
+    &--inputs-with-space {
+      .form__input {
+        &:first-child {
+          margin-right: 20px;
+        }
+      }
+    }
   }
 
   &__label {
