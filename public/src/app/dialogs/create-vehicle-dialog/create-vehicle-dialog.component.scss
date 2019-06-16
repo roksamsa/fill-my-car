@@ -1,5 +1,6 @@
 @import '../../sass/global_variables';
 @import '../../sass/elements/global_button';
+@import '../../sass/elements/global_forms';
 @import '../../sass/elements/global_dialog';
 
 .popup {
@@ -30,5 +31,15 @@
 
   &__close-icon {
     fill: $color__blue--primary;
+  }
+
+  &__gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 230px;
+    opacity: 0.3;
+    background-image: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(200,214,241,1) 100%);
   }
 }

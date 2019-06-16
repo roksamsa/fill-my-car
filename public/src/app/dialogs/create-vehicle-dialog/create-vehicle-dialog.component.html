@@ -1,3 +1,5 @@
+<div class="popup__gradient"></div>
+
 <div class="popup__header">
   <h2 class="popup__headline">Dodajanje novega vozila</h2>
   <div class="popup__close" (click)="onCloseCancel()">
@@ -6,11 +8,11 @@
       <path d="M0 0h24v24H0z" fill="none" /></svg>
   </div>
 </div>
-<app-vehicle-tile></app-vehicle-tile>
 
-<app-vehicle-tile [id]="'vehicleID_' + i" [ngClass]="{'selected': selectedVehicle === vehicle}"
-  [vehicleID]="vehicle.vehicleId" [vehicleBrand]="getVehicleBrands().vehicleBrand" [vehicleName]="vehicle.vehicleName"
-  [vehicleType]="getVehicleTypes().vehicleType" [vehicleColor]="getVehicleColors().vehicleColor"></app-vehicle-tile>
+<app-vehicle-tile class="single"
+                  [vehicleType]="vehicleType.value"
+                  [vehicleColor]="vehicleColor.value"
+                  [vehicleTextVisible]="false"></app-vehicle-tile>
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">

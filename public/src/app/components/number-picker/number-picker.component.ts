@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-number-picker',
@@ -11,13 +11,17 @@ export class NumberPickerComponent implements OnInit {
   @Input() max: number;
   @Input() step: number;
   @Input() precision: number;
+  @Input() inputValueNumber: number;
   @Input() inputDisabled: boolean;
+  @Input() inputPlaceholder: string;
+  @Input() formControlName: FormGroup;
 
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() inputValue = new EventEmitter<number>();
 
-  numberPicker: FormControl;
+  private numberPicker: FormControl;
   isNumberPickerActivated: boolean;
+  inputStartValue: number;
 
   constructor() { }
 
@@ -38,7 +42,19 @@ export class NumberPickerComponent implements OnInit {
       this.step = 1;
     }
 
-    this.numberPicker = new FormControl({ value: this.min, disabled: this.inputDisabled });
+    if (this.inputValueNumber) {
+      this.inputStartValue = this.inputValueNumber;
+      this.isNumberPickerActivated = true;
+    } else {
+      this.inputStartValue = this.min;
+      this.isNumberPickerActivated = false;
+    }
+
+    this.numberPicker = new FormControl({
+      value: this.inputStartValue,
+      disabled: this.inputDisabled
+    });
+
     this.numberPicker.registerOnChange(() => {
       this.change.emit(this.numberPicker.value);
     });

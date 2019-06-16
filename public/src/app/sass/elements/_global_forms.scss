@@ -31,7 +31,8 @@
     width: 100%;
     margin-bottom: 40px;
 
-    &--2-input-fields {
+    &--2-input-fields,
+    &--3-input-fields {
       .form__input {
         flex-grow: 1;
       }
@@ -39,8 +40,10 @@
 
     &--inputs-with-space {
       .form__input {
-        &:first-child {
-          margin-right: 20px;
+        margin-right: 30px;
+
+        &:last-child {
+          margin-right: 0;
         }
       }
     }

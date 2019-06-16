@@ -1,3 +1,5 @@
+<div class="popup__gradient"></div>
+
 <div class="popup__header">
   <h2 class="popup__headline">Urejanje vozila</h2>
   <div class="popup__close" (click)="onCloseCancel()">
@@ -12,7 +14,6 @@
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">
-
     <section class="form__row form__row--2-input-fields form__row--inputs-with-space">
       <div class="form__input">
         <label class="form__label">Tip</label>
@@ -60,35 +61,49 @@
       </div>
     </section>
 
-    <section class="form__row form__row--2-input-fields form__row--inputs-with-space">
+    <section class="form__row form__row--3-input-fields form__row--inputs-with-space">
       <div class="form__input">
         <label class="form__label">Število sedežev</label>
-        <mat-form-field class="form__field">
-          <input matInput placeholder="Število sedežev" formControlName="vehicleSeats" #vehicleSeats>
-        </mat-form-field>
+        <app-number-picker class="form__seats-input"
+                           [min]="1"
+                           [max]="20"
+                           [step]="1"
+                           [precision]="1"
+                           [inputDisabled]="false"
+                           [inputValueNumber]="inputSeatsValueNumber"
+                           [inputPlaceholder]="inputSeatsPlaceholder"
+                           (change)="onNumberOfSeatsChanged($event)"></app-number-picker>
       </div>
 
       <div class="form__input">
         <label class="form__label">Največja količina prtljage</label>
+        <app-number-picker class="form__luggage-input"
+                           [min]="0"
+                           [max]="50"
+                           [step]="1"
+                           [precision]="1"
+                           [inputDisabled]="false"
+                           [inputValueNumber]="inputLuggageValueNumber"
+                           [inputPlaceholder]="inputLuggagePlaceholder"
+                           (change)="onNumberOfLuggageChanged($event)"></app-number-picker>
+      </div>
+
+      <div class="form__input">
+        <label class="form__label">Leto proizvodnje</label>
         <mat-form-field class="form__field">
-          <input matInput placeholder="Največja količina prtljage" formControlName="vehicleMaxLuggage"
-            #vehicleMaxLuggage>
+          <mat-select matInput placeholder="Leto proizvodnje" formControlName="vehicleModelYear" #vehicleModelYear
+            (selectionChange)="selectedYearModel($event)">
+            <mat-option *ngFor="let year of getVehicleYearModel()" [value]="year.vehicleYear">
+              {{year.vehicleYear}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </section>
 
-    <div class="form__input">
-      <label class="form__label">Leto proizvodnje</label>
-      <mat-form-field class="form__field">
-        <input matInput placeholder="Leto proizvodnje" formControlName="vehicleModelYear" #vehicleModelYear>
-      </mat-form-field>
-    </div>
-  </form>
-</mat-dialog-content>
-
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button mat-raised-button class="button button--primary"
-    (click)="updateVehicle(selectedVehicleData._id, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)">Dodaj
-    novo vozilo</button>
+    (click)="updateVehicle(selectedVehicleData._id, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeatsValue, vehicleLuggageValue)">Shrani
+    spremembe na vozilu</button>
 </mat-dialog-actions>

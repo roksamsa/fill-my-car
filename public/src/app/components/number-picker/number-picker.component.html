@@ -1,14 +1,12 @@
 <div class="form-number-picker" [class.form-number-picker--active]="isNumberPickerActivated">
-  <input [formControl]="numberPicker"
+  <input matInput
          class="form-number-picker__input"
          type="number"
          min="{{min}}"
          max="{{max}}"
          pattern="{{pattern}}"
-         matInput
-         placeholder="12"
-         formControlName="tripTime"
-         #tripTime>
+         placeholder="{{inputPlaceholder}}"
+         [formControl]="numberPicker" />
   <div class="form-number-picker__button">
     <button mat-button class="button button--just-icon" appLongPress (appOnLongPress)="decreaseValue()" (onRelease)="decreaseValue()" (click)="decreaseValue()">
       <svg class="form-number-picker__button__icon form-number-picker__button__icon--minus"

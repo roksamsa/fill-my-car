@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/materia
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
+import { vehicleYears, VehicleYearsSetup } from '../../core/vehicle/vehicle-data.years';
 
 @Component({
   selector: 'app-edit-vehicle-dialog',
@@ -22,6 +23,15 @@ export class EditVehicleDialogComponent implements OnInit {
   selectedTypeData = '';
   selectedBrandData = '';
   selectedColorData = '';
+  selectedVehicleYearData = '';
+
+  public inputSeatsPlaceholder: string;
+  public inputSeatsValueNumber: number;
+  public vehicleSeatsValue: number;
+
+  public inputLuggagePlaceholder: string;
+  public inputLuggageValueNumber: number;
+  public vehicleLuggageValue: number;
 
   constructor (
     @Inject(MAT_DIALOG_DATA) public selectedVehicleData: any,
@@ -35,14 +45,24 @@ export class EditVehicleDialogComponent implements OnInit {
       vehicleBrand: selectedVehicleData.vehicleBrand,
       vehicleName: selectedVehicleData.vehicleName,
       vehicleModelYear: selectedVehicleData.vehicleModelYear,
+      vehicleSeatsValue: selectedVehicleData.vehicleSeats,
       vehicleColor: selectedVehicleData.vehicleColor,
-      vehicleSeats: selectedVehicleData.vehicleSeats,
       vehicleMaxLuggage: selectedVehicleData.vehicleMaxLuggage
     });
 
     this.selectedTypeData = selectedVehicleData.vehicleType;
     this.selectedBrandData = selectedVehicleData.vehicleBrand;
     this.selectedColorData = selectedVehicleData.vehicleColor;
+    this.selectedVehicleYearData = selectedVehicleData.vehicleModelYear;
+
+    this.inputSeatsPlaceholder = 'Število sedežev';
+    this.inputSeatsValueNumber = selectedVehicleData.vehicleSeats;
+
+    this.inputLuggagePlaceholder = 'Število sedežev';
+    this.inputLuggageValueNumber = selectedVehicleData.vehicleMaxLuggage;
+  }
+
+  ngOnInit() {
   }
 
   // Fetch all vehicles for specific user
@@ -87,6 +107,16 @@ export class EditVehicleDialogComponent implements OnInit {
     console.log(this.selectedColorData);
   }
 
+  // Vehicle year model
+  getVehicleYearModel(): VehicleYearsSetup[] {
+    return vehicleYears.reverse();
+  }
+
+  selectedYearModel(event: MatSelectChange) {
+    this.selectedVehicleYearData = event.source.value;
+    console.log(this.selectedVehicleYearData);
+  }
+
   updateVehicle (
     id: any,
     vehicleType: any,
@@ -109,7 +139,12 @@ export class EditVehicleDialogComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  onNumberOfSeatsChanged(value: number) {
+    this.vehicleSeatsValue = value;
+  }
+
+  onNumberOfLuggageChanged(value: number) {
+    this.vehicleLuggageValue = value;
   }
 
   onCloseCancel() {

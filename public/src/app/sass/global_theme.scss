@@ -116,11 +116,34 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   }
 
   .mat-form-field-infix {
-    padding: 0;
+    height: 100%;
+    width: auto;
+    padding: 0 14px;
+  }
+
+  .mat-select,
+  .mat-select-trigger {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+
+  .mat-select-value {
+    @include font-titillium-semibold;
+    display: flex;
+    align-items: center;
+    max-width: unset;
+  }
+
+  .mat-select-arrow-wrapper {
+    display: flex;
+    align-items: center;
   }
 
   .mat-input-element {
-    padding: 14px;
+    @include font-titillium-semibold;
+    height: 100%;
+    line-height: 100%;
     color: $color__blue--primary;
   }
 
@@ -163,10 +186,6 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
     position: static;
     padding-left: 14px;
   }
-
-  .mat-input-element {
-    @include font-titillium-semibold;
-  }
 }
 
 .mat-dialog-actions {
@@ -174,6 +193,11 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   min-height: auto;
   margin: 20px 0 0 0;
   padding: 0;
+}
+
+.mat-dialog-container,
+.mat-dialog-content {
+  position: relative;
 }
 
 .mat-form-field {

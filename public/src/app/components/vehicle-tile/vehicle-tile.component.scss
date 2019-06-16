@@ -21,8 +21,8 @@
 
   &.single {
     width: 164px;
-    margin-right: 0;
-    padding: 24px 0;
+    height: 150px;
+    margin: 0 auto 30px;
     cursor: unset;
 
     &:hover {
@@ -36,6 +36,7 @@
 
     .vehicle-tile__icon {
       width: 100%;
+      margin-bottom: 0;
 
       &--car {
         .vehicle-tile__icon-background {
@@ -115,6 +116,12 @@
       .vehicle-tile__icon-background {
         height: 37px;
         clip-path: polygon(25% 60%, 63% 26%, 73% 37%, 70% 60%, 59% 91%, 38% 100%, 35% 81%, 26% 63%);
+      }
+    }
+
+    &--white {
+      .vehicle-tile__icon-background {
+        background-color: #fff;
       }
     }
 
