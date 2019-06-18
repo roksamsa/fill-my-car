@@ -203,3 +203,229 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 .mat-form-field {
   height: 44px;
 }
+
+.mat-select--vehicle-color .mat-select-value {
+  padding-left: 30px;
+}
+
+.mat-select-panel .mat-option--vehicle-color {
+  padding-left: 46px;
+}
+
+.mat-select--vehicle-color .mat-select-value,
+.mat-select-panel .mat-option--vehicle-color {
+  &::before {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 16px;
+    content: '';
+    border-radius: 50%;
+  }
+
+  &::after {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 14px;
+    content: '';
+    border-radius: 50%;
+    border: 1px solid $color__white--90;
+  }
+}
+
+.mat-select--vehicle-color .mat-select-value {
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    left: -2px;
+  }
+}
+
+.mat-select-panel .mat-option {
+  &--white {
+    &::before {
+      background-color: $color__white--100;
+    }
+  }
+
+  &--red {
+    &::before {
+      background-color: #d32f2f;
+    }
+  }
+
+  &--blue {
+    &::before {
+      background-color: #1875d1;
+    }
+  }
+
+  &--yellow {
+    &::before {
+      background-color: #FFEE58;
+    }
+  }
+
+  &--orange {
+    &::before {
+      background-color: #FB8C00;
+    }
+  }
+
+  &--green {
+    &::before {
+      background-color: #66BB6A;
+    }
+  }
+
+  &--pink {
+    &::before {
+      background-color: #EC407A;
+    }
+  }
+
+  &--violet {
+    &::before {
+      background-color: #AB47BC;
+    }
+  }
+
+  &--brown {
+    &::before {
+      background-color: #6D4C41;
+    }
+  }
+
+  &--black {
+    &::before {
+      background-color: #444;
+    }
+  }
+
+  &--grey {
+    &::before {
+      background-color: #708090;
+    }
+  }
+
+  &--silver {
+    &::before {
+      background-color: #D1D5DE;
+    }
+  }
+
+  &--gold {
+    &::before {
+      background-color: #FFD700;
+    }
+  }
+}
+
+.mat-select {
+  &--white {
+    .mat-select-value {
+      &::before {
+        background-color: $color__white--100;
+      }
+    }
+  }
+
+  &--red {
+    .mat-select-value {
+      &::before {
+        background-color: #d32f2f;
+      }
+    }
+  }
+
+  &--blue {
+    .mat-select-value {
+      &::before {
+        background-color: #1875d1;
+      }
+    }
+  }
+
+  &--yellow {
+    .mat-select-value {
+      &::before {
+        background-color: #FFEE58;
+      }
+    }
+  }
+
+  &--orange {
+    .mat-select-value {
+      &::before {
+        background-color: #FB8C00;
+      }
+    }
+  }
+
+  &--green {
+    .mat-select-value {
+      &::before {
+        background-color: #66BB6A;
+      }
+    }
+  }
+
+  &--pink {
+    .mat-select-value {
+      &::before {
+        background-color: #EC407A;
+      }
+    }
+  }
+
+  &--violet {
+    .mat-select-value {
+      &::before {
+        background-color: #AB47BC;
+      }
+    }
+  }
+
+  &--brown {
+    .mat-select-value {
+      &::before {
+        background-color: #6D4C41;
+      }
+    }
+  }
+
+  &--black {
+    .mat-select-value {
+      &::before {
+        background-color: #444;
+      }
+    }
+  }
+
+  &--grey {
+    .mat-select-value {
+      &::before {
+        background-color: #708090;
+      }
+    }
+  }
+
+  &--silver {
+    .mat-select-value {
+      &::before {
+        background-color: #D1D5DE;
+      }
+    }
+  }
+
+  &--gold {
+    .mat-select-value {
+      &::before {
+        background-color: #FFD700;
+      }
+    }
+  }
+}

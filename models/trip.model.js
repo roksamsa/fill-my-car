@@ -2,9 +2,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 var tripSchema = new Schema({
-  id: {
-    type: String
-  },
   belongsToUser: {
     type: String
   },
@@ -23,23 +20,11 @@ var tripSchema = new Schema({
   tripToLocation: {
     type: String
   },
-  tripDateAndTime: {
+  tripDate: {
     type: Date
   },
-  tripStopsOnTheWayToFinalDestination: {
-    type: Boolean
-  },
-  tripCategory: {
-    type: String
-  },
-  tripCO2Emissions: {
-    type: Number
-  },
-  tripDistance: {
-    type: Number
-  },
-  tripDuration: {
-    type: Number
+  tripTime: {
+    type: Date
   },
   tripFreeSeats: {
     type: Number
@@ -51,6 +36,9 @@ var tripSchema = new Schema({
     type: Number
   },
   tripComfortable: {
+    type: Boolean
+  },
+  tripStopsOnTheWayToFinalDestination: {
     type: Boolean
   },
   tripNewPassengersAcceptance: {

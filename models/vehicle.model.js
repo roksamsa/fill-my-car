@@ -2,9 +2,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 var vehicleSchema = new Schema({
-  id: {
-    type: String
-  },
   belongsToUser: {
     type: String
   },

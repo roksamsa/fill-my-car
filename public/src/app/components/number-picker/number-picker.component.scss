@@ -16,11 +16,32 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   flex-direction: row;
   align-content: center;
+  position: relative;
   height: 100%;
   width: 100%;
   border-radius: 3px;
   background-color: #EDF1F8;
   color: $color__white--60;
+
+  &::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 3px;
+    border: 2px solid $color__blue--default;
+    transition: opacity 200ms ease-in-out;
+    opacity: 0;
+    content: '';
+  }
+
+  &.mat-focused,
+  &:hover {
+    &::before {
+      opacity: 1;
+    }
+  }
 
   &--active {
     color: $color__blue--primary;

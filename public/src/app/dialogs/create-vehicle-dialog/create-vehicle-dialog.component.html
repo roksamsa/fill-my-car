@@ -1,4 +1,5 @@
-<div class="popup__gradient"></div>
+<div class="popup__background popup__background--vehicle-brand popup__background--{{selectedBrandData | lowercase}}"></div>
+<div class="popup__background popup__background--gradient"></div>
 
 <div class="popup__header">
   <h2 class="popup__headline">Dodajanje novega vozila</h2>
@@ -9,65 +10,94 @@
   </div>
 </div>
 
-<app-vehicle-tile class="single"
-                  [vehicleType]="vehicleType.value"
-                  [vehicleColor]="vehicleColor.value"
-                  [vehicleTextVisible]="false"></app-vehicle-tile>
+<app-vehicle-tile class="single" [vehicleType]="selectedTypeData" [vehicleColor]="selectedColorData"
+  [vehicleTextVisible]="false"></app-vehicle-tile>
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">
 
-    <section class="form__row">
-      <mat-form-field class="create-form__field">
-        <mat-select matInput placeholder="Tip vozila" formControlName="vehicleType" #vehicleType name="food"
-          (selectionChange)="selectedVehicleType($event)">
-          <mat-option *ngFor="let type of getVehicleTypes()" [value]="type.id">
-            {{type.vehicleType}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <section class="form__row form__row--2-input-fields form__row--inputs-with-space">
+      <div class="form__input">
+        <label class="form__label">Tip</label>
+        <mat-form-field class="form__field">
+          <mat-select matInput placeholder="Tip" formControlName="vehicleType" #vehicleType name="food"
+            (selectionChange)="selectedVehicleType($event)">
+            <mat-option *ngFor="let type of getVehicleTypes()" [value]="type.id">
+              {{type.vehicleType}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field class="create-form__field">
-        <mat-select matInput placeholder="Znamka vozila" formControlName="vehicleBrand" #vehicleBrand
-          (selectionChange)="selectedVehicleBrand($event)">
-          <mat-option *ngFor="let brand of getVehicleBrands()" [value]="brand.vehicleBrand">
-            {{brand.vehicleBrand}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="form__input">
+        <label class="form__label">Barva</label>
+        <mat-form-field class="form__field">
+          <mat-select matInput placeholder="Barva" class="mat-select mat-select--vehicle-color mat-select--{{selectedColorData | lowercase}}" formControlName="vehicleColor" #vehicleColor (selectionChange)="selectedVehicleColor($event)">
+            <mat-option *ngFor="let color of getVehicleColors()" class="mat-option mat-option--vehicle-color mat-option--{{color.id | lowercase}}" [value]="color.id">
+              {{color.vehicleColor}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </section>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="Vehicle name" formControlName="vehicleName" #vehicleName>
-    </mat-form-field>
+    <section class="form__row form__row--2-input-fields form__row--inputs-with-space">
+      <div class="form__input">
+        <label class="form__label">Znamka</label>
+        <mat-form-field class="form__field">
+          <mat-select matInput placeholder="Znamka" formControlName="vehicleBrand" #vehicleBrand
+            (selectionChange)="selectedVehicleBrand($event)">
+            <mat-option *ngFor="let brand of getVehicleBrands()" [value]="brand.vehicleBrand">
+              {{brand.vehicleBrand}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="Vehicle model year" formControlName="vehicleModelYear" #vehicleModelYear>
-    </mat-form-field>
+      <div class="form__input">
+        <label class="form__label">Ime</label>
+        <mat-form-field class="form__field">
+          <input matInput placeholder="Ime" formControlName="vehicleName" #vehicleName>
+        </mat-form-field>
+      </div>
+    </section>
 
-    <mat-form-field class="create-form__field">
-      <mat-select matInput placeholder="Vehicle color" formControlName="vehicleColor" #vehicleColor
-        (selectionChange)="selectedVehicleColor($event)">
-        <mat-option *ngFor="let color of getVehicleColors()" [value]="color.id">
-          {{color.vehicleColor}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <section class="form__row form__row--3-input-fields form__row--inputs-with-space">
+      <div class="form__input">
+        <label class="form__label">Število sedežev</label>
+        <app-number-picker class="form__seats-input" [min]="1" [max]="20" [step]="1" [precision]="1"
+          [inputDisabled]="false" [inputValueNumber]="inputSeatsValueNumber" [inputPlaceholder]="inputSeatsPlaceholder"
+          (change)="onNumberOfSeatsChanged($event)"></app-number-picker>
+      </div>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="Vehicle seats number" formControlName="vehicleSeats" #vehicleSeats>
-    </mat-form-field>
+      <div class="form__input">
+        <label class="form__label">Največja količina prtljage</label>
+        <app-number-picker class="form__luggage-input" [min]="0" [max]="50" [step]="1" [precision]="1"
+          [inputDisabled]="false" [inputValueNumber]="inputLuggageValueNumber"
+          [inputPlaceholder]="inputLuggagePlaceholder" (change)="onNumberOfLuggageChanged($event)"></app-number-picker>
+      </div>
 
-    <mat-form-field class="create-form__field">
-      <input matInput placeholder="Vehicle max luggage" formControlName="vehicleMaxLuggage" #vehicleMaxLuggage>
-    </mat-form-field>
+      <div class="form__input">
+        <label class="form__label">Leto proizvodnje</label>
+        <mat-form-field class="form__field">
+          <mat-select matInput placeholder="Leto proizvodnje" formControlName="vehicleModelYear" #vehicleModelYear
+            (selectionChange)="selectedYearModel($event)">
+            <mat-option *ngFor="let year of getVehicleYearModel()" [value]="year.vehicleYear">
+              {{year.vehicleYear}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </section>
 
-    <mat-checkbox matInput formControlName="vehicleInsurance" #vehicleInsurance>Imam nezgodno zavarovanje za potnike v
-      tem vozilu.</mat-checkbox>
+    <section class="form__row">
+      <mat-checkbox matInput formControlName="vehicleInsurance" (change)="vehicleInsuranceChange()">Imam nezgodno zavarovanje za potnike v tem vozilu.</mat-checkbox>
+    </section>
+
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button mat-raised-button class="button button--primary"
-    (click)="addVehicle(authService.userData.uid, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeats.value, vehicleMaxLuggage.value)">Shrani</button>
+    (click)="addVehicle(authService.userData.uid, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeatsValue, vehicleLuggageValue, isVehicleInsuranceChecked)">Dodaj novo vozilo</button>
 </mat-dialog-actions>

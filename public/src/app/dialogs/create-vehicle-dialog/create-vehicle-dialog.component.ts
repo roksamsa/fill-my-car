@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/materia
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
+import { vehicleYears, VehicleYearsSetup } from '../../core/vehicle/vehicle-data.years';
 
 @Component({
   selector: 'app-create-vehicle-dialog',
@@ -19,9 +20,19 @@ export class CreateVehicleDialogComponent implements OnInit {
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
 
-  selectedTypeData = '';
+  selectedTypeData = 'car';
+  selectedColorData = 'white';
   selectedBrandData = '';
-  selectedColorData = '';
+  selectedVehicleYearData = '';
+  isVehicleInsuranceChecked = false;
+
+  public inputSeatsPlaceholder: string;
+  public inputSeatsValueNumber: number;
+  public vehicleSeatsValue: number;
+
+  public inputLuggagePlaceholder: string;
+  public inputLuggageValueNumber: number;
+  public vehicleLuggageValue: number;
 
   constructor (
     public authService: AuthService,
@@ -30,11 +41,11 @@ export class CreateVehicleDialogComponent implements OnInit {
     public thisDialogRef: MatDialogRef<CreateVehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
     this.createForm = this.fb.group({
       belongsToUser: '',
-      vehicleType: ['', Validators.required],
+      vehicleType: [this.selectedTypeData, Validators.required],
       vehicleBrand: '',
       vehicleName: '',
       vehicleModelYear: '',
-      vehicleColor: '',
+      vehicleColor: this.selectedColorData,
       vehicleSeats: '',
       vehicleMaxLuggage: '',
       vehicleInsurance: false
@@ -63,7 +74,6 @@ export class CreateVehicleDialogComponent implements OnInit {
 
   selectedVehicleType(event: MatSelectChange) {
     this.selectedTypeData = event.source.value;
-    console.log(this.selectedTypeData);
   }
 
   // Vehicle brand
@@ -73,7 +83,6 @@ export class CreateVehicleDialogComponent implements OnInit {
 
   selectedVehicleBrand(event: MatSelectChange) {
     this.selectedBrandData = event.source.value;
-    console.log(this.selectedBrandData);
   }
 
   // Vehicle color
@@ -83,7 +92,16 @@ export class CreateVehicleDialogComponent implements OnInit {
 
   selectedVehicleColor(event: MatSelectChange) {
     this.selectedColorData = event.source.value;
-    console.log(this.selectedColorData);
+  }
+
+  // Vehicle year model
+  getVehicleYearModel(): VehicleYearsSetup[] {
+    return vehicleYears.reverse();
+  }
+
+  selectedYearModel(event: MatSelectChange) {
+    this.selectedVehicleYearData = event.source.value;
+    console.log(this.selectedVehicleYearData);
   }
 
   // Add vehicle on popup close
@@ -95,7 +113,8 @@ export class CreateVehicleDialogComponent implements OnInit {
     vehicleModelYear: number,
     vehicleColor: any,
     vehicleSeats: number,
-    vehicleMaxLuggage: number) {
+    vehicleMaxLuggage: number,
+    vehicleInsurance: boolean) {
     this.vehicleService.addVehicle(
       belongsToUser,
       vehicleType,
@@ -104,9 +123,22 @@ export class CreateVehicleDialogComponent implements OnInit {
       vehicleModelYear,
       vehicleColor,
       vehicleSeats,
-      vehicleMaxLuggage).subscribe(() => {
+      vehicleMaxLuggage,
+      vehicleInsurance).subscribe(() => {
         this.thisDialogRef.close('Confirm');
       });
+  }
+
+  onNumberOfSeatsChanged(value: number) {
+    this.vehicleSeatsValue = value;
+  }
+
+  onNumberOfLuggageChanged(value: number) {
+    this.vehicleLuggageValue = value;
+  }
+
+  vehicleInsuranceChange() {
+    this.isVehicleInsuranceChecked = (this.isVehicleInsuranceChecked === true ) ? false : true;
   }
 
   // Cancel adding vehicle on popup close

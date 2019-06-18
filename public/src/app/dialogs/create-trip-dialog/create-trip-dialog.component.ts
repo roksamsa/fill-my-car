@@ -228,16 +228,13 @@ export class CreateTripDialogComponent implements OnInit {
     tripStatus: String,
     tripFromLocation: String,
     tripToLocation: String,
-    tripDateAndTime: Date,
-    tripStopsOnTheWayToFinalDestination: Boolean,
-    tripCategory: String,
-    tripCO2Emissions: Number,
-    tripDistance: Number,
-    tripDuration: Number,
+    tripDate: Date,
+    tripTime: String,
     tripFreeSeats: Number,
     tripPrice: Number,
     tripLuggageSpace: Number,
     tripComfortable: Boolean,
+    tripStopsOnTheWayToFinalDestination: Boolean,
     tripNewPassengersAcceptance: String) {
     this.tripService.addTrip(
       belongsToUser,
@@ -246,12 +243,9 @@ export class CreateTripDialogComponent implements OnInit {
       tripStatus,
       tripFromLocation,
       tripToLocation,
-      tripDateAndTime,
+      tripDate,
+      tripTime,
       tripStopsOnTheWayToFinalDestination,
-      tripCategory,
-      tripCO2Emissions,
-      tripDistance,
-      tripDuration,
       tripFreeSeats,
       tripPrice,
       tripLuggageSpace,
@@ -259,23 +253,6 @@ export class CreateTripDialogComponent implements OnInit {
       tripNewPassengersAcceptance).subscribe(() => {
         this.thisDialogRef.close('Confirm');
       });
-    console.log(belongsToUser,
-      selectedVehicle,
-      tripIdTag = this.createTripIdTag(10),
-      tripStatus,
-      tripFromLocation,
-      tripToLocation,
-      tripDateAndTime,
-      tripStopsOnTheWayToFinalDestination,
-      tripCategory,
-      tripCO2Emissions,
-      tripDistance,
-      tripDuration,
-      tripFreeSeats,
-      tripPrice,
-      tripLuggageSpace,
-      tripComfortable,
-      tripNewPassengersAcceptance);
   }
 
   // Cancel adding vehicle on popup close

@@ -84,6 +84,7 @@
     display: flex;
     align-self: flex-end;
     justify-content: center;
+    flex-shrink: 0;
     align-items: center;
     width: 44px;
     height: 44px;;
@@ -92,8 +93,8 @@
     transition: background-color 200ms ease-in-out;
 
     &--space-left-right {
-      margin-left: 15px;
-      margin-right: 15px;
+      margin-left: 10px;
+      margin-right: 10px;
     }
 
     &:hover {

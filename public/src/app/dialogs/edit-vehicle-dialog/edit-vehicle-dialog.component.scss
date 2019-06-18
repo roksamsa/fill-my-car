@@ -38,13 +38,26 @@
     fill: $color__blue--primary;
   }
 
-  &__gradient {
+  &__background {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 230px;
     opacity: 0.3;
-    background-image: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(200,214,241,1) 100%);
+    background-position: center;
+    background-size: cover;
+
+    &--gradient {
+      background-image: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(200,214,241,1) 100%);
+    }
+
+    &--audi {
+      background-image: url("/../../../assets/graphics/brands/background-audi.jpg");
+    }
+
+    &--citroën {
+      background-image: url("/../../../assets/graphics/brands/background-citroen.jpg");
+    }
   }
 }

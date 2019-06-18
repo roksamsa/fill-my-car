@@ -1,4 +1,6 @@
-<div class="popup__gradient"></div>
+<div class="popup__background popup__background--vehicle-brand popup__background--{{selectedBrandData | lowercase}}">
+</div>
+<div class="popup__background popup__background--gradient"></div>
 
 <div class="popup__header">
   <h2 class="popup__headline">Urejanje vozila</h2>
@@ -10,7 +12,7 @@
 </div>
 
 <app-vehicle-tile class="single" [vehicleType]="selectedTypeData" [vehicleColor]="selectedColorData"
-  [vehicleTextVisible]="false"></app-vehicle-tile>
+  [vehicleTextVisible]="false" @vehicleEnterAnimation></app-vehicle-tile>
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">
@@ -30,9 +32,8 @@
       <div class="form__input">
         <label class="form__label">Barva</label>
         <mat-form-field class="form__field">
-          <mat-select matInput placeholder="Barva" formControlName="vehicleColor" #vehicleColor
-            (selectionChange)="selectedVehicleColor($event)">
-            <mat-option *ngFor="let color of getVehicleColors()" [value]="color.id">
+          <mat-select matInput placeholder="Barva" class="mat-select mat-select--vehicle-color mat-select--{{selectedColorData | lowercase}}" formControlName="vehicleColor" #vehicleColor (selectionChange)="selectedVehicleColor($event)">
+            <mat-option *ngFor="let color of getVehicleColors()" class="mat-option mat-option--vehicle-color mat-option--{{color.id | lowercase}}" [value]="color.id">
               {{color.vehicleColor}}
             </mat-option>
           </mat-select>
@@ -64,28 +65,16 @@
     <section class="form__row form__row--3-input-fields form__row--inputs-with-space">
       <div class="form__input">
         <label class="form__label">Število sedežev</label>
-        <app-number-picker class="form__seats-input"
-                           [min]="1"
-                           [max]="20"
-                           [step]="1"
-                           [precision]="1"
-                           [inputDisabled]="false"
-                           [inputValueNumber]="inputSeatsValueNumber"
-                           [inputPlaceholder]="inputSeatsPlaceholder"
-                           (change)="onNumberOfSeatsChanged($event)"></app-number-picker>
+        <app-number-picker class="form__seats-input" [min]="1" [max]="20" [step]="1" [precision]="1"
+          [inputDisabled]="false" [inputValueNumber]="inputSeatsValueNumber" [inputPlaceholder]="inputSeatsPlaceholder"
+          (change)="onNumberOfSeatsChanged($event)"></app-number-picker>
       </div>
 
       <div class="form__input">
         <label class="form__label">Največja količina prtljage</label>
-        <app-number-picker class="form__luggage-input"
-                           [min]="0"
-                           [max]="50"
-                           [step]="1"
-                           [precision]="1"
-                           [inputDisabled]="false"
-                           [inputValueNumber]="inputLuggageValueNumber"
-                           [inputPlaceholder]="inputLuggagePlaceholder"
-                           (change)="onNumberOfLuggageChanged($event)"></app-number-picker>
+        <app-number-picker class="form__luggage-input" [min]="0" [max]="50" [step]="1" [precision]="1"
+          [inputDisabled]="false" [inputValueNumber]="inputLuggageValueNumber"
+          [inputPlaceholder]="inputLuggagePlaceholder" (change)="onNumberOfLuggageChanged($event)"></app-number-picker>
       </div>
 
       <div class="form__input">
@@ -101,9 +90,14 @@
       </div>
     </section>
 
+    <section class="form__row">
+      <mat-checkbox matInput formControlName="vehicleInsurance" (change)="vehicleInsuranceChange()">Imam nezgodno zavarovanje za potnike v tem vozilu.</mat-checkbox>
+    </section>
+  </form>
+</mat-dialog-content>
+
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button mat-raised-button class="button button--primary"
-    (click)="updateVehicle(selectedVehicleData._id, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeatsValue, vehicleLuggageValue)">Shrani
-    spremembe na vozilu</button>
+    (click)="updateVehicle(selectedVehicleData._id, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeatsValue, vehicleLuggageValue, isVehicleInsuranceChecked)">Shrani spremembe na vozilu</button>
 </mat-dialog-actions>

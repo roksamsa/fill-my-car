@@ -8,11 +8,40 @@ import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
 import { vehicleYears, VehicleYearsSetup } from '../../core/vehicle/vehicle-data.years';
+import { trigger, style, animate, transition } from '@angular/animations';
+
+export const defaultAnimationFunction = 'ease-in-out';
+
+export const headerFadeInAnimationTiming = '300ms';
+export const headerFadeOutAnimationTiming = '250ms';
+export const headerAnimationDelay = '450ms';
 
 @Component({
   selector: 'app-edit-vehicle-dialog',
   templateUrl: './edit-vehicle-dialog.component.html',
-  styleUrls: ['./edit-vehicle-dialog.component.scss']
+  styleUrls: ['./edit-vehicle-dialog.component.scss'],
+  animations: [
+    trigger('vehicleEnterAnimation', [
+      transition(':enter', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-300px)'
+        }),
+        animate(`${headerFadeOutAnimationTiming} ${headerAnimationDelay} ${defaultAnimationFunction}`, style({
+          opacity: 1,
+          transform: 'translateX(0)'
+        }))
+      ]),
+      transition(':leave', [
+        style({
+          opacity: 1
+        }),
+        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 0
+        }))
+      ])
+    ])
+  ]
 })
 export class EditVehicleDialogComponent implements OnInit {
 
@@ -24,6 +53,7 @@ export class EditVehicleDialogComponent implements OnInit {
   selectedBrandData = '';
   selectedColorData = '';
   selectedVehicleYearData = '';
+  isVehicleInsuranceChecked = false;
 
   public inputSeatsPlaceholder: string;
   public inputSeatsValueNumber: number;
@@ -33,7 +63,7 @@ export class EditVehicleDialogComponent implements OnInit {
   public inputLuggageValueNumber: number;
   public vehicleLuggageValue: number;
 
-  constructor (
+  constructor(
     @Inject(MAT_DIALOG_DATA) public selectedVehicleData: any,
     public authService: AuthService,
     private vehicleService: VehicleService,
@@ -47,7 +77,8 @@ export class EditVehicleDialogComponent implements OnInit {
       vehicleModelYear: selectedVehicleData.vehicleModelYear,
       vehicleSeatsValue: selectedVehicleData.vehicleSeats,
       vehicleColor: selectedVehicleData.vehicleColor,
-      vehicleMaxLuggage: selectedVehicleData.vehicleMaxLuggage
+      vehicleMaxLuggage: selectedVehicleData.vehicleMaxLuggage,
+      vehicleInsurance: selectedVehicleData.vehicleInsurance
     });
 
     this.selectedTypeData = selectedVehicleData.vehicleType;
@@ -60,6 +91,8 @@ export class EditVehicleDialogComponent implements OnInit {
 
     this.inputLuggagePlaceholder = 'Število sedežev';
     this.inputLuggageValueNumber = selectedVehicleData.vehicleMaxLuggage;
+
+    this.isVehicleInsuranceChecked = selectedVehicleData.vehicleInsurance;
   }
 
   ngOnInit() {
@@ -68,13 +101,13 @@ export class EditVehicleDialogComponent implements OnInit {
   // Fetch all vehicles for specific user
   fetchVehicles() {
     this.vehicleService.getVehicleByUser(this.currentUser.uid)
-    .subscribe((selectedVehicleData: Vehicle[]) => {
-      if (selectedVehicleData.length > 0) {
-        this.vehicles = selectedVehicleData;
-      } else {
-        this.vehicles = null;
-      }
-    });
+      .subscribe((selectedVehicleData: Vehicle[]) => {
+        if (selectedVehicleData.length > 0) {
+          this.vehicles = selectedVehicleData;
+        } else {
+          this.vehicles = null;
+        }
+      });
   }
 
   // Vehicle type
@@ -125,7 +158,8 @@ export class EditVehicleDialogComponent implements OnInit {
     vehicleModelYear: number,
     vehicleColor: any,
     vehicleSeats: number,
-    vehicleMaxLuggage: number) {
+    vehicleMaxLuggage: number,
+    vehicleInsurance: boolean) {
     this.vehicleService.updateVehicle(
       id,
       vehicleType,
@@ -134,7 +168,8 @@ export class EditVehicleDialogComponent implements OnInit {
       vehicleModelYear,
       vehicleColor,
       vehicleSeats,
-      vehicleMaxLuggage).subscribe(() => {
+      vehicleMaxLuggage,
+      vehicleInsurance).subscribe(() => {
         this.thisDialogRef.close('Confirm');
       });
   }
@@ -145,6 +180,10 @@ export class EditVehicleDialogComponent implements OnInit {
 
   onNumberOfLuggageChanged(value: number) {
     this.vehicleLuggageValue = value;
+  }
+
+  vehicleInsuranceChange() {
+    this.isVehicleInsuranceChecked = (this.isVehicleInsuranceChecked === true ) ? false : true;
   }
 
   onCloseCancel() {

@@ -8,7 +8,6 @@ import { Vehicle } from './vehicle.module';
 })
 
 export class VehicleService {
-
   uriBase = 'http://localhost:4000';
   uriVehicles = this.uriBase + '/vehicles/';
   uriVehiclesForUser = this.uriVehicles + 'user/';
@@ -43,7 +42,8 @@ export class VehicleService {
     vehicleModelYear: number,
     vehicleColor: any,
     vehicleSeats: number,
-    vehicleMaxLuggage: number) {
+    vehicleMaxLuggage: number,
+    vehicleInsurance: boolean) {
     const vehicle = {
       belongsToUser: belongsToUser,
       vehicleType: vehicleType,
@@ -52,7 +52,8 @@ export class VehicleService {
       vehicleModelYear: vehicleModelYear,
       vehicleColor: vehicleColor,
       vehicleSeats: vehicleSeats,
-      vehicleMaxLuggage: vehicleMaxLuggage
+      vehicleMaxLuggage: vehicleMaxLuggage,
+      vehicleInsurance: vehicleInsurance
     };
     return this.http.post(this.uriVehicleAdd, vehicle);
   }
@@ -66,7 +67,8 @@ export class VehicleService {
     vehicleModelYear: number,
     vehicleColor: any,
     vehicleSeats: number,
-    vehicleMaxLuggage: number): Observable<Vehicle[]> {
+    vehicleMaxLuggage: number,
+    vehicleInsurance: boolean): Observable<Vehicle[]> {
     const vehicle = {
       id: id,
       vehicleType: vehicleType,
@@ -75,7 +77,8 @@ export class VehicleService {
       vehicleModelYear: vehicleModelYear,
       vehicleColor: vehicleColor,
       vehicleSeats: vehicleSeats,
-      vehicleMaxLuggage: vehicleMaxLuggage
+      vehicleMaxLuggage: vehicleMaxLuggage,
+      vehicleInsurance: vehicleInsurance
     };
     return this.http.patch<Vehicle[]>(this.uriVehicleUpdate + id, vehicle);
   }
