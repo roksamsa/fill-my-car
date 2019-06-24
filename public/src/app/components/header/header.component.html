@@ -1,4 +1,5 @@
 <header class="header"
+        [class.dark-theme]="darkModeActivated"
         [@headerFadeIn]>
   <app-user-menu *ngIf="authService.isLoggedIn && clickActiveState"></app-user-menu>
   <div class="header__background"></div>
@@ -8,7 +9,7 @@
       <div routerLink="/nadzorna-plosca" class="header__logo">
         Napolni<span class="header__logo-pink">moj</span>avto
       </div>
-      <app-navigation-main *ngIf="authService.isLoggedIn" class="header__menu"></app-navigation-main>
+      <app-navigation-main *ngIf="authService.isLoggedIn" class="header__menu" [class.dark-theme]="darkModeActivated"></app-navigation-main>
     </div>
 
     <div class="header__right">

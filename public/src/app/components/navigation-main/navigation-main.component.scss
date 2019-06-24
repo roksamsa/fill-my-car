@@ -2,6 +2,16 @@
 
 :host {
   height: 100%;
+
+  &.dark-theme {
+    .menu__item {
+      color: $color__white--100;
+    }
+
+    .menu__item-icon-svg {
+      fill: $color__white--100;
+    }
+  }
 }
 
 .menu {
@@ -64,10 +74,6 @@
         background-color: $color__pink--primary;
         clip-path: polygon(50% 0%, 100% 45%, 100% 100%, 0 100%, 0% 45%);
       }
-
-      .menu__item-icon--front {
-        background-image: url("/../../../assets/icons/icon-menu-control-panel.svg");
-      }
     }
 
     &--my-vehicles {
@@ -79,10 +85,6 @@
         height: 12px;
         background-color: $color__pink--primary;
         clip-path: polygon(0% 55%, 22% 0%, 54% 0%, 71% 46%, 100% 68%, 110% 100%, 83% 85%, 75% 77%, 72% 100%, 34% 100%, 24% 78%, 24% 69%, 12% 100%, 5% 100%);
-      }
-
-      .menu__item-icon--front {
-        background-image: url("/../../../assets/icons/icon-my-vehicles.svg");
       }
     }
 
@@ -97,12 +99,6 @@
         height: 9px;
         background-color: $color__pink--primary;
       }
-
-      .menu__item-icon--front {
-        width: 100%;
-        height: 100%;
-        background-image: url("/../../../assets/icons/icon-my-trips.svg");
-      }
     }
   }
 
@@ -112,6 +108,10 @@
     position: absolute;
     background-position: center;
     background-repeat: no-repeat;
+  }
+
+  &__item-icon-svg {
+    fill: $color__blue--primary;
   }
 
   &__item-text {

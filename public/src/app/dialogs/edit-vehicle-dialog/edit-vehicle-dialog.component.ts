@@ -51,6 +51,7 @@ export class EditVehicleDialogComponent implements OnInit {
 
   selectedTypeData = '';
   selectedBrandData = '';
+  selectedBrandDataWithoutSpaces = '';
   selectedColorData = '';
   selectedVehicleYearData = '';
   isVehicleInsuranceChecked = false;
@@ -83,6 +84,7 @@ export class EditVehicleDialogComponent implements OnInit {
 
     this.selectedTypeData = selectedVehicleData.vehicleType;
     this.selectedBrandData = selectedVehicleData.vehicleBrand;
+    this.selectedBrandDataWithoutSpaces = this.selectedBrandData.replace(/\s/g, '-');
     this.selectedColorData = selectedVehicleData.vehicleColor;
     this.selectedVehicleYearData = selectedVehicleData.vehicleModelYear;
 
@@ -127,6 +129,7 @@ export class EditVehicleDialogComponent implements OnInit {
 
   selectedVehicleBrand(event: MatSelectChange) {
     this.selectedBrandData = event.source.value;
+    this.selectedBrandDataWithoutSpaces = this.selectedBrandData.replace(/\s/g, '-');
     console.log(this.selectedBrandData);
   }
 

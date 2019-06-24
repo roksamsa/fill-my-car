@@ -6,6 +6,7 @@ import { HeaderService } from './header.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
+import { UserMenuService } from '../user-menu/user-menu.service';
 
 export const defaultAnimationFunction = 'ease-in-out';
 
@@ -80,16 +81,19 @@ export class HeaderComponent implements OnInit {
   dialogResult = '';
   createContentVisibility = false;
   createButtonTooltipText: String = 'Dodaj novo vozilo ali potovanje';
+  darkModeActivated: boolean;
 
   constructor(
     public authService: AuthService,
     private headerData: HeaderService,
+    private userMenuDarkThemeData: UserMenuService,
     private popupTrip: MatDialog,
     public router: Router,
     public ngZone: NgZone) {}
 
   ngOnInit() {
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.clickActiveState = clickActiveState);
+    this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState);
   }
 
   setUserMenuVisibility() {

@@ -47,10 +47,41 @@
     align-items: center;
     justify-content: center;
     width: 34px;
+    margin: 0 15px;
   }
 
   &__arrow-icon {
     width: 28px;
+    fill: $color__blue--primary;
+  }
+
+  &__time {
+    display: flex;
+  }
+
+  &__time-icon {
+    margin-right: 10px;
+  }
+
+  &__price {
+    @include font-titillium-semibold;
+    font-size: 16px;
+  }
+
+  &__more {
+    width: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__actions {
+    display: flex;
+    position: absolute;
+    right: 0;
+  }
+
+  &__time-icon-svg {
     fill: $color__blue--primary;
   }
 }

@@ -23,6 +23,7 @@ export class CreateVehicleDialogComponent implements OnInit {
   selectedTypeData = 'car';
   selectedColorData = 'white';
   selectedBrandData = '';
+  selectedBrandDataWithoutSpaces = '';
   selectedVehicleYearData = '';
   isVehicleInsuranceChecked = false;
 
@@ -83,6 +84,11 @@ export class CreateVehicleDialogComponent implements OnInit {
 
   selectedVehicleBrand(event: MatSelectChange) {
     this.selectedBrandData = event.source.value;
+    if (this.selectedBrandData.length < 0) {
+      this.selectedBrandDataWithoutSpaces = '';
+    } else {
+      this.selectedBrandDataWithoutSpaces = this.selectedBrandData.replace(/\s/g, '-');
+    }
   }
 
   // Vehicle color

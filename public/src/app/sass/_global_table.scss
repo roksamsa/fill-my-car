@@ -19,11 +19,15 @@
     transition: background-color 100ms ease-in-out;
 
     &:hover {
-      background-color: $color__blue-grey--light;
+      background-color: rgba(207, 216, 232, 0.3);
+      cursor: pointer;
     }
   }
 
   &__column {
+    display: flex;
+    align-items: center;
+    height: 100%;
     width: 160px;
   }
 }

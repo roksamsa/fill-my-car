@@ -21,6 +21,7 @@ export class TripsListComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyTrips = false;
   dialogResult: '';
+  moreActionVisible = false;
   displayedColumns: string[] = [
     'tripStatus',
     'tripIdTag',
@@ -43,6 +44,10 @@ export class TripsListComponent implements OnInit {
   ngOnInit() {
     this.fetchTrips();
     this.isTripsListEmpty();
+  }
+
+  moreActionsToggle() {
+   this.moreActionVisible = !this.moreActionVisible;
   }
 
   // Fetch all trips for specific user

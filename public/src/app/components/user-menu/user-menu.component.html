@@ -13,6 +13,16 @@
       </div>
     </div>
     <div class="user-menu__item user-menu__item--menu" routerLinkActive="user-menu__item--active" routerLink="/user">Uporabniški profil</div>
+    <div class="user-menu__item user-menu__item--menu">
+      <mat-slide-toggle
+          class="user-menu__slide-toggle"
+          [color]="slideToggleColor"
+          [checked]="slideToggleChecked"
+          [disabled]="slideToggleDisabled"
+          (change)="isDarkModeActivated()">
+        Temni način
+      </mat-slide-toggle>
+    </div>
     <div class="user-menu__item user-menu__item--menu" routerLink="/user">Potrebuješ pomoč?</div>
     <div class="user-menu__item user-menu__item--menu" (click)="userMenuSignOut()" routerLink="/user">Odjava</div>
   </div>

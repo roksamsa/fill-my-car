@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { VehicleTileService } from '../../../app/components/vehicle-tile/vehicle-tile.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
+import { TripService } from '../../core/trip/trip.service';
+import { Trip } from '../../core/trip/trip.module';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
@@ -107,6 +109,8 @@ export class DashboardPageComponent implements OnInit {
 
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
+  trips: Trip[] = [];
+  areThereAnyTrips = false;
 
   @Input() selectedVehicle: any;
   selectedVehicleIndex: number;
@@ -118,6 +122,7 @@ export class DashboardPageComponent implements OnInit {
 
   constructor(
     private vehicleService: VehicleService,
+    private tripService: TripService,
     public popupDialog: MatDialog,
     private vehicleTileData: VehicleTileService) { }
 
@@ -144,6 +149,25 @@ export class DashboardPageComponent implements OnInit {
   // Check if we get some vehicles from user or not
   isVehicleListEmpty(): boolean {
     return this.areThereAnyVehicles;
+  }
+
+  // Fetch all trips for specific user
+  fetchTrips() {
+    this.tripService.getTripsByUser(this.currentUser.uid)
+    .subscribe((data: Trip[]) => {
+      if (data.length > 0) {
+        this.trips = data;
+        this.areThereAnyTrips = true;
+      } else {
+        this.trips = null;
+        this.areThereAnyTrips = false;
+      }
+    });
+  }
+
+  // Check if we get some vehicles from user or not
+  isTripsListEmpty(): boolean {
+    return this.areThereAnyTrips;
   }
 
   vehicleClickSetSelectedState(vehicle: any, index: any) {
@@ -227,6 +251,7 @@ export class DashboardPageComponent implements OnInit {
     const dialogRef = this.popupDialog.open(CreateTripDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
+      this.fetchTrips();
       this.dialogResult = result;
     });
   }

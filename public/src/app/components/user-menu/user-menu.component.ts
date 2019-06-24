@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
 import { HeaderService } from '../header/header.service';
+import { UserMenuService } from './user-menu.service';
 import { trigger, style, animate, transition } from '@angular/animations';
 
 export const headerFadeInAnimationTiming = '300ms';
@@ -58,14 +59,22 @@ export const defaultAnimationFunction = 'ease-in-out';
 export class UserMenuComponent implements OnInit {
 
   userMenuVisibility: boolean;
+  slideToggleChecked = false;
 
   constructor(
     public authService: AuthService,
+    private userMenuDarkThemeData: UserMenuService,
     private headerData: HeaderService) {
   }
 
   ngOnInit() {
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
+    this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.slideToggleChecked = clickActiveState);
+  }
+
+  isDarkModeActivated() {
+    this.slideToggleChecked = !this.slideToggleChecked;
+    this.userMenuDarkThemeData.changeToDarkMode(this.slideToggleChecked);
   }
 
   userMenuSignOut() {

@@ -8,10 +8,10 @@ var tripSchema = new Schema({
   selectedVehicle: {
     type: String
   },
-  tripIdTag: {
+  tripStatus: {
     type: String
   },
-  tripStatus: {
+  tripIdTag: {
     type: String
   },
   tripFromLocation: {
@@ -21,10 +21,10 @@ var tripSchema = new Schema({
     type: String
   },
   tripDate: {
-    type: Date
+    type: String
   },
   tripTime: {
-    type: Date
+    type: String
   },
   tripFreeSeats: {
     type: Number
@@ -34,6 +34,9 @@ var tripSchema = new Schema({
   },
   tripLuggageSpace: {
     type: Number
+  },
+  tripMessage: {
+    type: String
   },
   tripComfortable: {
     type: Boolean

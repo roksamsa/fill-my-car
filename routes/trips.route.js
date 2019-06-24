@@ -73,7 +73,7 @@ router.route(tripsURI + '/delete/:id').delete((req, res) => {
     if (err)
       res.json(err);
     else
-      res.json('Vehicle removed successfully!');
+      res.json('Trip removed successfully!');
   });
 });
 

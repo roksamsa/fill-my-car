@@ -52,8 +52,6 @@ export class AppComponent implements OnInit {
   }
 
   clickOutsideUserMenuVisibility() {
-    this.userMenuVisibility = false;
-    this.headerData.changeUserMenuVisibility(this.userMenuVisibility);
-    console.log(this.userMenuVisibility);
+    this.headerData.changeUserMenuVisibility(false);
   }
 }

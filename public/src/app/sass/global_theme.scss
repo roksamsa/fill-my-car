@@ -201,7 +201,39 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 }
 
 .mat-form-field {
-  height: 44px;
+  &.form__field {
+    height: 44px;
+  }
+
+  &.form__text-area-field {
+    .mat-form-field-infix,
+    .mat-form-field-flex {
+      max-height: 170px;
+      max-width: 100%;
+    }
+
+    .mat-input-element {
+      height: 150px;
+      max-height: 170px;
+      min-height: 80px;
+      max-width: 100%;
+      padding: 14px;
+      line-height: 1.6;
+      background-color: $color__blue--lighter;
+      border-radius: 3px;
+    }
+
+    .mat-form-field-label {
+      padding: 14px;
+    }
+
+    &.mat-focused,
+    &:hover {
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 .mat-select--vehicle-color .mat-select-value {
@@ -231,6 +263,18 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
     content: '';
     border-radius: 50%;
     border: 1px solid $color__white--90;
+  }
+}
+
+.user-menu__slide-toggle {
+  .mat-slide-toggle-label {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .mat-slide-toggle-content {
+    @include font-titillium-regular;
+    color: $color__blue--primary;
   }
 }
 

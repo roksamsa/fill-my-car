@@ -73,4 +73,15 @@
     height: 100%;
     margin: 0 5px;
   }
+
+  &__price-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__price-label {
+    @include font-titillium-semibold;
+    margin-left: 16px;
+    color: $color__blue--primary;
+  }
 }

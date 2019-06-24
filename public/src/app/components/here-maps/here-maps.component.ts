@@ -35,7 +35,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit() {
     const defaultLayers = this.hereMap.platform.createDefaultLayers();
-    defaultLayers.normal.map.setMin(3);
+    defaultLayers.normal.map.setMin(2);
     this.map = new H.Map(
       this.mapElement.nativeElement,
       defaultLayers.normal.map, {
@@ -82,6 +82,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
         }, { icon: this.hereMapStartMarkerIcon });
 
         this.map.addObject(startMarker);
+        this.map.setCenter({ lat: this.hereMapRouteStartLat, lng: this.hereMapRouteStartLng });
 
         this.hereMap.getCoordinates(finish).then(geocoderResult2 => {
           console.log(geocoderResult2[0].Location.DisplayPosition.Latitude);

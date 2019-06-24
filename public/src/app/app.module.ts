@@ -25,6 +25,7 @@ import {
   NativeDateModule,
   MatDatepickerModule,
   MatStepperModule,
+  MatSlideToggleModule,
   MatDividerModule,
   MatCheckboxModule,
   MatSnackBarModule
@@ -34,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VehicleService } from './core/vehicle/vehicle.service';
 import { HeaderService } from '../app/components/header/header.service';
 import { VehicleTileService } from '../app/components/vehicle-tile/vehicle-tile.service';
+import { UserMenuService } from '../app/components/user-menu/user-menu.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -135,6 +137,7 @@ const routes: Routes = [
     MatNativeDateModule,
     MatTooltipModule,
     MatStepperModule,
+    MatSlideToggleModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
@@ -160,6 +163,7 @@ const routes: Routes = [
     AuthService,
     UserService,
     HeaderService,
+    UserMenuService,
     VehicleTileService,
     MatDatepickerModule,
     AuthGuard,
