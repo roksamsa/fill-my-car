@@ -153,7 +153,7 @@ export class EditVehicleDialogComponent implements OnInit {
     console.log(this.selectedVehicleYearData);
   }
 
-  updateVehicle (
+  updateVehicle(
     id: any,
     vehicleType: any,
     vehicleBrand: any,

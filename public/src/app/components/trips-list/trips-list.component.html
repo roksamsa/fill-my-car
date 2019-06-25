@@ -1,21 +1,37 @@
 <div *ngIf="isTripsListEmpty(); else emptyTripList" class="table">
-  <div *ngFor="let trip of trips; let i = index;" class="table__row">
+  <div *ngFor="let trip of trips; let tripIndex = index;" class="table__row" [class.table__row--selected]="moreActionOpened === tripIndex">
     <div class="table__column trip__status trip__status--{{trip?.tripStatus | lowercase}}">
       <div class="trip__status-icon"></div>
     </div>
-    <div class="table__column trip__id-tag">{{ trip?.tripIdTag }}</div>
+    <div class="table__column trip__id-tag">
+      <div class="table__column-content">
+        {{ trip?.tripIdTag }}
+      </div>
+    </div>
 
-    <div class="table__column trip__from-location">{{ trip?.tripFromLocation }}</div>
+    <div class="table__column trip__from-location">
+      <div class="table__column-content">
+        {{ trip?.tripFromLocation }}
+      </div>
+    </div>
 
     <div class="table__column trip__arrow">
       <svg class="trip__arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path fill="none" d="M0 0h24v24H0z"/>
-        <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"/></svg>
+        <path fill="none" d="M0 0h24v24H0z" />
+        <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z" /></svg>
     </div>
 
-    <div class="table__column trip__to-location">{{ trip?.tripToLocation }}</div>
+    <div class="table__column trip__to-location">
+      <div class="table__column-content">
+        {{ trip?.tripToLocation }}
+      </div>
+    </div>
 
-    <div class="table__column trip__date">{{ trip?.tripDate }}</div>
+    <div class="table__column trip__date">
+      <div class="table__column-content">
+        {{ trip?.tripDate }}
+      </div>
+    </div>
 
     <div class="table__column trip__time">
       <div class="trip__time-icon">
@@ -26,49 +42,79 @@
           <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
         </svg>
       </div>
-      <div class="trip__time-text">
-        {{ trip?.tripTime }}
+      <div class="table__column-content">
+        <div class="trip__time-text">
+          {{ trip?.tripTime }}
+        </div>
       </div>
     </div>
 
     <div class="table__column trip__luggage-space">
       <div class="trip__time-icon">
-        <svg class="trip__time-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
+        <svg class="trip__time-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z" />
+          </svg>
       </div>
-      <div class="trip__time-text">
-        {{ trip?.tripLuggageSpace }}
+      <div class="table__column-content">
+        <div class="trip__time-text">
+          {{ trip?.tripLuggageSpace }}
+        </div>
       </div>
     </div>
 
     <div class="table__column trip__free-seats">
       <div class="trip__time-icon">
-        <svg class="trip__time-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <svg class="trip__time-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+          </svg>
       </div>
-      <div class="trip__time-text">
-        {{ trip?.tripFreeSeats }}
+      <div class="table__column-content">
+        <div class="trip__time-text">
+          {{ trip?.tripFreeSeats }}
+        </div>
       </div>
-    </div>
-    <div class="table__column trip__price">{{ trip?.tripPrice }} EUR</div>
-    <div class="table__column trip__more" (click)="moreActionsToggle()">
-      <svg class="trip__time-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
     </div>
 
-    <div *ngIf="moreActionVisible" class="table__column trip__actions">
-      <div class="action__item action__item--edit" (click)="editVehicle(element._id)">
-        <svg class="trip__time-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    <div class="table__column trip__price">
+      <div class="table__column-content">
+        {{ trip?.tripPrice }} EUR
       </div>
-      <div class="action__item action__item--delete" (click)="deleteVehicle(element._id)">
-        <svg class="trip__time-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </div>
+
+    <div *ngIf="moreActionOpened === tripIndex" class="table__column trip__actions">
+      <div @moreActionBackgroundAnimation class="trip__actions-background"></div>
+      <div @moreActionContainerAnimation class="trip__actions-container">
+        <div class="trip__actions-item trip__actions-item--edit" (click)="openEditVehicleDialog(trip, tripIndex)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+            <path d="M0 0h24v24H0z" fill="none" /></svg>
+        </div>
+        <div class="trip__actions-item trip__actions-item--delete" (click)="deleteTrip(trip._id)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+            <path d="M0 0h24v24H0z" fill="none" /></svg>
+        </div>
       </div>
+    </div>
+
+    <div class="table__column trip__more" [class.trip__more--selected]="moreActionOpened === tripIndex" (click)="moreActionsToggle(tripIndex)">
+      <svg class="trip__time-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path
+          d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+        </svg>
     </div>
   </div>
 </div>
 
 <!-- Element without data-->
 <ng-template #emptyTripList>
-  <app-empty-data [emptyDataType]="emptyDataType"
-                  [emptyDataButtonText]="emptyDataButtonText"
-                  [emptyDataText]="emptyDataText"
-                  [emptyDataIcon]="emptyDataIcon"
-                  (clicked)="openAddTripDialog($event)"></app-empty-data>
+  <app-empty-data [emptyDataType]="emptyDataType" [emptyDataButtonText]="emptyDataButtonText"
+    [emptyDataText]="emptyDataText" [emptyDataIcon]="emptyDataIcon" (clicked)="openAddTripDialog($event)">
+  </app-empty-data>
 </ng-template>

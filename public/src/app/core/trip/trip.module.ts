@@ -6,13 +6,9 @@ export interface Trip {
   tripStatus: String;
   tripFromLocation: String;
   tripToLocation: String;
-  tripDate: Date;
-  tripTime: Date;
+  tripDate: String;
+  tripTime: String;
   tripStopsOnTheWayToFinalDestination: Boolean;
-  tripCategory: String;
-  tripCO2Emissions: Number;
-  tripDistance: Number;
-  tripDuration: Number;
   tripFreeSeats: Number;
   tripPrice: Number;
   tripLuggageSpace: Number;

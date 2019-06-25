@@ -10,7 +10,7 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     position: relative;
     height: 54px;
     font-size: 15px;
@@ -22,12 +22,36 @@
       background-color: rgba(207, 216, 232, 0.3);
       cursor: pointer;
     }
+
+    &--selected {
+      background-color: rgba(207, 216, 232, 0.3);
+
+      .table__column {
+        opacity: 0.5;
+
+        &.trip__actions,
+        &.trip__more {
+          opacity: 1;
+        }
+      }
+    }
   }
 
   &__column {
     display: flex;
     align-items: center;
     height: 100%;
-    width: 160px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 250ms ease-in-out;
+  }
+
+  &__column-content {
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

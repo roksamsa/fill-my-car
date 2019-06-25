@@ -38,12 +38,16 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   padding-bottom: 0;
 }
 
+.form__text-area-field .mat-form-field-wrapper {
+  padding: 2px;
+}
+
 .mat-form-field-appearance-legacy .mat-form-field-underline {
   display: none;
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-infix {
-  padding: 5px 0;
+  padding: 2px 0;
   border-top: 0  none;
 }
 
@@ -133,6 +137,7 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
     display: flex;
     align-items: center;
     max-width: unset;
+    color: $color__blue--primary;
   }
 
   .mat-select-arrow-wrapper {

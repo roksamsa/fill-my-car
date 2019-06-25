@@ -73,23 +73,39 @@ export class TripService {
 
   // Update trip from database
   updateTrip(
-    id: any,
-    vehicleType: any,
-    vehicleBrand: any,
-    vehicleName: any,
-    vehicleModelYear: number,
-    vehicleColor: any,
-    vehicleSeats: number,
-    vehicleMaxLuggage: number): Observable<Trip[]> {
+    id: String,
+    belongsToUser: String,
+    selectedVehicle: String,
+    tripStatus: String,
+    tripIdTag: String,
+    tripFromLocation: String,
+    tripToLocation: String,
+    tripDate: String,
+    tripTime: String,
+    tripFreeSeats: Number,
+    tripPrice: Number,
+    tripLuggageSpace: Number,
+    tripMessage: String,
+    tripComfortable: Boolean,
+    tripStopsOnTheWayToFinalDestination: Boolean,
+    tripNewPassengersAcceptance: String): Observable<Trip[]> {
     const trip = {
       id: id,
-      vehicleType: vehicleType,
-      vehicleBrand: vehicleBrand,
-      vehicleName: vehicleName,
-      vehicleModelYear: vehicleModelYear,
-      vehicleColor: vehicleColor,
-      vehicleSeats: vehicleSeats,
-      vehicleMaxLuggage: vehicleMaxLuggage
+      belongsToUser: belongsToUser,
+      selectedVehicle: selectedVehicle,
+      tripStatus: tripStatus,
+      tripIdTag: tripIdTag,
+      tripFromLocation: tripFromLocation,
+      tripToLocation: tripToLocation,
+      tripDate: tripDate,
+      tripTime: tripTime,
+      tripFreeSeats: tripFreeSeats,
+      tripPrice: tripPrice,
+      tripLuggageSpace: tripLuggageSpace,
+      tripMessage: tripMessage,
+      tripComfortable: tripComfortable,
+      tripStopsOnTheWayToFinalDestination: tripStopsOnTheWayToFinalDestination,
+      tripNewPassengersAcceptance: tripNewPassengersAcceptance
     };
     return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
   }

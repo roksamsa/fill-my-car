@@ -43,6 +43,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { CreateVehicleDialogComponent } from './dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { EditVehicleDialogComponent } from './dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
 import { CreateTripDialogComponent } from './dialogs/create-trip-dialog/create-trip-dialog.component';
+import { EditTripDialogComponent } from './dialogs/edit-trip-dialog/edit-trip-dialog.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -95,8 +96,9 @@ const routes: Routes = [
     FooterComponent,
     DashboardPageComponent,
     CreateVehicleDialogComponent,
-    CreateTripDialogComponent,
     EditVehicleDialogComponent,
+    CreateTripDialogComponent,
+    EditTripDialogComponent,
     RegisterComponent,
     LoginComponent,
     ForgotPasswordComponent,
@@ -176,7 +178,8 @@ const routes: Routes = [
   bootstrap: [AppComponent],
   entryComponents: [
     CreateVehicleDialogComponent,
-    CreateTripDialogComponent
+    CreateTripDialogComponent,
+    EditTripDialogComponent
   ],
 })
 

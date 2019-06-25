@@ -1,0 +1,87 @@
+@import '../../sass/global_variables';
+@import '../../sass/elements/global_button';
+@import '../../sass/elements/global_forms';
+@import '../../components/info-box/info-box.component.scss';
+
+.popup {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__headline {
+    color: $color__blue--primary;
+    margin-top: 0;
+  }
+
+  &__close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 200ms ease-in-out;
+
+    &:hover {
+      background-color: $color__blue--lightest;
+    }
+  }
+
+  &__close-icon {
+    fill: $color__blue--primary;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.mat-dialog-content {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+  margin: 0 24px 0 0;
+  padding: 0;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+  min-height: auto;
+  margin: 20px 0 0 0;
+  padding: 0;
+}
+
+.trip__map {
+  width: 400px;
+  height: 500px;
+}
+
+.info-box__icon--police-man {
+  width: 36px;
+  height: auto;
+}
+
+.form {
+  &__time-input-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 100%;
+    margin: 0 5px;
+  }
+
+  &__price-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__price-label {
+    @include font-titillium-semibold;
+    margin-left: 16px;
+    color: $color__blue--primary;
+  }
+}

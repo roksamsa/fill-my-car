@@ -4,7 +4,10 @@
   &__field {
     background-color: $color__blue--lighter;
     border-radius: 3px;
+  }
 
+  &__field,
+  &__text-area-field {
     &::before {
       position: absolute;
       left: 0;
@@ -24,9 +27,6 @@
         opacity: 1;
       }
     }
-  }
-
-  &__text-area-field {
   }
 
   &__row {
