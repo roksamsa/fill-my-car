@@ -4,6 +4,10 @@
   width: 350px;
   height: 500px;
   border: 1px solid #ccc;
+
+  &.here-maps--trip-map {
+    width: 100%;
+  }
 }
 
 .here-maps {

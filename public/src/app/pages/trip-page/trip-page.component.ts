@@ -17,9 +17,10 @@ export class TripPageComponent implements OnInit {
   trip: Trip[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyTrips = false;
-
+  dateFormat = 'EEEE, dd. MMMM yyyy';
   currentTripId: any;
-  private sub: any;
+  tripFromLocationCity = '';
+  tripToLocationCity = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +44,9 @@ export class TripPageComponent implements OnInit {
         } else {
           this.trip = data;
           this.areThereAnyTrips = true;
-          console.log(data);
+
+          this.tripFromLocationCity = this.trip.tripFromLocation.split(', ')[0];
+          this.tripToLocationCity = this.trip.tripToLocation.split(', ')[0];
         }
       });
     });

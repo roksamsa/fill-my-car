@@ -3,18 +3,78 @@
 .trip {
   display: flex;
   flex-direction: row;
+  color: $color__blue--primary;
 
   &__headline {
     display: flex;
+    justify-content: space-between;
+  }
+
+  &__id-tag {
+    font-size: 20px;
+    color: $color__pink--primary;
+  }
+
+  &__id-tag-string {
+    @include font-titillium-semibold;
+  }
+
+  &__destinations {
+    @include font-titillium-semibold;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 20px;
+    font-size: 32px;
+    color: $color__blue--primary;
+  }
+
+  &__location {
+    display: flex;
+    flex-grow: 1;
+    white-space: nowrap;
+
+    &--end {
+      justify-content: flex-end;
+      text-align: right;
+    }
+  }
+
+  &__location-dots {
+    @include font-titillium-semibold;
+    display: flex;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 26px;
+    overflow: hidden;
+    color: $color__blue--light;
+
+    &::before {
+      display: flex;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .';
+    }
+  }
+
+  &__date-time {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 20px;
   }
 }
 
 .tile {
   &--trip-details {
+    width: 60%;
     margin-right: 15px;
   }
 
   &--trip-map {
+    width: 40%;
     margin-left: 15px;
   }
 }

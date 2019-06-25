@@ -2,6 +2,8 @@
 @import '../../sass/global_fonts';
 
 $tile__padding: 20px;
+$tile__padding--trip: 30px;
+$tile__padding--trip-map: 10px;
 $tile__shadow: 0 2px 5px 0 rgba(0, 19, 168, .1);
 $tile__shadow--hover: 0 4px 19px 0 rgba(0, 19, 168, .05);
 $tile__background-color: $color__white--100;
@@ -33,11 +35,15 @@ $tile__border-radius: 3px;
   }
 
   &.tile--trip {
-    width: 50%;
+    padding: $tile__padding--trip;
 
     .tile__content {
       flex-direction: column;
     }
+  }
+
+  &.tile--trip-map {
+    padding: $tile__padding--trip-map;
   }
 }
 
