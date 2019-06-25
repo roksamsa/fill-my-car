@@ -21,7 +21,7 @@ var tripSchema = new Schema({
     type: String
   },
   tripDate: {
-    type: String
+    type: Date
   },
   tripTime: {
     type: String

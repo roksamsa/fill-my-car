@@ -1,4 +1,4 @@
-<div class="header__user" *ngIf="authService.userData as user" routerLink="/user">
+<div class="header__user" *ngIf="authService.userData as user" routerLink="/uporabnik">
   <img class="header__user-image" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
   <div class="header__username">{{user.displayName}}</div>
   <div class="header__email">{{user.email}}</div>

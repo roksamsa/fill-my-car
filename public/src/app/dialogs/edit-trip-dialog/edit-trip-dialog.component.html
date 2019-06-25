@@ -20,7 +20,7 @@
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
               <label class="form__label">Odhod iz</label>
-              <mat-form-field class="form__field">
+              <mat-form-field [floatLabel]="'never'"  class="form__field">
                 <input (keyup)="valueChangeStartDestination($event)" matInput
                   placeholder="Ljubljana, Maribor, Koper, ..." formControlName="tripFromLocation" #tripFromLocation
                   [matAutocomplete]="matAutocompleteStart">
@@ -45,7 +45,7 @@
 
             <div class="form__input">
               <label class="form__label">Prihod v</label>
-              <mat-form-field class="form__field">
+              <mat-form-field [floatLabel]="'never'"  class="form__field">
                 <input (keyup)="valueChangeFinishDestination($event)" matInput
                   placeholder="Ljubljana, Maribor, Koper, ..." formControlName="tripToLocation" #tripToLocation
                   [matAutocomplete]="matAutocompleteFinish">
@@ -63,10 +63,10 @@
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
               <label class="form__label">Datum in ura odhoda</label>
-              <mat-form-field class="form__field">
+              <mat-form-field [floatLabel]="'never'"  class="form__field">
                 <input matInput [matDatepicker]="tripDate" placeholder="Datum ..." formControlName="tripDateInput" #tripDateInput>
                 <mat-datepicker-toggle matSuffix [for]="tripDate"></mat-datepicker-toggle>
-                <mat-datepicker startAt="{{curDate | date:'dd. MM yyyy'}}" weekStartsOn="1" #tripDate></mat-datepicker>
+                <mat-datepicker startAt="{{curDate | date: dateFormat}}" weekStartsOn="1" #tripDate></mat-datepicker>
               </mat-form-field>
             </div>
 
@@ -127,7 +127,7 @@
 
             <div class="form__input form__input--space-left">
               <label class="form__label">Izbrano vozilo</label>
-              <mat-form-field class="form__field">
+              <mat-form-field [floatLabel]="'never'"  class="form__field">
                 <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle>
                   <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
                     <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
@@ -147,7 +147,7 @@
           <section class="form__row">
             <div class="form__text-area">
               <label class="form__label">Opombe</label>
-              <mat-form-field class="form__text-area-field">
+              <mat-form-field [floatLabel]="'never'"  class="form__text-area-field">
                 <textarea matInput placeholder="Textarea" formControlName="tripMessage" #tripMessage></textarea>
               </mat-form-field>
             </div>
@@ -248,56 +248,63 @@
 
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
-  <button *ngIf="stepper.selectedIndex === 0" mat-raised-button class="button button--default"
-    (click)="stepperGoNextStep()" type="button">
+  <button *ngIf="stepper.selectedIndex === 0"
+          mat-raised-button
+          class="button button--default"
+          (click)="stepperGoNextStep()" type="button">
     Podrobnosti
     <svg class="button__icon button__icon--on-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
       viewBox="0 0 24 24">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" /></svg>
   </button>
-  <button *ngIf="stepper.selectedIndex === 1" mat-raised-button class="button button--default"
-    (click)="stepperGoPreviousStep()" type="button">
+  <button *ngIf="stepper.selectedIndex === 1"
+          mat-raised-button
+          class="button button--default"
+          (click)="stepperGoPreviousStep()" type="button">
     <svg class="button__icon button__icon--on-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
       viewBox="0 0 24 24">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" /></svg>
     Potek vožnje
   </button>
-  <button *ngIf="stepper.selectedIndex === 1" mat-raised-button class="button button--default"
-    (click)="stepperGoNextStep()" type="button">
+  <button *ngIf="stepper.selectedIndex === 1"
+          mat-raised-button
+          class="button button--default"
+          (click)="stepperGoNextStep()" type="button">
     Zaključek
     <svg class="button__icon button__icon--on-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
       viewBox="0 0 24 24">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" /></svg>
   </button>
-  <button *ngIf="stepper.selectedIndex === 2" mat-raised-button class="button button--default"
-    (click)="stepperGoPreviousStep()" type="button">
+  <button *ngIf="stepper.selectedIndex === 2"
+          mat-raised-button
+          class="button button--default"
+          (click)="stepperGoPreviousStep()" type="button">
     <svg class="button__icon button__icon--on-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
       viewBox="0 0 24 24">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" /></svg>
     Podrobnosti
   </button>
-  <button *ngIf="stepper.selectedIndex === 2"
-          mat-raised-button
+  <button mat-raised-button
           class="button button--primary"
           (click)="updateTrip(
-          currentTripId,
-          authService.userData.uid,
-          selectedVehicle.value,
-          'active',
-          createTripIdTag(),
-          tripFromLocation.value,
-          tripToLocation.value,
-          tripDateInput.value,
-          timeHourValue + ' : ' + timeMinutesValue,
-          freeSeatsValue,
-          priceValue,
-          luggageSpaceValue,
-          tripMessage.value,
-          isTripComfortableChecked,
-          isTripStopsOnTheWayToFinalDestinationChecked,
-          isAcceptPassengersChecked)">Shrani popravke potovanja</button>
+            currentTripId,
+            authService.userData.uid,
+            selectedVehicle.value,
+            'active',
+            createTripIdTag(),
+            tripFromLocation.value,
+            tripToLocation.value,
+            tripDateInput.value,
+            timeHourValue + ' : ' + timeMinutesValue,
+            freeSeatsValue,
+            priceValue,
+            luggageSpaceValue,
+            tripMessage.value,
+            isTripComfortableChecked,
+            isTripStopsOnTheWayToFinalDestinationChecked,
+            isAcceptPassengersChecked)">Shrani popravke potovanja</button>
 </mat-dialog-actions>

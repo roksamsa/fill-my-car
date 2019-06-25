@@ -20,7 +20,7 @@
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
               <label class="form__label">Odhod iz</label>
-              <mat-form-field class="form__field">
+              <mat-form-field [floatLabel]="'never'"  class="form__field" [floatLabel]="'never'">
                 <input (keyup)="valueChangeStartDestination($event)" matInput
                   placeholder="Ljubljana, Maribor, Koper, ..." formControlName="tripFromLocation" #tripFromLocation
                   [matAutocomplete]="matAutocompleteStart">
@@ -45,7 +45,7 @@
 
             <div class="form__input">
               <label class="form__label">Prihod v</label>
-              <mat-form-field class="form__field">
+              <mat-form-field [floatLabel]="'never'"  class="form__field">
                 <input (keyup)="valueChangeFinishDestination($event)" matInput
                   placeholder="Ljubljana, Maribor, Koper, ..." formControlName="tripToLocation" #tripToLocation
                   [matAutocomplete]="matAutocompleteFinish">
@@ -63,10 +63,10 @@
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
               <label class="form__label">Datum in ura odhoda</label>
-              <mat-form-field class="form__field">
+              <mat-form-field [floatLabel]="'never'"  class="form__field">
                 <input matInput [matDatepicker]="tripDate" placeholder="Datum ..." formControlName="tripDateInput" #tripDateInput>
                 <mat-datepicker-toggle matSuffix [for]="tripDate"></mat-datepicker-toggle>
-                <mat-datepicker startAt="{{curDate | date:'dd. MM yyyy'}}" weekStartsOn="1" #tripDate></mat-datepicker>
+                <mat-datepicker startAt="{{curDate | date: dateFormat}}" weekStartsOn="1" #tripDate></mat-datepicker>
               </mat-form-field>
             </div>
 
@@ -127,7 +127,7 @@
 
             <div class="form__input form__input--space-left">
               <label class="form__label">Izbrano vozilo</label>
-              <mat-form-field class="form__field">
+              <mat-form-field [floatLabel]="'never'"  class="form__field">
                 <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle>
                   <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
                     <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
@@ -147,7 +147,7 @@
           <section class="form__row">
             <div class="form__text-area">
               <label class="form__label">Opombe</label>
-              <mat-form-field class="form__text-area-field">
+              <mat-form-field [floatLabel]="'never'"  class="form__text-area-field">
                 <textarea matInput placeholder="Textarea" formControlName="tripMessage" #tripMessage></textarea>
               </mat-form-field>
             </div>
@@ -279,6 +279,8 @@
   <button *ngIf="stepper.selectedIndex === 2"
           mat-raised-button
           class="button button--primary"
+          (keydown.ArrowLeft)="stepperGoPreviousStep()"
+          (keydown.ArrowRight)="stepperGoNextStep()"
           (click)="addTrip(
           authService.userData.uid,
           selectedVehicle.value,

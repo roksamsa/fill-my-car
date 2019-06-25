@@ -57,6 +57,9 @@ export class CreateTripDialogComponent implements OnInit {
   priceValue = 0;
   luggageSpaceValue = 0;
 
+  dateFormat = 'EEEE, dd. MMMM yyyy';
+  dateLocale = 'sl-SI';
+
   @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
   @ViewChild('tripToLocation') tripToLocation: ElementRef;
   @ViewChild('swapLocationButton') swapLocationButton: ElementRef;
@@ -271,7 +274,7 @@ export class CreateTripDialogComponent implements OnInit {
     tripIdTag: String,
     tripFromLocation: String,
     tripToLocation: String,
-    tripDate: String,
+    tripDate: Date,
     tripTime: String,
     tripFreeSeats: Number,
     tripPrice: Number,

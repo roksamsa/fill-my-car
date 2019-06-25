@@ -31,6 +31,14 @@ $tile__border-radius: 3px;
       height: 100%;
     }
   }
+
+  &.tile--trip {
+    width: 50%;
+
+    .tile__content {
+      flex-direction: column;
+    }
+  }
 }
 
 .tile {

@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
+import { formatDate } from '@angular/common';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '300ms';
 export const headerFadeOutAnimationTiming = '250ms';
-export const headerAnimationDelay = '450ms';
+export const headerAnimationDelay = '175ms';
 
 @Component({
   selector: 'app-trips-list',
@@ -21,7 +22,7 @@ export const headerAnimationDelay = '450ms';
         style({
           opacity: 0
         }),
-        animate(`${headerFadeInAnimationTiming} ${defaultAnimationFunction}`, style({
+        animate(`${headerFadeInAnimationTiming} ${headerAnimationDelay} ${defaultAnimationFunction}`, style({
           opacity: 1
         }))
       ]),
@@ -74,13 +75,16 @@ export class TripsListComponent implements OnInit {
     'selectedTrip',
     'tripFromLocation',
     'tripToLocation',
-    'tripDateAndTime',
+    'tripDate',
     'tripCategory',
     'tripDistance',
     'tripDuration',
     'tripPrice',
     'tripLuggageSpace',
   ];
+
+  dateFormat = 'EEEE, dd. MMMM yyyy';
+  dateLocale = 'sl-SI';
 
   constructor(
     private popupDialog: MatDialog,

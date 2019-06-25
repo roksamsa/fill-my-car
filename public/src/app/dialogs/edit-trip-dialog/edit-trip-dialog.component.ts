@@ -61,12 +61,14 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   priceValue = 0;
   luggageSpaceValue = 0;
 
+  dateFormat = 'EEEE, dd. MMMM yyyy';
+  dateLocale = 'sl-SI';
+
   @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
   @ViewChild('tripToLocation') tripToLocation: ElementRef;
   @ViewChild('swapLocationButton') swapLocationButton: ElementRef;
   @ViewChild('stepper') stepper: MatStepper;
 
-  /** Returns a FormArray with the name 'formArray'. */
   get formArray(): AbstractControl | null { return this.addTripFormStepperForm.get('addTripFormStepperFormArray'); }
 
   constructor(
@@ -89,7 +91,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
           tripFromLocation: [selectedTripData.tripFromLocation, Validators.required],
           tripToLocation: [selectedTripData.tripToLocation, Validators.required],
           tripDateInput: selectedTripData.tripDate,
-          tripDate: selectedTripData.tripDate,
           tripTime: ['', Validators.required],
           tripFreeSeats: ['', Validators.required],
           tripPrice: ['', Validators.required],
@@ -115,6 +116,8 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.priceValue = selectedTripData.tripPrice;
     this.luggageSpaceValue = selectedTripData.tripLuggageSpace;
     this.isAcceptPassengersChecked = selectedTripData.tripNewPassengersAcceptance;
+    this.isTripStopsOnTheWayToFinalDestinationChecked = selectedTripData.tripStopsOnTheWayToFinalDestination;
+    this.isTripComfortableChecked = selectedTripData.tripComfortable;
     console.log(selectedTripData);
   }
 
@@ -295,7 +298,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     tripIdTag: String,
     tripFromLocation: String,
     tripToLocation: String,
-    tripDate: String,
+    tripDate: Date,
     tripTime: String,
     tripFreeSeats: Number,
     tripPrice: Number,

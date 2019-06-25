@@ -57,19 +57,26 @@ export const defaultAnimationFunction = 'ease-in-out';
 })
 
 export class UserMenuComponent implements OnInit {
-
   userMenuVisibility: boolean;
   slideToggleChecked = false;
+  userFullName = '';
+  userName = '';
 
   constructor(
     public authService: AuthService,
     private userMenuDarkThemeData: UserMenuService,
     private headerData: HeaderService) {
+    this.userFullName = authService.userData.displayName;
+    this.userName = this.userFullName.replace(/ /g, '.');
   }
 
   ngOnInit() {
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
     this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.slideToggleChecked = clickActiveState);
+  }
+
+  clickUserMenuVisibility() {
+    this.headerData.changeUserMenuVisibility(false);
   }
 
   isDarkModeActivated() {

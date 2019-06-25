@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -59,6 +59,7 @@ import { UserService } from './core/user/user.service';
 import { environment } from '../environments/environment';
 import { VehiclesPageComponent } from './pages/vehicles-page/vehicles-page.component';
 import { TripsPageComponent } from './pages/trips-page/trips-page.component';
+import { TripPageComponent } from './pages/trip-page/trip-page.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { AuthGuard } from './core/auth/auth.guard';
@@ -73,21 +74,41 @@ import { TripsListComponent } from './components/trips-list/trips-list.component
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
 import { HereMapsComponent } from './components/here-maps/here-maps.component';
-import { CustomDateAdapter, MY_DATE_FORMATS } from './core/other/date-picker.module';
 import { PreloadingSpinnerComponent } from './components/preloading-spinner/preloading-spinner.component';
 import { NumberPickerComponent } from './components/number-picker/number-picker.component';
 import { InfoBoxComponent } from './components/info-box/info-box.component';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { registerLocaleData } from '@angular/common';
+import localeSl from '@angular/common/locales/sl';
+
+registerLocaleData(localeSl);
 
 const routes: Routes = [
-  { path: 'edit/:id', component: EditVehicleDialogComponent, canActivate: [AuthGuard] },
   { path: 'nadzorna-plosca', component: DashboardPageComponent, canActivate: [AuthGuard] },
   { path: 'registracija', component: RegisterComponent, canActivate: [SecureInnerPagesGuard] },
   { path: 'prijava', component: LoginPageComponent, canActivate: [SecureInnerPagesGuard] },
   { path: 'moja-vozila', component: VehiclesPageComponent, canActivate: [AuthGuard] },
   { path: 'moja-potovanja', component: TripsPageComponent, canActivate: [AuthGuard] },
-  { path: 'user', component: UserPageComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: 'nadzorna-plosca', pathMatch: 'full' }
+  { path: 'potovanje/:id', component: TripPageComponent, pathMatch: 'full' },
+  { path: 'uporabnik/:id', component: UserPageComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'nadzorna-plosca', pathMatch: 'full' },
+  { path: '**', component: LoginPageComponent }
 ];
+
+const dateFormatParse = 'DD. MMMM YYYY';
+const dateFormatDisplay = 'dddd, DD. MMMM YYYY';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: dateFormatParse,
+  },
+  display: {
+    dateInput: dateFormatDisplay,
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: dateFormatDisplay,
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -107,7 +128,7 @@ const routes: Routes = [
     VehiclesPageComponent,
     UserPageComponent,
     ContentComponent,
-    TripsPageComponent,
+    TripPageComponent,
     VehicleListComponent,
     LoginPageComponent,
     NavigationMainComponent,
@@ -171,9 +192,9 @@ const routes: Routes = [
     AuthGuard,
     { provide: FirestoreSettingsToken, useValue: {} },
     { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'never' } },
-    { provide: DateAdapter, useClass: CustomDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    { provide: MAT_DATE_LOCALE, useValue: 'sl-SI' }
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: LOCALE_ID, useValue: 'sl-SI' }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

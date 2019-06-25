@@ -1,0 +1,20 @@
+@import '../../sass/global_variables';
+
+.trip {
+  display: flex;
+  flex-direction: row;
+
+  &__headline {
+    display: flex;
+  }
+}
+
+.tile {
+  &--trip-details {
+    margin-right: 15px;
+  }
+
+  &--trip-map {
+    margin-left: 15px;
+  }
+}
