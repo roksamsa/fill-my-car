@@ -200,7 +200,8 @@ export const MY_FORMATS = {
   entryComponents: [
     CreateVehicleDialogComponent,
     CreateTripDialogComponent,
-    EditTripDialogComponent
+    EditTripDialogComponent,
+    EditVehicleDialogComponent
   ],
 })
 

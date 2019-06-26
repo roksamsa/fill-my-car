@@ -24,12 +24,12 @@ export class VehicleService {
   }
 
   // Get specific vehicle by ID
-  getVehicleById(id: any): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.uriVehicles + id);
+  getVehicleById(vehicleId: string): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.uriVehicles + vehicleId);
   }
 
   // Get vehicles by specific user
-  getVehicleByUser(belongsToUser: any): Observable<Vehicle[]> {
+  getVehicleByUser(belongsToUser: string): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(this.uriVehiclesForUser + belongsToUser);
   }
 

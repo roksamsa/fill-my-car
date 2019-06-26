@@ -1,10 +1,18 @@
-
 <div class="trip">
   <app-tile class="tile tile--trip tile--trip-details">
     <div class="trip__headline">
-      <div class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip.tripIdTag }}</span></div>
+      <div class="trip__headline-left">
+        <div class="trip__status trip__status--{{ trip.tripStatus }}">
+          <div class="trip__status-icon"></div>
+        </div>
+        <div class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip.tripIdTag }}</span></div>
+      </div>
       <div class="trip__share">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+          </svg>
       </div>
     </div>
     <div class="trip__main-details">
@@ -19,19 +27,52 @@
       </div>
       <div class="trip__date-time">
         <div class="trip__date">
-          {{ trip.tripDate | date: dateFormat}}
+          <div class="trip__date-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+              </svg>
+          </div>
+          <div class="trip__date-text">
+            {{ trip.tripDate | date: dateFormat}}
+          </div>
         </div>
         <div class="trip__time">
-          {{ trip.tripTime }}
+          <div class="trip__time-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path
+                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" /></svg>
+          </div>
+          <div class="trip__time-text">
+            {{ trip.tripTime }}
+          </div>
         </div>
       </div>
-      <div class="trip__price">
-        {{ trip.tripPrice }}
+
+      <app-vehicle-tile class="single single--trip-details" [vehicleType]="selectedTypeData" [vehicleColor]="selectedColorData" [vehicleTextVisible]="true"></app-vehicle-tile>
+    </div>
+
+    <div class="trip__bottom-details">
+      <div class="trip__price-container">
+        <div class="trip__price-divider"></div>
+        <div class="trip__price-label">
+          Cena prevoza na osebo
+        </div>
+        <div class="trip__price">
+          {{ trip.tripPrice }} EUR
+        </div>
       </div>
+
+  <button *ngIf="stepper.selectedIndex === 2"
+  mat-raised-button
+  class="button button--primary">Dodaj novo potovanje</button>
     </div>
   </app-tile>
   <app-tile class="tile tile--trip tile--trip-map">
-      <app-preloading-spinner [visibility]="preloadingSpinnerVisibility" [diameter]="preloadingSpinnerDiameter"
+    <app-preloading-spinner [visibility]="preloadingSpinnerVisibility" [diameter]="preloadingSpinnerDiameter"
       [strokeWidth]="preloadingSpinnerStrokeWidth" [mode]="preloadingSpinnerMode">
       <app-here-maps class="here-maps--trip-map" [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
     </app-preloading-spinner>

@@ -10,6 +10,32 @@
     justify-content: space-between;
   }
 
+  &__headline-left {
+    display: flex;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-grow: 0;
+    margin-right: 10px;
+    width: 12px;
+
+    &--active {
+      .trip__status-icon {
+        background-color: #8BCF47;
+      }
+    }
+  }
+
+  &__status-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid $color__blue--primary;
+  }
+
   &__id-tag {
     font-size: 20px;
     color: $color__pink--primary;
@@ -17,6 +43,12 @@
 
   &__id-tag-string {
     @include font-titillium-semibold;
+  }
+
+  &__main-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
   &__destinations {
@@ -64,6 +96,45 @@
     justify-content: space-between;
     margin-top: 20px;
     font-size: 20px;
+  }
+
+  &__date,
+  &__time {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__date-icon,
+  &__time-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+
+  &__bottom-details {
+    position: relative;
+  }
+
+  &__price-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__price-divider {
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    right: -30px;
+    height: 14px;
+    background-image: url("/../../../assets/icons/icon-price-divider.svg");
+    background-size: contain;
+  }
+
+  &__price {
+    @include font-titillium-semibold;
+    font-size: 50px;
+    line-height: 1;
   }
 }
 

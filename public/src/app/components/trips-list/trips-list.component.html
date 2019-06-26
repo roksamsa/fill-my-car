@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="table__column trip__from-location">
+    <div #containerFromLocation class="table__column trip__location trip__location--from">
       <div class="table__column-content">
         {{ trip?.tripFromLocation }}
       </div>
@@ -23,7 +23,7 @@
         <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z" /></svg>
     </div>
 
-    <div class="table__column trip__to-location">
+    <div class="table__column trip__location trip__location--to">
       <div class="table__column-content">
         {{ trip?.tripToLocation }}
       </div>

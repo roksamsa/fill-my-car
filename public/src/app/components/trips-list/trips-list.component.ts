@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TripService } from '../../core/trip/trip.service';
 import { Trip } from '../../core/trip/trip.module';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
-import { formatDate } from '@angular/common';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '300ms';
@@ -67,8 +66,11 @@ export class TripsListComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyTrips = false;
   dialogResult: '';
+  tripFromLocationCity = '';
   moreActionVisible: any;
   moreActionOpened = -1;
+  dateFormat = 'EEEE, dd. MMMM yyyy';
+  dateLocale = 'sl-SI';
   displayedColumns: string[] = [
     'tripStatus',
     'tripIdTag',
@@ -82,9 +84,6 @@ export class TripsListComponent implements OnInit {
     'tripPrice',
     'tripLuggageSpace',
   ];
-
-  dateFormat = 'EEEE, dd. MMMM yyyy';
-  dateLocale = 'sl-SI';
 
   constructor(
     private popupDialog: MatDialog,
@@ -116,9 +115,10 @@ export class TripsListComponent implements OnInit {
   fetchTrips() {
     this.tripService.getTripsByUser(this.currentUser.uid)
     .subscribe((data: Trip[]) => {
-      if (data.length > 0) {
+      if (data) {
         this.trips = data;
         this.areThereAnyTrips = true;
+
       } else {
         this.trips = null;
         this.areThereAnyTrips = false;
