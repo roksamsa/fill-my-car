@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 
 @Component({

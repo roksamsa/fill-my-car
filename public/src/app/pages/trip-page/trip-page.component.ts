@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { TripService } from '../../core/trip/trip.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
@@ -28,24 +28,28 @@ export class TripPageComponent implements OnInit, AfterViewInit {
 
   selectedTypeData = '';
   selectedBrandData = '';
+  selectedNameData = '';
   selectedBrandDataWithoutSpaces = '';
   selectedColorData = '';
   selectedVehicleYearData = '';
   isVehicleInsuranceChecked = false;
+
+  vehicleSeatsNumber: any;
 
   constructor(
     private route: ActivatedRoute,
     public authService: AuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
-    private router: Router) { }
+    private router: Router,
+    private cdref: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
     this.fetchTrip();
-    this.fetchVehicles();
+    this.cdref.detectChanges();
   }
 
   // Fetch all trips for specific user
@@ -58,10 +62,10 @@ export class TripPageComponent implements OnInit, AfterViewInit {
           this.areThereAnyTrips = true;
           console.log(this.trip);
 
-          this.tripFromLocationCity = this.trip.tripFromLocation.split(', ')[0];
-          this.tripToLocationCity = this.trip.tripToLocation.split(', ')[0];
-          this.hereMapStart = this.trip.tripFromLocation;
-          this.hereMapFinish = this.trip.tripToLocation;
+          this.tripFromLocationCity = data.tripFromLocation.split(', ')[0];
+          this.tripToLocationCity = data.tripToLocation.split(', ')[0];
+          this.hereMapStart = data.tripFromLocation;
+          this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = this.trip.selectedVehicle;
 
           this.fetchVehicles();
@@ -80,10 +84,12 @@ export class TripPageComponent implements OnInit, AfterViewInit {
         if (selectedVehicleData) {
           this.vehicle = selectedVehicleData;
           console.log(this.vehicle);
-          this.selectedTypeData = this.vehicle.vehicleType;
-          this.selectedBrandData = '';
-          this.selectedBrandDataWithoutSpaces = '';
-          this.selectedColorData = this.vehicle.vehicleColor;
+          this.selectedTypeData = selectedVehicleData.vehicleType;
+          this.selectedColorData = selectedVehicleData.vehicleColor;
+          this.selectedBrandData = selectedVehicleData.vehicleBrand;
+          this.selectedNameData = selectedVehicleData.vehicleName;
+          this.vehicleSeatsNumber = selectedVehicleData.vehicleSeats;
+          console.log(this.vehicle.vehicleSeats);
         } else {
           this.vehicle = null;
         }

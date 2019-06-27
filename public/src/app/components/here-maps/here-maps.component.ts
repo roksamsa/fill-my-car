@@ -85,8 +85,6 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
         this.map.setCenter({ lat: this.hereMapRouteStartLat, lng: this.hereMapRouteStartLng });
 
         this.hereMap.getCoordinates(finish).then(geocoderResult2 => {
-          console.log(geocoderResult2[0].Location.DisplayPosition.Latitude);
-          console.log(start);
           this.hereMapRouteFinishLat = geocoderResult2[0].Location.DisplayPosition.Latitude;
           this.hereMapRouteFinishLng = geocoderResult2[0].Location.DisplayPosition.Longitude;
 
@@ -141,72 +139,6 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
         });
 
       });
-
-      /*this.hereMap.getCoordinatesforRoute(start, finish).then(geocoderResult => {
-        console.log(start);
-        this.hereMapRouteStartLat = geocoderResult[0][0].Location.DisplayPosition.Latitude;
-        this.hereMapRouteStartLng = geocoderResult[0][0].Location.DisplayPosition.Longitude;
-        this.hereMapRouteFinishLat = geocoderResult[1][0].Location.DisplayPosition.Latitude;
-        this.hereMapRouteFinishLng = geocoderResult[1][0].Location.DisplayPosition.Longitude;
-
-        // Start marker
-        const startMarker = new H.map.Marker({
-          lat: this.hereMapRouteStartLat,
-          lng: this.hereMapRouteStartLng
-        }, { icon: this.hereMapStartMarkerIcon });
-
-        // Finish marker
-        const finishMarker = new H.map.Marker({
-          lat: this.hereMapRouteFinishLat,
-          lng: this.hereMapRouteFinishLng
-        }, { icon: this.hereMapFinishMarkerIcon });
-
-        this.map.addObject(startMarker);
-        this.map.addObject(finishMarker);
-
-        const routeParameters = {
-          'mode': 'fastest;car;traffic:enabled',
-          'waypoint0': 'geo!' + this.hereMapRouteStartLat + ',' + this.hereMapRouteStartLng,
-          'waypoint1': 'geo!' + this.hereMapRouteFinishLat + ',' + this.hereMapRouteFinishLng,
-          'representation': 'display',
-          'departure': 'Now',
-          'language ': 'sl-sl',
-          'country': 'SVN',
-          'metricSystem': 'metric'
-        };
-
-        this.hereMap.router.calculateRoute(routeParameters, data => {
-          if (data.response) {
-            this.hereMap.isHereMapsLoading(false);
-            this.hereMap.directions = data.response.route[0].leg[0].maneuver;
-            data = data.response.route[0];
-
-            const lineString = new H.geo.LineString();
-            data.shape.forEach(point => {
-              const parts = point.split(',');
-              lineString.pushLatLngAlt(parts[0], parts[1]);
-            });
-
-            const routeLine = new H.map.Polyline(lineString, {
-              style: {
-                strokeColor: 'rgba(217, 51, 98, .75)',
-                lineWidth: 8,
-                lineCap: 'round'
-              }
-            });
-
-            this.map.addObject(routeLine);
-            this.map.setViewBounds(routeLine.getBounds());
-          } else {
-            this.hereMap.isHereMapsLoading(true);
-          }
-        }, error => {
-          console.log(error);
-        });
-      });
-    } else {
-      console.log('Iskanje po zemljevidu še ni pognano.');
-    }*/
     }
   }
 }

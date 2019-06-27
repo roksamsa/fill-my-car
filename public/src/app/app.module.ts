@@ -80,6 +80,7 @@ import { InfoBoxComponent } from './components/info-box/info-box.component';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { registerLocaleData } from '@angular/common';
 import localeSl from '@angular/common/locales/sl';
+import { VehicleSeatsComponent } from './components/vehicle-seats/vehicle-seats.component';
 
 registerLocaleData(localeSl);
 
@@ -142,7 +143,8 @@ export const MY_FORMATS = {
     HereMapsComponent,
     PreloadingSpinnerComponent,
     NumberPickerComponent,
-    InfoBoxComponent
+    InfoBoxComponent,
+    VehicleSeatsComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

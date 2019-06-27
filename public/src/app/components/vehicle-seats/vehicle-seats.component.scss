@@ -1,0 +1,8 @@
+.vehicle-seats {
+  &__seat {
+    width: 60px;
+    height: 70px;
+    background-image: url(../../../assets/icons/icon-seat.svg);
+    background-position: center;
+  }
+}
