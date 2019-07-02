@@ -1,8 +1,32 @@
+:host {
+  display: block;
+}
+
 .vehicle-seats {
+  display: flex;
+  align-items: center;
+
   &__seat {
+    position: relative;
+    float: left;
     width: 60px;
     height: 70px;
     background-image: url(../../../assets/icons/icon-seat.svg);
     background-position: center;
+
+    &--1 {
+      top: 22px;
+      left: -22px;
+    }
+
+    &--2 {
+      left: -60px;
+      top: -50px;
+    }
+
+    &--3 {
+      left: -83px;
+      top: -27px;
+    }
   }
 }

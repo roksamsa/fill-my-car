@@ -116,8 +116,22 @@
     margin-right: 10px;
   }
 
-  &__vehicle {
+  &__graphics {
+    display: flex;
     margin-top: 50px;
+    margin-bottom: 30px;
+  }
+
+  &__vehicle {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  &__vehicle-seats {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    overflow: hidden;
   }
 
   &__bottom-details {

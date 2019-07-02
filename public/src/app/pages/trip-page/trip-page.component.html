@@ -51,17 +51,18 @@
           </div>
         </div>
       </div>
-
-      <div class="trip__vehicle">
-        <app-vehicle-tile class="single single--trip-details"
-                          [vehicleType]="selectedTypeData"
-                          [vehicleColor]="selectedColorData"
-                          [vehicleBrand]="selectedBrandData"
-                          [vehicleName]="selectedNameData"
-                          [vehicleTextVisible]="true"></app-vehicle-tile>
-      </div>
-      <div class="trip__vehicle-seats">
-        <app-vehicle-seats *ngIf="vehicleSeatsNumber" [vehicleSeatsNumber]="vehicleSeatsNumber"></app-vehicle-seats>
+      <div class="trip__graphics">
+        <div class="trip__vehicle">
+          <app-vehicle-tile class="single single--trip-details"
+                            [vehicleType]="selectedTypeData"
+                            [vehicleColor]="selectedColorData"
+                            [vehicleBrand]="selectedBrandData"
+                            [vehicleName]="selectedNameData"
+                            [vehicleTextVisible]="true"></app-vehicle-tile>
+        </div>
+        <div class="trip__vehicle-seats">
+          <app-vehicle-seats *ngIf="vehicleSeatsNumber" [vehicleSeatsNumber]="vehicleSeatsNumber"></app-vehicle-seats>
+        </div>
       </div>
     </div>
 
