@@ -1,14 +1,14 @@
 export interface Vehicle {
-  _id: String;
-  belongsToUser: String;
-  vehicleType: String;
-  vehicleTypeID: String;
-  vehicleBrand: String;
-  vehicleName: String;
-  vehicleModelYear: Number;
-  vehicleColorID: String;
-  vehicleColor: String;
-  vehicleSeats: Number;
-  vehicleMaxLuggage: Number;
-  vehicleInsurance: Boolean;
+  _id: string;
+  belongsToUser: string;
+  vehicleType: string;
+  vehicleTypeID: string;
+  vehicleBrand: string;
+  vehicleName: string;
+  vehicleModelYear: number;
+  vehicleColorID: string;
+  vehicleColor: string;
+  vehicleSeats: number;
+  vehicleMaxLuggage: number;
+  vehicleInsurance: boolean;
 }

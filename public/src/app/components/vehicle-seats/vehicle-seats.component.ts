@@ -15,12 +15,13 @@ export class VehicleSeatsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.vehicleSeatsNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsNumber);
+
+    console.log(this.vehicleSeatsNumber);
+    console.log(this.vehicleSeatsNumberValue);
   }
 
   ngAfterViewInit() {
-    this.vehicleSeatsNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsNumber);
-    console.log(this.vehicleSeatsNumber);
-    console.log(this.vehicleSeatsNumberValue);
   }
 
   generateArrayFromVehicleSeatsNumber(number) {

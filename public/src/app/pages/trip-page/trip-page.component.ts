@@ -5,6 +5,7 @@ import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Trip } from '../../core/trip/trip.module';
 import { Router, ActivatedRoute } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-trip-page',
@@ -13,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class TripPageComponent implements OnInit, AfterViewInit {
-  vehicle: Vehicle[] = [];
+  vehicle: Vehicle;
   trip: Trip[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyTrips = false;
@@ -45,11 +46,10 @@ export class TripPageComponent implements OnInit, AfterViewInit {
     private cdref: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.fetchTrip();
   }
 
   ngAfterViewInit() {
-    this.fetchTrip();
-    this.cdref.detectChanges();
   }
 
   // Fetch all trips for specific user
@@ -66,9 +66,11 @@ export class TripPageComponent implements OnInit, AfterViewInit {
           this.tripToLocationCity = data.tripToLocation.split(', ')[0];
           this.hereMapStart = data.tripFromLocation;
           this.hereMapFinish = data.tripToLocation;
-          this.selectedVehicleId = this.trip.selectedVehicle;
+          this.selectedVehicleId = data.selectedVehicle;
 
-          this.fetchVehicles();
+          this.fetchVehicle(this.selectedVehicleId);
+
+          console.log(this.selectedVehicleId);
 
         } else {
           this.trip = null;
@@ -78,18 +80,20 @@ export class TripPageComponent implements OnInit, AfterViewInit {
     });
   }
 
-  fetchVehicles() {
-    this.vehicleService.getVehicleById(this.selectedVehicleId)
+  fetchVehicle(vehicleID) {
+    this.vehicleService.getVehicleById(vehicleID)
+    .pipe(filter(x => !!x))
       .subscribe((selectedVehicleData) => {
         if (selectedVehicleData) {
           this.vehicle = selectedVehicleData;
-          console.log(this.vehicle);
+
+          console.log('Test: ');
           this.selectedTypeData = selectedVehicleData.vehicleType;
           this.selectedColorData = selectedVehicleData.vehicleColor;
           this.selectedBrandData = selectedVehicleData.vehicleBrand;
           this.selectedNameData = selectedVehicleData.vehicleName;
           this.vehicleSeatsNumber = selectedVehicleData.vehicleSeats;
-          console.log(this.vehicle.vehicleSeats);
+          console.log(this.vehicleSeatsNumber);
         } else {
           this.vehicle = null;
         }

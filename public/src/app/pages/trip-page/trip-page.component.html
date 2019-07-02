@@ -61,8 +61,7 @@
                           [vehicleTextVisible]="true"></app-vehicle-tile>
       </div>
       <div class="trip__vehicle-seats">
-        <app-vehicle-seats [vehicleSeatsNumber]="vehicleSeatsNumber"></app-vehicle-seats>
-        {{vehicleSeatsNumber}}
+        <app-vehicle-seats *ngIf="vehicleSeatsNumber" [vehicleSeatsNumber]="vehicleSeatsNumber"></app-vehicle-seats>
       </div>
     </div>
 
