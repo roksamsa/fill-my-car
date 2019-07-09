@@ -122,7 +122,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.hereMap.hereMapLoading.subscribe(spinnerVisibility => this.preloadingSpinnerVisibility = spinnerVisibility);
     this.fetchVehicles();
     this.isVehicleListEmpty();
   }

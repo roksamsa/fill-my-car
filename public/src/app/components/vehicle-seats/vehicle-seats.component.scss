@@ -1,32 +1,65 @@
+@import '../../sass/global_variables';
+
 :host {
   display: block;
 }
 
 .vehicle-seats {
-  display: flex;
-  align-items: center;
+  display: block;
+  position: relative;
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, max-content);
+    grid-gap: 15px;
+    align-items: center;
+  }
 
   &__seat {
     position: relative;
-    float: left;
     width: 60px;
     height: 70px;
+  }
+
+  &__seat-shadow {
+    position: absolute;
+    top: 56px;
+    left: 10px;
+    width: 28px;
+    height: 10px;
+    transform: skew(-67deg, 32deg);
+    border-radius: 5px;
+    background-color: $color__blue--primary;
+    filter: blur(3px);
+    opacity: 0.5;
+  }
+
+  &__seat-icon {
+    width: 100%;
+    height: 100%;
     background-image: url(../../../assets/icons/icon-seat.svg);
     background-position: center;
+    background-repeat: no-repeat;
+  }
 
-    &--1 {
-      top: 22px;
-      left: -22px;
-    }
+  &__persons {
+    display: grid;
+    grid-template-columns: repeat(5, max-content);
+    grid-gap: 15px;
+    align-items: center;
+    position: absolute;
+    top: -6px;
+    left: -11px;
+  }
 
-    &--2 {
-      left: -60px;
-      top: -50px;
-    }
-
-    &--3 {
-      left: -83px;
-      top: -27px;
-    }
+  &__person {
+    position: relative;
+    top: 10px;
+    left: 0;
+    width: 60px;
+    height: 85px;
+    background-image: url(../../../assets/icons/icon-person.svg);
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

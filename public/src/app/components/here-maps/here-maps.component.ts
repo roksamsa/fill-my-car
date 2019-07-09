@@ -11,6 +11,7 @@ declare var H: any;
 
 export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
   private map: any;
+  preloadingSpinnerVisibility = true;
   hereMapUI: any;
   hereMapRouteStartLat: any;
   hereMapRouteStartLng: any;
@@ -27,7 +28,6 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() hereMapFinish: any;
 
   constructor(public hereMap: HereMapsService) {
-    this.hereMap.isHereMapsLoading(true);
   }
 
   ngOnInit() {
@@ -52,18 +52,10 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
     this.hereMapUI = H.ui.UI.createDefault(this.map, defaultLayers);
     this.map.setCenter({ lat: 46.119944, lng: 14.815333 }); // Center is GEOSS
     this.map.setZoom(7.2);
-    setTimeout(() => {
-      this.hereMap.isHereMapsLoading(false);
-    }, 1000);
   }
 
   ngOnChanges() {
     this.hereMapsRoute(this.hereMapStart, this.hereMapFinish);
-    this.hereMap.isHereMapsLoading(true);
-
-    setTimeout(() => {
-      this.hereMap.isHereMapsLoading(false);
-    }, 1000);
   }
 
   hereMapsRoute(start: string, finish: string) {
@@ -109,7 +101,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
           this.hereMap.router.calculateRoute(routeParameters, data => {
             if (data.response) {
-              this.hereMap.isHereMapsLoading(false);
+              this.preloadingSpinnerVisibility = false;
               this.hereMap.directions = data.response.route[0].leg[0].maneuver;
               data = data.response.route[0];
 
@@ -130,7 +122,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
               this.map.addObject(routeLine);
               this.map.setViewBounds(routeLine.getBounds());
             } else {
-              this.hereMap.isHereMapsLoading(true);
+              this.preloadingSpinnerVisibility = true;
             }
           }, error => {
             console.log(error);

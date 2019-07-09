@@ -99,7 +99,7 @@
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
               <label class="form__label">Število prostih mest</label>
-              <app-number-picker class="form__time-input" [min]="0" [max]="100" [step]="1" [precision]="1"
+              <app-number-picker class="form__time-input" [min]="0" [max]="10" [step]="1" [precision]="1"
                 [inputDisabled]="false" [inputValueNumber]="freeSeatsValue" (change)="freeSeatsChanged($event)">
               </app-number-picker>
             </div>
@@ -239,10 +239,7 @@
   </mat-dialog-content>
 
   <div class="here-maps__wrapper">
-    <app-preloading-spinner [visibility]="preloadingSpinnerVisibility" [diameter]="preloadingSpinnerDiameter"
-      [strokeWidth]="preloadingSpinnerStrokeWidth" [mode]="preloadingSpinnerMode">
-      <app-here-maps [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
-    </app-preloading-spinner>
+    <app-here-maps [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
   </div>
 </div>
 

@@ -19,7 +19,7 @@ export class CreateVehicleDialogComponent implements OnInit {
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
-
+  preloadingSpinnerVisibility = true;
   selectedTypeData = 'car';
   selectedColorData = 'white';
   selectedBrandData = '';
@@ -62,8 +62,10 @@ export class CreateVehicleDialogComponent implements OnInit {
     .subscribe((data: Vehicle[]) => {
       if (data.length > 0) {
         this.vehicles = data;
+        this.preloadingSpinnerVisibility = false;
       } else {
         this.vehicles = null;
+        this.preloadingSpinnerVisibility = true;
       }
     });
   }

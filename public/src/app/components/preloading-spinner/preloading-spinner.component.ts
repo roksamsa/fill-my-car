@@ -10,11 +10,10 @@ export class PreloadingSpinnerComponent implements OnInit {
   @Input() diameter = 32; // Default spinner size
   @Input() strokeWidth = 5; // Default spinner stroke width
   @Input() mode = 'indeterminate'; // Default spinner mode - indeterminate animation goes to infinity
-  @Input() visibility = false;
+  @Input() visibility = true; // Is spinner visible or not.
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }

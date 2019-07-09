@@ -11,9 +11,6 @@ export class HereMapsService {
   appId = 'Y24GW4waR5Z72Hqxj3PT';
   appCode = '-coOP6S8RnEsWPuHwc9lHA';
 
-  private hereMapsLoadingState = new BehaviorSubject(false);
-  hereMapLoading = this.hereMapsLoadingState.asObservable();
-
   public queryCountry = 'Slovenija';
   public platform: any;
   public geocoder: any;
@@ -30,10 +27,6 @@ export class HereMapsService {
     this.directions = [];
     this.router = this.platform.getRoutingService();
     this.geocoder = this.platform.getGeocodingService();
-  }
-
-  isHereMapsLoading(hereMapsLoading: boolean) {
-    this.hereMapsLoadingState.next(hereMapsLoading);
   }
 
   // Get coordinates for Location string query

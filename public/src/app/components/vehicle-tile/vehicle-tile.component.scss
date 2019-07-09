@@ -74,13 +74,11 @@
       margin: 0;
 
       .vehicle-tile {
-        flex-direction: row;
-        justify-content: flex-start;
+        align-items: flex-start;
       }
 
       .vehicle-tile__icon {
-        width: 200px;
-        margin-right: 30px;
+        width: 180px;
       }
 
       .vehicle-tile__text {
@@ -90,6 +88,15 @@
 
       .vehicle-tile__text-line {
         text-align: left;
+      }
+
+      .vehicle-tile__text {
+        display: flex;
+        margin-top: 20px;
+      }
+
+      .vehicle-tile__text-line--brand {
+        margin-right: 10px;
       }
     }
   }

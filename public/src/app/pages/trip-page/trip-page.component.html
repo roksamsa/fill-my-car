@@ -2,17 +2,28 @@
   <app-tile class="tile tile--trip tile--trip-details">
     <div class="trip__headline">
       <div class="trip__headline-left">
+        <div *ngIf="authService.isLoggedIn" class="trip__go-back" (click)="goBack()">
+          <svg class="trip__go-back-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" /></svg>
+        </div>
+        <div class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip.tripIdTag }}</span></div>
         <div class="trip__status trip__status--{{ trip.tripStatus }}">
           <div class="trip__status-icon"></div>
         </div>
-        <div class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip.tripIdTag }}</span></div>
       </div>
-      <div class="trip__share">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          <path d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+      <div class="trip__actions">
+        <div class="trip__actions-item trip__actions-item--share">
+          <svg class="trip__actions-item-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
           </svg>
+        </div>
+        <div *ngIf="authService.isLoggedIn" class="trip__actions-item trip__actions-item--edit" (click)="openEditVehicleDialog(trip, tripIndex)">
+          <svg class="trip__actions-item-svg" class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
+        </div>
       </div>
     </div>
     <div class="trip__main-details">
@@ -32,7 +43,7 @@
               <path d="M0 0h24v24H0z" fill="none" />
               <path
                 d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-              </svg>
+            </svg>
           </div>
           <div class="trip__date-text">
             {{ trip.tripDate | date: dateFormat}}
@@ -53,22 +64,19 @@
       </div>
       <div class="trip__graphics">
         <div class="trip__vehicle">
-          <app-vehicle-tile class="single single--trip-details"
-                            [vehicleType]="selectedTypeData"
-                            [vehicleColor]="selectedColorData"
-                            [vehicleBrand]="selectedBrandData"
-                            [vehicleName]="selectedNameData"
-                            [vehicleTextVisible]="true"></app-vehicle-tile>
+          <app-vehicle-tile class="single single--trip-details" [vehicleType]="selectedTypeData"
+            [vehicleColor]="selectedColorData" [vehicleBrand]="selectedBrandData" [vehicleName]="selectedNameData"
+            [vehicleTextVisible]="true"></app-vehicle-tile>
         </div>
         <div class="trip__vehicle-seats">
-          <app-vehicle-seats *ngIf="vehicleSeatsNumber" [vehicleSeatsNumber]="vehicleSeatsNumber"></app-vehicle-seats>
+          <app-vehicle-seats *ngIf="vehicleSeatsAvailableNumber" [vehicleSeatsAvailableNumber]="vehicleSeatsAvailableNumber" [vehicleSeatsTakenNumber]="vehicleSeatsTakenNumber"></app-vehicle-seats>
         </div>
       </div>
     </div>
 
     <div class="trip__bottom-details">
       <div class="trip__bottom-divider"></div>
-      <div class="trip__price-container">
+      <div *ngIf="!iWouldLikeToJointTheTrip" class="trip__price-container">
         <div class="trip__price-label">
           Cena prevoza na osebo
         </div>
@@ -77,13 +85,19 @@
         </div>
       </div>
 
-  <button mat-raised-button class="button button--primary">Prijavi se na potovanje</button>
+      <div *ngIf="iWouldLikeToJointTheTrip" class="form__input form__input--space-left">
+        <label class="form__label">Koliko mest želite rezervirati?</label>
+        <div class="form__seats-reservation-wrapper">
+          <app-number-picker class="form__time-input" [min]="1" [max]="vehicleSeatsAvailableNumber" [step]="1" [precision]="1"
+            [inputDisabled]="false" (change)="priceChanged($event)">
+          </app-number-picker>
+        </div>
+      </div>
+
+      <button *ngIf="!iWouldLikeToJointTheTrip" mat-raised-button class="button button--primary" (click)="joinTripStart()">Prijavi se na potovanje</button>
     </div>
   </app-tile>
   <app-tile class="tile tile--trip tile--trip-map">
-    <app-preloading-spinner [visibility]="preloadingSpinnerVisibility" [diameter]="preloadingSpinnerDiameter"
-      [strokeWidth]="preloadingSpinnerStrokeWidth" [mode]="preloadingSpinnerMode">
-      <app-here-maps class="here-maps--trip-map" [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
-    </app-preloading-spinner>
+    <app-here-maps class="here-maps--trip-map" [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
   </app-tile>
 </div>

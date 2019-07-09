@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20"><g transform="translate(-739 -20)"><rect width="2" height="20" transform="translate(742 20)" fill="#242b61"/><g transform="translate(742 22)" fill="none" stroke="#242b61" stroke-width="2"><rect width="13" height="9" stroke="none"/><rect x="1" y="1" width="11" height="7" fill="none"/></g><rect width="8" height="2" transform="translate(739 38)" fill="#242b61"/></g></svg>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 20" style="enable-background:new 0 0 16 20;" xml:space="preserve">
+<style type="text/css">
+	.st1{fill:none;}
+</style>
+<g>
+	<rect x="3" y="0" class="st0" width="2" height="20"/>
+	<g transform="translate(742 22)">
+		<rect x="-739" y="-20" class="st1" width="13" height="9"/>
+		<path class="st0" d="M-726-11h-13v-9h13V-11z M-737-13h9v-5h-9V-13z"/>
+	</g>
+	<rect y="18" class="st0" width="8" height="2"/>
+</g>
+</svg>

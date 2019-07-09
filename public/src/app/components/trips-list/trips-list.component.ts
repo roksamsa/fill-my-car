@@ -56,6 +56,7 @@ export const headerAnimationDelay = '175ms';
 })
 
 export class TripsListComponent implements OnInit {
+  preloadingSpinnerVisibility = true;
   emptyDataType = 'vertical';
   emptyDataText = 'Še nisi delil prevoza z drugimi.';
   emptyDataIcon = 'trip';
@@ -118,10 +119,12 @@ export class TripsListComponent implements OnInit {
       if (data) {
         this.trips = data;
         this.areThereAnyTrips = true;
+        this.preloadingSpinnerVisibility = false;
 
       } else {
         this.trips = null;
         this.areThereAnyTrips = false;
+        this.preloadingSpinnerVisibility = true;
       }
     });
   }

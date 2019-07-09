@@ -104,8 +104,6 @@ export class CreateTripDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.hereMap.hereMapLoading.subscribe(message => this.preloadingSpinnerVisibility = message);
-    console.log('My trip ID: ' + this.createTripIdTag());
     this.fetchVehicles();
     this.isVehicleListEmpty();
   }

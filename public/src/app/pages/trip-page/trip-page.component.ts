@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Location } from '@angular/common';
 import { TripService } from '../../core/trip/trip.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
@@ -6,6 +7,8 @@ import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Trip } from '../../core/trip/trip.module';
 import { Router, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
 
 @Component({
   selector: 'app-trip-page',
@@ -24,6 +27,7 @@ export class TripPageComponent implements OnInit, AfterViewInit {
   tripToLocationCity = '';
   hereMapStart = '';
   hereMapFinish = '';
+  dialogResult: '';
 
   selectedVehicleId = '';
 
@@ -35,14 +39,20 @@ export class TripPageComponent implements OnInit, AfterViewInit {
   selectedVehicleYearData = '';
   isVehicleInsuranceChecked = false;
 
-  vehicleSeatsNumber: any;
+  vehicleSeatsTakenNumber: number;
+  vehicleSeatsAvailableNumber: number;
+  vehicleSeatsSelectedNumber: number;
+
+  iWouldLikeToJointTheTrip = false;
 
   constructor(
     private route: ActivatedRoute,
     public authService: AuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
+    private popupDialog: MatDialog,
     private router: Router,
+    private location: Location,
     private cdref: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -67,10 +77,9 @@ export class TripPageComponent implements OnInit, AfterViewInit {
           this.hereMapStart = data.tripFromLocation;
           this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = data.selectedVehicle;
+          this.vehicleSeatsAvailableNumber = data.tripFreeSeats;
 
           this.fetchVehicle(this.selectedVehicleId);
-
-          console.log(this.selectedVehicleId);
 
         } else {
           this.trip = null;
@@ -86,17 +95,46 @@ export class TripPageComponent implements OnInit, AfterViewInit {
       .subscribe((selectedVehicleData) => {
         if (selectedVehicleData) {
           this.vehicle = selectedVehicleData;
-
-          console.log('Test: ');
           this.selectedTypeData = selectedVehicleData.vehicleType;
           this.selectedColorData = selectedVehicleData.vehicleColor;
           this.selectedBrandData = selectedVehicleData.vehicleBrand;
           this.selectedNameData = selectedVehicleData.vehicleName;
-          this.vehicleSeatsNumber = selectedVehicleData.vehicleSeats;
-          console.log(this.vehicleSeatsNumber);
+          this.vehicleSeatsTakenNumber = selectedVehicleData.vehicleSeats;
         } else {
           this.vehicle = null;
         }
       });
+  }
+
+  // Edit vehicle dialog popup
+  openEditVehicleDialog(trip: any, tripIndex: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = true;
+    dialogConfig.width = '1100px';
+    dialogConfig.position = {
+      top: '100px'
+    };
+    dialogConfig.data = trip;
+
+    const dialogRef = this.popupDialog.open(EditTripDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+      this.fetchTrip();
+    });
+  }
+
+  priceChanged(value: number) {
+    this.vehicleSeatsSelectedNumber = value;
+  }
+
+  goBack() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  joinTripStart() {
+    this.iWouldLikeToJointTheTrip = true;
   }
 }

@@ -1,5 +1,14 @@
 <div class="vehicle-seats">
-  <div *ngFor="let seat of vehicleSeatsNumberValue; let seatIndex = index;"
-       class="vehicle-seats__seat vehicle-seats__seat--{{seatIndex}}">
+  <div class="vehicle-seats__wrapper">
+    <div *ngFor="let seat of vehicleSeatsAvailableNumberValue; let seatIndex = index;"
+        class="vehicle-seats__seat vehicle-seats__seat--{{seatIndex}}">
+      <div class="vehicle-seats__seat-shadow"></div>
+      <div class="vehicle-seats__seat-icon"></div>
+    </div>
+  </div>
+  <div class="vehicle-seats__persons">
+    <div *ngFor="let seat of vehicleSeatsTakenNumberValue; let seatIndex = index;"
+        class="vehicle-seats__person vehicle-seats__person--{{seatIndex}}">
+    </div>
   </div>
 </div>

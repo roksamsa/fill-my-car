@@ -7,18 +7,17 @@ import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 })
 export class VehicleSeatsComponent implements OnInit, AfterViewInit {
 
-  private vehicleSeatsNumberValue: number[];
-  @Input() vehicleSeatsNumber: any;
+  vehicleSeatsTakenNumberValue: number[];
+  vehicleSeatsAvailableNumberValue: number[];
+  @Input() vehicleSeatsTakenNumber: any;
   @Input() vehicleSeatsAvailableNumber: any;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.vehicleSeatsNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsNumber);
-
-    console.log(this.vehicleSeatsNumber);
-    console.log(this.vehicleSeatsNumberValue);
+    this.vehicleSeatsTakenNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsTakenNumber);
+    this.vehicleSeatsAvailableNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsAvailableNumber);
   }
 
   ngAfterViewInit() {
