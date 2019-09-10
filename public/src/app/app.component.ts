@@ -3,6 +3,7 @@ import { DateAdapter } from '@angular/material/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { AuthService } from './core/auth/auth.service';
 import { HeaderService } from '../app/components/header/header.service';
+import { UserMenuService } from 'src/app/components/user-menu/user-menu.service';
 
 export const defaultAnimationFunction = 'ease-in-out';
 
@@ -39,16 +40,19 @@ export class AppComponent implements OnInit {
 
   title = 'Napolni moj avto';
   userMenuVisibility: boolean;
+  darkModeActivated: boolean;
 
   constructor(
     private adapter: DateAdapter<any>,
     private authService: AuthService,
-    private headerData: HeaderService) {
+    private headerData: HeaderService,
+    private userMenuDarkThemeData: UserMenuService) {
   }
 
   ngOnInit() {
     this.adapter.setLocale('sl');
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
+    this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState);
   }
 
   clickOutsideUserMenuVisibility() {

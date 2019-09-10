@@ -175,6 +175,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    height: 118px;
     padding-top: 44px;
   }
 
@@ -188,6 +189,11 @@
     background-size: contain;
   }
 
+  &__button-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
   &__price-container {
     display: flex;
     flex-direction: column;
@@ -198,6 +204,10 @@
     font-size: 50px;
     line-height: 1;
   }
+}
+
+.form__input--seats {
+  width: 300px;
 }
 
 .tile {

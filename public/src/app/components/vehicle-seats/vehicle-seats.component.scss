@@ -1,5 +1,25 @@
 @import '../../sass/global_variables';
 
+@keyframes seat-shadow-glow {
+  from {
+    transform: scale(1.5);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(2);
+    opacity: 0.3;
+  }
+}
+
+@keyframes seat-moving {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
 :host {
   display: block;
 }
@@ -19,6 +39,19 @@
     position: relative;
     width: 60px;
     height: 70px;
+
+    &--selected {
+      .vehicle-seats__seat-shadow {
+        transform: skew(-150deg, 90deg);
+        background-color: $color__pink--primary;
+        animation: seat-shadow-glow 1s ease-in-out infinite alternate;
+      }
+
+      .vehicle-seats__seat-icon {
+        background-image: url(../../../assets/icons/icon-seat-selected.svg);
+        animation: seat-moving 1s ease-in-out infinite alternate;
+      }
+    }
   }
 
   &__seat-shadow {
@@ -40,6 +73,7 @@
     background-image: url(../../../assets/icons/icon-seat.svg);
     background-position: center;
     background-repeat: no-repeat;
+    transition: background-image 200ms ease-in-out;
   }
 
   &__persons {

@@ -1,6 +1,9 @@
 @import 'sass/global_variables';
 
-:host {
+$color--main-background: $color__blue--lighter;
+
+:host,
+.app__wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -8,9 +11,11 @@
 }
 
 .app__wrapper {
-  position: relative;
-  width: $page__width;
-  margin: 0 auto;
+  background-color: $color--main-background;
+
+  &.dark-theme {
+    background-color: #1e1e2f;
+  }
 }
 
 .user-menu__backdrop {

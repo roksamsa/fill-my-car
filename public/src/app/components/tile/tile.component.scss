@@ -13,8 +13,6 @@ $tile__border-radius: 3px;
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  padding: $tile__padding;
-  background-color: $tile__background-color;
   box-shadow: $tile__shadow;
   border-radius: $tile__border-radius;
 
@@ -26,7 +24,10 @@ $tile__border-radius: 3px;
 
   &.tile--vehicles {
     justify-content: center;
-    height: 180px;
+
+    .tile__wrapper {
+      height: 180px;
+    }
 
     .tile__content {
       align-items: center;
@@ -35,7 +36,9 @@ $tile__border-radius: 3px;
   }
 
   &.tile--trip {
-    padding: $tile__padding--trip;
+    .tile__wrapper {
+      padding: $tile__padding--trip;
+    }
 
     .tile__content {
       flex-direction: column;
@@ -44,11 +47,23 @@ $tile__border-radius: 3px;
   }
 
   &.tile--trip-map {
-    padding: $tile__padding--trip-map;
+    .tile__wrapper {
+      padding: $tile__padding--trip-map;
+    }
   }
 }
 
 .tile {
+  &__wrapper {
+    height: 100%;
+    padding: $tile__padding;
+    background-color: $tile__background-color;
+
+    &.dark-theme {
+      background-color: #26293b;
+    }
+  }
+
   &__headline {
     display: flex;
     justify-content: space-between;

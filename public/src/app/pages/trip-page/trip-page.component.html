@@ -3,8 +3,7 @@
     <div class="trip__headline">
       <div class="trip__headline-left">
         <div *ngIf="authService.isLoggedIn" class="trip__go-back" (click)="goBack()">
-          <svg class="trip__go-back-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-            viewBox="0 0 24 24">
+          <svg class="trip__go-back-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" /></svg>
         </div>
         <div class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip.tripIdTag }}</span></div>
@@ -14,15 +13,19 @@
       </div>
       <div class="trip__actions">
         <div class="trip__actions-item trip__actions-item--share">
-          <svg class="trip__actions-item-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <svg class="trip__actions-item-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24">
             <path
               d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
           </svg>
         </div>
-        <div *ngIf="authService.isLoggedIn" class="trip__actions-item trip__actions-item--edit" (click)="openEditVehicleDialog(trip, tripIndex)">
-          <svg class="trip__actions-item-svg" class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <div *ngIf="authService.isLoggedIn" class="trip__actions-item trip__actions-item--edit"
+          (click)="openEditVehicleDialog(trip, tripIndex)">
+          <svg class="trip__actions-item-svg" class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24"
+            height="24" viewBox="0 0 24 24">
             <path
-              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+          </svg>
         </div>
       </div>
     </div>
@@ -69,14 +72,19 @@
             [vehicleTextVisible]="true"></app-vehicle-tile>
         </div>
         <div class="trip__vehicle-seats">
-          <app-vehicle-seats *ngIf="vehicleSeatsAvailableNumber" [vehicleSeatsAvailableNumber]="vehicleSeatsAvailableNumber" [vehicleSeatsTakenNumber]="vehicleSeatsTakenNumber"></app-vehicle-seats>
+          <app-vehicle-seats *ngIf="vehicleSeatsAvailableNumber"
+                             [vehicleSeatsAvailableNumber]="vehicleSeatsAvailableNumber"
+                             [vehicleSeatsTakenNumber]="vehicleSeatsTakenNumber"
+                             [vehicleSeatsSelectedFromInputNumber]="vehicleSeatsSelectedNumber"></app-vehicle-seats>
         </div>
       </div>
     </div>
 
     <div class="trip__bottom-details">
       <div class="trip__bottom-divider"></div>
-      <div *ngIf="!iWouldLikeToJointTheTrip" class="trip__price-container">
+
+      <!-- STEP 0 -->
+      <div *ngIf="iWouldLikeToJointTheTrip1" id="tripInputStep1" class="trip__price-container">
         <div class="trip__price-label">
           Cena prevoza na osebo
         </div>
@@ -85,19 +93,119 @@
         </div>
       </div>
 
-      <div *ngIf="iWouldLikeToJointTheTrip" class="form__input form__input--space-left">
+      <button *ngIf="iWouldLikeToJointTheTrip1" mat-raised-button class="button button--primary"
+        (click)="joinTripStart()">Prijavi se na potovanje</button>
+
+      <!-- STEP 1 -->
+      <div *ngIf="iWouldLikeToJointTheTrip2 && vehicleSeatsTakenNumber" class="form__input form__input--seats">
         <label class="form__label">Koliko mest želite rezervirati?</label>
         <div class="form__seats-reservation-wrapper">
-          <app-number-picker class="form__time-input" [min]="1" [max]="vehicleSeatsAvailableNumber" [step]="1" [precision]="1"
-            [inputDisabled]="false" (change)="priceChanged($event)">
+          <app-number-picker class="form__time-input" [min]="1" [max]="vehicleSeatsStillLeftForCurrentTrip" [step]="1"
+            [precision]="1" [inputDisabled]="false" (change)="seatsInputChange($event)">
           </app-number-picker>
         </div>
       </div>
 
-      <button *ngIf="!iWouldLikeToJointTheTrip" mat-raised-button class="button button--primary" (click)="joinTripStart()">Prijavi se na potovanje</button>
+      <div *ngIf="iWouldLikeToJointTheTrip2" id="tripButtonsStep1" class="trip__button-wrapper">
+        <button class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
+          <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </button>
+        <button mat-raised-button class="button button--default" (click)="joinTrip1()" type="button">
+          Izbira lokacije odhoda
+          <svg class="button__icon button__icon--on-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- STEP 2 -->
+      <div *ngIf="iWouldLikeToJointTheTrip3" class="form__input">
+        <label class="form__label">Kje želite, da vas voznik pobere?</label>
+        <mat-form-field [floatLabel]="'never'"  class="form__field">
+          <input matInput placeholder="Lokacija odhoda" formControlName="yourStartLocation" #yourStartLocation>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="iWouldLikeToJointTheTrip3" id="tripButtonsStep1" class="trip__button-wrapper">
+        <button class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
+          <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </button>
+        <button mat-raised-button class="button button--default" (click)="joinTrip2()" type="button">
+          Izbira lokacije prihoda
+          <svg class="button__icon button__icon--on-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- STEP 3 -->
+      <div *ngIf="iWouldLikeToJointTheTrip4" class="form__input">
+        <label class="form__label">Kje želite, da vas voznik odloži?</label>
+        <mat-form-field [floatLabel]="'never'"  class="form__field">
+          <input matInput placeholder="Lokacija prihoda" formControlName="yourEndLocation" #yourEndLocation>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="iWouldLikeToJointTheTrip4" id="tripButtonsStep1" class="trip__button-wrapper">
+        <button class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
+          <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </button>
+        <button mat-raised-button class="button button--default" (click)="joinTrip3()" type="button">
+          Potrdi rezervacijo
+          <svg class="button__icon button__icon--on-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- STEP 4 -->
+      <div *ngIf="iWouldLikeToJointTheTrip5" class="form__input">
+        <label class="form__label">Kje želite, da vas voznik odloži?</label>
+        <mat-form-field [floatLabel]="'never'"  class="form__field">
+          <input matInput placeholder="Lokacija prihoda" formControlName="yourEndLocation" #yourEndLocation>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="iWouldLikeToJointTheTrip5" id="tripButtonsStep1" class="trip__button-wrapper">
+        <button class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
+          <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </button>
+        <button mat-raised-button class="button button--primary" (click)="joinTrip4()" type="button">
+          Zaključi rezervacijo
+        </button>
+      </div>
+
+      <!-- STEP 4 -->
+      <div *ngIf="iWouldLikeToJointTheTrip6" class="form__input">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64.747" height="64.747" viewBox="0 0 64.747 64.747"><g transform="translate(-1 -1)"><path d="M33.374,65.747A32.374,32.374,0,1,1,65.747,33.374,32.374,32.374,0,0,1,33.374,65.747Zm0-60.431A28.057,28.057,0,1,0,61.431,33.374,28.057,28.057,0,0,0,33.374,5.316Z" transform="translate(0 0)" fill="#56ab00"/><path d="M20.183,35.957a2.158,2.158,0,0,1-1.576-.691L8.529,24.475A2.158,2.158,0,0,1,11.68,21.54l8.5,9.086L38.744,10.749a2.158,2.158,0,1,1,3.151,2.935L21.759,35.266A2.158,2.158,0,0,1,20.183,35.957Z" transform="translate(8.162 10.366)" fill="#56ab00"/></g></svg>
+      </div>
+
+      <div *ngIf="iWouldLikeToJointTheTrip6" id="tripButtonsStep1" class="trip__button-wrapper">
+        Rezervirali ste prosti sedež na tem potovanju.
+      </div>
+
     </div>
   </app-tile>
   <app-tile class="tile tile--trip tile--trip-map">
-    <app-here-maps class="here-maps--trip-map" [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
+    <app-here-maps class="here-maps--trip-map" [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish">
+    </app-here-maps>
   </app-tile>
 </div>

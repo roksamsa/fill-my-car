@@ -1,7 +1,9 @@
-<app-content></app-content>
-<app-footer></app-footer>
-<div *ngIf="userMenuVisibility"
-     class="user-menu__backdrop"
-     (click)="clickOutsideUserMenuVisibility()"
-     @userMenuBackDropAnimation></div>
-<app-header [class.dark-theme]="darkModeActivated"></app-header>
+<div class="app__wrapper" [class.dark-theme]="darkModeActivated">
+  <app-content></app-content>
+  <app-footer></app-footer>
+  <div *ngIf="userMenuVisibility"
+      class="user-menu__backdrop"
+      (click)="clickOutsideUserMenuVisibility()"
+      @userMenuBackDropAnimation></div>
+  <app-header [class.dark-theme]="darkModeActivated"></app-header>
+</div>

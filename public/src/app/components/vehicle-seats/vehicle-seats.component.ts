@@ -9,8 +9,10 @@ export class VehicleSeatsComponent implements OnInit, AfterViewInit {
 
   vehicleSeatsTakenNumberValue: number[];
   vehicleSeatsAvailableNumberValue: number[];
-  @Input() vehicleSeatsTakenNumber: any;
-  @Input() vehicleSeatsAvailableNumber: any;
+  vehicleSeatsSelectedFromInputValue: number;
+  @Input() vehicleSeatsTakenNumber: number;
+  @Input() vehicleSeatsAvailableNumber: number;
+  @Input() vehicleSeatsSelectedFromInputNumber: number;
 
   constructor() {
   }
@@ -18,6 +20,7 @@ export class VehicleSeatsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.vehicleSeatsTakenNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsTakenNumber);
     this.vehicleSeatsAvailableNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsAvailableNumber);
+    this.vehicleSeatsSelectedFromInputValue = this.vehicleSeatsSelectedFromInputNumber;
   }
 
   ngAfterViewInit() {

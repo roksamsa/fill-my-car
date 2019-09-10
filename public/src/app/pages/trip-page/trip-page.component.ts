@@ -39,11 +39,17 @@ export class TripPageComponent implements OnInit, AfterViewInit {
   selectedVehicleYearData = '';
   isVehicleInsuranceChecked = false;
 
-  vehicleSeatsTakenNumber: number;
+  vehicleSeatsTakenNumber: number; // Na koncu moram to številko posodobit!
   vehicleSeatsAvailableNumber: number;
-  vehicleSeatsSelectedNumber: number;
+  vehicleSeatsStillLeftForCurrentTrip: number;
+  vehicleSeatsSelectedNumber: number; // Izbrana številka v inputu!
 
-  iWouldLikeToJointTheTrip = false;
+  iWouldLikeToJointTheTrip1 = true;
+  iWouldLikeToJointTheTrip2 = false;
+  iWouldLikeToJointTheTrip3 = false;
+  iWouldLikeToJointTheTrip4 = false;
+  iWouldLikeToJointTheTrip5 = false;
+  iWouldLikeToJointTheTrip6 = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -77,7 +83,7 @@ export class TripPageComponent implements OnInit, AfterViewInit {
           this.hereMapStart = data.tripFromLocation;
           this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = data.selectedVehicle;
-          this.vehicleSeatsAvailableNumber = data.tripFreeSeats;
+          this.vehicleSeatsTakenNumber = data.tripFreeSeats;
 
           this.fetchVehicle(this.selectedVehicleId);
 
@@ -99,7 +105,8 @@ export class TripPageComponent implements OnInit, AfterViewInit {
           this.selectedColorData = selectedVehicleData.vehicleColor;
           this.selectedBrandData = selectedVehicleData.vehicleBrand;
           this.selectedNameData = selectedVehicleData.vehicleName;
-          this.vehicleSeatsTakenNumber = selectedVehicleData.vehicleSeats;
+          this.vehicleSeatsAvailableNumber = selectedVehicleData.vehicleSeats;
+          this.vehicleSeatsStillLeftForCurrentTrip = this.vehicleSeatsAvailableNumber - this.vehicleSeatsTakenNumber;
         } else {
           this.vehicle = null;
         }
@@ -126,15 +133,66 @@ export class TripPageComponent implements OnInit, AfterViewInit {
     });
   }
 
-  priceChanged(value: number) {
-    this.vehicleSeatsSelectedNumber = value;
-  }
-
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
   }
 
+  seatsInputChange(value: number) {
+    this.vehicleSeatsSelectedNumber = value;
+  }
+
   joinTripStart() {
-    this.iWouldLikeToJointTheTrip = true;
+    this.iWouldLikeToJointTheTrip1 = false;
+    this.iWouldLikeToJointTheTrip2 = true;
+    this.iWouldLikeToJointTheTrip3 = false;
+    this.iWouldLikeToJointTheTrip4 = false;
+    this.iWouldLikeToJointTheTrip5 = false;
+    this.iWouldLikeToJointTheTrip6 = false;
+    this.vehicleSeatsSelectedNumber = 1;
+  }
+
+  joinTrip1() {
+    this.iWouldLikeToJointTheTrip1 = false;
+    this.iWouldLikeToJointTheTrip2 = false;
+    this.iWouldLikeToJointTheTrip3 = true;
+    this.iWouldLikeToJointTheTrip4 = false;
+    this.iWouldLikeToJointTheTrip5 = false;
+    this.iWouldLikeToJointTheTrip6 = false;
+  }
+
+  joinTrip2() {
+    this.iWouldLikeToJointTheTrip1 = false;
+    this.iWouldLikeToJointTheTrip2 = false;
+    this.iWouldLikeToJointTheTrip3 = false;
+    this.iWouldLikeToJointTheTrip4 = true;
+    this.iWouldLikeToJointTheTrip5 = false;
+    this.iWouldLikeToJointTheTrip6 = false;
+  }
+
+  joinTrip3() {
+    this.iWouldLikeToJointTheTrip1 = false;
+    this.iWouldLikeToJointTheTrip2 = false;
+    this.iWouldLikeToJointTheTrip3 = false;
+    this.iWouldLikeToJointTheTrip4 = false;
+    this.iWouldLikeToJointTheTrip5 = true;
+    this.iWouldLikeToJointTheTrip6 = false;
+  }
+
+  joinTrip4() {
+    this.iWouldLikeToJointTheTrip1 = false;
+    this.iWouldLikeToJointTheTrip2 = false;
+    this.iWouldLikeToJointTheTrip3 = false;
+    this.iWouldLikeToJointTheTrip4 = false;
+    this.iWouldLikeToJointTheTrip5 = false;
+    this.iWouldLikeToJointTheTrip6 = true;
+  }
+
+  cancelTripBooking() {
+    this.iWouldLikeToJointTheTrip1 = true;
+    this.iWouldLikeToJointTheTrip2 = false;
+    this.iWouldLikeToJointTheTrip3 = false;
+    this.iWouldLikeToJointTheTrip4 = false;
+    this.iWouldLikeToJointTheTrip5 = false;
+    this.vehicleSeatsSelectedNumber = 0;
   }
 }

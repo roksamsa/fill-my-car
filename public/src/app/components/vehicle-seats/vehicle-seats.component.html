@@ -1,7 +1,11 @@
 <div class="vehicle-seats">
   <div class="vehicle-seats__wrapper">
     <div *ngFor="let seat of vehicleSeatsAvailableNumberValue; let seatIndex = index;"
-        class="vehicle-seats__seat vehicle-seats__seat--{{seatIndex}}">
+         class="vehicle-seats__seat vehicle-seats__seat--{{seatIndex}}"
+         [ngClass]="{'vehicle-seats__seat--selected':
+         vehicleSeatsSelectedFromInputNumber > 0 &&
+         seatIndex >= vehicleSeatsTakenNumberValue.length &&
+         !(seatIndex - vehicleSeatsSelectedFromInputNumber >= vehicleSeatsTakenNumberValue.length)}">
       <div class="vehicle-seats__seat-shadow"></div>
       <div class="vehicle-seats__seat-icon"></div>
     </div>

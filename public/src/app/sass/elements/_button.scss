@@ -6,6 +6,7 @@
   border-radius: 30px;
   box-shadow: none;
   color: white;
+  cursor: pointer;
 
   &--default {
     background-color: $color__blue--primary;
@@ -28,6 +29,15 @@
     background-color: transparent;
     border: 0 none;
   }
+
+  &--space-right {
+    margin-right: 10px;
+  }
+
+  &--space-left {
+    margin-left: 10px;
+  }
+
 
   &.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]) {
     box-shadow: 0 0 10px $color__default-shadow;
