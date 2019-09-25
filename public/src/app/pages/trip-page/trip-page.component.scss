@@ -239,6 +239,16 @@
   }
 }
 
+.step--final-message {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.step__text {
+  margin-left: 15px;
+}
+
 .tile {
   &--trip-details {
     width: 60%;
