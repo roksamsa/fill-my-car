@@ -40,7 +40,7 @@ export class TripPageComponent implements OnInit, AfterViewInit {
   isVehicleInsuranceChecked = false;
 
   vehicleSeatsTakenNumber: number; // Na koncu moram to številko posodobit!
-  vehicleSeatsAvailableNumber: number;
+  vehicleSeatsAvailableNumber: any;
   vehicleSeatsStillLeftForCurrentTrip: number;
   vehicleSeatsSelectedNumber: number; // Izbrana številka v inputu!
 
@@ -63,6 +63,8 @@ export class TripPageComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.fetchTrip();
+
+    console.log(this.vehicleSeatsAvailableNumber);
   }
 
   ngAfterViewInit() {

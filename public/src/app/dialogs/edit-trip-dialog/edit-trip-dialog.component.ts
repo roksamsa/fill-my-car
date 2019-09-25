@@ -10,6 +10,7 @@ import { HereMapsService } from '../../../app/components/here-maps/here-maps.ser
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-trip-dialog',
@@ -24,7 +25,11 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
   tripIdTagCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   tripIdTagCharactersLength = this.tripIdTagCharacters.length;
-  tripIdTagMaxLength = 10;
+  tripIdTagMaxLength = 7;
+
+  vehicle: any;
+  vehicleSeatsAvailableNumber: any;
+  vehicleSeatsStillLeftForCurrentTrip: any;
 
   selectedTypeData = '';
   selectedBrandData = '';
@@ -107,7 +112,14 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       ])
     });
 
-    this.currentTripId = selectedTripData._id;
+    this.fetchVehicle(selectedTripData.selectedVehicle);
+
+    if (this.currentTripId === '') {
+      this.currentTripId = this.createTripIdTag();
+    } else {
+      this.currentTripId = selectedTripData.tripIdTag;
+    }
+
     this.hereMapStartEditValue = selectedTripData.tripFromLocation;
     this.hereMapFinishEditValue = selectedTripData.tripToLocation;
     this.timeHourValue = selectedTripData.tripTime.split(' : ')[0];
@@ -141,7 +153,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   }
 
   // START LOCATION SELECTION
-  // [1] Get input value for start destintaion
+  // [1] Get input value for start destination
   valueChangeStartDestination(event) {
     this.locationStartInputValue = event.target.value;
     this.showStartLocationSuggestions(this.locationStartInputValue);
@@ -159,7 +171,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   }
 
   // FINISH LOCATION SELECTION
-  // [1] Get input value for finish destintaion
+  // [1] Get input value for finish destination
   valueChangeFinishDestination(event) {
     this.locationFinishInputValue = event.target.value;
     this.showFinishLocationSuggestions(this.locationFinishInputValue);
@@ -206,19 +218,39 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < this.tripIdTagMaxLength; i++) {
       tripIdTag += this.tripIdTagCharacters.charAt(Math.floor(Math.random() * this.tripIdTagCharactersLength));
     }
+    console.log(tripIdTag);
     return tripIdTag;
   }
 
   // Fetch all vehicles for specific user
   fetchVehicles() {
     this.vehicleService.getVehicleByUser(this.currentUser.uid)
-    .subscribe((data: Vehicle[]) => {
-      if (data.length > 0) {
-        this.vehicles = data;
-      } else {
-        this.vehicles = null;
-      }
-    });
+      .subscribe((data: Vehicle[]) => {
+        if (data.length > 0) {
+          this.vehicles = data;
+        } else {
+          this.vehicles = null;
+        }
+      });
+  }
+
+  fetchVehicle(vehicleID) {
+    this.vehicleService.getVehicleById(vehicleID)
+      .pipe(filter(x => !!x))
+      .subscribe((selectedVehicleData) => {
+        if (selectedVehicleData) {
+          this.vehicle = selectedVehicleData;
+          this.vehicleSeatsAvailableNumber = selectedVehicleData.vehicleSeats;
+          this.vehicleSeatsStillLeftForCurrentTrip = this.vehicleSeatsAvailableNumber - this.vehicleSeatsTakenNumber;
+        } else {
+          this.vehicle = null;
+        }
+      });
+  }
+
+  changeClient(value) {
+    console.log(value);
+    this.fetchVehicle(value);
   }
 
   // Check if we get some vehicles from user or not
@@ -257,11 +289,11 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   }
 
   tripStopsOnTheWayToFinalDestinationChange() {
-    this.isTripStopsOnTheWayToFinalDestinationChecked = (this.isTripStopsOnTheWayToFinalDestinationChecked === true ) ? false : true;
+    this.isTripStopsOnTheWayToFinalDestinationChecked = (this.isTripStopsOnTheWayToFinalDestinationChecked === true) ? false : true;
   }
 
   tripComfortableChange() {
-    this.isTripComfortableChecked = (this.isTripComfortableChecked === true ) ? false : true;
+    this.isTripComfortableChecked = (this.isTripComfortableChecked === true) ? false : true;
   }
 
   acceptPassengersChange(event) {
@@ -290,7 +322,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   // Add vehicle on popup close
   updateTrip(
-    id: any,
+    id: String,
     belongsToUser: String,
     selectedVehicle: String,
     tripStatus: String,

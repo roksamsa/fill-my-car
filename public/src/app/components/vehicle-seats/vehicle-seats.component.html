@@ -2,6 +2,7 @@
   <div class="vehicle-seats__wrapper">
     <div *ngFor="let seat of vehicleSeatsAvailableNumberValue; let seatIndex = index;"
          class="vehicle-seats__seat vehicle-seats__seat--{{seatIndex}}"
+         [style.z-index]="seatIndex"
          [ngClass]="{'vehicle-seats__seat--selected':
          vehicleSeatsSelectedFromInputNumber > 0 &&
          seatIndex >= vehicleSeatsTakenNumberValue.length &&

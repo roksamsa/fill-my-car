@@ -98,8 +98,8 @@
 
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
-              <label class="form__label">Število prostih mest</label>
-              <app-number-picker class="form__time-input" [min]="0" [max]="10" [step]="1" [precision]="1"
+              <label class="form__label">Število prostih mest (max {{ vehicleSeatsAvailableNumber }})</label>
+              <app-number-picker class="form__time-input" [min]="0" [max]="vehicleSeatsAvailableNumber" [step]="1" [precision]="1"
                 [inputDisabled]="false" [inputValueNumber]="freeSeatsValue" (change)="freeSeatsChanged($event)">
               </app-number-picker>
             </div>
@@ -127,8 +127,8 @@
 
             <div class="form__input form__input--space-left">
               <label class="form__label">Izbrano vozilo</label>
-              <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle>
+              <mat-form-field [floatLabel]="'never'" class="form__field">
+                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle (selectionChange)="changeClient($event.value)">
                   <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
                     <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
                       {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
@@ -288,11 +288,11 @@
   <button mat-raised-button
           class="button button--primary"
           (click)="updateTrip(
-            currentTripId,
+            selectedTripData._id,
             authService.userData.uid,
             selectedVehicle.value,
             'active',
-            createTripIdTag(),
+            selectedTripData.tripIdTag,
             tripFromLocation.value,
             tripToLocation.value,
             tripDateInput.value,

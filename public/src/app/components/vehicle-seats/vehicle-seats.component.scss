@@ -39,6 +39,7 @@
     position: relative;
     width: 60px;
     height: 70px;
+    z-index: 1;
 
     &--selected {
       .vehicle-seats__seat-shadow {
@@ -84,6 +85,7 @@
     position: absolute;
     top: -6px;
     left: -11px;
+    z-index: 2;
   }
 
   &__person {
