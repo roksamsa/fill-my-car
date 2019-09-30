@@ -97,7 +97,7 @@
         (click)="joinTripStart()">Prijavi se na potovanje</button>
 
       <!-- STEP 1 -->
-      <div *ngIf="iWouldLikeToJointTheTrip2 && vehicleSeatsTakenNumber" class="form__input form__input--seats">
+      <div *ngIf="iWouldLikeToJointTheTrip2 && vehicleSeatsTakenNumber" class="form__input form__input--join-trip">
         <label class="form__label">Koliko mest želite rezervirati?</label>
         <div class="form__seats-reservation-wrapper">
           <app-number-picker class="form__time-input" [min]="1" [max]="vehicleSeatsTakenNumber" [step]="1"
@@ -125,7 +125,7 @@
       </div>
 
       <!-- STEP 2 -->
-      <div *ngIf="iWouldLikeToJointTheTrip3" class="form__input">
+      <div *ngIf="iWouldLikeToJointTheTrip3" class="form__input form__input--join-trip">
         <label class="form__label">Kje želite, da vas voznik pobere?</label>
         <mat-form-field [floatLabel]="'never'" class="form__field">
           <input matInput placeholder="Lokacija odhoda" formControlName="yourStartLocation" #yourStartLocation>
@@ -151,7 +151,7 @@
       </div>
 
       <!-- STEP 3 -->
-      <div *ngIf="iWouldLikeToJointTheTrip4" class="form__input">
+      <div *ngIf="iWouldLikeToJointTheTrip4" class="form__input form__input--join-trip">
         <label class="form__label">Kje želite, da vas voznik odloži?</label>
         <mat-form-field [floatLabel]="'never'" class="form__field">
           <input matInput placeholder="Lokacija prihoda" formControlName="yourEndLocation" #yourEndLocation>

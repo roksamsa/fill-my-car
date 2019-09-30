@@ -1,57 +1,57 @@
 import express from 'express';
 
-const tripSchema = require('../models/trip.model');
+const tripPassengerSchema = require('../models/trip-passenger.model');
 const router = express.Router();
-const tripsURI = '/trips';
+const tripsURI = '/trip-passengers';
 
-// Get trips list
+// Get trip passengers list
 router.get(tripsURI, function (req, res) {
-  tripSchema.find((err, vehicles) => {
+  tripPassengerSchema.find((err, passengers) => {
     if (err)
       console.log(err);
     else
-      res.json(vehicles);
+      res.json(passengers);
   });
 });
 
 // Get trips for specific user
 router.get(tripsURI + '/user/:belongsToUser', function (req, res) {
-  tripSchema.find({belongsToUser: req.params.belongsToUser}, (err, vehicles) => {
+  tripPassengerSchema.find({belongsToUser: req.params.belongsToUser}, (err, passengers) => {
     if (err)
       console.log(err);
     else
-      res.json(vehicles);
+      res.json(passengers);
   });
 });
 
-// Get trip by specific id
+// Get trip passenger by specific id
 router.get(tripsURI + '/:id', function (req, res) {
-  tripSchema.findById(req.params.id, (err, vehicles) => {
+  tripPassengerSchema.findById(req.params.id, (err, passengers) => {
     if (err)
       console.log(err);
     else
-      res.json(vehicles);
+      res.json(passengers);
   });
 });
 
-// Add trip
+// Add trip passenger
 router.post(tripsURI + '/add', function (req, res) {
-  var trip = new tripSchema(req.body);
-  trip.save()
-    .then(trip => {
-      res.status(200).json({'Trip': trip + ' Added successfully'});
+  var tripPassenger = new tripPassengerSchema(req.body);
+  tripPassenger.save()
+    .then(tripPassenger => {
+      res.status(200).json({'Trip passenger': tripPassenger + ' Added successfully'});
     })
     .catch(err => {
-      res.status(400).send(err + 'Failed to create new trip');
+      res.status(400).send(err + 'Failed to add passenger to this trip');
     });
 });
 
-// Update data for specific trip
+// Update data for specific trip passenger
 router.route(tripsURI + '/update/:id').patch((req, res, next) => {
   var vehicleId = req.params.id;
   var vehicleUpdatedData = req.body;
 
-  tripSchema.findByIdAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
+  tripPassengerSchema.findByIdAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
     // Handle the error using the Express error middleware
     if (error) {
       return next('Error: ' + error);
@@ -67,13 +67,13 @@ router.route(tripsURI + '/update/:id').patch((req, res, next) => {
   });
 });
 
-// Delete specific trip
+// Delete specific trip passenger
 router.route(tripsURI + '/delete/:id').delete((req, res) => {
-  tripSchema.findByIdAndRemove({ _id: req.params.id }, (err, vehicles) => {
+  tripPassengerSchema.findByIdAndRemove({ _id: req.params.id }, (err, tripPassengers) => {
     if (err)
       res.json(err);
     else
-      res.json('Trip removed successfully!');
+      res.json('Trip passenger removed successfully!');
   });
 });
 

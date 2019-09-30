@@ -30,6 +30,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   vehicle: any;
   vehicleSeatsAvailableNumber: any;
   vehicleSeatsStillLeftForCurrentTrip: any;
+  vehicleSeatsTakenNumber: any;
 
   selectedTypeData = '';
   selectedBrandData = '';

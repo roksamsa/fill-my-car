@@ -52,6 +52,7 @@ app.use(passport.session());
 app.use(require('./routes/index'));
 app.use(require('./routes/vehicles.route'));
 app.use(require('./routes/trips.route'));
+app.use(require('./routes/trip-passengers.route'));
 require('./routes/auth');
 app.use('/', router);
 
