@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService } from '../../../app/components/header/header.service';
 
 @Component({
   selector: 'app-login-page',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private headerData: HeaderService) { }
 
   ngOnInit() {
+    this.headerData.changeHeaderVisibility(false);
   }
-
 }

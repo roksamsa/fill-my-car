@@ -58,6 +58,16 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   margin-bottom: 24px;
 }
 
+.trip-add-passengers__wizard {
+  .mat-horizontal-stepper-header-container {
+    display: none;
+  }
+
+  .mat-horizontal-content-container {
+    padding: 0;
+  }
+}
+
 .mat-step-header {
   &.cdk-keyboard-focused,
   &.cdk-program-focused,
@@ -112,6 +122,10 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   }
 }
 
+.mat-horizontal-content-container {
+  padding: 0;
+}
+
 // Angular Material Input field component
 .form__field {
   .mat-form-field-flex {
@@ -122,7 +136,7 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   .mat-form-field-infix {
     height: 100%;
     width: auto;
-    padding: 0 14px;
+    padding: 3px 14px;
   }
 
   .mat-select,

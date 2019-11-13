@@ -81,17 +81,26 @@ import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-ad
 import { registerLocaleData } from '@angular/common';
 import localeSl from '@angular/common/locales/sl';
 import { VehicleSeatsComponent } from './components/vehicle-seats/vehicle-seats.component';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
+import { WithoutHeaderFooterLayoutComponent } from './layouts/without-header-footer-layout/without-header-footer-layout.component';
 
 registerLocaleData(localeSl);
 
 const routes: Routes = [
-  { path: 'nadzorna-plosca', component: DashboardPageComponent, canActivate: [AuthGuard] },
-  { path: 'registracija', component: RegisterComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: 'prijava', component: LoginPageComponent, canActivate: [SecureInnerPagesGuard] },
-  { path: 'moja-vozila', component: VehiclesPageComponent, canActivate: [AuthGuard] },
-  { path: 'moja-potovanja', component: TripsPageComponent, canActivate: [AuthGuard] },
-  { path: 'potovanje/:id', component: TripPageComponent, pathMatch: 'full' },
-  { path: 'uporabnik/:id', component: UserPageComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'nadzorna-plosca', component: DefaultLayoutComponent, children: [{
+    path: '', component: DashboardPageComponent}], canActivate: [AuthGuard] },
+  { path: 'registracija', component: WithoutHeaderFooterLayoutComponent, children: [{
+    path: '', component: RegisterComponent}], canActivate: [SecureInnerPagesGuard] },
+  { path: 'prijava', component: WithoutHeaderFooterLayoutComponent, children: [{
+    path: '', component: LoginPageComponent}], canActivate: [SecureInnerPagesGuard]},
+  { path: 'moja-vozila', component: DefaultLayoutComponent, children: [{
+    path: '', component: VehiclesPageComponent}], canActivate: [AuthGuard] },
+  { path: 'moja-potovanja', component: DefaultLayoutComponent, children: [{
+    path: '', component: TripsPageComponent}], canActivate: [AuthGuard] },
+  { path: 'potovanje/:id', component: DefaultLayoutComponent, children: [{
+    path: '', component: TripPageComponent}], pathMatch: 'full' },
+  { path: 'uporabnik/:id', component: DefaultLayoutComponent, children: [{
+    path: '', component: UserPageComponent}], pathMatch: 'full', canActivate: [AuthGuard] },
   { path: '', redirectTo: 'nadzorna-plosca', pathMatch: 'full' },
   { path: '**', component: LoginPageComponent }
 ];
@@ -144,7 +153,9 @@ export const MY_FORMATS = {
     PreloadingSpinnerComponent,
     NumberPickerComponent,
     InfoBoxComponent,
-    VehicleSeatsComponent
+    VehicleSeatsComponent,
+    DefaultLayoutComponent,
+    WithoutHeaderFooterLayoutComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

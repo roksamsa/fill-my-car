@@ -1,14 +1,21 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { TripService } from '../../core/trip/trip.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
+import { TripPassengerService } from '../../core/trip-passenger/trip-passenger.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Trip } from '../../core/trip/trip.module';
 import { Router, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider
+} from 'angular5-social-login';
 
 @Component({
   selector: 'app-trip-page',
@@ -16,7 +23,7 @@ import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-tri
   styleUrls: ['./trip-page.component.scss']
 })
 
-export class TripPageComponent implements OnInit, AfterViewInit {
+export class TripPageComponent implements OnInit {
   vehicle: Vehicle;
   trip: Trip[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
@@ -51,23 +58,42 @@ export class TripPageComponent implements OnInit, AfterViewInit {
   iWouldLikeToJointTheTrip5 = false;
   iWouldLikeToJointTheTrip6 = false;
 
+  addTripFormStepperForm: FormGroup;
+
+  @ViewChild('stepper') stepper: MatStepper;
+
   constructor(
     private route: ActivatedRoute,
-    public authService: AuthService,
+    private authService: AuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
+    private tripPassengerService: TripPassengerService,
+    private socialAuthService: AuthService,
     private popupDialog: MatDialog,
     private router: Router,
+    private form: FormBuilder,
     private location: Location,
-    private cdref: ChangeDetectorRef) { }
+    private cdref: ChangeDetectorRef) {
+    this.addTripFormStepperForm = this.form.group({
+      addTripFormStepperFormArray: this.form.array([
+        this.form.group({
+          vehicleSeatsSelectedNumber: ''
+        }),
+        this.form.group({
+          yourStartLocation: ['', Validators.required]
+        }),
+        this.form.group({
+          yourEndLocation: ['', Validators.required]
+        }),
+        this.form.group({
+          isAcceptPassengersChecked: 'auto'
+        })
+      ])
+    });
+  }
 
   ngOnInit() {
     this.fetchTrip();
-
-    console.log(this.vehicleSeatsAvailableNumber);
-  }
-
-  ngAfterViewInit() {
   }
 
   // Fetch all trips for specific user
@@ -99,7 +125,7 @@ export class TripPageComponent implements OnInit, AfterViewInit {
 
   fetchVehicle(vehicleID) {
     this.vehicleService.getVehicleById(vehicleID)
-    .pipe(filter(x => !!x))
+      .pipe(filter(x => !!x))
       .subscribe((selectedVehicleData) => {
         if (selectedVehicleData) {
           this.vehicle = selectedVehicleData;
@@ -144,57 +170,48 @@ export class TripPageComponent implements OnInit, AfterViewInit {
   }
 
   joinTripStart() {
-    this.iWouldLikeToJointTheTrip1 = false;
-    this.iWouldLikeToJointTheTrip2 = true;
-    this.iWouldLikeToJointTheTrip3 = false;
-    this.iWouldLikeToJointTheTrip4 = false;
-    this.iWouldLikeToJointTheTrip5 = false;
-    this.iWouldLikeToJointTheTrip6 = false;
+    this.stepper.next();
     this.vehicleSeatsSelectedNumber = 1;
   }
 
   joinTrip1() {
-    this.iWouldLikeToJointTheTrip1 = false;
-    this.iWouldLikeToJointTheTrip2 = false;
-    this.iWouldLikeToJointTheTrip3 = true;
-    this.iWouldLikeToJointTheTrip4 = false;
-    this.iWouldLikeToJointTheTrip5 = false;
-    this.iWouldLikeToJointTheTrip6 = false;
+    this.stepper.next();
   }
 
   joinTrip2() {
-    this.iWouldLikeToJointTheTrip1 = false;
-    this.iWouldLikeToJointTheTrip2 = false;
-    this.iWouldLikeToJointTheTrip3 = false;
-    this.iWouldLikeToJointTheTrip4 = true;
-    this.iWouldLikeToJointTheTrip5 = false;
-    this.iWouldLikeToJointTheTrip6 = false;
+    this.stepper.next();
   }
 
   joinTrip3() {
-    this.iWouldLikeToJointTheTrip1 = false;
-    this.iWouldLikeToJointTheTrip2 = false;
-    this.iWouldLikeToJointTheTrip3 = false;
-    this.iWouldLikeToJointTheTrip4 = false;
-    this.iWouldLikeToJointTheTrip5 = true;
-    this.iWouldLikeToJointTheTrip6 = false;
+    this.stepper.next();
   }
 
-  joinTrip4() {
-    this.iWouldLikeToJointTheTrip1 = false;
-    this.iWouldLikeToJointTheTrip2 = false;
-    this.iWouldLikeToJointTheTrip3 = false;
-    this.iWouldLikeToJointTheTrip4 = false;
-    this.iWouldLikeToJointTheTrip5 = false;
-    this.iWouldLikeToJointTheTrip6 = true;
+  // Add vehicle on popup close
+  joinTripSave(
+    belongsToUser: String,
+    belongsToVehicle: String,
+    belongsToTrip: String,
+    tripPassengerSeatsReservation: Number,
+    tripPassengerStartLocation: String,
+    tripPassengerEndLocation: String,
+    tripPassengerName: String,
+    tripPassengerEmail: String,
+    tripPassengerPhone: String) {
+    this.tripPassengerService.addTripPassenger(
+      belongsToUser,
+      belongsToVehicle,
+      belongsToTrip,
+      tripPassengerSeatsReservation,
+      tripPassengerStartLocation,
+      tripPassengerEndLocation,
+      tripPassengerName,
+      tripPassengerEmail,
+      tripPassengerPhone).subscribe(() => {
+      });
   }
 
   cancelTripBooking() {
-    this.iWouldLikeToJointTheTrip1 = true;
-    this.iWouldLikeToJointTheTrip2 = false;
-    this.iWouldLikeToJointTheTrip3 = false;
-    this.iWouldLikeToJointTheTrip4 = false;
-    this.iWouldLikeToJointTheTrip5 = false;
+    this.stepper.selectedIndex = 0;
     this.vehicleSeatsSelectedNumber = 0;
   }
 }

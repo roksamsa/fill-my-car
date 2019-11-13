@@ -8,6 +8,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
+import { HeaderService } from '../../../app/components/header/header.service';
 import { trigger, stagger, query, style, animate, transition, animateChild, group } from '@angular/animations';
 
 export const defaultAnimationFunction = 'ease-in-out';
@@ -124,12 +125,14 @@ export class DashboardPageComponent implements OnInit {
     private vehicleService: VehicleService,
     private tripService: TripService,
     public popupDialog: MatDialog,
+    private headerData: HeaderService,
     private vehicleTileData: VehicleTileService) { }
 
   ngOnInit() {
     this.fetchVehicles();
     this.isVehicleListEmpty();
     this.vehicleTileData.currentVehicleSelectState.subscribe(clickActiveState => this.isSelectedVehicle = clickActiveState);
+    this.headerData.changeHeaderVisibility(true);
   }
 
   // Fetch all vehicles for specific user

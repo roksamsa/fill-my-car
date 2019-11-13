@@ -1,15 +1,26 @@
+@import '../../sass/global_variables';
+
 $header__shadow-color: rgba(38, 42, 77, .3); // #262A4D
 
 .user {
-  &__image {
-    width: 150px;
-    height: 150px;
+  &__avatar {
+    position: relative;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
+    border: 1px solid $color__white--70;
+    margin-right: 10px;
     overflow: hidden;
-    border: #ccc;
-    border: 1px solid #ccc;
-    padding: 4px;
-    background-color: white;
-    box-shadow: 0 5px 20px $header__shadow-color;
+
+    &-image {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 190px;
+      height: 190px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      overflow: hidden;
+    }
   }
 }

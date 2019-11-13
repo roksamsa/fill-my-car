@@ -17,12 +17,3 @@ $color--main-background: $color__blue--lighter;
     background-color: #1e1e2f;
   }
 }
-
-.user-menu__backdrop {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: $color__backdrop;
-}

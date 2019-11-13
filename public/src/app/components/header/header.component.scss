@@ -99,10 +99,10 @@ $header__shadow-color: rgba(48, 26, 138, .2);
 
   &__avatar {
     position: relative;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 2px solid $color__white--70;
+    border: 1px solid $color__white--70;
     margin-right: 10px;
     overflow: hidden;
 
@@ -118,8 +118,8 @@ $header__shadow-color: rgba(48, 26, 138, .2);
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       overflow: hidden;

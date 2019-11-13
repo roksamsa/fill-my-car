@@ -4,36 +4,26 @@
     <div class="authBlock">
       <h3>Sign Up</h3>
 
-      <div class="formGroup">
-        <input type="email" class="formControl" placeholder="Email Address" #userEmail required>
-      </div>
+      <mat-form-field [floatLabel]="'never'"  class="form__field">
+        <input matInput type="email" class="formControl" placeholder="Email" #userEmail required>
+      </mat-form-field>
+
+      <mat-form-field [floatLabel]="'never'"  class="form__field">
+        <input matInput type="password" class="formControl" placeholder="Geslo" #userPwd required>
+      </mat-form-field>
 
       <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPwd required>
-      </div>
-
-      <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
-      </div>
-
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
+        <button type="button" mat-raised-button class="button button--default" value="Registracija" (click)="authService.SignUp(userEmail.value, userPwd.value)">Registracija</button>
       </div>
 
       <!-- Continue with Google -->
       <div class="formGroup">
-        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-          <i class="fab fa-google-plus-g"></i>
-          Continue with Google
-        </button>
+        <button type="button" mat-raised-button class="button button--default" value="Google" (click)="authService.GoogleAuth()">Google</button>
       </div>
 
       <!-- Continue with Facebook -->
       <div class="formGroup">
-        <button type="button" class="btn facebookBtn" (click)="authService.FacebookAuth()">
-          <i class="fab fa-facebook"></i>
-          Continue with Facebook
-        </button>
+        <button type="button" mat-raised-button class="button button--default" value="Facebook" (click)="authService.FacebookAuth()">Facebook</button>
       </div>
     </div>
 

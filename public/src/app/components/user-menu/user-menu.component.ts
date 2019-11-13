@@ -60,6 +60,7 @@ export class UserMenuComponent implements OnInit {
   userMenuVisibility: boolean;
   slideToggleChecked = false;
   userFullName = '';
+  userEmail = '';
   userName = '';
 
   constructor(
@@ -67,16 +68,25 @@ export class UserMenuComponent implements OnInit {
     private userMenuDarkThemeData: UserMenuService,
     private headerData: HeaderService) {
     this.userFullName = authService.userData.displayName;
-    this.userName = this.userFullName.replace(/ /g, '.');
+    this.userEmail = authService.userData.email;
   }
 
   ngOnInit() {
+    this.clickUserName();
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
     this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.slideToggleChecked = clickActiveState);
   }
 
   clickUserMenuVisibility() {
     this.headerData.changeUserMenuVisibility(false);
+  }
+
+  clickUserName() {
+    if (this.userFullName) {
+      this.userName = this.userFullName.replace(/ /g, '.');
+    } else {
+      this.userName = this.userEmail;
+    }
   }
 
   isDarkModeActivated() {

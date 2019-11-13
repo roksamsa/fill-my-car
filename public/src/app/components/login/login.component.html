@@ -3,17 +3,22 @@
 
     <div class="authBlock">
       <h3>Prijava</h3>
-      <div class="formGroup">
-        <input type="text" class="formControl" placeholder="Username" #userName required>
+
+      <div class="form__input">
+        <mat-form-field [floatLabel]="'never'"  class="form__field">
+          <input matInput type="text" class="formControl" placeholder="Uporabniško ime" #userName required>
+        </mat-form-field>
       </div>
 
-      <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPassword required>
+      <div class="form__input">
+        <mat-form-field [floatLabel]="'never'"  class="form__field">
+          <input matInput type="password" class="formControl" placeholder="Geslo" #userPassword required>
+        </mat-form-field>
       </div>
 
       <!-- Calling SignIn Api from AuthService -->
       <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+        <button type="button" mat-raised-button class="button button--default" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Prijava</button>
       </div>
 
       <div class="formGroup">
@@ -22,7 +27,7 @@
 
       <!-- Calling GoogleAuth Api from AuthService -->
       <div class="formGroup">
-        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+        <button type="button" mat-raised-button class="button button--default" (click)="authService.GoogleAuth()">
           <i class="fab fa-google-plus-g"></i>
           Log in with Google
         </button>
@@ -30,7 +35,7 @@
 
       <!-- Calling FacebookAuth Api from AuthService -->
       <div class="formGroup">
-          <button type="button" class="btn facebookBtn" (click)="authService.FacebookAuth()">
+          <button type="button" mat-raised-button class="button button--default" (click)="authService.FacebookAuth()">
             <i class="fab fa-google-plus-g"></i>
             Log in with Facebook
           </button>
@@ -38,7 +43,7 @@
 
       <!-- Calling GithubAuth Api from AuthService -->
       <div class="formGroup">
-        <button type="button" class="btn googleBtn" (click)="authService.GithubAuth()">
+        <button type="button" mat-raised-button class="button button--default" (click)="authService.GithubAuth()">
           <i class="fab fa-google-plus-g"></i>
           Log in with Github
         </button>
