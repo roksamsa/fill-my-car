@@ -26,14 +26,6 @@ export const headerAnimationDelay = '450ms';
     trigger('headerFadeIn', [
       transition(':enter', [
         group([
-          query('.header__background', [
-            style({
-              height: '0'
-            }),
-            animate(`${logoFadeInAnimationTiming} ${defaultAnimationFunction}`, style({
-              height: '100%'
-            }))
-          ]),
           query('.header__menu', [
             style({
               opacity: 0
@@ -58,6 +50,36 @@ export const headerAnimationDelay = '450ms';
             animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
               opacity: 1,
               transform: 'translateX(0)'
+            }))
+          ])
+        ])
+      ]),
+      transition(':leave', [
+        group([
+          query('.header__menu', [
+            style({
+              opacity: 1
+            }),
+            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
+              opacity: 0
+            }))
+          ], { optional: true }),
+          query('.header__right', [
+            style({
+              opacity: 1
+            }),
+            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
+              opacity: 0
+            }))
+          ]),
+          query('.header__logo', [
+            style({
+              opacity: 1,
+              transform: 'translateX(0)'
+            }),
+            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
+              opacity: 0,
+              transform: 'translateX(-40px)'
             }))
           ])
         ])

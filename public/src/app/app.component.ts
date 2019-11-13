@@ -1,61 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
-import { trigger, style, animate, transition } from '@angular/animations';
-import { AuthService } from './core/auth/auth.service';
-import { HeaderService } from '../app/components/header/header.service';
-import { UserMenuService } from 'src/app/components/user-menu/user-menu.service';
-
-export const defaultAnimationFunction = 'ease-in-out';
-
-export const headerFadeInAnimationTiming = '300ms';
-export const headerFadeOutAnimationTiming = '250ms';
-export const headerAnimationDelay = '450ms';
+import { UserMenuService } from '../app/components/user-menu/user-menu.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  animations: [
-    trigger('userMenuBackDropAnimation', [
-      transition(':enter', [
-        style({
-          opacity: 0
-        }),
-        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
-          opacity: 1
-        }))
-      ]),
-      transition(':leave', [
-        style({
-          opacity: 1
-        }),
-        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
-          opacity: 0
-        }))
-      ])
-    ])
-  ]
+  styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit {
 
   title = 'Napolni moj avto';
-  userMenuVisibility: boolean;
   darkModeActivated: boolean;
 
   constructor(
     private adapter: DateAdapter<any>,
-    private authService: AuthService,
-    private headerData: HeaderService,
     private userMenuDarkThemeData: UserMenuService) {
   }
 
   ngOnInit() {
     this.adapter.setLocale('sl');
-    this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
     this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState);
-  }
-
-  clickOutsideUserMenuVisibility() {
-    this.headerData.changeUserMenuVisibility(false);
   }
 }
