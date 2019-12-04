@@ -83,6 +83,8 @@ import localeSl from '@angular/common/locales/sl';
 import { VehicleSeatsComponent } from './components/vehicle-seats/vehicle-seats.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { WithoutHeaderFooterLayoutComponent } from './layouts/without-header-footer-layout/without-header-footer-layout.component';
+import { LoginRegisterContentComponent } from './components/login-register-content/login-register-content.component';
+/*import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";*/
 
 registerLocaleData(localeSl);
 
@@ -120,6 +122,17 @@ export const MY_FORMATS = {
   },
 };
 
+/*const socialPluginConfig = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('2203659926599837')
+  }
+]);*/
+
+/*export function provideSocialPluginConfig() {
+  return socialPluginConfig;
+}*/
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -155,7 +168,8 @@ export const MY_FORMATS = {
     InfoBoxComponent,
     VehicleSeatsComponent,
     DefaultLayoutComponent,
-    WithoutHeaderFooterLayoutComponent
+    WithoutHeaderFooterLayoutComponent,
+    LoginRegisterContentComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -189,6 +203,7 @@ export const MY_FORMATS = {
     MatCheckboxModule,
     MatSnackBarModule,
     MatDialogModule,
+    /*SocialLoginModule,*/
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1Ijoicm9rc2Ftc2EiLCJhIjoiY2p2OG5nOW9pMGdqYjQwcGYwZHVqdTRtcCJ9.IMNFrJwAlUTvKNhl_luspw',
       geocoderAccessToken: 'pk.eyJ1Ijoicm9rc2Ftc2EiLCJhIjoiY2p2OG5nOW9pMGdqYjQwcGYwZHVqdTRtcCJ9.IMNFrJwAlUTvKNhl_luspw'
@@ -207,7 +222,8 @@ export const MY_FORMATS = {
     { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'never' } },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    { provide: LOCALE_ID, useValue: 'sl-SI' }
+    { provide: LOCALE_ID, useValue: 'sl-SI' },
+    /*{ provide: AuthServiceConfig,  useFactory: provideSocialPluginConfig }*/
   ],
   bootstrap: [AppComponent],
   entryComponents: [

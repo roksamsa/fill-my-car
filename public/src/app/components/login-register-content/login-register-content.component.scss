@@ -1,0 +1,22 @@
+@import '../../sass/global_variables';
+
+.login-register-content {
+  &__logo {
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+
+    &--white {
+      color: #fff;
+    }
+  }
+
+  &__content,
+  &__h2 {
+    color: #fff;
+  }
+
+  &__logo-pink {
+    color: $color__pink--primary;
+  }
+}

@@ -18,7 +18,7 @@
 
       <!-- Calling SignIn Api from AuthService -->
       <div class="formGroup">
-        <button type="button" mat-raised-button class="button button--default" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Prijava</button>
+        <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Prijava</button>
       </div>
 
       <div class="formGroup">
@@ -27,7 +27,7 @@
 
       <!-- Calling GoogleAuth Api from AuthService -->
       <div class="formGroup">
-        <button type="button" mat-raised-button class="button button--default" (click)="authService.GoogleAuth()">
+        <button type="button" mat-raised-button class="button button--primary" (click)="authService.GoogleAuth()">
           <i class="fab fa-google-plus-g"></i>
           Log in with Google
         </button>
@@ -35,7 +35,7 @@
 
       <!-- Calling FacebookAuth Api from AuthService -->
       <div class="formGroup">
-          <button type="button" mat-raised-button class="button button--default" (click)="authService.FacebookAuth()">
+          <button type="button" mat-raised-button class="button button--primary" (click)="authService.FacebookAuth()">
             <i class="fab fa-google-plus-g"></i>
             Log in with Facebook
           </button>
@@ -43,7 +43,7 @@
 
       <!-- Calling GithubAuth Api from AuthService -->
       <div class="formGroup">
-        <button type="button" mat-raised-button class="button button--default" (click)="authService.GithubAuth()">
+        <button type="button" mat-raised-button class="button button--primary" (click)="authService.GithubAuth()">
           <i class="fab fa-google-plus-g"></i>
           Log in with Github
         </button>
