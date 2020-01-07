@@ -2,13 +2,12 @@
 <div routerLink="/nadzorna-plosca" class="login-register-content__logo login-register-content__logo--white">
   Napolni<span class="login-register-content__logo-pink">moj</span>avto
 </div>
-
-<h2 class="login-register-content__h2">
-  {{loginRegisterContentTitle}}
-</h2>
-
-<div class="login-register-content__content">
-  {{loginRegisterContentContent}}
+<div class="login-register-content__h2">
+  <ng-content select="h2"></ng-content>
 </div>
+<div class="login-register-content__text">
+  <ng-content select="div"></ng-content>
+</div>
+<ng-content></ng-content>
 
 <app-footer></app-footer>

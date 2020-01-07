@@ -61,7 +61,6 @@ import { VehiclesPageComponent } from './pages/vehicles-page/vehicles-page.compo
 import { TripsPageComponent } from './pages/trips-page/trips-page.component';
 import { TripPageComponent } from './pages/trip-page/trip-page.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { SecureInnerPagesGuard } from './core/auth/secure-inner-pages.guard';
 import { NavigationMainComponent } from './components/navigation-main/navigation-main.component';
@@ -84,6 +83,9 @@ import { VehicleSeatsComponent } from './components/vehicle-seats/vehicle-seats.
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { WithoutHeaderFooterLayoutComponent } from './layouts/without-header-footer-layout/without-header-footer-layout.component';
 import { LoginRegisterContentComponent } from './components/login-register-content/login-register-content.component';
+import { WebpageLoginComponent } from './webpage/components/webpage-login/webpage-login.component';
+import { HomeComponent } from './webpage/home/home.component';
+import { KontaktComponent } from './webpage/kontakt/kontakt.component';
 /*import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";*/
 
 registerLocaleData(localeSl);
@@ -92,9 +94,9 @@ const routes: Routes = [
   { path: 'nadzorna-plosca', component: DefaultLayoutComponent, children: [{
     path: '', component: DashboardPageComponent}], canActivate: [AuthGuard] },
   { path: 'registracija', component: WithoutHeaderFooterLayoutComponent, children: [{
-    path: '', component: RegisterComponent}], canActivate: [SecureInnerPagesGuard] },
+    path: '', component: HomeComponent}], canActivate: [SecureInnerPagesGuard] },
   { path: 'prijava', component: WithoutHeaderFooterLayoutComponent, children: [{
-    path: '', component: LoginPageComponent}], canActivate: [SecureInnerPagesGuard]},
+    path: '', component: HomeComponent}], canActivate: [SecureInnerPagesGuard]},
   { path: 'moja-vozila', component: DefaultLayoutComponent, children: [{
     path: '', component: VehiclesPageComponent}], canActivate: [AuthGuard] },
   { path: 'moja-potovanja', component: DefaultLayoutComponent, children: [{
@@ -104,7 +106,7 @@ const routes: Routes = [
   { path: 'uporabnik/:id', component: DefaultLayoutComponent, children: [{
     path: '', component: UserPageComponent}], pathMatch: 'full', canActivate: [AuthGuard] },
   { path: '', redirectTo: 'nadzorna-plosca', pathMatch: 'full' },
-  { path: '**', component: LoginPageComponent }
+  { path: '**', component: HomeComponent }
 ];
 
 const dateFormatParse = 'DD. MMMM YYYY';
@@ -153,7 +155,6 @@ export const MY_FORMATS = {
     ContentComponent,
     TripPageComponent,
     VehicleListComponent,
-    LoginPageComponent,
     NavigationMainComponent,
     TileComponent,
     VehicleTileComponent,
@@ -169,7 +170,10 @@ export const MY_FORMATS = {
     VehicleSeatsComponent,
     DefaultLayoutComponent,
     WithoutHeaderFooterLayoutComponent,
-    LoginRegisterContentComponent
+    LoginRegisterContentComponent,
+    WebpageLoginComponent,
+    HomeComponent,
+    KontaktComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

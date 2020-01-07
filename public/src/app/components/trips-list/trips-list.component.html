@@ -1,5 +1,5 @@
-<app-preloading-spinner [visibility]="preloadingSpinnerVisibility">
-  <div *ngIf="isTripsListEmpty(); else emptyTripList" class="table">
+<app-preloading-spinner *ngIf="!areThereAnyTrips; else emptyTripList" [visibility]="preloadingSpinnerVisibility">
+  <div class="table">
     <div *ngFor="let trip of trips; let tripIndex = index;"
         class="table__row"
         [class.table__row--selected]="moreActionOpened === tripIndex">

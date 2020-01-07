@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
+import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '300ms';
@@ -65,7 +66,7 @@ export class TripsListComponent implements OnInit {
   selectedTrip: any;
   selectedTripIndex = '';
   currentUser = JSON.parse(localStorage.getItem('user'));
-  areThereAnyTrips = false;
+  public areThereAnyTrips = false;
   dialogResult: '';
   tripFromLocationCity = '';
   moreActionVisible: any;
@@ -89,11 +90,12 @@ export class TripsListComponent implements OnInit {
   constructor(
     private popupDialog: MatDialog,
     private tripService: TripService,
-    private router: Router) {}
+    private router: Router) { }
 
   ngOnInit() {
     this.fetchTrips();
     this.isTripsListEmpty();
+    console.log(this.isTripsListEmpty());
   }
 
   moreActionsToggle(tripIndex) {
@@ -107,26 +109,25 @@ export class TripsListComponent implements OnInit {
   // Delete specific trip
   deleteTrip(id: any) {
     this.tripService.deleteTrip(id)
-    .subscribe(() => {
-      this.fetchTrips();
-    });
+      .subscribe(() => {
+        this.fetchTrips();
+      });
   }
 
   // Fetch all trips for specific user
   fetchTrips() {
     this.tripService.getTripsByUser(this.currentUser.uid)
-    .subscribe((data: Trip[]) => {
-      if (data) {
-        this.trips = data;
-        this.areThereAnyTrips = true;
-        this.preloadingSpinnerVisibility = false;
-
-      } else {
-        this.trips = null;
-        this.areThereAnyTrips = false;
-        this.preloadingSpinnerVisibility = true;
-      }
-    });
+      .subscribe((data: Trip[]) => {
+        if (data) {
+          this.trips = data;
+          this.areThereAnyTrips = true;
+          this.preloadingSpinnerVisibility = false;
+        } else {
+          this.trips = null;
+          this.areThereAnyTrips = false;
+          this.preloadingSpinnerVisibility = true;
+        }
+      });
   }
 
   // Check if we get some vehicles from user or not
@@ -161,6 +162,25 @@ export class TripsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
       this.fetchTrips();
+    });
+  }
+
+  // Add trip dialog popup
+  openAddTripDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = true;
+    dialogConfig.width = '1100px';
+    dialogConfig.position = {
+      top: '100px'
+    };
+
+    const dialogRef = this.popupDialog.open(CreateTripDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.fetchTrips();
+      this.dialogResult = result;
     });
   }
 }
