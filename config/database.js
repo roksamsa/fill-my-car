@@ -8,6 +8,7 @@ mongoose.promise = global.Promise;
 mongoose.set('debug', true);
 
 mongoose.connect(`mongodb://localhost:${databasePort}/${databaseName}`, {
+  useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true
 });
