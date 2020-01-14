@@ -57,6 +57,7 @@ export const headerAnimationDelay = '175ms';
 })
 
 export class TripsListComponent implements OnInit {
+  public areThereAnyTrips = false;
   preloadingSpinnerVisibility = true;
   emptyDataType = 'vertical';
   emptyDataText = 'Še nisi delil prevoza z drugimi.';
@@ -66,7 +67,6 @@ export class TripsListComponent implements OnInit {
   selectedTrip: any;
   selectedTripIndex = '';
   currentUser = JSON.parse(localStorage.getItem('user'));
-  public areThereAnyTrips = false;
   dialogResult: '';
   tripFromLocationCity = '';
   moreActionVisible: any;

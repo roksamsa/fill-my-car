@@ -1,4 +1,4 @@
-<app-preloading-spinner *ngIf="!areThereAnyTrips; else emptyTripList" [visibility]="preloadingSpinnerVisibility">
+<app-preloading-spinner *ngIf="areThereAnyTrips; else emptyTripList" [visibility]="preloadingSpinnerVisibility">
   <div class="table">
     <div *ngFor="let trip of trips; let tripIndex = index;"
         class="table__row"
