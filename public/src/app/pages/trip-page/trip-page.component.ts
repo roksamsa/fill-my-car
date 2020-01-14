@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
-import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 @Component({
@@ -20,8 +20,8 @@ import { MatStepper } from '@angular/material/stepper';
 })
 
 export class TripPageComponent implements OnInit {
-  vehicle: Vehicle;
-  public trip: Trip[] = [];
+  public vehicle: Vehicle;
+  public trip: Trip[];
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyTrips = false;
   dateFormat = 'EEEE, dd. MMMM yyyy';
@@ -54,7 +54,8 @@ export class TripPageComponent implements OnInit {
   iWouldLikeToJointTheTrip5 = false;
   iWouldLikeToJointTheTrip6 = false;
 
-  addTripFormStepperForm: FormGroup;
+  public addTripFormStepperForm: FormGroup;
+  public addTripFormStepperFormArray: FormArray;
 
   @ViewChild('stepper') stepper: MatStepper;
 
