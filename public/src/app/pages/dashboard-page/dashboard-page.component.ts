@@ -4,7 +4,7 @@ import { VehicleTileService } from '../../../app/components/vehicle-tile/vehicle
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { TripService } from '../../core/trip/trip.service';
 import { Trip } from '../../core/trip/trip.module';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';

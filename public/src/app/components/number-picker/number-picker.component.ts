@@ -19,7 +19,7 @@ export class NumberPickerComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() inputValue = new EventEmitter<number>();
 
-  private numberPicker: FormControl;
+  public numberPicker: FormControl;
   isNumberPickerActivated: boolean;
   inputStartValue: number;
 
@@ -60,7 +60,7 @@ export class NumberPickerComponent implements OnInit {
     });
   }
 
-  private increaseValue(): void {
+  public increaseValue(): void {
     let currentValue = this.numberPicker.value;
     if (currentValue < this.max) {
       currentValue = currentValue + this.step;
@@ -74,7 +74,7 @@ export class NumberPickerComponent implements OnInit {
     this.isNumberPickerActivated = true;
   }
 
-  private decreaseValue(): void {
+  public decreaseValue(): void {
     let currentValue = this.numberPicker.value;
     if (currentValue > this.min) {
       currentValue = currentValue - this.step;

@@ -8,14 +8,10 @@ import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Trip } from '../../core/trip/trip.module';
 import { Router, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import {
-  FacebookLoginProvider,
-  GoogleLoginProvider
-} from 'angular5-social-login';
 
 @Component({
   selector: 'app-trip-page',
@@ -64,7 +60,7 @@ export class TripPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService,
+    public authService: AuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
     private tripPassengerService: TripPassengerService,

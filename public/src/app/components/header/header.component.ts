@@ -3,7 +3,7 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
 import { AuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { HeaderService } from './header.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 import { UserMenuService } from '../user-menu/user-menu.service';

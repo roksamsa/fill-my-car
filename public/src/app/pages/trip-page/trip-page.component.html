@@ -208,6 +208,8 @@
           </svg>
         </button>
 
+        {{trip.tripIdTag}}
+
         <button *ngIf="stepper.selectedIndex === 4" mat-raised-button class="button button--primary"
         (click)="joinTripSave(trip.tripPrice,
                               trip.selectedVehicle,

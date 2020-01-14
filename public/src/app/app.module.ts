@@ -2,34 +2,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import {
   DateAdapter,
-  MatToolbarModule,
   MAT_LABEL_GLOBAL_OPTIONS,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
-  MatFormFieldModule,
-  MatInputModule,
   MatOptionModule,
-  MatSelectModule,
-  MatRadioModule,
-  MatTooltipModule,
-  MatIconModule,
-  MatButtonModule,
-  MatCardModule,
-  MatTableModule,
-  MatDialogModule,
-  MatProgressSpinnerModule,
-  MatAutocompleteModule,
   MatNativeDateModule,
-  NativeDateModule,
-  MatDatepickerModule,
-  MatStepperModule,
-  MatSlideToggleModule,
-  MatDividerModule,
-  MatCheckboxModule,
-  MatSnackBarModule
-} from '@angular/material';
+  NativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VehicleService } from './core/vehicle/vehicle.service';
@@ -70,7 +69,6 @@ import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { ClickOutsideDirective } from './core/other/click-outside.directive';
 import { AppLongPressDirective } from './core/other/long-press.directive';
 import { TripsListComponent } from './components/trips-list/trips-list.component';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
 import { HereMapsComponent } from './components/here-maps/here-maps.component';
 import { PreloadingSpinnerComponent } from './components/preloading-spinner/preloading-spinner.component';
@@ -207,11 +205,6 @@ export const MY_FORMATS = {
     MatCheckboxModule,
     MatSnackBarModule,
     MatDialogModule,
-    /*SocialLoginModule,*/
-    NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1Ijoicm9rc2Ftc2EiLCJhIjoiY2p2OG5nOW9pMGdqYjQwcGYwZHVqdTRtcCJ9.IMNFrJwAlUTvKNhl_luspw',
-      geocoderAccessToken: 'pk.eyJ1Ijoicm9rc2Ftc2EiLCJhIjoiY2p2OG5nOW9pMGdqYjQwcGYwZHVqdTRtcCJ9.IMNFrJwAlUTvKNhl_luspw'
-    })
   ],
   providers: [
     VehicleService,

@@ -7,9 +7,6 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class UserService {
 
-  public user = new BehaviorSubject(this.user);
-  userData = this.user.asObservable();
-
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth) { }
