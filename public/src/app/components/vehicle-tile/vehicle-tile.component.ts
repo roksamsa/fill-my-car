@@ -12,11 +12,11 @@ export class VehicleTileComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
 
   @Input() vehicleTextVisible = true;
-  private _vehicleID = '';
-  private _vehicleBrand = '';
-  private _vehicleName = '';
-  private _vehicleType = '';
-  private _vehicleColor = '';
+  public _vehicleID = '';
+  public _vehicleBrand = '';
+  public _vehicleName = '';
+  public _vehicleType = '';
+  public _vehicleColor = '';
 
   constructor() {}
 

@@ -21,7 +21,7 @@ import { MatStepper } from '@angular/material/stepper';
 
 export class TripPageComponent implements OnInit {
   vehicle: Vehicle;
-  trip: Trip[] = [];
+  public trip: Trip[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyTrips = false;
   dateFormat = 'EEEE, dd. MMMM yyyy';
