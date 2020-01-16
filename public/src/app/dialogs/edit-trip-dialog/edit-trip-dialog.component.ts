@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { MatStepper } from '@angular/material/stepper';
@@ -12,6 +12,7 @@ import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
 import { filter } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-trip-dialog',
@@ -70,13 +71,17 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   dateFormat = 'EEEE, dd. MMMM yyyy';
   dateLocale = 'sl-SI';
+  currentDateString = '';
+  currentDate = new Date();
 
   @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
   @ViewChild('tripToLocation') tripToLocation: ElementRef;
   @ViewChild('swapLocationButton') swapLocationButton: ElementRef;
   @ViewChild('stepper') stepper: MatStepper;
 
-  get formArray(): AbstractControl | null { return this.addTripFormStepperForm.get('addTripFormStepperFormArray'); }
+  get addTripFormStepperFormArray(): AbstractControl | null {
+    return this.addTripFormStepperForm.get('addTripFormStepperFormArray');
+  }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public selectedTripData: any,
@@ -84,37 +89,11 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     private vehicleService: VehicleService,
     private tripService: TripService,
     public hereMap: HereMapsService,
-    private form: FormBuilder,
+    private formBuilder: FormBuilder,
     private cdref: ChangeDetectorRef,
+    private datePipe: DatePipe,
     public thisDialogRef: MatDialogRef<EditTripDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) {
-    this.addTripFormStepperForm = this.form.group({
-      addTripFormStepperFormArray: this.form.array([
-        this.form.group({
-          belongsToUser: selectedTripData.belongsToUser,
-          selectedVehicle: [selectedTripData.selectedVehicle, Validators.required],
-          tripIdTag: selectedTripData.tripIdTag,
-          tripStatus: selectedTripData.tripStatus,
-          tripFromLocation: [selectedTripData.tripFromLocation, Validators.required],
-          tripToLocation: [selectedTripData.tripToLocation, Validators.required],
-          tripDateInput: selectedTripData.tripDate,
-          tripTime: ['', Validators.required],
-          tripFreeSeats: ['', Validators.required],
-          tripPrice: ['', Validators.required],
-          luggageSpaceValue: ''
-        }),
-        this.form.group({
-          tripMessage: selectedTripData.tripMessage,
-          tripStopsOnTheWayToFinalDestination: selectedTripData.tripStopsOnTheWayToFinalDestination,
-          tripComfortable: selectedTripData.tripComfortable
-        }),
-        this.form.group({
-          isAcceptPassengersChecked: ''
-        })
-      ])
-    });
-
-    this.fetchVehicle(selectedTripData.selectedVehicle);
 
     if (this.currentTripId === '') {
       this.currentTripId = this.createTripIdTag();
@@ -133,11 +112,41 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.isTripStopsOnTheWayToFinalDestinationChecked = selectedTripData.tripStopsOnTheWayToFinalDestination;
     this.isTripComfortableChecked = selectedTripData.tripComfortable;
     console.log(selectedTripData);
+
+    this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat);
   }
 
   ngOnInit() {
     this.fetchVehicles();
     this.isVehicleListEmpty();
+
+    this.fetchVehicle(this.selectedTripData.selectedVehicle);
+
+    this.addTripFormStepperForm = this.formBuilder.group({
+      addTripFormStepperFormArray: this.formBuilder.array([
+        this.formBuilder.group({
+          belongsToUser: this.selectedTripData.belongsToUser,
+          selectedVehicle: [this.selectedTripData.selectedVehicle, Validators.required],
+          tripIdTag: this.selectedTripData.tripIdTag,
+          tripStatus: this.selectedTripData.tripStatus,
+          tripFromLocation: [this.selectedTripData.tripFromLocation, Validators.required],
+          tripToLocation: [this.selectedTripData.tripToLocation, Validators.required],
+          tripDateInput: this.selectedTripData.tripDate,
+          tripTime: ['', Validators.required],
+          tripFreeSeats: ['', Validators.required],
+          tripPrice: ['', Validators.required],
+          luggageSpaceValue: ''
+        }),
+        this.formBuilder.group({
+          tripMessage: this.selectedTripData.tripMessage,
+          tripStopsOnTheWayToFinalDestination: this.selectedTripData.tripStopsOnTheWayToFinalDestination,
+          tripComfortable: this.selectedTripData.tripComfortable
+        }),
+        this.formBuilder.group({
+          isAcceptPassengersChecked: ''
+        })
+      ])
+    });
   }
 
   ngAfterViewInit() {

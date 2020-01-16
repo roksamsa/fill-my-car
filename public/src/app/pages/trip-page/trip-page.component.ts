@@ -21,11 +21,11 @@ import { MatStepper } from '@angular/material/stepper';
 
 export class TripPageComponent implements OnInit {
   public vehicle: Vehicle;
-  public trip: Trip[];
+  public trip: Trip;
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyTrips = false;
   dateFormat = 'EEEE, dd. MMMM yyyy';
-  currentTripId: any;
+  currentTripId: string;
   tripFromLocationCity = '';
   tripToLocationCity = '';
   hereMapStart = '';
@@ -55,9 +55,12 @@ export class TripPageComponent implements OnInit {
   iWouldLikeToJointTheTrip6 = false;
 
   public addTripFormStepperForm: FormGroup;
-  public addTripFormStepperFormArray: FormArray;
 
   @ViewChild('stepper') stepper: MatStepper;
+
+  get addTripFormStepperFormArray(): AbstractControl | null {
+    return this.addTripFormStepperForm.get('addTripFormStepperFormArray');
+  }
 
   constructor(
     private route: ActivatedRoute,

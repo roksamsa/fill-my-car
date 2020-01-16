@@ -9,9 +9,11 @@
 
 <div class="popup__content">
   <mat-dialog-content>
-    <form [formGroup]="addTripFormStepperForm" class="form">
-      <mat-horizontal-stepper class="popup__wizard" [linear]="false" formArrayName="addTripFormStepperFormArray"
-        #stepper>
+    <form class="form" [formGroup]="addTripFormStepperForm">
+      <mat-horizontal-stepper class="popup__wizard"
+                              formArrayName="addTripFormStepperFormArray"
+                              #stepper
+                              [linear]="false">
 
         <!-- STEP 1 -->
         <mat-step formGroupName="0" [stepControl]="addTripFormStepperFormArray?.get([0])">
@@ -66,7 +68,7 @@
               <mat-form-field [floatLabel]="'never'"  class="form__field">
                 <input matInput [matDatepicker]="tripDate" placeholder="Datum ..." formControlName="tripDateInput" #tripDateInput>
                 <mat-datepicker-toggle matSuffix [for]="tripDate"></mat-datepicker-toggle>
-                <mat-datepicker startAt="{{curDate | date: dateFormat}}" weekStartsOn="1" #tripDate></mat-datepicker>
+                <mat-datepicker startAt="{{currentDateString | date: dateFormat}}" weekStartsOn="1" #tripDate></mat-datepicker>
               </mat-form-field>
             </div>
 

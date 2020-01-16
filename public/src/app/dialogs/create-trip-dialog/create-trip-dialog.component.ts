@@ -11,6 +11,7 @@ import { HereMapsService } from '../../../app/components/here-maps/here-maps.ser
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-trip-dialog',
@@ -60,6 +61,8 @@ export class CreateTripDialogComponent implements OnInit {
 
   dateFormat = 'EEEE, dd. MMMM yyyy';
   dateLocale = 'sl-SI';
+  currentDateString = '';
+  currentDate = new Date();
 
   @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
   @ViewChild('tripToLocation') tripToLocation: ElementRef;
@@ -67,7 +70,9 @@ export class CreateTripDialogComponent implements OnInit {
   @ViewChild('stepper') stepper: MatStepper;
 
   /** Returns a FormArray with the name 'formArray'. */
-  get formArray(): AbstractControl | null { return this.addTripFormStepperForm.get('addTripFormStepperFormArray'); }
+  get addTripFormStepperFormArray(): AbstractControl | null {
+    return this.addTripFormStepperForm.get('addTripFormStepperFormArray');
+  }
 
   constructor(
     public authService: AuthService,
@@ -75,6 +80,7 @@ export class CreateTripDialogComponent implements OnInit {
     private tripService: TripService,
     public hereMap: HereMapsService,
     private form: FormBuilder,
+    private datePipe: DatePipe,
     public thisDialogRef: MatDialogRef<CreateTripDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) {
     this.addTripFormStepperForm = this.form.group({
@@ -102,6 +108,8 @@ export class CreateTripDialogComponent implements OnInit {
         })
       ])
     });
+
+    this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat);
   }
 
   ngOnInit() {
