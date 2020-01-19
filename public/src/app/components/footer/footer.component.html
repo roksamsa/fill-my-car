@@ -1,7 +1,12 @@
-<footer class="footer">
-  <div class="footer__wrapper">
+<footer class="footer" [ngClass]="{'footer--default': footerType == 'default', 'footer--white': footerType == 'white'}">
+  <app-content>
     <div class="footer__copyright">
       Avtorske pravice {{currentYear}} &#169; <span class="logo">Napolni<span class="logo--pink">moj</span>avto</span>
     </div>
-  </div>
+    <ul class="footer__menu">
+      <li>Pogosto zastavljena vprašanja</li>
+      <li>Izjava o zasebnosti</li>
+      <li>Informacije o tej strani</li>
+    </ul>
+  </app-content>
 </footer>

@@ -35,8 +35,10 @@ import { VehicleService } from './core/vehicle/vehicle.service';
 import { HeaderService } from '../app/components/header/header.service';
 import { VehicleTileService } from '../app/components/vehicle-tile/vehicle-tile.service';
 import { UserMenuService } from '../app/components/user-menu/user-menu.service';
+import { WebpageMenuService } from '../app/webpage/components/webpage-menu/webpage-menu.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
+import { WebpageHeaderComponent } from './webpage/components/webpage-header/webpage-header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { CreateVehicleDialogComponent } from './dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
@@ -62,7 +64,7 @@ import { TripPageComponent } from './pages/trip-page/trip-page.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { SecureInnerPagesGuard } from './core/auth/secure-inner-pages.guard';
-import { NavigationMainComponent } from './components/navigation-main/navigation-main.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { TileComponent } from './components/tile/tile.component';
 import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
@@ -75,15 +77,17 @@ import { PreloadingSpinnerComponent } from './components/preloading-spinner/prel
 import { NumberPickerComponent } from './components/number-picker/number-picker.component';
 import { InfoBoxComponent } from './components/info-box/info-box.component';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, DatePipe } from '@angular/common';
 import localeSl from '@angular/common/locales/sl';
 import { VehicleSeatsComponent } from './components/vehicle-seats/vehicle-seats.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { WithoutHeaderFooterLayoutComponent } from './layouts/without-header-footer-layout/without-header-footer-layout.component';
 import { LoginRegisterContentComponent } from './components/login-register-content/login-register-content.component';
-import { WebpageLoginComponent } from './webpage/components/webpage-login/webpage-login.component';
 import { HomeComponent } from './webpage/home/home.component';
 import { KontaktComponent } from './webpage/kontakt/kontakt.component';
+import { LoginRegisterComponent } from './components/login-register/login-register.component';
+import { LogoComponent } from './components/logo/logo.component';
+import { WebpageMenuComponent } from './webpage/components/webpage-menu/webpage-menu.component';
 /*import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";*/
 
 registerLocaleData(localeSl);
@@ -137,6 +141,7 @@ export const MY_FORMATS = {
   declarations: [
     AppComponent,
     HeaderComponent,
+    WebpageHeaderComponent,
     FooterComponent,
     DashboardPageComponent,
     CreateVehicleDialogComponent,
@@ -153,7 +158,7 @@ export const MY_FORMATS = {
     ContentComponent,
     TripPageComponent,
     VehicleListComponent,
-    NavigationMainComponent,
+    MainMenuComponent,
     TileComponent,
     VehicleTileComponent,
     UserMenuComponent,
@@ -169,9 +174,11 @@ export const MY_FORMATS = {
     DefaultLayoutComponent,
     WithoutHeaderFooterLayoutComponent,
     LoginRegisterContentComponent,
-    WebpageLoginComponent,
     HomeComponent,
-    KontaktComponent
+    KontaktComponent,
+    LoginRegisterComponent,
+    LogoComponent,
+    WebpageMenuComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -207,11 +214,13 @@ export const MY_FORMATS = {
     MatDialogModule,
   ],
   providers: [
+    DatePipe,
     VehicleService,
     AuthService,
     UserService,
     HeaderService,
     UserMenuService,
+    WebpageMenuService,
     VehicleTileService,
     MatDatepickerModule,
     AuthGuard,

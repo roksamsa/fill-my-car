@@ -64,16 +64,6 @@ $header__shadow-color: rgba(48, 26, 138, .2);
     height: 100%;
   }
 
-  &__logo {
-    font-weight: bold;
-    font-size: 20px;
-    cursor: pointer;
-
-    &-pink {
-      color: $color__pink--primary;
-    }
-  }
-
   &__right {
     display: flex;
     align-items: center;

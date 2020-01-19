@@ -1,11 +1,42 @@
 :host {
-  margin-top: 56px;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .app__wrapper {
   position: relative;
   width: 1200px;
   margin: 0 auto;
+
+  &--with-padding-top {
+    padding-top: 56px;
+  }
+}
+
+:host-context(.webpage-header) {
+  .app__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 100%;
+  }
+}
+
+:host-context(.home__content) {
+  .app__wrapper,
+  .app__content {
+    height: 100%;
+  }
+}
+
+:host-context(.footer) {
+  .app__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 @media only screen and (max-width: 1200px) {

@@ -1,0 +1,53 @@
+@import '../../../sass/global_variables';
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  margin-left: 15px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    padding: 7px 26px;
+    list-style: none;
+    cursor: pointer;
+    font-size: 18px;
+    outline: none;
+    transition: color 200ms ease-in-out;
+    font-weight: bold;
+
+    &:hover {
+      color: $color__pink--primary;
+    }
+
+    &--active {
+      color: $color__pink--primary;
+
+      &:hover {
+        color: $color__pink--primary;
+      }
+    }
+  }
+
+  &__item-text {
+    position: relative;
+  }
+}
+
+@media only screen and (max-width: 890px) {
+  .menu__item-text {
+    display: none;
+  }
+
+  .menu__item-icon-wrapper {
+    margin-right: 0;
+  }
+}

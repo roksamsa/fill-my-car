@@ -16,19 +16,4 @@ $color--main-background: $color__blue--lighter;
   &.dark-theme {
     background-color: #1e1e2f;
   }
-
-  &.prijava {
-    background-color: #242B61;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-image: linear-gradient(180deg, rgba(46,53,97,1) 0%, rgba(209,11,67,1) 100%);
-      opacity: 0.15;
-    }
-  }
 }

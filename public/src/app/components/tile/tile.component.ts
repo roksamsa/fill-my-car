@@ -24,5 +24,4 @@ export class TileComponent implements OnInit {
   clickFunction() {
     this.clicked.emit('clickFunction');
   }
-
 }

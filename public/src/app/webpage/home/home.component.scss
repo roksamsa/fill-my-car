@@ -1,0 +1,175 @@
+@import '../../sass/global_variables';
+@import '../../sass/elements/button';
+
+@keyframes sun-glowing {
+  0%   {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+@keyframes sun-grow {
+  0%   {
+    transform: scale(0.9);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(0.9);
+  }
+}
+
+@keyframes van-moving-up-down {
+  0% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(4px);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
+
+  50% {
+    transform: translateY(3px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.home {
+  &__background {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    &-half {
+      display: block;
+      height: 50%;
+      width: 100%;
+
+      &--top {
+        background-color: rgb(150, 234, 254);
+        background-image: linear-gradient(180deg, rgba(150, 234, 254, 1) 0%, rgba(255, 255, 255, 1) 100%);
+        opacity: 0.2;
+      }
+
+      &--bottom {
+        background-color: rgb(46, 53, 97);
+        background-image: linear-gradient(180deg, rgba(38, 45, 96, 1) 0%, rgba(75, 35, 89, 1) 100%);
+      }
+    }
+  }
+
+  &__mountains {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 350px;
+    margin-top: -350px;
+    background-image: url("/../../../assets/graphics/webpage/graphic-mountains.png");
+    background-repeat: repeat-x;
+  }
+
+  &__trees {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 36%;
+    left: 0;
+    width: 100%;
+    height: 350px;
+  }
+
+  &__grass {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 110px;
+    margin-top: -55px;
+    background-image: url("/../../../assets/graphics/webpage/graphic-grass.png");
+    background-repeat: repeat-x;
+  }
+
+  &__sun {
+    position: absolute;
+    top: 18%;
+    left: 60%;
+    width: 120px;
+    height: 120px;
+    margin-top: -55px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -60px;
+      top: -60px;
+      width: 100%;
+      height: 100%;
+      padding: 60px;
+      background-image: radial-gradient(circle, rgba(255, 241, 115, 1) 0%, rgba(255, 255, 255, 0) 70%);
+      border-radius: 50%;
+      animation: sun-glowing 10s forwards infinite;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #FFF173;
+      border: 2px solid #242B61;
+      border-radius: 50%;
+      animation: sun-grow 20s forwards infinite;
+    }
+  }
+
+  &__van {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    margin-top: -170px;
+    animation: van-moving-up-down 2s forwards infinite;
+  }
+
+  &__main-content {
+    display: flex;
+    align-items: center;
+    height: 50%;
+  }
+
+  &__main-content-wrapper {
+    width: 60%;
+    margin-top: -200px;
+  }
+
+  &__footer {
+    position: absolute;
+    bottom: 25%;
+    left: 0;
+    width: 100%;
+    color: $color__white--100;
+  }
+}

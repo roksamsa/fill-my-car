@@ -1,0 +1,12 @@
+<header class="webpage-header"
+        [@headerFadeIn]>
+  <app-content [withPaddingTop]="false">
+    <div class="webpage-header__left">
+      <app-logo routerLink="/home" [logoType]="'default'"></app-logo>
+    </div>
+
+    <div class="webpage-header__right">
+      <app-webpage-menu></app-webpage-menu>
+    </div>
+  </app-content>
+</header>

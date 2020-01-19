@@ -1,5 +1,5 @@
-<div class="app__wrapper">
+<div class="app__wrapper" [ngClass]="{'app__wrapper--with-padding-top': withPaddingTop}">
   <div class="app__content">
-    <router-outlet></router-outlet>
+    <ng-content></ng-content>
   </div>
 </div>

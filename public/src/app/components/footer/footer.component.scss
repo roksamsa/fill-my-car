@@ -7,7 +7,14 @@
   height: 100%;
   margin-top: 10px;
   font-size: 13px;
-  color: $color__blue--primary;
+
+  &--default {
+    color: $color__blue--primary;
+  }
+
+  &--white {
+    color: $color__white--100;
+  }
 
   &__wrapper {
     display: flex;
@@ -17,6 +24,15 @@
     width: 1200px;
     height: 100%;
     margin: 0 auto;
+  }
+
+  &__menu {
+    li {
+      float: left;
+      list-style: none;
+      padding: 0 15px;
+      cursor: pointer;
+    }
   }
 }
 

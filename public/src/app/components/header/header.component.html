@@ -6,9 +6,7 @@
   <div class="header__wrapper">
     <div class="header__left"
          (click)="clickOutsideUserMenuVisibility()">
-      <div routerLink="/nadzorna-plosca" class="header__logo">
-        Napolni<span class="header__logo-pink">moj</span>avto
-      </div>
+      <app-logo routerLink="/nadzorna-plosca"></app-logo>
       <app-navigation-main *ngIf="authService.isLoggedIn" class="header__menu" [class.dark-theme]="darkModeActivated"></app-navigation-main>
     </div>
 
