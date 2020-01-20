@@ -151,7 +151,11 @@
     top: 50%;
     left: 40%;
     margin-top: -170px;
-    animation: van-moving-up-down 2s forwards infinite;
+    // animation: van-moving-up-down 2s forwards infinite;
+
+    &--enter-animation-done {
+      animation: van-moving-up-down 2s forwards infinite;
+    }
   }
 
   &__main-content {

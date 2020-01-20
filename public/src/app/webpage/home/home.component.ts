@@ -9,24 +9,24 @@ import { ScaleControl } from 'mapbox-gl';
   styleUrls: ['./home.component.scss'],
   animations: [
     trigger('loginRegisterOverlayAnimation', [
+      state('in', style({
+        opacity: '1',
+        height: '100%'
+      })),
       transition(':enter', [
-        state('in', style({
-          opacity: '1',
-          height: '100%'
-        })),
         group([
           style({
             opacity: '0',
             height: '50%'
           }),
-          animate('400ms', style({
+          animate('300ms', style({
             opacity: '1',
             height: '100%'
           })),
           query('.webpage-login', style({
             opacity: 0
           })),
-          query('.webpage-login', animate('400ms 400ms', style({
+          query('.webpage-login', animate('300ms 300ms', style({
             opacity: 1
           })))
         ])
@@ -37,16 +37,42 @@ import { ScaleControl } from 'mapbox-gl';
             opacity: '1',
             height: '100%'
           }),
-          animate('400ms', style({
+          animate('200ms', style({
             opacity: '0',
             height: '50%'
           })),
           query('.webpage-login', style({
             opacity: 1
           })),
-          query('.webpage-login', animate('400ms', style({
+          query('.webpage-login', animate('200ms', style({
             opacity: 0
           })))
+        ])
+      ])
+    ]),
+    trigger('homeVanAnimation', [
+      transition(':enter', [
+        group([
+          style({
+            opacity: '0',
+            transform: 'translateX(-70%)'
+          }),
+          animate('500ms 500ms', style({
+            opacity: '1',
+            transform: 'translateX(0)'
+          }))
+        ])
+      ]),
+      transition(':leave', [
+        group([
+          style({
+            opacity: '1',
+            transform: 'translateX(0)'
+          }),
+          animate('400ms', style({
+            opacity: '0',
+            transform: 'translateX(-50%)'
+          }))
         ])
       ])
     ])
@@ -55,6 +81,7 @@ import { ScaleControl } from 'mapbox-gl';
 export class HomeComponent implements OnInit {
 
   loginRegisterOverlayVisible: boolean;
+  vanAnimationState = false;
 
   constructor(private webpageMenuData: WebpageMenuService) { }
 
@@ -62,5 +89,9 @@ export class HomeComponent implements OnInit {
     this.webpageMenuData.currentLoginRegisterOverlayVisibilityState.subscribe(
       clickActiveState => this.loginRegisterOverlayVisible = clickActiveState
     );
+  }
+
+  homeVanAnimationDoneEvent(event: AnimationEvent) {
+    this.vanAnimationState = true;
   }
 }

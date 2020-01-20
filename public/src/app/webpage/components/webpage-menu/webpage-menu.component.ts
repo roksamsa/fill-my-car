@@ -19,5 +19,4 @@ export class WebpageMenuComponent implements OnInit {
     this.loginRegisterOverlayVisibility = !this.loginRegisterOverlayVisibility;
     this.webpageMenuData.openLoginRegisterOverlay(this.loginRegisterOverlayVisibility);
   }
-
 }
