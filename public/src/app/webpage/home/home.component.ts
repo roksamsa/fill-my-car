@@ -10,29 +10,37 @@ import { ScaleControl } from 'mapbox-gl';
   animations: [
     trigger('loginRegisterOverlayAnimation', [
       transition(':enter', [
+        state('in', style({
+          opacity: '1',
+          height: '100%'
+        })),
         group([
-          query('.webpage-login__background', style({
-            transform: 'scaleY(1)'
+          style({
+            opacity: '0',
+            height: '50%'
+          }),
+          animate('400ms', style({
+            opacity: '1',
+            height: '100%'
           })),
-          query('.webpage-login__background', animate('600ms', style({
-            transform: 'scaleY(2)'
-          }))),
           query('.webpage-login', style({
             opacity: 0
           })),
-          query('.webpage-login', animate('400ms 200ms', style({
+          query('.webpage-login', animate('400ms 400ms', style({
             opacity: 1
           })))
         ])
       ]),
       transition(':leave', [
         group([
-          query('.webpage-login__background', style({
-            transform: 'scaleY(2)'
+          style({
+            opacity: '1',
+            height: '100%'
+          }),
+          animate('400ms', style({
+            opacity: '0',
+            height: '50%'
           })),
-          query('.webpage-login__background', animate('600ms', style({
-            transform: 'scaleY(1)'
-          }))),
           query('.webpage-login', style({
             opacity: 1
           })),

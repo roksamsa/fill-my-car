@@ -29,4 +29,4 @@
 </app-content>
 <app-webpage-header></app-webpage-header>
 <app-footer class="home__footer" [footerType]="'white'"></app-footer>
-<app-login-register *ngIf="loginRegisterOverlayVisible" @loginRegisterOverlayAnimation></app-login-register>
+<app-login-register *ngIf="loginRegisterOverlayVisible" [@loginRegisterOverlayAnimation]="loginRegisterOverlayVisible"></app-login-register>
