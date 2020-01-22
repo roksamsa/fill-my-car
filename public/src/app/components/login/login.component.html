@@ -4,53 +4,53 @@
     <div class="authBlock">
       <h3>Prijava</h3>
 
-      <div class="form__input">
-        <mat-form-field [floatLabel]="'never'"  class="form__field">
+      <div class="login-form__input form__input">
+        <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
           <input matInput type="text" class="formControl" placeholder="Uporabniško ime" #userName required>
         </mat-form-field>
       </div>
 
-      <div class="form__input">
-        <mat-form-field [floatLabel]="'never'"  class="form__field">
+      <div class="login-form__input form__input">
+        <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
           <input matInput type="password" class="formControl" placeholder="Geslo" #userPassword required>
         </mat-form-field>
       </div>
 
-      <!-- Calling SignIn Api from AuthService -->
-      <div class="formGroup">
-        <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Prijava</button>
-      </div>
-
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
-
-      <!-- Calling GoogleAuth Api from AuthService -->
-      <div class="formGroup">
-        <button type="button" mat-raised-button class="button button--primary" (click)="authService.GoogleAuth()">
-          <i class="fab fa-google-plus-g"></i>
-          Log in with Google
-        </button>
-      </div>
-
-      <!-- Calling FacebookAuth Api from AuthService -->
-      <div class="formGroup">
-          <button type="button" mat-raised-button class="button button--primary" (click)="authService.FacebookAuth()">
-            <i class="fab fa-google-plus-g"></i>
-            Log in with Facebook
-          </button>
+      <div class="login-form__group">
+        <!-- Calling SignIn Api from AuthService -->
+        <div class="login-form__button">
+          <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Prijava</button>
         </div>
 
-      <!-- Calling GithubAuth Api from AuthService -->
-      <div class="formGroup">
-        <button type="button" mat-raised-button class="button button--primary" (click)="authService.GithubAuth()">
-          <i class="fab fa-google-plus-g"></i>
-          Log in with Github
-        </button>
+        <div class="login-form__group">
+          <!-- Calling GoogleAuth Api from AuthService -->
+          <div class="login-form__button">
+            <button type="button" mat-raised-button class="button button--primary" (click)="authService.GoogleAuth()">
+              <i class="fab fa-google-plus-g"></i>
+              Google
+            </button>
+          </div>
+
+          <!-- Calling FacebookAuth Api from AuthService -->
+          <div class="login-form__button">
+              <button type="button" mat-raised-button class="button button--primary" (click)="authService.FacebookAuth()">
+                <i class="fab fa-google-plus-g"></i>
+                Facebook
+              </button>
+            </div>
+
+          <!-- Calling GithubAuth Api from AuthService -->
+          <div class="login-form__button">
+            <button type="button" mat-raised-button class="button button--primary" (click)="authService.GithubAuth()">
+              <i class="fab fa-google-plus-g"></i>
+              Github
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
+      <div class="login-form__forgot">
+        <p routerLink="/forgot-password">Forgot Password?</p>
       </div>
     </div>
 

@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  @Input() footerType = 'default';
+  @Input() footerStyle = 'default';
   currentYear = new Date().getFullYear();
 
   constructor() { }

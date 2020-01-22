@@ -1,3 +1,5 @@
+@import '../../sass/global_variables';
+
 :host {
   position: absolute;
   bottom: 0;
@@ -5,6 +7,9 @@
 }
 
 .webpage-login {
+  display: flex;
+  flex-direction: row;
+
   &__background {
     position: absolute;
     width: 100%;
@@ -14,12 +19,30 @@
     transform-origin: bottom;
   }
 
+  &__content {
+    width: 50%;
+
+    &__content--text {
+      margin-right: 40px;
+    }
+  }
+
   &__close {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 36px;
     width: 40px;
     height: 40px;
-    background-color: red;
+    cursor: pointer;
+  }
+
+  &__close-icon {
+    height: 100%;
+    width: 100%;
+    fill: $color__white--100;
+  }
+
+  &__footer {
+    display: block;
   }
 }

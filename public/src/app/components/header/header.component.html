@@ -7,7 +7,7 @@
     <div class="header__left"
          (click)="clickOutsideUserMenuVisibility()">
       <app-logo routerLink="/nadzorna-plosca"></app-logo>
-      <app-navigation-main *ngIf="authService.isLoggedIn" class="header__menu" [class.dark-theme]="darkModeActivated"></app-navigation-main>
+      <app-main-menu *ngIf="authService.isLoggedIn" class="header__menu" [class.dark-theme]="darkModeActivated"></app-main-menu>
     </div>
 
     <div class="header__right">

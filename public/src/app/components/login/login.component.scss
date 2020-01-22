@@ -1,3 +1,23 @@
 @import '../../sass/global_variables';
 @import '../../sass/elements/button';
 @import '../../sass/elements/forms';
+
+.login-form {
+  &__input {
+    margin-bottom: 20px;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__button {
+    width: auto;
+  }
+
+  &__forgot {
+    color: white;
+  }
+}

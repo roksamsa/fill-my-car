@@ -24,9 +24,25 @@ import { ScaleControl } from 'mapbox-gl';
             height: '100%'
           })),
           query('.webpage-login', style({
+            opacity: 0,
+            transform: 'translateY(60px)'
+          })),
+          query('.webpage-login', animate('300ms 500ms ease-in-out', style({
+            opacity: 1,
+            transform: 'translateY(0)'
+          }))),          
+          query('.webpage-login__footer', style({
+            opacity: 0,
+            transform: 'translateY(60px)'
+          })),
+          query('.webpage-login__footer', animate('300ms 700ms ease-in-out', style({
+            opacity: 1,
+            transform: 'translateY(0)'
+          }))),          
+          query('.webpage-login__close', style({
             opacity: 0
           })),
-          query('.webpage-login', animate('300ms 300ms', style({
+          query('.webpage-login__close', animate('300ms 700ms ease-in-out', style({
             opacity: 1
           })))
         ])
@@ -42,9 +58,25 @@ import { ScaleControl } from 'mapbox-gl';
             height: '50%'
           })),
           query('.webpage-login', style({
+            opacity: 1,
+            transform: 'translateY(0)'
+          })),
+          query('.webpage-login', animate('200ms ease-in-out', style({
+            opacity: 0,
+            transform: 'translateY(60px)'
+          }))),
+          query('.webpage-login__footer', style({
+            opacity: 1,
+            transform: 'translateY(0)'
+          })),
+          query('.webpage-login__footer', animate('200ms ease-in-out', style({
+            opacity: 0,
+            transform: 'translateY(60px)'
+          }))),
+          query('.webpage-login__close', style({
             opacity: 1
           })),
-          query('.webpage-login', animate('200ms', style({
+          query('.webpage-login__close', animate('200ms ease-in-out', style({
             opacity: 0
           })))
         ])
