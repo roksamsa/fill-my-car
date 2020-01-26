@@ -6,7 +6,7 @@
   <div class="header__wrapper">
     <div class="header__left"
          (click)="clickOutsideUserMenuVisibility()">
-      <app-logo routerLink="/nadzorna-plosca"></app-logo>
+      <app-logo class="header__logo" routerLink="/nadzorna-plosca"></app-logo>
       <app-main-menu *ngIf="authService.isLoggedIn" class="header__menu" [class.dark-theme]="darkModeActivated"></app-main-menu>
     </div>
 

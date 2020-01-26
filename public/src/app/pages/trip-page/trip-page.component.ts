@@ -77,7 +77,8 @@ export class TripPageComponent implements OnInit {
     this.addTripFormStepperForm = this.form.group({
       addTripFormStepperFormArray: this.form.array([
         this.form.group({
-          vehicleSeatsSelectedNumber: ''
+        }),
+        this.form.group({
         }),
         this.form.group({
           yourStartLocation: ['', Validators.required]
@@ -86,7 +87,6 @@ export class TripPageComponent implements OnInit {
           yourEndLocation: ['', Validators.required]
         }),
         this.form.group({
-          isAcceptPassengersChecked: 'auto'
         })
       ])
     });

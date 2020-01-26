@@ -5,6 +5,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatStepper } from '@angular/material/stepper';
 import { TripService } from '../../core/trip/trip.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
+import { Trip } from '../../core/trip/trip.module';
 import { AuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { HereMapsService } from '../../../app/components/here-maps/here-maps.service';
@@ -63,6 +64,9 @@ export class CreateTripDialogComponent implements OnInit {
   dateLocale = 'sl-SI';
   currentDateString = '';
   currentDate = new Date();
+
+  trips: Trip[] = [];
+  public areThereAnyTrips = false;
 
   @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
   @ViewChild('tripToLocation') tripToLocation: ElementRef;
@@ -204,6 +208,22 @@ export class CreateTripDialogComponent implements OnInit {
         this.vehicles = null;
       }
     });
+  }
+
+  // Fetch all trips for specific user
+  fetchTrips() {
+    this.tripService.getTripsByUser(this.currentUser.uid)
+      .subscribe((data: Trip[]) => {
+        if (data) {
+          this.trips = data;
+          this.areThereAnyTrips = true;
+          this.preloadingSpinnerVisibility = false;
+        } else {
+          this.trips = null;
+          this.areThereAnyTrips = false;
+          this.preloadingSpinnerVisibility = true;
+        }
+      });
   }
 
   // Check if we get some vehicles from user or not

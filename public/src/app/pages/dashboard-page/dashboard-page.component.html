@@ -1,10 +1,10 @@
 <app-content>
   <div class="dashboard__vehicles">
-    <app-tile class="tile tile--vehicles">
-      <h2 class="tile__title tile__title--vehicles" (click)="deselectAllVehicles()">Moja vozila</h2>
+    <app-tile-title-left class="tile tile--vehicles">
+      <h2 tile-headline-title class="tile__title tile__title--vehicles" (click)="deselectAllVehicles()">Moja vozila</h2>
 
       <!-- Element with data -->
-      <div *ngIf="isVehicleListEmpty(); else emptyVehicleList" @vehiclesListFadeIn class="vehicles__items">
+      <div tile-content *ngIf="isVehicleListEmpty(); else emptyVehicleList" @vehiclesListFadeIn class="vehicles__items">
         <app-vehicle-tile *ngFor="let vehicle of vehicles; let i = index;"
                           @vehicleFadeIn
                           [id]="'vehicleID_' + i"
@@ -26,7 +26,7 @@
                         (clicked)="openAddVehicleDialog()"></app-empty-data>
       </ng-template>
 
-      <div *ngIf="isVehicleListEmpty()" class="vehicles__actions">
+      <div tile-headline-button *ngIf="isVehicleListEmpty()" class="vehicles__actions">
         <button *ngIf="isSelectedVehicle"
                 @vehicleActionDeleteFadeIn
                 matTooltip="Odstrani vozilo '{{selectedVehicle.vehicleBrand}} {{selectedVehicle.vehicleName}}'"
@@ -57,13 +57,8 @@
           </svg>
         </button>
       </div>
-    </app-tile>
+    </app-tile-title-left>
 
-    <app-tile class="tile tile--default"
-              [tileTitle]="tileTitleTrips"
-              [tileHeadlineAddButtonTooltipText]="tileHeadlineAddButtonTooltipText"
-              (clicked)="openAddTripDialog()">
-      <app-trips-list></app-trips-list>
-    </app-tile>
+    <app-trips-list></app-trips-list>
   </div>
 </app-content>

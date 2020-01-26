@@ -65,7 +65,7 @@ import { VehicleListComponent } from './components/vehicle-list/vehicle-list.com
 import { AuthGuard } from './core/auth/auth.guard';
 import { SecureInnerPagesGuard } from './core/auth/secure-inner-pages.guard';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { TileComponent } from './components/tile/tile.component';
+import { TileTitleTopComponent } from './components/tile-title-top/tile-title-top.component';
 import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { ClickOutsideDirective } from './core/other/click-outside.directive';
@@ -88,7 +88,8 @@ import { KontaktComponent } from './webpage/kontakt/kontakt.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { WebpageMenuComponent } from './webpage/components/webpage-menu/webpage-menu.component';
-/*import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";*/
+import { TileTitleLeftComponent } from './components/tile-title-left/tile-title-left.component';
+import { TileComponent } from './components/tile/tile.component';
 
 registerLocaleData(localeSl);
 
@@ -159,7 +160,7 @@ export const MY_FORMATS = {
     TripPageComponent,
     VehicleListComponent,
     MainMenuComponent,
-    TileComponent,
+    TileTitleTopComponent,
     VehicleTileComponent,
     UserMenuComponent,
     ClickOutsideDirective,
@@ -178,7 +179,9 @@ export const MY_FORMATS = {
     KontaktComponent,
     LoginRegisterComponent,
     LogoComponent,
-    WebpageMenuComponent
+    WebpageMenuComponent,
+    TileTitleLeftComponent,
+    TileComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

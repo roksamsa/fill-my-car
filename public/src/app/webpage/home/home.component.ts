@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebpageMenuService } from '../components/webpage-menu/webpage-menu.service';
 import { trigger, query, style, group, animate, transition, state } from '@angular/animations';
-import { ScaleControl } from 'mapbox-gl';
 
 @Component({
   selector: 'app-home',
@@ -26,25 +25,25 @@ import { ScaleControl } from 'mapbox-gl';
           query('.webpage-login', style({
             opacity: 0,
             transform: 'translateY(60px)'
-          })),
+          }), { optional: true }),
           query('.webpage-login', animate('300ms 500ms ease-in-out', style({
             opacity: 1,
             transform: 'translateY(0)'
-          }))),          
+          })), { optional: true }),
           query('.webpage-login__footer', style({
             opacity: 0,
             transform: 'translateY(60px)'
-          })),
+          }), { optional: true }),
           query('.webpage-login__footer', animate('300ms 700ms ease-in-out', style({
             opacity: 1,
             transform: 'translateY(0)'
-          }))),          
+          })), { optional: true }),
           query('.webpage-login__close', style({
             opacity: 0
-          })),
+          }), { optional: true }),
           query('.webpage-login__close', animate('300ms 700ms ease-in-out', style({
             opacity: 1
-          })))
+          })), { optional: true })
         ])
       ]),
       transition(':leave', [
@@ -60,25 +59,25 @@ import { ScaleControl } from 'mapbox-gl';
           query('.webpage-login', style({
             opacity: 1,
             transform: 'translateY(0)'
-          })),
+          }), { optional: true }),
           query('.webpage-login', animate('200ms ease-in-out', style({
             opacity: 0,
             transform: 'translateY(60px)'
-          }))),
+          })), { optional: true }),
           query('.webpage-login__footer', style({
             opacity: 1,
             transform: 'translateY(0)'
-          })),
+          }), { optional: true }),
           query('.webpage-login__footer', animate('200ms ease-in-out', style({
             opacity: 0,
             transform: 'translateY(60px)'
-          }))),
+          })), { optional: true }),
           query('.webpage-login__close', style({
             opacity: 1
-          })),
+          }), { optional: true }),
           query('.webpage-login__close', animate('200ms ease-in-out', style({
             opacity: 0
-          })))
+          })), { optional: true })
         ])
       ])
     ]),
@@ -121,6 +120,10 @@ export class HomeComponent implements OnInit {
     this.webpageMenuData.currentLoginRegisterOverlayVisibilityState.subscribe(
       clickActiveState => this.loginRegisterOverlayVisible = clickActiveState
     );
+  }
+
+  openLoginOverlay() {
+    this.webpageMenuData.openLoginRegisterOverlay(true);
   }
 
   homeVanAnimationDoneEvent(event: AnimationEvent) {

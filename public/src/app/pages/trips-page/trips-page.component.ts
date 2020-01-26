@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
+import { TripService } from '../../core/trip/trip.service';
+import { Trip } from '../../core/trip/trip.module';
 
 @Component({
   selector: 'app-trips-page',
@@ -12,10 +14,33 @@ export class TripsPageComponent implements OnInit {
   dialogResult = '';
   tileTitle = 'Moja potovanja';
   tileHeadlineAddButtonTooltipText = 'Dodaj novo potovanje';
+  currentUser = JSON.parse(localStorage.getItem('user'));
+  trips: Trip[] = [];
+  areThereAnyTrips = false;
 
-  constructor(public popupTrip: MatDialog) { }
+  constructor(public popupTrip: MatDialog,
+              private tripService: TripService) { }
 
   ngOnInit() {
+    this.fetchTrips();
+  }
+
+  // Fetch all trips for specific user
+  fetchTrips() {
+    this.tripService.getTripsByUser(this.currentUser.uid).subscribe((data: Trip[]) => {
+      if (data.length > 0) {
+        this.trips = data;
+        this.areThereAnyTrips = true;
+      } else {
+        this.trips = null;
+        this.areThereAnyTrips = false;
+      }
+    });
+  }
+
+  // Check if we get some vehicles from user or not
+  isTripsListEmpty(): boolean {
+    return this.areThereAnyTrips;
   }
 
   // Add trip dialog popup
@@ -32,6 +57,7 @@ export class TripsPageComponent implements OnInit {
     const dialogRef = this.popupTrip.open(CreateTripDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
+      this.fetchTrips();
       this.dialogResult = result;
     });
   }

@@ -1,0 +1,11 @@
+<div class="tile__wrapper" [class.dark-theme]="darkModeActivated">
+  <div class="tile__headline">
+    <ng-content select="[tile-headline-title]"></ng-content>
+  </div>
+  <div class="tile__content">
+    <ng-content select="[tile-content]"></ng-content>
+  </div>
+  <div class="tile__headline-actions">
+    <ng-content select="[tile-headline-button]"></ng-content>
+  </div>
+</div>

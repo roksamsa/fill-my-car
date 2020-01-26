@@ -27,7 +27,7 @@ export const headerAnimationDelay = '450ms';
     trigger('vehiclesListFadeIn', [
       transition(':enter', [
         group([
-          query('@vehicleFadeIn', stagger(200, animateChild()))
+          query('@vehicleFadeIn', stagger(200, animateChild()), { optional: true })
         ])
       ]),
     ]),
@@ -100,7 +100,6 @@ export const headerAnimationDelay = '450ms';
 })
 
 export class DashboardPageComponent implements OnInit {
-
   emptyDataType = 'horizontal';
   tileTitleTrips = 'Moja potovanja';
   tileHeadlineAddButtonTooltipText = 'Dodaj novo potovanje';
@@ -205,8 +204,8 @@ export class DashboardPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
-      this.fetchVehicles();
       this.isSelectedVehicle = false;
+      this.fetchVehicles();
     });
   }
 
@@ -227,7 +226,6 @@ export class DashboardPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
       this.fetchVehicles();
-      this.isSelectedVehicle = false;
     });
   }
 

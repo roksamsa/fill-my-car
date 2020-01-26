@@ -19,8 +19,6 @@ $tile__border-radius: 3px;
   border-radius: $tile__border-radius;
 
   &.tile--default {
-    width: 100%;
-
     .tile__title {
       margin-top: 0;
     }
@@ -30,14 +28,21 @@ $tile__border-radius: 3px;
     justify-content: center;
 
     .tile__headline {
+      width: auto;
       border-bottom: 0 none;
     }
 
+    .tile__headline-actions {
+      height: 100%;
+    }
+
     .tile__wrapper {
+      display: flex;
       height: 180px;
     }
 
     .tile__content {
+      flex-grow: 1;
       align-items: center;
       height: 100%;
     }

@@ -27,10 +27,13 @@
   }
 
   &__menu {
+    margin: 0;
+
     li {
       float: left;
       list-style: none;
-      padding: 0 15px;
+      padding: 15px 0 15px 10px;
+      margin: 0 0 0 20px;
       cursor: pointer;
     }
   }

@@ -16,13 +16,13 @@
         </mat-form-field>
       </div>
 
-      <div class="login-form__group">
+      <div class="login-form__group login-form__group--buttons">
         <!-- Calling SignIn Api from AuthService -->
         <div class="login-form__button">
           <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Prijava</button>
         </div>
 
-        <div class="login-form__group">
+        <div class="login-form__group login-form__group--buttons-social">
           <!-- Calling GoogleAuth Api from AuthService -->
           <div class="login-form__button">
             <button type="button" mat-raised-button class="button button--primary" (click)="authService.GoogleAuth()">

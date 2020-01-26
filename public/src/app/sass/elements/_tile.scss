@@ -1,0 +1,106 @@
+@import '../../sass/global_variables';
+@import '../../sass/global_fonts';
+
+$tile__padding: 20px;
+$tile__padding--trip: 30px;
+$tile__padding--trip-map: 10px;
+$tile__shadow: 0 2px 5px 0 rgba(0, 19, 168, .1);
+$tile__shadow--hover: 0 4px 19px 0 rgba(0, 19, 168, .05);
+$tile__background-color: $color__white--100;
+$tile__border-radius: 3px;
+
+.tile {
+  width: 100%;
+
+  &__wrapper {
+    height: 100%;
+    padding: $tile__padding;
+    background-color: $tile__background-color;
+
+    &.dark-theme {
+      background-color: #26293b;
+    }
+  }
+
+  &__headline {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid $color__blue--lighter;
+  }
+
+  &__title {
+    @include font-titillium-semibold;
+    display: flex;
+    flex-shrink: 0;
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 0;
+    font-size: 22px;
+    color: $color__blue--primary;
+
+    &--default {
+      margin-top: 0;
+    }
+
+    &--vehicles {
+      display: flex;
+      align-items: center;
+      height: auto;
+      padding-right: 20px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: $color__blue--lighter;
+      }
+    }
+  }
+
+  &__headline-actions {
+    display: flex;
+    height: 42px;
+  }
+
+  &__headline-button {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: 0 none;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 200ms ease-in-out;
+
+    &:hover {
+      background-color: rgba(207, 216, 232, 0.3);
+
+      .tile__headline-button-icon {
+        fill: $color__pink--primary;
+      }
+    }
+  }
+
+  &__headline-button-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  &__content {
+    display: flex;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .tile__content {
+    flex-direction: column-reverse;
+  }
+}

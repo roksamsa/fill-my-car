@@ -48,11 +48,6 @@ export class VehicleListComponent implements OnInit {
     });
   }
 
-  // Edit specific vehicle
-  editVehicle(id: any) {
-    this.router.navigate([`/edit/${id}`]);
-  }
-
   // Delete specific vehicle
   deleteVehicle(id: any) {
     this.vehicleService.deleteVehicle(id)

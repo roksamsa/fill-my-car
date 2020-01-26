@@ -41,7 +41,7 @@ export const headerAnimationDelay = '450ms';
             animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
               opacity: 1
             }))
-          ]),
+          ], { optional: true }),
           query('.header__logo', [
             style({
               opacity: 0,
@@ -51,7 +51,7 @@ export const headerAnimationDelay = '450ms';
               opacity: 1,
               transform: 'translateX(0)'
             }))
-          ])
+          ], { optional: true })
         ])
       ]),
       transition(':leave', [
@@ -71,7 +71,7 @@ export const headerAnimationDelay = '450ms';
             animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
               opacity: 0
             }))
-          ]),
+          ], { optional: true }),
           query('.header__logo', [
             style({
               opacity: 1,
@@ -81,7 +81,7 @@ export const headerAnimationDelay = '450ms';
               opacity: 0,
               transform: 'translateX(-40px)'
             }))
-          ])
+          ], { optional: true })
         ])
       ])
     ]),

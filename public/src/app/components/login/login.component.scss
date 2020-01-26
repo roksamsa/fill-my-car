@@ -11,6 +11,16 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    &--buttons {
+      margin-top: 30px;
+    }
+
+    &--buttons-social {
+      .login-form__button {
+        margin-left: 15px;
+      }
+    }
   }
 
   &__button {
