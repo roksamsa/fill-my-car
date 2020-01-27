@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserMenuService } from '../user-menu/user-menu.service';
 
 @Component({
   selector: 'app-tile',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TileComponent implements OnInit {
 
-  constructor() { }
+  darkModeActivated: boolean;
+
+  constructor(private userMenuDarkThemeData: UserMenuService) { }
 
   ngOnInit() {
+    this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState);
   }
 
 }

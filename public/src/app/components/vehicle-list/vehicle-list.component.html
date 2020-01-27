@@ -1,52 +1,50 @@
-<table mat-table [dataSource]="vehicles">
-  <ng-container matColumnDef="vehicleType">
-    <th mat-header-cell *matHeaderCellDef>vehicleType</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.vehicleType }} </td>
-  </ng-container>
+<app-tile-title-top class="tile tile--vehicles">
+  <h2 tile-headline-title class="tile__title tile__title--vehicles" (click)="deselectAllVehicles()">Moja vozila</h2>
 
-  <ng-container matColumnDef="vehicleBrand">
-    <th mat-header-cell *matHeaderCellDef>vehicleBrand</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.vehicleBrand }} </td>
-  </ng-container>
+  <div tile-headline-button *ngIf="isVehicleListEmpty()" class="vehicles__actions">
+    <button *ngIf="isSelectedVehicle" @vehicleActionDeleteFadeIn
+      matTooltip="Odstrani vozilo '{{selectedVehicle.vehicleBrand}} {{selectedVehicle.vehicleName}}'"
+      matTooltipPosition="left" class="vehicles__button vehicles__button--just-icon button button--just-icon"
+      (click)="deleteVehicle(selectedVehicle._id)">
+      <svg class="vehicles__button-icon vehicles__button-icon--delete" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24">
+        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </button>
+    <button class="vehicles__button vehicles__button--just-icon button button--just-icon" matTooltipPosition="left"
+      matTooltip="Dodaj novo vozilo" (click)="openAddVehicleDialog()">
+      <svg class="vehicles__button-icon vehicles__button-icon--add" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </button>
+    <button *ngIf="isSelectedVehicle" @vehicleActionEditFadeIn
+      matTooltip="Uredi vozilo '{{selectedVehicle.vehicleBrand}} {{selectedVehicle.vehicleName}}'"
+      matTooltipPosition="left" class="vehicles__button vehicles__button--just-icon button button--just-icon"
+      (click)="openEditVehicleDialog(selectedVehicle._id)">
+      <svg class="vehicles__button-icon vehicles__button-icon--edit" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24">
+        <path
+          d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </button>
+  </div>
 
-  <ng-container matColumnDef="vehicleName">
-    <th mat-header-cell *matHeaderCellDef>vehicleName</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.vehicleName }} </td>
-  </ng-container>
+  <!-- Element with data -->
+  <div tile-content *ngIf="isVehicleListEmpty(); else emptyVehicleList" class="vehicles__items">
+    <app-vehicle-tile *ngFor="let vehicle of vehicles; let i = index;" [id]="'vehicleID_' + i"
+      [ngClass]="{'selected': selectedVehicle === vehicle}" [vehicleID]="vehicle.vehicleId"
+      [vehicleBrand]="vehicle.vehicleBrand" [vehicleName]="vehicle.vehicleName" [vehicleType]="vehicle.vehicleType"
+      [vehicleColor]="vehicle.vehicleColor" (click)="vehicleClickSetSelectedState(vehicle, i)"></app-vehicle-tile>
+  </div>
 
-  <ng-container matColumnDef="vehicleModelYear">
-    <th mat-header-cell *matHeaderCellDef>vehicleModelYear</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.vehicleModelYear }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="vehicleColor">
-    <th mat-header-cell *matHeaderCellDef>vehicleColor</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.vehicleColor }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="vehicleSeats">
-    <th mat-header-cell *matHeaderCellDef>vehicleSeats</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.vehicleSeats }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="vehicleMaxLuggage">
-    <th mat-header-cell *matHeaderCellDef>vehicleMaxLuggage</th>
-    <td mat-cell *matCellDef="let element"> {{ element?.vehicleMaxLuggage }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="vehicleID">
-    <th mat-header-cell *matHeaderCellDef>vehicleID</th>
-    <td mat-cell *matCellDef="let element"> {{ element?._id }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-button color="primary" (click)="editVehicle(element._id)">Edit</button>
-      <button mat-button color="warn" (click)="deleteVehicle(element._id)">Delete</button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  <!-- Element without data-->
+  <ng-template #emptyVehicleList>
+    <app-empty-data [emptyDataType]="emptyDataType" [emptyDataButtonText]="emptyDataButtonText"
+      [emptyDataText]="emptyDataText" [emptyDataIcon]="emptyDataIcon" (clicked)="openAddVehicleDialog()">
+    </app-empty-data>
+  </ng-template>
+</app-tile-title-top>

@@ -10,8 +10,9 @@
     </svg>
   </button>
 
-  <app-preloading-spinner tile-content *ngIf="areThereAnyTrips; else emptyTripList"
-    [visibility]="preloadingSpinnerVisibility">
+  <app-preloading-spinner tile-content
+                          *ngIf="areThereAnyTrips; else emptyTripList"
+                          [visibility]="preloadingSpinnerVisibility">
     <div class="table">
       <div *ngFor="let trip of trips; let tripIndex = index;" class="table__row"
         [class.table__row--selected]="moreActionOpened === tripIndex">
