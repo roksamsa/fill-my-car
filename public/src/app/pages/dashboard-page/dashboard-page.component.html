@@ -4,7 +4,11 @@
       <h2 tile-headline-title class="tile__title" (click)="deselectAllVehicles()">Moja vozila</h2>
 
       <!-- Element with data -->
-      <div tile-content *ngIf="isVehicleListEmpty(); else emptyVehicleList" @vehiclesListFadeIn class="vehicles__items">
+      <app-preloading-spinner tile-content
+                              @vehiclesListFadeIn
+                              *ngIf="isVehicleListEmpty(); else emptyVehicleList"
+                              class="vehicles__items"
+                              [visibility]="preloadingSpinnerVisibility">
         <app-vehicle-tile *ngFor="let vehicle of vehicles; let i = index;"
                           @vehicleFadeIn
                           [id]="'vehicleID_' + i"
@@ -15,15 +19,18 @@
                           [vehicleType]="vehicle.vehicleType"
                           [vehicleColor]="vehicle.vehicleColor"
                           (click)="vehicleClickSetSelectedState(vehicle, i)"></app-vehicle-tile>
-      </div>
+      </app-preloading-spinner>
 
       <!-- Element without data-->
       <ng-template #emptyVehicleList>
+        <app-preloading-spinner tile-content
+                                [visibility]="preloadingSpinnerVisibility">
         <app-empty-data [emptyDataType]="emptyDataType"
                         [emptyDataButtonText]="emptyDataButtonText"
                         [emptyDataText]="emptyDataText"
                         [emptyDataIcon]="emptyDataIcon"
                         (clicked)="openAddVehicleDialog()"></app-empty-data>
+        </app-preloading-spinner>
       </ng-template>
 
       <div tile-headline-button *ngIf="isVehicleListEmpty()" class="vehicles__actions">

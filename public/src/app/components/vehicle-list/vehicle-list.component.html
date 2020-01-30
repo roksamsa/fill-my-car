@@ -1,28 +1,9 @@
-<app-tile-title-top class="tile tile--vehicles">
+<app-tile-title-top>
   <h2 tile-headline-title class="tile__title" (click)="deselectAllVehicles()">Moja vozila</h2>
 
-  <div tile-headline-button *ngIf="isVehicleListEmpty()" class="vehicles__actions">
-    <button *ngIf="isSelectedVehicle" @vehicleActionDeleteFadeIn
-      matTooltip="Odstrani vozilo '{{selectedVehicle.vehicleBrand}} {{selectedVehicle.vehicleName}}'"
-      matTooltipPosition="left" class="vehicles__button vehicles__button--just-icon button button--just-icon"
-      (click)="deleteVehicle(selectedVehicle._id)">
-      <svg class="vehicles__button-icon vehicles__button-icon--delete" xmlns="http://www.w3.org/2000/svg" width="24"
-        height="24" viewBox="0 0 24 24">
-        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-        <path d="M0 0h24v24H0z" fill="none" />
-      </svg>
-    </button>
-    <button class="vehicles__button vehicles__button--just-icon button button--just-icon" matTooltipPosition="left"
-      matTooltip="Dodaj novo vozilo" (click)="openAddVehicleDialog()">
-      <svg class="vehicles__button-icon vehicles__button-icon--add" xmlns="http://www.w3.org/2000/svg" width="24"
-        height="24" viewBox="0 0 24 24">
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-        <path d="M0 0h24v24H0z" fill="none" />
-      </svg>
-    </button>
-    <button *ngIf="isSelectedVehicle" @vehicleActionEditFadeIn
-      matTooltip="Uredi vozilo '{{selectedVehicle.vehicleBrand}} {{selectedVehicle.vehicleName}}'"
-      matTooltipPosition="left" class="vehicles__button vehicles__button--just-icon button button--just-icon"
+  <div tile-headline-button class="vehicles__actions">
+    <button *ngIf="selectedVehicle" matTooltip="Uredi vozilo '{{selectedVehicle.vehicleBrand}} {{selectedVehicle.vehicleName}}'"
+      matTooltipPosition="left" class="tile__headline-button vehicles__button vehicles__button--just-icon button button--just-icon"
       (click)="openEditVehicleDialog(selectedVehicle._id)">
       <svg class="vehicles__button-icon vehicles__button-icon--edit" xmlns="http://www.w3.org/2000/svg" width="24"
         height="24" viewBox="0 0 24 24">
@@ -31,20 +12,40 @@
         <path d="M0 0h24v24H0z" fill="none" />
       </svg>
     </button>
+    <button *ngIf="selectedVehicle" matTooltip="Odstrani vozilo '{{selectedVehicle.vehicleBrand}} {{selectedVehicle.vehicleName}}'"
+      matTooltipPosition="left" class="tile__headline-button vehicles__button vehicles__button--just-icon button button--just-icon"
+      (click)="deleteVehicle(selectedVehicle._id)">
+      <svg class="vehicles__button-icon vehicles__button-icon--delete" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24">
+        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </button>
+    <button class="tile__headline-button vehicles__button vehicles__button--just-icon button button--just-icon" matTooltipPosition="left"
+      matTooltip="Dodaj novo vozilo" (click)="openAddVehicleDialog()">
+      <svg class="vehicles__button-icon vehicles__button-icon--add" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </button>
   </div>
 
   <!-- Element with data -->
-  <div tile-content *ngIf="isVehicleListEmpty(); else emptyVehicleList" class="vehicles__items">
+  <app-preloading-spinner tile-content *ngIf="areThereAnyVehicles; else emptyVehicleList"
+    class="vehicles__items" [visibility]="preloadingSpinnerVisibility">
     <app-vehicle-tile *ngFor="let vehicle of vehicles; let i = index;" [id]="'vehicleID_' + i"
       [ngClass]="{'selected': selectedVehicle === vehicle}" [vehicleID]="vehicle.vehicleId"
       [vehicleBrand]="vehicle.vehicleBrand" [vehicleName]="vehicle.vehicleName" [vehicleType]="vehicle.vehicleType"
       [vehicleColor]="vehicle.vehicleColor" (click)="vehicleClickSetSelectedState(vehicle, i)"></app-vehicle-tile>
-  </div>
+  </app-preloading-spinner>
 
   <!-- Element without data-->
   <ng-template #emptyVehicleList>
-    <app-empty-data [emptyDataType]="emptyDataType" [emptyDataButtonText]="emptyDataButtonText"
-      [emptyDataText]="emptyDataText" [emptyDataIcon]="emptyDataIcon" (clicked)="openAddVehicleDialog()">
-    </app-empty-data>
+    <app-preloading-spinner tile-content [visibility]="preloadingSpinnerVisibility">
+      <app-empty-data [emptyDataType]="emptyDataType" [emptyDataButtonText]="emptyDataButtonText"
+        [emptyDataText]="emptyDataText" [emptyDataIcon]="emptyDataIcon" (clicked)="openAddVehicleDialog()">
+      </app-empty-data>
+    </app-preloading-spinner>
   </ng-template>
 </app-tile-title-top>

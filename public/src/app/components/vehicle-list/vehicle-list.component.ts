@@ -14,7 +14,7 @@ import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/ed
 })
 
 export class VehicleListComponent implements OnInit {
-  emptyDataType = 'horizontal';
+  emptyDataType = 'vertical';
   tileTitleTrips = 'Moja potovanja';
   tileHeadlineAddButtonTooltipText = 'Dodaj novo potovanje';
   emptyDataText = 'Tvoja garaža je še vedno prazna.';
@@ -27,6 +27,7 @@ export class VehicleListComponent implements OnInit {
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
+  preloadingSpinnerVisibility = true;
   dialogResult = '';
   displayedColumns: string[] = [
     'vehicleType',
@@ -52,6 +53,15 @@ export class VehicleListComponent implements OnInit {
     this.vehicleTileData.currentVehicleSelectState.subscribe(clickActiveState => this.isSelectedVehicle = clickActiveState);
   }
 
+  preloadingSpinnerShow() {
+    const that = this;
+    this.preloadingSpinnerVisibility = true;
+
+    setTimeout(function() {
+      that.preloadingSpinnerVisibility = false;
+    }, 500);
+  }
+
   // Fetch all vehicles for specific user
   fetchVehicles() {
     this.vehicleService.getVehicleByUser(this.currentUser.uid)
@@ -59,9 +69,11 @@ export class VehicleListComponent implements OnInit {
         if (data.length > 0) {
           this.vehicles = data;
           this.areThereAnyVehicles = true;
+          this.preloadingSpinnerShow();
         } else {
           this.vehicles = null;
           this.areThereAnyVehicles = false;
+          this.preloadingSpinnerShow();
         }
       });
   }

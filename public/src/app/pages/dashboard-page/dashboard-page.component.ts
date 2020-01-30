@@ -111,6 +111,7 @@ export class DashboardPageComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
   trips: Trip[] = [];
   areThereAnyTrips = false;
+  preloadingSpinnerVisibility = true;
 
   @Input() selectedVehicle: any;
   selectedVehicleIndex: number;
@@ -134,6 +135,15 @@ export class DashboardPageComponent implements OnInit {
     this.headerData.changeHeaderVisibility(true);
   }
 
+  preloadingSpinnerShow() {
+    const that = this;
+    this.preloadingSpinnerVisibility = true;
+
+    setTimeout(function() {
+      that.preloadingSpinnerVisibility = false;
+    }, 500);
+  }
+
   // Fetch all vehicles for specific user
   fetchVehicles() {
     this.vehicleService.getVehicleByUser(this.currentUser.uid)
@@ -141,9 +151,11 @@ export class DashboardPageComponent implements OnInit {
       if (data.length > 0) {
         this.vehicles = data;
         this.areThereAnyVehicles = true;
+        this.preloadingSpinnerShow();
       } else {
         this.vehicles = null;
         this.areThereAnyVehicles = false;
+        this.preloadingSpinnerShow();
       }
     });
   }

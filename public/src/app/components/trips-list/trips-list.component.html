@@ -144,7 +144,10 @@
 
 <!-- Element without data-->
 <ng-template #emptyTripList>
-  <app-empty-data [emptyDataType]="emptyDataType" [emptyDataButtonText]="emptyDataButtonText"
-    [emptyDataText]="emptyDataText" [emptyDataIcon]="emptyDataIcon" (clicked)="openAddTripDialog()">
-  </app-empty-data>
+  <app-preloading-spinner tile-content
+                          [visibility]="preloadingSpinnerVisibility">
+    <app-empty-data [emptyDataType]="emptyDataType" [emptyDataButtonText]="emptyDataButtonText"
+      [emptyDataText]="emptyDataText" [emptyDataIcon]="emptyDataIcon" (clicked)="openAddTripDialog()">
+    </app-empty-data>
+  </app-preloading-spinner>
 </ng-template>

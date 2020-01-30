@@ -116,17 +116,26 @@ export class TripsListComponent implements OnInit {
       });
   }
 
+  preloadingSpinnerShow() {
+    const that = this;
+    this.preloadingSpinnerVisibility = true;
+
+    setTimeout(function() {
+      that.preloadingSpinnerVisibility = false;
+    }, 500);
+  }
+
   // Fetch all trips for specific user
   fetchTrips() {
     this.tripService.getTripsByUser(this.currentUser.uid).subscribe((data: Trip[]) => {
       if (data.length > 0) {
         this.trips = data;
         this.areThereAnyTrips = true;
-        this.preloadingSpinnerVisibility = false;
+        this.preloadingSpinnerShow();
       } else {
         this.trips = null;
         this.areThereAnyTrips = false;
-        this.preloadingSpinnerVisibility = true;
+        this.preloadingSpinnerShow();
       }
     });
   }
