@@ -1,5 +1,5 @@
 <app-tile-title-top class="tile tile--vehicles">
-  <h2 tile-headline-title class="tile__title tile__title--vehicles" (click)="deselectAllVehicles()">Moja vozila</h2>
+  <h2 tile-headline-title class="tile__title" (click)="deselectAllVehicles()">Moja vozila</h2>
 
   <div tile-headline-button *ngIf="isVehicleListEmpty()" class="vehicles__actions">
     <button *ngIf="isSelectedVehicle" @vehicleActionDeleteFadeIn

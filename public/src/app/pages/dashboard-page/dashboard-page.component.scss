@@ -4,6 +4,8 @@
 @import '../../sass/global_fonts';
 @import '../../sass/elements/tile';
 
+@include tile-title-on-left-styling;
+
 .empty-data {
   display: flex;
   align-items: center;
@@ -102,37 +104,11 @@
   }
 }
 
-.tile {
-  &__title {
-    @include font-titillium-semibold;
-    position: relative;
-    margin-right: 20px;
-    padding-right: 20px;
-    font-size: 22px;
-    color: $color__blue--primary;
-
-    &::before {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: -10px;
-      bottom: -10px;
-      width: 2px;
-      background-color: $color__blue--lightest;
-    }
-  }
-}
-
 @media only screen and (max-width: 890px) {
   .tile__title--vehicles {
     display: none;
   }
 }
-
-    /* flex-direction: column;
-    grid-template-columns: 50% 50%;
-    /* grid-template-rows: 20%; */
-    /* grid-column-gap: 20%; */
 
 @media only screen and (max-width: 770px) {
   .vehicles__items {

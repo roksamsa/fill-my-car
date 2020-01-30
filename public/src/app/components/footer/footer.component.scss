@@ -35,6 +35,10 @@
       padding: 15px 0 15px 10px;
       margin: 0 0 0 20px;
       cursor: pointer;
+
+      &:hover {
+        color: $color__pink--primary;
+      }
     }
   }
 }

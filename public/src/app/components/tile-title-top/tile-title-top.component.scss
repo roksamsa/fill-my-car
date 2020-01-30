@@ -2,46 +2,10 @@
 @import '../../sass/global_fonts';
 @import '../../sass/elements/tile';
 
-$tile__padding: 20px;
-$tile__padding--trip: 30px;
-$tile__padding--trip-map: 10px;
-$tile__shadow: 0 2px 5px 0 rgba(0, 19, 168, .1);
-$tile__shadow--hover: 0 4px 19px 0 rgba(0, 19, 168, .05);
-$tile__background-color: $color__white--100;
-$tile__border-radius: 3px;
-
 :host {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 30px;
-  box-shadow: $tile__shadow;
-  border-radius: $tile__border-radius;
-
-  &.tile--default {
-    width: 100%;
-
-    .tile__title {
-      margin-top: 0;
-    }
-  }
-
-  &.tile--vehicles {
-    justify-content: center;
-
-    .tile__headline {
-      border-bottom: 0 none;
-    }
-
-    .tile__wrapper {
-      height: 180px;
-    }
-
-    .tile__content {
-      align-items: center;
-      height: 100%;
-    }
-  }
 
   &.tile--trip {
     .tile__wrapper {

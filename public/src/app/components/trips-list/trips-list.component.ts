@@ -60,10 +60,12 @@ export class TripsListComponent implements OnInit {
   public areThereAnyTrips = false;
   public trips: Trip[] = [];
   preloadingSpinnerVisibility = true;
+
   emptyDataType = 'vertical';
   emptyDataText = 'Še nisi delil prevoza z drugimi.';
   emptyDataIcon = 'trip';
   emptyDataButtonText = 'Načrtuj novo potovanje';
+
   selectedTrip: any;
   selectedTripIndex = '';
   currentUser = JSON.parse(localStorage.getItem('user'));
@@ -117,7 +119,7 @@ export class TripsListComponent implements OnInit {
   // Fetch all trips for specific user
   fetchTrips() {
     this.tripService.getTripsByUser(this.currentUser.uid).subscribe((data: Trip[]) => {
-      if (data) {
+      if (data.length > 0) {
         this.trips = data;
         this.areThereAnyTrips = true;
         this.preloadingSpinnerVisibility = false;

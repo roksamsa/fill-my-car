@@ -65,6 +65,7 @@
   display: block;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .home {
@@ -99,6 +100,19 @@
     width: 100%;
     height: 350px;
     margin-top: -350px;
+    background-repeat: repeat-x;
+  }
+
+  &__mountains-container {
+    width: 100%;
+    height: 100%;
+    animation: moving-road 150s infinite;
+    animation-timing-function: linear;
+  }
+
+  &__mountains-image {
+    width: 200%;
+    height: 100%;
     background-image: url("/../../../assets/graphics/webpage/graphic-mountains.png");
     background-repeat: repeat-x;
   }
@@ -124,7 +138,7 @@
   &__road-container {
     width: 100%;
     height: 100%;
-    animation: moving-road 25s infinite;
+    animation: moving-road 50s infinite;
     animation-timing-function: linear;
   }
 
@@ -134,7 +148,6 @@
     background-image: url("/../../../assets/graphics/webpage/graphics-road.png");
     background-repeat: repeat-x;
     opacity: 0.4;
-
   }
 
   &__grass {

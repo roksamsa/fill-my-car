@@ -48,7 +48,7 @@ import { EditTripDialogComponent } from './dialogs/edit-trip-dialog/edit-trip-di
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ContentComponent } from './components/content/content.component';
+import { ContentComponent } from './style/content/content.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserComponent } from './components/user/user.component';
 import { AngularFireModule } from '@angular/fire';
@@ -86,10 +86,10 @@ import { LoginRegisterContentComponent } from './components/login-register-conte
 import { HomeComponent } from './webpage/home/home.component';
 import { KontaktComponent } from './webpage/kontakt/kontakt.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
-import { LogoComponent } from './components/logo/logo.component';
+import { LogoComponent } from './style/logo/logo.component';
 import { WebpageMenuComponent } from './webpage/components/webpage-menu/webpage-menu.component';
 import { TileTitleLeftComponent } from './components/tile-title-left/tile-title-left.component';
-import { TileComponent } from './components/tile/tile.component';
+import { TileComponent } from './style/tile/tile.component';
 
 registerLocaleData(localeSl);
 

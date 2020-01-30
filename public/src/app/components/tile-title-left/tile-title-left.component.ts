@@ -4,7 +4,8 @@ import { UserMenuService } from '../user-menu/user-menu.service';
 @Component({
   selector: 'app-tile-title-left',
   templateUrl: './tile-title-left.component.html',
-  styleUrls: ['./tile-title-left.component.scss']
+  styleUrls: ['./tile-title-left.component.scss'],
+  host: {'class': 'tile tile--title-left'}
 })
 export class TileTitleLeftComponent implements OnInit {
 

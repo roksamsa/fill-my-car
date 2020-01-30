@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserMenuService } from '../user-menu/user-menu.service';
+import { UserMenuService } from '../../components/user-menu/user-menu.service';
 
 @Component({
   selector: 'app-tile',

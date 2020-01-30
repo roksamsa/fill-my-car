@@ -12,21 +12,31 @@ $tile__border-radius: 3px;
 .tile {
   width: 100%;
 
-  &__wrapper {
-    height: 100%;
-    padding: $tile__padding;
-    background-color: $tile__background-color;
+  &.tile--title-left {
+    .tile__headline {
+      margin-right: 20px;
+      padding-right: 20px;
+    }
+  }
 
-    &.dark-theme {
-      background-color: #26293b;
+  &.tile--title-top {
+    .tile__headline {
+      justify-content: space-between;
+      width: 100%;
+      border-bottom: 2px solid $color__blue--lighter;
+    }
+
+    .tile__title {
+      margin-bottom: 20px;
+    }
+
+    .tile__headline-actions {
+      height: 42px;
     }
   }
 
   &__headline {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    border-bottom: 2px solid $color__blue--lighter;
   }
 
   &__title {
@@ -34,38 +44,13 @@ $tile__border-radius: 3px;
     display: flex;
     flex-shrink: 0;
     position: relative;
-    margin-bottom: 20px;
     margin-top: 0;
     font-size: 22px;
     color: $color__blue--primary;
-
-    &--default {
-      margin-top: 0;
-    }
-
-    &--vehicles {
-      display: flex;
-      align-items: center;
-      height: auto;
-      padding-right: 20px;
-      margin-bottom: 20px;
-      margin-top: 20px;
-
-      &::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background-color: $color__blue--lighter;
-      }
-    }
   }
 
   &__headline-actions {
     display: flex;
-    height: 42px;
   }
 
   &__headline-button {
@@ -96,6 +81,27 @@ $tile__border-radius: 3px;
   &__content {
     display: flex;
     width: 100%;
+  }
+}
+
+@mixin tile-title-on-left-styling {
+  .tile__title {
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: $color__blue--lighter;
+    }
   }
 }
 

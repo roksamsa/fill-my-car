@@ -5,7 +5,7 @@
 $tile__padding: 20px;
 $tile__padding--trip: 30px;
 $tile__padding--trip-map: 10px;
-$tile__shadow: 0 2px 5px 0 rgba(0, 19, 168, .1);
+$tile__shadow: 0 2px 7px 0 rgba(0, 19, 168, .1);
 $tile__shadow--hover: 0 4px 19px 0 rgba(0, 19, 168, .05);
 $tile__background-color: $color__white--100;
 $tile__border-radius: 3px;
@@ -15,26 +15,27 @@ $tile__border-radius: 3px;
   flex-direction: column;
   width: 100%;
   margin-top: 30px;
-  box-shadow: $tile__shadow;
-  border-radius: $tile__border-radius;
 
-  &.tile--default {
+  &.tile--title-top {
     width: 100%;
+
+    .tile__wrapper {
+      flex-direction: column;
+    }
 
     .tile__title {
       margin-top: 0;
     }
   }
 
-  &.tile--vehicles {
-    justify-content: center;
+  &.tile--title-left {
+    .tile__wrapper {
+      flex-direction: row;
+      height: 180px;
+    }
 
     .tile__headline {
       border-bottom: 0 none;
-    }
-
-    .tile__wrapper {
-      height: 180px;
     }
 
     .tile__content {
@@ -58,5 +59,18 @@ $tile__border-radius: 3px;
     .tile__wrapper {
       padding: $tile__padding--trip-map;
     }
+  }
+}
+
+.tile__wrapper {
+  display: flex;
+  height: 100%;
+  padding: $tile__padding;
+  background-color: $tile__background-color;
+  border-radius: $tile__border-radius;
+  box-shadow: $tile__shadow;
+
+  &.dark-theme {
+    background-color: #26293b;
   }
 }

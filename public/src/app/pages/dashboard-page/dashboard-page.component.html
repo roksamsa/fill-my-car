@@ -1,7 +1,7 @@
 <app-content>
   <div class="dashboard__vehicles">
-    <app-tile-title-left class="tile tile--vehicles">
-      <h2 tile-headline-title class="tile__title tile__title--vehicles" (click)="deselectAllVehicles()">Moja vozila</h2>
+    <app-tile-title-left>
+      <h2 tile-headline-title class="tile__title" (click)="deselectAllVehicles()">Moja vozila</h2>
 
       <!-- Element with data -->
       <div tile-content *ngIf="isVehicleListEmpty(); else emptyVehicleList" @vehiclesListFadeIn class="vehicles__items">

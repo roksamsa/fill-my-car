@@ -1,4 +1,4 @@
-<div class="tile__wrapper" [class.dark-theme]="darkModeActivated">
+<app-tile class="tile tile--title-top">
   <div class="tile__headline">
     <ng-content select="[tile-headline-title]"></ng-content>
     <div class="tile__headline-actions">
@@ -8,4 +8,4 @@
   <div class="tile__content">
     <ng-content select="[tile-content]"></ng-content>
   </div>
-</div>
+</app-tile>

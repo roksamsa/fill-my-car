@@ -1,4 +1,4 @@
-<app-tile-title-top class="tile tile--default">
+<app-tile-title-top>
   <h2 tile-headline-title class="tile__title">
     Moja potovanja
   </h2>
@@ -13,6 +13,7 @@
   <app-preloading-spinner tile-content
                           *ngIf="areThereAnyTrips; else emptyTripList"
                           [visibility]="preloadingSpinnerVisibility">
+
     <div class="table">
       <div *ngFor="let trip of trips; let tripIndex = index;" class="table__row"
         [class.table__row--selected]="moreActionOpened === tripIndex">

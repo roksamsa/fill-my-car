@@ -55,8 +55,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   preloadingSpinnerStrokeWidth = 5;
   preloadingSpinnerMode = 'indeterminate';
 
-  preloadingSpinnerVisibility: boolean;
-
   areThereAnyVehicles = false;
 
   isTripStopsOnTheWayToFinalDestinationChecked = false;
