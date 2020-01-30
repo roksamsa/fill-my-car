@@ -8,18 +8,10 @@
   width: 100%;
 }
 
-.mat-table {
-  width: 100%;
+.vehicles__items {
+  padding-top: 20px;
 }
 
-.mat-row {
-  transition: background-color 100ms ease-in-out;
-
-  &:hover {
-    background-color: $color__blue-grey--light;
-  }
-}
-
-.vehicle-list {
-  padding: 30px;
+.vehicle-tile {
+  height: 160px;
 }
