@@ -33,11 +33,17 @@
 
   <!-- Element with data -->
   <app-preloading-spinner tile-content *ngIf="areThereAnyVehicles; else emptyVehicleList"
-    class="vehicles__items" [visibility]="preloadingSpinnerVisibility">
-    <app-vehicle-tile class="vehicle-tile" *ngFor="let vehicle of vehicles; let i = index;" [id]="'vehicleID_' + i"
-      [ngClass]="{'selected': selectedVehicle === vehicle}" [vehicleID]="vehicle.vehicleId"
-      [vehicleBrand]="vehicle.vehicleBrand" [vehicleName]="vehicle.vehicleName" [vehicleType]="vehicle.vehicleType"
-      [vehicleColor]="vehicle.vehicleColor" (click)="vehicleClickSetSelectedState(vehicle, i)"></app-vehicle-tile>
+    class="vehicles__items vehicles__items--full-size" [visibility]="preloadingSpinnerVisibility">
+    <app-vehicle-tile class="vehicle-tile vehicle-tile--full-size"
+                      *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index;"
+                      [id]="'vehicleID_' + i"
+                      [ngClass]="{'selected': selectedVehicle === vehicle}"
+                      [vehicleID]="vehicle.vehicleId"
+                      [vehicleBrand]="vehicle.vehicleBrand"
+                      [vehicleName]="vehicle.vehicleName"
+                      [vehicleType]="vehicle.vehicleType"
+                      [vehicleColor]="vehicle.vehicleColor"
+                      (click)="vehicleClickSetSelectedState(vehicle, i)"></app-vehicle-tile>
   </app-preloading-spinner>
 
   <!-- Element without data-->

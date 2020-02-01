@@ -7,18 +7,21 @@
       <app-preloading-spinner tile-content
                               @vehiclesListFadeIn
                               *ngIf="isVehicleListEmpty(); else emptyVehicleList"
-                              class="vehicles__items"
+                              class="vehicles__items vehicles__items--horizontal"
                               [visibility]="preloadingSpinnerVisibility">
-        <app-vehicle-tile *ngFor="let vehicle of vehicles; let i = index;"
-                          @vehicleFadeIn
-                          [id]="'vehicleID_' + i"
-                          [ngClass]="{'selected': selectedVehicle === vehicle}"
-                          [vehicleID]="vehicle.vehicleId"
-                          [vehicleBrand]="vehicle.vehicleBrand"
-                          [vehicleName]="vehicle.vehicleName"
-                          [vehicleType]="vehicle.vehicleType"
-                          [vehicleColor]="vehicle.vehicleColor"
-                          (click)="vehicleClickSetSelectedState(vehicle, i)"></app-vehicle-tile>
+
+        <ng-container *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index;">
+          <app-vehicle-tile *ngIf="i<6"
+                            @vehicleFadeIn
+                            [id]="'vehicleID_' + i"
+                            [ngClass]="{'selected': selectedVehicle === vehicle}"
+                            [vehicleID]="vehicle.vehicleId"
+                            [vehicleBrand]="vehicle.vehicleBrand"
+                            [vehicleName]="vehicle.vehicleName"
+                            [vehicleType]="vehicle.vehicleType"
+                            [vehicleColor]="vehicle.vehicleColor"
+                            (click)="vehicleClickSetSelectedState(vehicle, i)"></app-vehicle-tile>
+        </ng-container>
       </app-preloading-spinner>
 
       <!-- Element without data-->

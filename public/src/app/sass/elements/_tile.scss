@@ -35,8 +35,10 @@ $tile__border-radius: 3px;
     }
   }
 
+  &__headline-actions,
   &__headline {
     display: flex;
+    flex-shrink: 0;
   }
 
   &__title {
@@ -47,10 +49,6 @@ $tile__border-radius: 3px;
     margin-top: 0;
     font-size: 22px;
     color: $color__blue--primary;
-  }
-
-  &__headline-actions {
-    display: flex;
   }
 
   &__headline-button {

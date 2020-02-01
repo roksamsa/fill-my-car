@@ -23,68 +23,6 @@ export const headerAnimationDelay = '450ms';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   animations: [
-    trigger('headerFadeIn', [
-      transition(':enter', [
-        group([
-          query('.header__menu', [
-            style({
-              opacity: 0
-            }),
-            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-              opacity: 1
-            }))
-          ], { optional: true }),
-          query('.header__right', [
-            style({
-              opacity: 0
-            }),
-            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-              opacity: 1
-            }))
-          ], { optional: true }),
-          query('.header__logo', [
-            style({
-              opacity: 0,
-              transform: 'translateX(-40px)'
-            }),
-            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-              opacity: 1,
-              transform: 'translateX(0)'
-            }))
-          ], { optional: true })
-        ])
-      ]),
-      transition(':leave', [
-        group([
-          query('.header__menu', [
-            style({
-              opacity: 1
-            }),
-            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-              opacity: 0
-            }))
-          ], { optional: true }),
-          query('.header__right', [
-            style({
-              opacity: 1
-            }),
-            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-              opacity: 0
-            }))
-          ], { optional: true }),
-          query('.header__logo', [
-            style({
-              opacity: 1,
-              transform: 'translateX(0)'
-            }),
-            animate(`${logoFadeInAnimationTiming} ${logoAnimationDelay} ${defaultAnimationFunction}`, style({
-              opacity: 0,
-              transform: 'translateX(-40px)'
-            }))
-          ], { optional: true })
-        ])
-      ])
-    ]),
     trigger('createContentWrapperAnimation', [
       state('true', style({
         transform: 'translateX(0)'

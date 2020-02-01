@@ -25,9 +25,9 @@
     align-items: center;
     width: 34px;
     height: 34px;
-    cursor: pointer;
     border-radius: 50%;
     transition: background-color 200ms ease-in-out;
+    cursor: pointer;
 
     &:hover {
       background-color: $color__blue--lightest;
@@ -43,7 +43,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 230px;
+    height: 250px;
     opacity: 0.3;
     background-position: center;
     background-size: cover;
