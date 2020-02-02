@@ -146,8 +146,7 @@ export class DashboardPageComponent implements OnInit {
 
   // Fetch all vehicles for specific user
   fetchVehicles() {
-    this.vehicleService.getVehicleByUser(this.currentUser.uid)
-    .subscribe((data: Vehicle[]) => {
+    this.vehicleService.getVehicleByUser(this.currentUser.uid).subscribe((data: Vehicle[]) => {
       if (data.length > 0) {
         this.vehicles = data;
         this.areThereAnyVehicles = true;
@@ -172,6 +171,7 @@ export class DashboardPageComponent implements OnInit {
       if (data.length > 0) {
         this.trips = data;
         this.areThereAnyTrips = true;
+        console.log(this.trips);
       } else {
         this.trips = null;
         this.areThereAnyTrips = false;
@@ -242,9 +242,8 @@ export class DashboardPageComponent implements OnInit {
   }
 
   // Delete specific vehicle
-  deleteVehicle(id: any) {
-    this.vehicleService.deleteVehicle(id)
-    .subscribe(() => {
+  deleteVehicle(id: string) {
+    this.vehicleService.deleteVehicle(id).subscribe(() => {
       this.fetchVehicles();
       this.isSelectedVehicle = false;
     });

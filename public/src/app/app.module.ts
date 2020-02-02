@@ -90,6 +90,9 @@ import { LogoComponent } from './style/logo/logo.component';
 import { WebpageMenuComponent } from './webpage/components/webpage-menu/webpage-menu.component';
 import { TileTitleLeftComponent } from './components/tile-title-left/tile-title-left.component';
 import { TileComponent } from './style/tile/tile.component';
+/*import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";*/
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
 registerLocaleData(localeSl);
 
@@ -127,14 +130,21 @@ export const MY_FORMATS = {
   },
 };
 
-/*const socialPluginConfig = new AuthServiceConfig([
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('2203659926599837')
-  }
-]);*/
+const config = new AuthServiceConfig([{
+  id: FacebookLoginProvider.PROVIDER_ID,
+  provider: new FacebookLoginProvider('2203659926599837')
+}]);
 
-/*export function provideSocialPluginConfig() {
+export function provideConfig() {
+  return config;
+}
+
+/*const socialPluginConfig = new AuthServiceConfig([{
+  id: FacebookLoginProvider.PROVIDER_ID,
+  provider: new FacebookLoginProvider('2203659926599837')
+}]);
+
+export function provideSocialPluginConfig() {
   return socialPluginConfig;
 }*/
 
@@ -215,6 +225,8 @@ export const MY_FORMATS = {
     MatCheckboxModule,
     MatSnackBarModule,
     MatDialogModule,
+    /*SocialLoginModule*/
+    SocialLoginModule
   ],
   providers: [
     DatePipe,
@@ -232,7 +244,8 @@ export const MY_FORMATS = {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: LOCALE_ID, useValue: 'sl-SI' },
-    /*{ provide: AuthServiceConfig,  useFactory: provideSocialPluginConfig }*/
+    /*{ provide: AuthServiceConfig, useFactory: provideSocialPluginConfig }*/
+    { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

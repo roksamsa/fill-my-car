@@ -100,8 +100,8 @@
             <!-- STEP 1 -->
             <mat-step id="tripInputStep1"
                       class="trip__price-container"
-                      formGroupName="0"
-                      [stepControl]="addTripFormStepperFormArray?.get([0])">
+                      formGroupName="1"
+                      [stepControl]="addTripFormStepperFormArray?.get([1])">
               <div class="form__input form__input--join-trip">
                 <label class="form__label">Koliko mest želite rezervirati?</label>
                 <div class="form__seats-reservation-wrapper">
@@ -115,8 +115,8 @@
             <!-- STEP 2 -->
             <mat-step id="tripInputStep2"
                       class="trip__price-container"
-                      formGroupName="1"
-                      [stepControl]="addTripFormStepperFormArray?.get([1])">
+                      formGroupName="2"
+                      [stepControl]="addTripFormStepperFormArray?.get([2])">
               <div class="form__input form__input--join-trip">
                 <label class="form__label">Kje želite, da vas voznik pobere?</label>
                 <mat-form-field [floatLabel]="'never'" class="form__field">
@@ -128,8 +128,8 @@
             <!-- STEP 3 -->
             <mat-step id="tripInputStep3"
                       class="trip__price-container"
-                      formGroupName="2"
-                      [stepControl]="addTripFormStepperFormArray?.get([2])">
+                      formGroupName="3"
+                      [stepControl]="addTripFormStepperFormArray?.get([3])">
               <div class="form__input form__input--join-trip">
                 <label class="form__label">Kje želite, da vas voznik odloži?</label>
                 <mat-form-field [floatLabel]="'never'" class="form__field">
@@ -141,8 +141,8 @@
             <!-- STEP 4 -->
             <mat-step id="tripInputStep4"
                       class="trip__price-container"
-                      formGroupName="3"
-                      [stepControl]="addTripFormStepperFormArray?.get([3])">
+                      formGroupName="4"
+                      [stepControl]="addTripFormStepperFormArray?.get([4])">
               <div class="form__input form__input--join-this-trip">
                 <label class="form__label">Prijavite se na prevoz z:</label>
 

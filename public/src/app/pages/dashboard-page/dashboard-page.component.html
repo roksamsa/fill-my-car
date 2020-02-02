@@ -11,7 +11,7 @@
                               [visibility]="preloadingSpinnerVisibility">
 
         <ng-container *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index;">
-          <app-vehicle-tile *ngIf="i<6"
+          <app-vehicle-tile *ngIf="i < 6"
                             @vehicleFadeIn
                             [id]="'vehicleID_' + i"
                             [ngClass]="{'selected': selectedVehicle === vehicle}"

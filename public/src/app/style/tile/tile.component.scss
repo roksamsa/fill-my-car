@@ -44,6 +44,11 @@ $tile__border-radius: 3px;
     }
   }
 
+
+  &.tile--trip-details {
+    width: 60%;
+  }
+
   &.tile--trip {
     .tile__wrapper {
       padding: $tile__padding--trip;

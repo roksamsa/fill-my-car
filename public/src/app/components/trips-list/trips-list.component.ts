@@ -131,6 +131,7 @@ export class TripsListComponent implements OnInit {
       if (data.length > 0) {
         this.trips = data;
         this.areThereAnyTrips = true;
+        console.log(this.trips);
         this.preloadingSpinnerShow();
       } else {
         this.trips = null;
