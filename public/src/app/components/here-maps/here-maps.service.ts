@@ -22,7 +22,8 @@ export class HereMapsService {
       'app_id': this.appId,
       'app_code': this.appCode,
       'maxresults': 50,
-      'country': 'SVN'
+      'country': 'SVN',
+      'useHTTPS': true
     });
     this.directions = [];
     this.router = this.platform.getRoutingService();

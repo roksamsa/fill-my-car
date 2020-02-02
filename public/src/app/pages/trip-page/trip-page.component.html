@@ -85,7 +85,7 @@
         <div class="trip__bottom-divider"></div>
 
         <form [formGroup]="addTripFormStepperForm" class="form">
-          <mat-horizontal-stepper class="trip-add-passengers__wizard" [linear]="true" formArrayName="addTripFormStepperFormArray" #stepper>
+          <mat-horizontal-stepper class="trip-add-passengers__wizard" [ngClass]="{'trip-add-passengers__wizard--last-step': stepper.selectedIndex === 5}" [linear]="true" formArrayName="addTripFormStepperFormArray" #stepper>
 
             <!-- STEP 0 -->
             <mat-step id="tripInputStep0" class="trip__price-container">
@@ -144,17 +144,17 @@
                       formGroupName="4"
                       [stepControl]="addTripFormStepperFormArray?.get([4])">
               <div class="form__input form__input--join-this-trip">
-                <label class="form__label">Prijavite se na prevoz z:</label>
+                <label *ngIf="!socialUser" class="form__label">Prijavite se na prevoz z:</label>
 
-                <div class="join-this-trip__options">
-                  <svg (click)="goBack()" class="join-this-trip__options-icon join-this-trip__options-icon--facebook"
+                <div *ngIf="!socialUser" class="join-this-trip__options">
+                  <svg (click)="signInWithFacebook()" class="join-this-trip__options-icon join-this-trip__options-icon--facebook"
                     enable-background="new 0 0 56.693 56.693" height="56.693px" id="Layer_1" version="1.1"
                     viewBox="0 0 56.693 56.693" width="56.693px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <path
                       d="M28.347,5.157c-13.6,0-24.625,11.027-24.625,24.625c0,13.6,11.025,24.623,24.625,24.623c13.6,0,24.625-11.023,24.625-24.623  C52.972,16.184,41.946,5.157,28.347,5.157z M34.864,29.679h-4.264c0,6.814,0,15.207,0,15.207h-6.32c0,0,0-8.307,0-15.207h-3.006  V24.31h3.006v-3.479c0-2.49,1.182-6.377,6.379-6.377l4.68,0.018v5.215c0,0-2.846,0-3.398,0c-0.555,0-1.34,0.277-1.34,1.461v3.163  h4.818L34.864,29.679z" />
                   </svg>
-                  <svg (click)="goBack()" class="join-this-trip__options-icon join-this-trip__options-icon--google" height="56.6934px"
+                  <svg (click)="signInWithGoogle()" class="join-this-trip__options-icon join-this-trip__options-icon--google" height="56.6934px"
                     id="Layer_1" style="enable-background:new 0 0 56.6934 56.6934;" version="1.1"
                     viewBox="0 0 56.6934 56.6934" width="56.6934px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -173,6 +173,33 @@
         C42.1,36.5,42.2,37.2,41.9,38z" />
                   </svg>
                 </div>
+                <div *ngIf="socialUser" class="join-this-trip__user-data">
+                  <div class="join-this-trip__user-left">
+                    <div class="join-this-trip__user-image">
+                      <img class="join-this-trip__user-url-image" src="{{socialUser?.photoUrl}}"/>
+                    </div>
+                  </div>
+                  <div class="join-this-trip__user-right">
+                    <div class="join-this-trip__user-name">{{socialUser?.name}}</div>
+                    <div class="join-this-trip__user-email">{{socialUser?.email}}</div>
+                </div>
+                </div>
+              </div>
+            </mat-step>
+
+            <!-- STEP 5 -->
+            <mat-step id="tripInputStep5"
+                      class="trip__price-container"
+                      formGroupName="5">
+              <div class="form__input form__input--join-this-trip">
+                <div class="end-of-registration">
+                  <div class="end-of-registration__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64.747" height="64.747" viewBox="0 0 64.747 64.747"><g transform="translate(-1 -1)"><path d="M33.374,65.747A32.374,32.374,0,1,1,65.747,33.374,32.374,32.374,0,0,1,33.374,65.747Zm0-60.431A28.057,28.057,0,1,0,61.431,33.374,28.057,28.057,0,0,0,33.374,5.316Z" transform="translate(0 0)" fill="#56ab00"/><path d="M20.183,35.957a2.158,2.158,0,0,1-1.576-.691L8.529,24.475A2.158,2.158,0,0,1,11.68,21.54l8.5,9.086L38.744,10.749a2.158,2.158,0,1,1,3.151,2.935L21.759,35.266A2.158,2.158,0,0,1,20.183,35.957Z" transform="translate(8.162 10.366)" fill="#56ab00"/></g></svg>
+                  </div>
+                  <label *ngIf="vehicleSeatsSelectedNumber === 1" class="end-of-registration__label">Rezervirali ste eno mesto na tem potovanju.</label>
+                  <label *ngIf="vehicleSeatsSelectedNumber === 2" class="end-of-registration__label">Rezervirali ste dve mesti na tem potovanju.</label>
+                  <label *ngIf="vehicleSeatsSelectedNumber >= 3" class="end-of-registration__label">Rezervirali ste {{vehicleSeatsSelectedNumber}} mest na tem potovanju.</label>
+                </div>
               </div>
             </mat-step>
           </mat-horizontal-stepper>
@@ -182,7 +209,7 @@
           <button *ngIf="stepper.selectedIndex === 0" mat-raised-button class="button button--primary"
             (click)="joinTripStart()">Prijavi se na potovanje</button>
 
-          <button *ngIf="stepper.selectedIndex > 0" class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
+          <button *ngIf="stepper.selectedIndex > 0 && stepper.selectedIndex < 5" class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
             <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24">
               <path
@@ -218,16 +245,21 @@
             </svg>
           </button>
 
-          <button *ngIf="stepper.selectedIndex === 4" mat-raised-button class="button button--primary"
-          (click)="joinTripSave(trip?.tripPrice,
-                                trip?.selectedVehicle,
-                                trip?.tripIdTag,
-                                vehicleSeatsSelectedNumber,
-                                yourStartLocation?.value,
-                                yourEndLocation?.value,
-                                'test',
-                                'test',
-                                'test')" type="button">
+          <button *ngIf="stepper.selectedIndex === 4"
+                  mat-raised-button
+                  type="button"
+                  class="button button--primary"
+                  [disabled]="!socialUser"
+                  (click)="joinTripSave(
+                    trip?.tripPrice,
+                    trip?.selectedVehicle,
+                    trip?.tripIdTag,
+                    vehicleSeatsSelectedNumber,
+                    yourStartLocation?.value,
+                    yourEndLocation?.value,
+                    socialUser?.name,
+                    socialUser?.email,
+                    socialUser?.email)">
             Zaključi rezervacijo
           </button>
         </div>

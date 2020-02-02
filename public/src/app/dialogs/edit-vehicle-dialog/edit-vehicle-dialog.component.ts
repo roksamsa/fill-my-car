@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
@@ -67,7 +67,7 @@ export class EditVehicleDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public selectedVehicleData: any,
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
     private fb: FormBuilder,
     public thisDialogRef: MatDialogRef<EditVehicleDialogComponent>) {

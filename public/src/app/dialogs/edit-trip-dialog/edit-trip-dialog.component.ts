@@ -5,7 +5,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatStepper } from '@angular/material/stepper';
 import { TripService } from '../../core/trip/trip.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { HereMapsService } from '../../../app/components/here-maps/here-maps.service';
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
@@ -83,7 +83,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public selectedTripData: any,
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
     public hereMap: HereMapsService,

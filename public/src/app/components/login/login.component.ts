@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { Router, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -14,7 +14,7 @@ export class LoginComponent {
   errorMessage: String = '';
 
   constructor(
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private router: Router,
     private fb: FormBuilder) {
   }

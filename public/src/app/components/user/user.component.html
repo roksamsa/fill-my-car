@@ -1,8 +1,9 @@
-<div class="user__user" *ngIf="authService.userData as user">
+<div class="user__wrapper" *ngIf="authService.userData as user">
   <div class="user__avatar">
     <img class="user__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
   </div>
-  <div class="user__username">{{user.displayName}}</div>
-  <div class="user__email">{{user.email}}</div>
-  <button type="button" (click)="authService.SignOut()" class="btn btn-link">Odjava</button>
+  <div class="user__right">
+    <div class="user__username">{{user.displayName}}</div>
+    <div class="user__email">{{user.email}}</div>
+  </div>
 </div>

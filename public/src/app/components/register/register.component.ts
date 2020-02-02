@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +9,7 @@ import { AuthService } from '../../core/auth/auth.service';
 export class RegisterComponent implements OnInit {
 
   constructor(
-    public authService: AuthService
+    public authService: FirebaseAuthService
   ) { }
 
   ngOnInit() { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder} from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { FormBuilder} from '@angular/forms';
 export class ForgotPasswordComponent implements OnInit {
 
   constructor(
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private router: Router,
     private fb: FormBuilder) {
   }

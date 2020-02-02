@@ -41,7 +41,7 @@
       </div>
 
       <ng-template #loggedOut>
-        <div class="header__register" routerLink="/prijava">
+        <div class="header__register" routerLink="/" (click)="redirectToHomeAndOpenLogin()">
           Prijava
         </div>
       </ng-template>

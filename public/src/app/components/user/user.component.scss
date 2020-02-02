@@ -3,13 +3,18 @@
 $header__shadow-color: rgba(38, 42, 77, .3); // #262A4D
 
 .user {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
   &__avatar {
     position: relative;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     border: 1px solid $color__white--70;
-    margin-right: 10px;
+    margin-right: 20px;
     overflow: hidden;
 
     &-image {
@@ -22,5 +27,14 @@ $header__shadow-color: rgba(38, 42, 77, .3); // #262A4D
       border-radius: 50%;
       overflow: hidden;
     }
+  }
+
+  &__username {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  &__email {
+    font-size: 20px;
   }
 }

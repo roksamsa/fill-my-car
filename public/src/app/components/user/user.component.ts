@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { UserService } from '../../core/user/user.service';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { FirebaseUserModel } from '../../core/user/user.model';
 
@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
 
   constructor(
     public userService: UserService,
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private route: ActivatedRoute) {
   }
 

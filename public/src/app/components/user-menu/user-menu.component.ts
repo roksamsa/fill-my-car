@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { HeaderService } from '../header/header.service';
 import { UserMenuService } from './user-menu.service';
 import { trigger, style, animate, transition } from '@angular/animations';
@@ -64,7 +64,7 @@ export class UserMenuComponent implements OnInit {
   userName = '';
 
   constructor(
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private userMenuDarkThemeData: UserMenuService,
     private headerData: HeaderService) {
     this.userFullName = authService.userData.displayName;

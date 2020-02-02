@@ -1,12 +1,13 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { trigger, query, style, group, animate, transition, state } from '@angular/animations';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { HeaderService } from './header.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 import { UserMenuService } from '../user-menu/user-menu.service';
+import { WebpageMenuService } from '../../webpage/components/webpage-menu/webpage-menu.service';
 
 export const defaultAnimationFunction = 'ease-in-out';
 
@@ -42,10 +43,12 @@ export class HeaderComponent implements OnInit {
   createContentVisibility = false;
   createButtonTooltipText: String = 'Dodaj novo vozilo ali potovanje';
   darkModeActivated: boolean;
+  private loginRegisterOverlayVisibility = true;
 
   constructor(
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private headerData: HeaderService,
+    private webpageMenuData: WebpageMenuService,
     private userMenuDarkThemeData: UserMenuService,
     private popupTrip: MatDialog,
     public router: Router,
@@ -113,5 +116,9 @@ export class HeaderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
     });
+  }
+
+  redirectToHomeAndOpenLogin() {
+    this.webpageMenuData.openLoginRegisterOverlay(this.loginRegisterOverlayVisibility);
   }
 }

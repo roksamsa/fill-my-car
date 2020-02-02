@@ -6,7 +6,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { TripService } from '../../core/trip/trip.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Trip } from '../../core/trip/trip.module';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { HereMapsService } from '../../../app/components/here-maps/here-maps.service';
 import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
@@ -79,7 +79,7 @@ export class CreateTripDialogComponent implements OnInit {
   }
 
   constructor(
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
     public hereMap: HereMapsService,

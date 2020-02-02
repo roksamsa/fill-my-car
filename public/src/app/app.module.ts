@@ -55,7 +55,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AuthService } from './core/auth/auth.service';
+import { FirebaseAuthService } from './core/auth/auth.service';
 import { UserService } from './core/user/user.service';
 import { environment } from '../environments/environment';
 import { VehiclesPageComponent } from './pages/vehicles-page/vehicles-page.component';
@@ -101,8 +101,6 @@ const routes: Routes = [
     path: '', component: DashboardPageComponent}], canActivate: [AuthGuard] },
   { path: 'registracija', component: WithoutHeaderFooterLayoutComponent, children: [{
     path: '', component: HomeComponent}], canActivate: [SecureInnerPagesGuard] },
-  { path: 'prijava', component: WithoutHeaderFooterLayoutComponent, children: [{
-    path: '', component: HomeComponent}], canActivate: [SecureInnerPagesGuard]},
   { path: 'moja-vozila', component: DefaultLayoutComponent, children: [{
     path: '', component: VehiclesPageComponent}], canActivate: [AuthGuard] },
   { path: 'moja-potovanja', component: DefaultLayoutComponent, children: [{
@@ -111,7 +109,8 @@ const routes: Routes = [
     path: '', component: TripPageComponent}], pathMatch: 'full' },
   { path: 'uporabnik/:id', component: DefaultLayoutComponent, children: [{
     path: '', component: UserPageComponent}], pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: '', redirectTo: 'nadzorna-plosca', pathMatch: 'full' },
+  { path: '', component: WithoutHeaderFooterLayoutComponent, children: [{
+      path: '', component: HomeComponent}], canActivate: [SecureInnerPagesGuard]},
   { path: '**', component: HomeComponent }
 ];
 
@@ -132,21 +131,12 @@ export const MY_FORMATS = {
 
 const config = new AuthServiceConfig([{
   id: FacebookLoginProvider.PROVIDER_ID,
-  provider: new FacebookLoginProvider('2203659926599837')
+  provider: new FacebookLoginProvider('541375893390507')
 }]);
 
 export function provideConfig() {
   return config;
 }
-
-/*const socialPluginConfig = new AuthServiceConfig([{
-  id: FacebookLoginProvider.PROVIDER_ID,
-  provider: new FacebookLoginProvider('2203659926599837')
-}]);
-
-export function provideSocialPluginConfig() {
-  return socialPluginConfig;
-}*/
 
 @NgModule({
   declarations: [
@@ -225,13 +215,12 @@ export function provideSocialPluginConfig() {
     MatCheckboxModule,
     MatSnackBarModule,
     MatDialogModule,
-    /*SocialLoginModule*/
     SocialLoginModule
   ],
   providers: [
     DatePipe,
     VehicleService,
-    AuthService,
+    FirebaseAuthService,
     UserService,
     HeaderService,
     UserMenuService,
@@ -244,7 +233,6 @@ export function provideSocialPluginConfig() {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: LOCALE_ID, useValue: 'sl-SI' },
-    /*{ provide: AuthServiceConfig, useFactory: provideSocialPluginConfig }*/
     { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
   bootstrap: [AppComponent],

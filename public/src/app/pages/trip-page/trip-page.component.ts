@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { TripService } from '../../core/trip/trip.service';
-import { AuthService } from '../../core/auth/auth.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { TripPassengerService } from '../../core/trip-passenger/trip-passenger.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
@@ -12,6 +12,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from "angularx-social-login";
 
 @Component({
   selector: 'app-trip-page',
@@ -54,6 +55,9 @@ export class TripPageComponent implements OnInit {
   iWouldLikeToJointTheTrip5 = false;
   iWouldLikeToJointTheTrip6 = false;
 
+  public socialUser: SocialUser;
+  public socialUserLoggedIn: boolean;
+
   public addTripFormStepperForm: FormGroup;
 
   @ViewChild('stepper') stepper: MatStepper;
@@ -64,7 +68,7 @@ export class TripPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public authService: AuthService,
+    public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
     private tripPassengerService: TripPassengerService,
@@ -73,6 +77,7 @@ export class TripPageComponent implements OnInit {
     private router: Router,
     private form: FormBuilder,
     private location: Location,
+    private authSocialService: AuthService,
     private cdref: ChangeDetectorRef) {
     this.addTripFormStepperForm = this.form.group({
       addTripFormStepperFormArray: this.form.array([
@@ -94,6 +99,23 @@ export class TripPageComponent implements OnInit {
 
   ngOnInit() {
     this.fetchTrip();
+  }
+
+  getSocialUser() {
+    this.authSocialService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.socialUserLoggedIn = (user != null);
+    });
+  }
+
+  signInWithGoogle(): void {
+    this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.getSocialUser();
+  }
+
+  signInWithFacebook(): void {
+    this.authSocialService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.getSocialUser();
   }
 
   // Fetch all trips for specific user
@@ -207,7 +229,9 @@ export class TripPageComponent implements OnInit {
       tripPassengerName,
       tripPassengerEmail,
       tripPassengerPhone).subscribe(() => {
-      });
+        this.stepper.next();
+      }
+    );
   }
 
   cancelTripBooking() {

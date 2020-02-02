@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 
-export class AuthService {
+export class FirebaseAuthService {
 
   static SetUserData: any;
   userData: any; // Save logged in user data
