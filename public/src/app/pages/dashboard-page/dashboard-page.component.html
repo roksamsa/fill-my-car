@@ -1,7 +1,7 @@
 <app-content>
   <div class="dashboard__vehicles">
     <app-tile-title-left>
-      <h2 tile-headline-title class="tile__title" (click)="deselectAllVehicles()">Moja vozila</h2>
+      <h2 tile-headline-title class="tile__title tile__title--title-left" (click)="deselectAllVehicles()">Moja vozila <div class="vehicles__number">({{vehicles.length}})</div></h2>
 
       <!-- Element with data -->
       <app-preloading-spinner tile-content

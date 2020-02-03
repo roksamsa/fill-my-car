@@ -200,8 +200,7 @@ export class CreateTripDialogComponent implements OnInit {
 
   // Fetch all vehicles for specific user
   fetchVehicles() {
-    this.vehicleService.getVehicleByUser(this.currentUser.uid)
-    .subscribe((data: Vehicle[]) => {
+    this.vehicleService.getVehicleByUser(this.currentUser.uid).subscribe((data: Vehicle[]) => {
       if (data.length > 0) {
         this.vehicles = data;
       } else {

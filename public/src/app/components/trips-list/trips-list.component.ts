@@ -6,6 +6,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
+import { VehicleService } from '../../core/vehicle/vehicle.service';
+import { Vehicle } from '../../core/vehicle/vehicle.module';
+import { filter } from 'rxjs/operators';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '300ms';
@@ -59,7 +62,10 @@ export const headerAnimationDelay = '175ms';
 export class TripsListComponent implements OnInit {
   public areThereAnyTrips = false;
   public trips: Trip[] = [];
+  public vehicle: Vehicle;
   preloadingSpinnerVisibility = true;
+  vehicleSeatsAvailableNumber: number;
+  selectedVehicleId = '';
 
   emptyDataType = 'vertical';
   emptyDataText = 'Še nisi delil prevoza z drugimi.';
@@ -91,13 +97,15 @@ export class TripsListComponent implements OnInit {
 
   constructor(
     private popupDialog: MatDialog,
+    private vehicleService: VehicleService,
     private tripService: TripService,
     private router: Router) { }
 
   ngOnInit() {
     this.fetchTrips();
     this.isTripsListEmpty();
-    console.log(this.isTripsListEmpty());
+    console.log(this.selectedVehicleId);
+    console.log(this.fetchVehicle('5e354b665199af428875e6a8'));
   }
 
   moreActionsToggle(tripIndex) {
@@ -127,17 +135,36 @@ export class TripsListComponent implements OnInit {
 
   // Fetch all trips for specific user
   fetchTrips() {
-    this.tripService.getTripsByUser(this.currentUser.uid).subscribe((data: Trip[]) => {
+    this.tripService.getTripsByUser(this.currentUser.uid).subscribe((data: any) => {
       if (data.length > 0) {
         this.trips = data;
         this.areThereAnyTrips = true;
         this.preloadingSpinnerShow();
+        this.selectedVehicleId = data.selectedVehicle;
+        console.log(data);
+        this.fetchVehicle(this.selectedVehicleId);
       } else {
         this.trips = null;
         this.areThereAnyTrips = false;
         this.preloadingSpinnerShow();
       }
     });
+  }
+
+  // Fetch all vehicles for specific user
+  fetchVehicle(vehicleID) {
+    this.vehicleService.getVehicleById(vehicleID)
+      .pipe(filter(x => !!x))
+      .subscribe((selectedVehicleData) => {
+        if (selectedVehicleData) {
+          this.vehicle = selectedVehicleData;
+          this.vehicleSeatsAvailableNumber = selectedVehicleData.vehicleSeats;
+          return this.vehicleSeatsAvailableNumber;
+        } else {
+          this.vehicle = null;
+          return null;
+        }
+      });
   }
 
   // Check if we get some vehicles from user or not

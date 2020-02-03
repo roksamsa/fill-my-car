@@ -44,11 +44,17 @@ $tile__border-radius: 3px;
   &__title {
     @include font-titillium-semibold;
     display: flex;
+    align-items: center;
     flex-shrink: 0;
     position: relative;
     margin-top: 0;
     font-size: 22px;
     color: $color__blue--primary;
+  }
+
+  &__title.tile__title--title-left {
+    justify-content: center;
+    flex-direction: column;
   }
 
   &__headline-button {

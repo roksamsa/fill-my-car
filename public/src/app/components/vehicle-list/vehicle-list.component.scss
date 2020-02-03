@@ -8,6 +8,13 @@
   width: 100%;
 }
 
-.vehicles__items {
-  padding-top: 20px;
+.vehicles {
+  &__items {
+    padding-top: 20px;
+  }
+
+  &__number {
+    margin-left: 10px;
+    font-size: 16px;
+  }
 }
