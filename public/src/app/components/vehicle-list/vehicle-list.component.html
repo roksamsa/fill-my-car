@@ -1,5 +1,5 @@
 <app-tile-title-top>
-  <h2 tile-headline-title class="tile__title" (click)="deselectAllVehicles()">Moja vozila</h2>
+  <h2 tile-headline-title class="tile__title" (click)="deselectAllVehicles()">Moja vozila ({{vehicles.length}})</h2>
 
   <div tile-headline-button class="vehicles__actions">
     <button *ngIf="selectedVehicle" matTooltip="Uredi vozilo '{{selectedVehicle.vehicleBrand}} {{selectedVehicle.vehicleName}}'"
