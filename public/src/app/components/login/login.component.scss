@@ -3,6 +3,10 @@
 @import '../../sass/elements/forms';
 
 .login-form {
+  &__title {
+    color: #fff;
+  }
+
   &__input {
     margin-bottom: 20px;
   }

@@ -9,6 +9,13 @@
 .webpage-login {
   display: flex;
   flex-direction: row;
+  margin-top: 50px;
+
+  &__headline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   &__background {
     position: absolute;
@@ -28,9 +35,6 @@
   }
 
   &__close {
-    position: absolute;
-    right: 0;
-    top: 36px;
     width: 40px;
     height: 40px;
     cursor: pointer;
@@ -40,6 +44,12 @@
     height: 100%;
     width: 100%;
     fill: $color__white--100;
+  }
+
+  &__link {
+    font-weight: bold;
+    color: $color__pink--primary;
+    cursor: pointer;
   }
 
   &__footer {

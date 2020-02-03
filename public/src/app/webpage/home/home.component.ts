@@ -38,10 +38,10 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
             opacity: 1,
             transform: 'translateY(0)'
           })), { optional: true }),
-          query('.webpage-login__close', style({
+          query('.webpage-login__headline', style({
             opacity: 0
           }), { optional: true }),
-          query('.webpage-login__close', animate('300ms 700ms ease-in-out', style({
+          query('.webpage-login__headline', animate('300ms 700ms ease-in-out', style({
             opacity: 1
           })), { optional: true })
         ])
@@ -52,7 +52,7 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
             opacity: '1',
             height: '100%'
           }),
-          animate('200ms', style({
+          animate('200ms 400ms', style({
             opacity: '0',
             height: '50%'
           })),
@@ -72,10 +72,10 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
             opacity: 0,
             transform: 'translateY(60px)'
           })), { optional: true }),
-          query('.webpage-login__close', style({
+          query('.webpage-login__headline', style({
             opacity: 1
           }), { optional: true }),
-          query('.webpage-login__close', animate('200ms ease-in-out', style({
+          query('.webpage-login__headline', animate('200ms ease-in-out', style({
             opacity: 0
           })), { optional: true })
         ])
