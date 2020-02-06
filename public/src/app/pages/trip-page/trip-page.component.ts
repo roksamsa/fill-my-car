@@ -210,30 +210,30 @@ export class TripPageComponent implements OnInit {
   }
 
   /*updateSeatsOnTrip (
-    id: String,
+    id: string,
     tripFreeSeats: number) {
     this.tripService.updateTrip(
       id,
       tripFreeSeats);
   }*/
-  
+
   updateSeatsOnTrip(
-    id: String,
-    belongsToUser: String,
-    selectedVehicle: String,
-    tripStatus: String,
-    tripIdTag: String,
-    tripFromLocation: String,
-    tripToLocation: String,
+    id: string,
+    belongsToUser: string,
+    selectedVehicle: string,
+    tripStatus: string,
+    tripIdTag: string,
+    tripFromLocation: string,
+    tripToLocation: string,
     tripDate: Date,
-    tripTime: String,
-    tripFreeSeats: Number,
-    tripPrice: Number,
-    tripLuggageSpace: Number,
-    tripMessage: String,
-    tripComfortable: Boolean,
-    tripStopsOnTheWayToFinalDestination: Boolean,
-    tripNewPassengersAcceptance: String) {
+    tripTime: string,
+    tripFreeSeats: number,
+    tripPrice: number,
+    tripLuggageSpace: number,
+    tripMessage: string,
+    tripComfortable: boolean,
+    tripStopsOnTheWayToFinalDestination: boolean,
+    tripNewPassengersAcceptance: string) {
     this.tripService.updateTrip(
       id,
       belongsToUser,
@@ -255,15 +255,15 @@ export class TripPageComponent implements OnInit {
 
   // Add vehicle on popup close
   joinTripSave (
-    belongsToUser: String,
-    belongsToVehicle: String,
-    belongsToTrip: String,
+    belongsToUser: string,
+    belongsToVehicle: string,
+    belongsToTrip: string,
     tripPassengerSeatsReservation: number,
-    tripPassengerStartLocation: String,
-    tripPassengerEndLocation: String,
-    tripPassengerName: String,
-    tripPassengerEmail: String,
-    tripPassengerPhone: String) {
+    tripPassengerStartLocation: string,
+    tripPassengerEndLocation: string,
+    tripPassengerName: string,
+    tripPassengerEmail: string,
+    tripPassengerPhone: string) {
     this.tripPassengerService.addTripPassenger(
       belongsToUser,
       belongsToVehicle,
@@ -292,7 +292,7 @@ export class TripPageComponent implements OnInit {
           true,
           true,
           'test'
-        )         
+        )
         console.log(this.trip._id);
         console.log(this.trip.tripIdTag);
         console.log("this.trip.tripFreeSeats: " + this.trip.tripFreeSeats);

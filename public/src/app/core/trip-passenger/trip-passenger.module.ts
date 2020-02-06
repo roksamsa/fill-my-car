@@ -1,11 +1,11 @@
 export interface TripPassenger {
-  _id: String;
-  belongsToUser: String;
-  belongsToVehicle: String;
-  belongsToTrip: String;
-  tripPassengerSeatsReservation: Number;
-  tripPassengerStartLocation: String;
-  tripPassengerName: String;
-  tripPassengerEmail: String;
-  tripPassengerPhone: String;
+  _id: string;
+  belongsToUser: string;
+  belongsToVehicle: string;
+  belongsToTrip: string;
+  tripPassengerSeatsReservation: number;
+  tripPassengerStartLocation: string;
+  tripPassengerName: string;
+  tripPassengerEmail: string;
+  tripPassengerPhone: string;
 }

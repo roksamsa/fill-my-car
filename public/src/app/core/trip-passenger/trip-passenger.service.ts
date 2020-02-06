@@ -36,15 +36,15 @@ export class TripPassengerService {
 
   // Add new trip to database
   addTripPassenger(
-    belongsToUser: String,
-    belongsToVehicle: String,
-    belongsToTrip: String,
-    tripPassengerSeatsReservation: Number,
-    tripPassengerStartLocation: String,
-    tripPassengerEndLocation: String,
-    tripPassengerName: String,
-    tripPassengerEmail: String,
-    tripPassengerPhone: String) {
+    belongsToUser: string,
+    belongsToVehicle: string,
+    belongsToTrip: string,
+    tripPassengerSeatsReservation: number,
+    tripPassengerStartLocation: string,
+    tripPassengerEndLocation: string,
+    tripPassengerName: string,
+    tripPassengerEmail: string,
+    tripPassengerPhone: string) {
     const tripPassenger = {
       belongsToUser: belongsToUser,
       belongsToVehicle: belongsToVehicle,
@@ -61,22 +61,22 @@ export class TripPassengerService {
 
   // Update trip from database
   updateTrip(
-    id: String,
-    belongsToUser: String,
-    selectedVehicle: String,
-    tripStatus: String,
-    tripIdTag: String,
-    tripFromLocation: String,
-    tripToLocation: String,
+    id: string,
+    belongsToUser: string,
+    selectedVehicle: string,
+    tripStatus: string,
+    tripIdTag: string,
+    tripFromLocation: string,
+    tripToLocation: string,
     tripDate: Date,
-    tripTime: String,
-    tripFreeSeats: Number,
-    tripPrice: Number,
-    tripLuggageSpace: Number,
-    tripMessage: String,
-    tripComfortable: Boolean,
-    tripStopsOnTheWayToFinalDestination: Boolean,
-    tripNewPassengersAcceptance: String): Observable<TripPassenger[]> {
+    tripTime: string,
+    tripFreeSeats: number,
+    tripPrice: number,
+    tripLuggageSpace: number,
+    tripMessage: string,
+    tripComfortable: boolean,
+    tripStopsOnTheWayToFinalDestination: boolean,
+    tripNewPassengersAcceptance: string): Observable<TripPassenger[]> {
     const trip = {
       id: id,
       belongsToUser: belongsToUser,

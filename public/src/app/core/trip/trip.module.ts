@@ -1,17 +1,17 @@
 export interface Trip {
-  _id: String;
-  belongsToUser: String;
-  selectedVehicle: String;
-  tripIdTag: String;
-  tripStatus: String;
-  tripFromLocation: String;
-  tripToLocation: String;
+  _id: string;
+  belongsToUser: string;
+  selectedVehicle: string;
+  tripIdTag: string;
+  tripStatus: string;
+  tripFromLocation: string;
+  tripToLocation: string;
   tripDate: Date;
-  tripTime: String;
-  tripStopsOnTheWayToFinalDestination: Boolean;
-  tripFreeSeats: Number;
-  tripPrice: Number;
-  tripLuggageSpace: Number;
-  tripComfortable: Boolean;
-  tripNewPassengersAcceptance: String;
+  tripTime: string;
+  tripStopsOnTheWayToFinalDestination: boolean;
+  tripFreeSeats: number;
+  tripPrice: number;
+  tripLuggageSpace: number;
+  tripComfortable: boolean;
+  tripNewPassengersAcceptance: string;
 }

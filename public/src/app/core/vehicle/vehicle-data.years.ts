@@ -203,5 +203,9 @@ export const vehicleYears: VehicleYearsSetup[] = [
   {
     id: '2019',
     vehicleYear: 2019
+  },
+  {
+    id: '2019',
+    vehicleYear: 2020
   }
 ];

@@ -44,21 +44,21 @@ export class TripService {
 
   // Add new trip to database
   addTrip(
-    belongsToUser: String,
-    selectedVehicle: String,
-    tripStatus: String,
-    tripIdTag: String,
-    tripFromLocation: String,
-    tripToLocation: String,
+    belongsToUser: string,
+    selectedVehicle: string,
+    tripStatus: string,
+    tripIdTag: string,
+    tripFromLocation: string,
+    tripToLocation: string,
     tripDate: Date,
-    tripTime: String,
-    tripFreeSeats: Number,
-    tripPrice: Number,
-    tripLuggageSpace: Number,
-    tripMessage: String,
-    tripComfortable: Boolean,
-    tripStopsOnTheWayToFinalDestination: Boolean,
-    tripNewPassengersAcceptance: String) {
+    tripTime: string,
+    tripFreeSeats: number,
+    tripPrice: number,
+    tripLuggageSpace: number,
+    tripMessage: string,
+    tripComfortable: boolean,
+    tripStopsOnTheWayToFinalDestination: boolean,
+    tripNewPassengersAcceptance: string) {
     const trip = {
       belongsToUser: belongsToUser,
       selectedVehicle: selectedVehicle,
@@ -81,22 +81,22 @@ export class TripService {
 
   // Update trip from database
   updateTrip(
-    id: String,
-    belongsToUser: String,
-    selectedVehicle: String,
-    tripStatus: String,
-    tripIdTag: String,
-    tripFromLocation: String,
-    tripToLocation: String,
+    id: string,
+    belongsToUser: string,
+    selectedVehicle: string,
+    tripStatus: string,
+    tripIdTag: string,
+    tripFromLocation: string,
+    tripToLocation: string,
     tripDate: Date,
-    tripTime: String,
-    tripFreeSeats: Number,
-    tripPrice: Number,
-    tripLuggageSpace: Number,
-    tripMessage: String,
-    tripComfortable: Boolean,
-    tripStopsOnTheWayToFinalDestination: Boolean,
-    tripNewPassengersAcceptance: String): Observable<Trip[]> {
+    tripTime: string,
+    tripFreeSeats: number,
+    tripPrice: number,
+    tripLuggageSpace: number,
+    tripMessage: string,
+    tripComfortable: boolean,
+    tripStopsOnTheWayToFinalDestination: boolean,
+    tripNewPassengersAcceptance: string): Observable<Trip[]> {
     const trip = {
       id: id,
       belongsToUser: belongsToUser,
@@ -118,16 +118,16 @@ export class TripService {
     return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
   }
 
-  /*// Update trip from database
+  // Update trip from database
   updateSeatsOnTrip(
-    id: String,
+    id: string,
     tripFreeSeats: number): Observable<Trip[]> {
     const trip = {
       id: id,
       tripFreeSeats: tripFreeSeats
     };
     return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
-  }*/
+  }
 
   // Delete trip from database
   deleteTrip(id: any): Observable<Trip[]> {

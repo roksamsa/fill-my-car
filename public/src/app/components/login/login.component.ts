@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
 
   loginForm: FormGroup;
-  errorMessage: String = '';
+  errorMessage = '';
 
   constructor(
     public authService: FirebaseAuthService,

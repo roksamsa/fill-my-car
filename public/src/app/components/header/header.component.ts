@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
   clickActiveState  = false;
   dialogResult = '';
   createContentVisibility = false;
-  createButtonTooltipText: String = 'Dodaj novo vozilo ali potovanje';
+  createButtonTooltipText = 'Dodaj novo vozilo ali potovanje';
   darkModeActivated: boolean;
   private loginRegisterOverlayVisibility = true;
 

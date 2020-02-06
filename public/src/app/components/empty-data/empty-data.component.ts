@@ -7,10 +7,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class EmptyDataComponent implements OnInit {
 
-  @Input() emptyDataType: String;
-  @Input() emptyDataText: String;
-  @Input() emptyDataIcon: String;
-  @Input() emptyDataButtonText: String;
+  @Input() emptyDataType: string;
+  @Input() emptyDataText: string;
+  @Input() emptyDataIcon: string;
+  @Input() emptyDataButtonText: string;
 
   @Output() clicked: EventEmitter<any> = new EventEmitter();
 

@@ -331,22 +331,22 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   // Add vehicle on popup close
   updateTrip(
-    id: String,
-    belongsToUser: String,
-    selectedVehicle: String,
-    tripStatus: String,
-    tripIdTag: String,
-    tripFromLocation: String,
-    tripToLocation: String,
+    id: string,
+    belongsToUser: string,
+    selectedVehicle: string,
+    tripStatus: string,
+    tripIdTag: string,
+    tripFromLocation: string,
+    tripToLocation: string,
     tripDate: Date,
-    tripTime: String,
-    tripFreeSeats: Number,
-    tripPrice: Number,
-    tripLuggageSpace: Number,
-    tripMessage: String,
-    tripComfortable: Boolean,
-    tripStopsOnTheWayToFinalDestination: Boolean,
-    tripNewPassengersAcceptance: String) {
+    tripTime: string,
+    tripFreeSeats: number,
+    tripPrice: number,
+    tripLuggageSpace: number,
+    tripMessage: string,
+    tripComfortable: boolean,
+    tripStopsOnTheWayToFinalDestination: boolean,
+    tripNewPassengersAcceptance: string) {
     this.tripService.updateTrip(
       id,
       belongsToUser,
