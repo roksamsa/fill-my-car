@@ -6,31 +6,31 @@ const tripsURI = '/trips';
 
 // Get trips list
 router.get(tripsURI, function (req, res) {
-  tripSchema.find((err, vehicles) => {
+  tripSchema.find((err, trips) => {
     if (err)
       console.log(err);
     else
-      res.json(vehicles);
+      res.json(trips);
   });
 });
 
 // Get trips for specific user
 router.get(tripsURI + '/user/:belongsToUser', function (req, res) {
-  tripSchema.find({belongsToUser: req.params.belongsToUser}, (err, vehicles) => {
+  tripSchema.find({belongsToUser: req.params.belongsToUser}, (err, trips) => {
     if (err)
       console.log(err);
     else
-      res.json(vehicles);
+      res.json(trips);
   });
 });
 
 // Get trip by specific id
 router.get(tripsURI + '/:id', function (req, res) {
-  tripSchema.findById(req.params.id, (err, vehicles) => {
+  tripSchema.findById(req.params.id, (err, trips) => {
     if (err)
       console.log(err);
     else
-      res.json(vehicles);
+      res.json(trips);
   });
 });
 
@@ -48,28 +48,28 @@ router.post(tripsURI + '/add', function (req, res) {
 
 // Update data for specific trip
 router.route(tripsURI + '/update/:id').patch((req, res, next) => {
-  var vehicleId = req.params.id;
-  var vehicleUpdatedData = req.body;
+  var tripId = req.params.id;
+  var tripUpdatedData = req.body;
 
-  tripSchema.findByIdAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
+  tripSchema.findByIdAndUpdate(tripId, tripUpdatedData, function(error, trip) {
     // Handle the error using the Express error middleware
     if (error) {
       return next('Error: ' + error);
     }
     // Render not found error
-    else if (!vehicle) {
+    else if (!trip) {
       return res.status(404).json({
-        message: 'Vehicle with id: ' + vehicleId + ' can not be found! Sorry :/'
+        message: 'trip with id: ' + tripId + ' can not be found! Sorry :/'
       });
     } else {
-      res.json(vehicle);
+      res.json(trip);
     }
   });
 });
 
 // Delete specific trip
 router.route(tripsURI + '/delete/:id').delete((req, res) => {
-  tripSchema.findByIdAndRemove({ _id: req.params.id }, (err, vehicles) => {
+  tripSchema.findByIdAndRemove({ _id: req.params.id }, (err, trips) => {
     if (err)
       res.json(err);
     else

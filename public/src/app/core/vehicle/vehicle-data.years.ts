@@ -1,6 +1,6 @@
 export class VehicleYearsSetup {
   id: string;
-  vehicleYear: number;
+  vehicleYear: Number;
 }
 
 export const vehicleYears: VehicleYearsSetup[] = [

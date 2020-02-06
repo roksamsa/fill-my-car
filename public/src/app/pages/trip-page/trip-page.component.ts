@@ -99,6 +99,7 @@ export class TripPageComponent implements OnInit {
 
   ngOnInit() {
     this.fetchTrip();
+
   }
 
   getSocialUser() {
@@ -208,12 +209,56 @@ export class TripPageComponent implements OnInit {
     this.stepper.next();
   }
 
+  /*updateSeatsOnTrip (
+    id: String,
+    tripFreeSeats: number) {
+    this.tripService.updateTrip(
+      id,
+      tripFreeSeats);
+  }*/
+  
+  updateSeatsOnTrip(
+    id: String,
+    belongsToUser: String,
+    selectedVehicle: String,
+    tripStatus: String,
+    tripIdTag: String,
+    tripFromLocation: String,
+    tripToLocation: String,
+    tripDate: Date,
+    tripTime: String,
+    tripFreeSeats: Number,
+    tripPrice: Number,
+    tripLuggageSpace: Number,
+    tripMessage: String,
+    tripComfortable: Boolean,
+    tripStopsOnTheWayToFinalDestination: Boolean,
+    tripNewPassengersAcceptance: String) {
+    this.tripService.updateTrip(
+      id,
+      belongsToUser,
+      selectedVehicle,
+      tripStatus,
+      tripIdTag,
+      tripFromLocation,
+      tripToLocation,
+      tripDate,
+      tripTime,
+      tripFreeSeats,
+      tripPrice,
+      tripLuggageSpace,
+      tripMessage,
+      tripComfortable,
+      tripStopsOnTheWayToFinalDestination,
+      tripNewPassengersAcceptance)
+  }
+
   // Add vehicle on popup close
-  joinTripSave(
+  joinTripSave (
     belongsToUser: String,
     belongsToVehicle: String,
     belongsToTrip: String,
-    tripPassengerSeatsReservation: Number,
+    tripPassengerSeatsReservation: number,
     tripPassengerStartLocation: String,
     tripPassengerEndLocation: String,
     tripPassengerName: String,
@@ -229,6 +274,31 @@ export class TripPageComponent implements OnInit {
       tripPassengerName,
       tripPassengerEmail,
       tripPassengerPhone).subscribe(() => {
+        const newTripFreeSeats = +this.trip.tripFreeSeats - +tripPassengerSeatsReservation;
+        this.updateSeatsOnTrip(
+          this.trip._id,
+          '45553535353',
+          '45553535353',
+          '45553535353',
+          this.trip.tripIdTag,
+          '45553535353',
+          '45553535353',
+          this.trip.tripDate,
+          '45553535353',
+          newTripFreeSeats,
+          400,
+          200,
+          'test',
+          true,
+          true,
+          'test'
+        )         
+        console.log(this.trip._id);
+        console.log(this.trip.tripIdTag);
+        console.log("this.trip.tripFreeSeats: " + this.trip.tripFreeSeats);
+        console.log("tripPassengerSeatsReservation: " + tripPassengerSeatsReservation);
+        console.log("CALC: ");
+        console.log(newTripFreeSeats);
         this.stepper.next();
       }
     );

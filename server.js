@@ -45,8 +45,8 @@ app.use(function(err, req, res, next) {
 });
 
 // Passport.js
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Import data
 app.use(require('./routes/index'));

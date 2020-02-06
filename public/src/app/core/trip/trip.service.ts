@@ -118,6 +118,17 @@ export class TripService {
     return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
   }
 
+  /*// Update trip from database
+  updateSeatsOnTrip(
+    id: String,
+    tripFreeSeats: number): Observable<Trip[]> {
+    const trip = {
+      id: id,
+      tripFreeSeats: tripFreeSeats
+    };
+    return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
+  }*/
+
   // Delete trip from database
   deleteTrip(id: any): Observable<Trip[]> {
     return this.http.delete<Trip[]>(this.uriTripDelete + id);
