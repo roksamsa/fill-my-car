@@ -126,6 +126,8 @@ export class TripService {
       id: id,
       tripFreeSeats: tripFreeSeats
     };
+    console.log(id);
+    console.log(tripFreeSeats);
     return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
   }
 

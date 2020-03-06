@@ -26,7 +26,7 @@ export class TripPageComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyTrips = false;
   dateFormat = 'EEEE, dd. MMMM yyyy';
-  currentTripId: string;
+  currentTripId: String;
   tripFromLocationCity = '';
   tripToLocationCity = '';
   hereMapStart = '';
@@ -209,48 +209,12 @@ export class TripPageComponent implements OnInit {
     this.stepper.next();
   }
 
-  /*updateSeatsOnTrip (
+  updateSeatsOnTrip (
     id: string,
     tripFreeSeats: number) {
-    this.tripService.updateTrip(
+    this.tripService.updateSeatsOnTrip(
       id,
       tripFreeSeats);
-  }*/
-
-  updateSeatsOnTrip(
-    id: string,
-    belongsToUser: string,
-    selectedVehicle: string,
-    tripStatus: string,
-    tripIdTag: string,
-    tripFromLocation: string,
-    tripToLocation: string,
-    tripDate: Date,
-    tripTime: string,
-    tripFreeSeats: number,
-    tripPrice: number,
-    tripLuggageSpace: number,
-    tripMessage: string,
-    tripComfortable: boolean,
-    tripStopsOnTheWayToFinalDestination: boolean,
-    tripNewPassengersAcceptance: string) {
-    this.tripService.updateTrip(
-      id,
-      belongsToUser,
-      selectedVehicle,
-      tripStatus,
-      tripIdTag,
-      tripFromLocation,
-      tripToLocation,
-      tripDate,
-      tripTime,
-      tripFreeSeats,
-      tripPrice,
-      tripLuggageSpace,
-      tripMessage,
-      tripComfortable,
-      tripStopsOnTheWayToFinalDestination,
-      tripNewPassengersAcceptance)
   }
 
   // Add vehicle on popup close
@@ -274,31 +238,18 @@ export class TripPageComponent implements OnInit {
       tripPassengerName,
       tripPassengerEmail,
       tripPassengerPhone).subscribe(() => {
+        const newTripId = this.trip._id;
         const newTripFreeSeats = +this.trip.tripFreeSeats - +tripPassengerSeatsReservation;
-        this.updateSeatsOnTrip(
-          this.trip._id,
-          '45553535353',
-          '45553535353',
-          '45553535353',
-          this.trip.tripIdTag,
-          '45553535353',
-          '45553535353',
-          this.trip.tripDate,
-          '45553535353',
-          newTripFreeSeats,
-          400,
-          200,
-          'test',
-          true,
-          true,
-          'test'
-        )
         console.log(this.trip._id);
-        console.log(this.trip.tripIdTag);
+        console.log(newTripId);
         console.log("this.trip.tripFreeSeats: " + this.trip.tripFreeSeats);
         console.log("tripPassengerSeatsReservation: " + tripPassengerSeatsReservation);
         console.log("CALC: ");
         console.log(newTripFreeSeats);
+        this.updateSeatsOnTrip(
+          newTripId,
+          newTripFreeSeats
+        )
         this.stepper.next();
       }
     );

@@ -51,7 +51,7 @@ router.route(tripsURI + '/update/:id').patch((req, res, next) => {
   var vehicleId = req.params.id;
   var vehicleUpdatedData = req.body;
 
-  tripPassengerSchema.findByIdAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
+  tripPassengerSchema.findOneAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
     // Handle the error using the Express error middleware
     if (error) {
       return next('Error: ' + error);

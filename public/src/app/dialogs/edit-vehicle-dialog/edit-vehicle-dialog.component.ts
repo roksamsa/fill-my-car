@@ -14,8 +14,8 @@ import { trigger, style, animate, transition } from '@angular/animations';
 export const defaultAnimationFunction = 'ease-in-out';
 
 export const headerFadeInAnimationTiming = '300ms';
-export const headerFadeOutAnimationTiming = '250ms';
-export const headerAnimationDelay = '450ms';
+export const headerFadeOutAnimationTiming = '2250ms';
+export const headerAnimationDelay = '2450ms';
 
 @Component({
   selector: 'app-edit-vehicle-dialog',
@@ -26,7 +26,7 @@ export const headerAnimationDelay = '450ms';
       transition(':enter', [
         style({
           opacity: 0,
-          transform: 'translateX(-300px)'
+          transform: 'translateX(-150px)'
         }),
         animate(`${headerFadeOutAnimationTiming} ${headerAnimationDelay} ${defaultAnimationFunction}`, style({
           opacity: 1,
@@ -111,6 +111,14 @@ export class EditVehicleDialogComponent implements OnInit {
           this.vehicles = null;
         }
       });
+  }
+
+  public isThereAnyVihecleData() {
+    if (this.getVehicleTypes()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Vehicle type

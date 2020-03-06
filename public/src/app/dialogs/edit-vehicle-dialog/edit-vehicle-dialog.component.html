@@ -11,8 +11,12 @@
   </div>
 </div>
 
-<app-vehicle-tile *ngIf="selectedTypeData" class="vehicle-tile--single" [vehicleType]="selectedTypeData" [vehicleColor]="selectedColorData"
-  [vehicleTextVisible]="true" @vehicleEnterAnimation></app-vehicle-tile>
+<app-vehicle-tile *ngIf="isThereAnyVihecleData()"
+                  class="vehicle-tile--single vehicle-tile--centered"
+                  [vehicleType]="selectedTypeData"
+                  [vehicleColor]="selectedColorData"
+                  [vehicleTextVisible]="true"
+                  [@vehicleEnterAnimation]></app-vehicle-tile>
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">

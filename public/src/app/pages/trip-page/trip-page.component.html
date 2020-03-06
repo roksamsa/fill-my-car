@@ -198,7 +198,8 @@
                   </div>
                   <label *ngIf="vehicleSeatsSelectedNumber === 1" class="end-of-registration__label">Rezervirali ste eno mesto na tem potovanju.</label>
                   <label *ngIf="vehicleSeatsSelectedNumber === 2" class="end-of-registration__label">Rezervirali ste dve mesti na tem potovanju.</label>
-                  <label *ngIf="vehicleSeatsSelectedNumber >= 3" class="end-of-registration__label">Rezervirali ste {{vehicleSeatsSelectedNumber}} mest na tem potovanju.</label>
+                  <label *ngIf="vehicleSeatsSelectedNumber === 3 || vehicleSeatsSelectedNumber === 4" class="end-of-registration__label">Rezervirali ste {{vehicleSeatsSelectedNumber}} mesta na tem potovanju.</label>
+                  <label *ngIf="vehicleSeatsSelectedNumber > 4" class="end-of-registration__label">Rezervirali ste {{vehicleSeatsSelectedNumber}} mest na tem potovanju.</label>
                 </div>
               </div>
             </mat-step>

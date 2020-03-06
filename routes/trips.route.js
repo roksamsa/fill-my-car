@@ -51,7 +51,7 @@ router.route(tripsURI + '/update/:id').patch((req, res, next) => {
   var tripId = req.params.id;
   var tripUpdatedData = req.body;
 
-  tripSchema.findByIdAndUpdate(tripId, tripUpdatedData, function(error, trip) {
+  tripSchema.findOneAndUpdate(tripId, tripUpdatedData, function(error, trip) {
     // Handle the error using the Express error middleware
     if (error) {
       return next('Error: ' + error);
@@ -59,11 +59,15 @@ router.route(tripsURI + '/update/:id').patch((req, res, next) => {
     // Render not found error
     else if (!trip) {
       return res.status(404).json({
-        message: 'trip with id: ' + tripId + ' can not be found! Sorry :/'
+        message: 'Trip with id: ' + tripId + ' can not be found! Sorry :/'
       });
     } else {
       res.json(trip);
     }
+  },
+  {
+    upsert: true,
+    returnOriginal: false
   });
 });
 

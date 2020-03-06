@@ -51,7 +51,7 @@ router.route(vehiclesURI + '/update/:id').patch((req, res, next) => {
   var vehicleId = req.params.id;
   var vehicleUpdatedData = req.body;
 
-  vehicleSchema.findByIdAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
+  vehicleSchema.findOneAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
     // Handle the error using the Express error middleware
     if (error) {
       return next('Error: ' + error);
