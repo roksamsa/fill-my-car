@@ -5,8 +5,7 @@
 $tile__padding: 20px;
 $tile__padding--trip: 30px;
 $tile__padding--trip-map: 10px;
-$tile__shadow: 0 2px 7px 0 rgba(0, 19, 168, .1);
-$tile__shadow--hover: 0 4px 19px 0 rgba(0, 19, 168, .05);
+$tile__shadow: 0 3px 15px 0 rgba(0, 19, 168, .07);
 $tile__background-color: $color__white--100;
 $tile__border-radius: 3px;
 
@@ -74,6 +73,7 @@ $tile__border-radius: 3px;
   background-color: $tile__background-color;
   border-radius: $tile__border-radius;
   box-shadow: $tile__shadow;
+  transition: box-shadow 200ms ease-in-out;
 
   &.dark-theme {
     background-color: #26293b;

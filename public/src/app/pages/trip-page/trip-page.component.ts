@@ -240,16 +240,7 @@ export class TripPageComponent implements OnInit {
       tripPassengerPhone).subscribe(() => {
         const newTripId = this.trip._id;
         const newTripFreeSeats = +this.trip.tripFreeSeats - +tripPassengerSeatsReservation;
-        console.log(this.trip._id);
-        console.log(newTripId);
-        console.log("this.trip.tripFreeSeats: " + this.trip.tripFreeSeats);
-        console.log("tripPassengerSeatsReservation: " + tripPassengerSeatsReservation);
-        console.log("CALC: ");
-        console.log(newTripFreeSeats);
-        this.updateSeatsOnTrip(
-          newTripId,
-          newTripFreeSeats
-        )
+        console.log('Added new seats number');
         this.stepper.next();
       }
     );

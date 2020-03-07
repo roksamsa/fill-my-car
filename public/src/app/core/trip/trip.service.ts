@@ -11,17 +11,18 @@ import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/crea
 
 export class TripService {
 
-  uriBase = 'http://localhost:4000';
-  uriTrips = this.uriBase + '/trips/';
-  uriTripsForUser = this.uriTrips + 'user/';
-  uriTripAdd = this.uriTrips + 'add/';
-  uriTripUpdate = this.uriTrips + 'update/';
-  uriTripDelete = this.uriTrips + 'delete/';
+  private uriBase = 'http://localhost:4000';
+  private uriTrips = this.uriBase + '/trips/';
+  private uriTripsForUser = this.uriTrips + 'user/';
+  private uriTripAdd = this.uriTrips + 'add/';
+  private uriTripUpdate = this.uriTrips + 'update/';
+  private uriTripUpdateSpecificField = this.uriTrips + 'update-specific-field/';
+  private uriTripDelete = this.uriTrips + 'delete/';
 
-  dialogTripsResult: any;
-  currentUser = JSON.parse(localStorage.getItem('user'));
-  areThereAnyTrips = false;
-  trips: Trip[] = [];
+  private dialogTripsResult: any;
+  private currentUser = JSON.parse(localStorage.getItem('user'));
+  private areThereAnyTrips = false;
+  private trips: Trip[] = [];
 
   constructor(
     private http: HttpClient,
@@ -122,13 +123,10 @@ export class TripService {
   updateSeatsOnTrip(
     id: string,
     tripFreeSeats: number): Observable<Trip[]> {
-    const trip = {
-      id: id,
-      tripFreeSeats: tripFreeSeats
-    };
+    const trip = {tripFreeSeats: tripFreeSeats};
     console.log(id);
     console.log(tripFreeSeats);
-    return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
+    return this.http.patch<Trip[]>(this.uriTripUpdateSpecificField + id, trip);
   }
 
   // Delete trip from database

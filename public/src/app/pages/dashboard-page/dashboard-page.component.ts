@@ -227,6 +227,7 @@ export class DashboardPageComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
+    dialogConfig.hasBackdrop = true;
     dialogConfig.width = '600px';
     dialogConfig.position = {
       top: '100px'
@@ -237,6 +238,7 @@ export class DashboardPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
+      this.isSelectedVehicle = false;
       this.fetchVehicles();
     });
   }
@@ -266,5 +268,9 @@ export class DashboardPageComponent implements OnInit {
       this.fetchTrips();
       this.dialogResult = result;
     });
+  }
+
+  trackByFn(index, item) {
+    return index;
   }
 }

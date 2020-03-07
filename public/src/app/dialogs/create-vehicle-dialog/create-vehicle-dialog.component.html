@@ -10,10 +10,12 @@
   </div>
 </div>
 
-<app-vehicle-tile class="vehicle-tile--single vehicle-tile--centered"
+<app-vehicle-tile *ngIf="isDialogOpen"
+                  class="vehicle-tile--single vehicle-tile--centered"
                   [vehicleType]="selectedTypeData"
                   [vehicleColor]="selectedColorData"
-                  [vehicleTextVisible]="false"></app-vehicle-tile>
+                  [vehicleTextVisible]="false"
+                  @vehicleEnterAnimation></app-vehicle-tile>
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">

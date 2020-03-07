@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, AfterViewInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
@@ -9,14 +9,40 @@ import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data
 import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
 import { vehicleYears, VehicleYearsSetup } from '../../core/vehicle/vehicle-data.years';
+import { trigger, style, animate, transition } from '@angular/animations';
+
+export const defaultAnimationFunction = 'ease-in-out';
+export const headerFadeInAnimationTiming = '400ms';
 
 @Component({
   selector: 'app-create-vehicle-dialog',
   templateUrl: './create-vehicle-dialog.component.html',
-  styleUrls: ['./create-vehicle-dialog.component.scss']
+  styleUrls: ['./create-vehicle-dialog.component.scss'],
+  animations: [
+    trigger('vehicleEnterAnimation', [
+      transition(':enter', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-50px)'
+        }),
+        animate(`${headerFadeInAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 1,
+          transform: 'translateX(0)'
+        }))
+      ]),
+      transition(':leave', [
+        style({
+          opacity: 1
+        }),
+        animate(`${headerFadeInAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 0
+        }))
+      ])
+    ])
+  ]
 })
-export class CreateVehicleDialogComponent implements OnInit {
-
+export class CreateVehicleDialogComponent implements AfterViewInit {
+  isDialogOpen = false;
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
@@ -54,7 +80,8 @@ export class CreateVehicleDialogComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.isDialogOpen = true;
   }
 
   // Fetch all vehicles for specific user

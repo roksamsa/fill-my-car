@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
@@ -12,10 +12,7 @@ import { vehicleYears, VehicleYearsSetup } from '../../core/vehicle/vehicle-data
 import { trigger, style, animate, transition } from '@angular/animations';
 
 export const defaultAnimationFunction = 'ease-in-out';
-
-export const headerFadeInAnimationTiming = '300ms';
-export const headerFadeOutAnimationTiming = '2250ms';
-export const headerAnimationDelay = '2450ms';
+export const headerFadeInAnimationTiming = '400ms';
 
 @Component({
   selector: 'app-edit-vehicle-dialog',
@@ -26,9 +23,9 @@ export const headerAnimationDelay = '2450ms';
       transition(':enter', [
         style({
           opacity: 0,
-          transform: 'translateX(-150px)'
+          transform: 'translateX(-50px)'
         }),
-        animate(`${headerFadeOutAnimationTiming} ${headerAnimationDelay} ${defaultAnimationFunction}`, style({
+        animate(`${headerFadeInAnimationTiming} ${defaultAnimationFunction}`, style({
           opacity: 1,
           transform: 'translateX(0)'
         }))
@@ -37,19 +34,20 @@ export const headerAnimationDelay = '2450ms';
         style({
           opacity: 1
         }),
-        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+        animate(`${headerFadeInAnimationTiming} ${defaultAnimationFunction}`, style({
           opacity: 0
         }))
       ])
     ])
   ]
 })
-export class EditVehicleDialogComponent implements OnInit {
+export class EditVehicleDialogComponent implements AfterViewInit {
 
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
   currentUser = JSON.parse(localStorage.getItem('user'));
 
+  isDialogOpen = false;
   selectedTypeData = '';
   selectedBrandData = '';
   selectedBrandDataWithoutSpaces = '';
@@ -98,7 +96,8 @@ export class EditVehicleDialogComponent implements OnInit {
     this.isVehicleInsuranceChecked = selectedVehicleData.vehicleInsurance;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.isDialogOpen = true;
   }
 
   // Fetch all vehicles for specific user
@@ -113,14 +112,6 @@ export class EditVehicleDialogComponent implements OnInit {
       });
   }
 
-  public isThereAnyVihecleData() {
-    if (this.getVehicleTypes()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   // Vehicle type
   getVehicleTypes(): VehicleTypesSetup[] {
     return vehicleTypes;
@@ -128,7 +119,6 @@ export class EditVehicleDialogComponent implements OnInit {
 
   selectedVehicleType(event: MatSelectChange) {
     this.selectedTypeData = event.source.value;
-    console.log(this.selectedTypeData);
   }
 
   // Vehicle brand
@@ -139,7 +129,6 @@ export class EditVehicleDialogComponent implements OnInit {
   selectedVehicleBrand(event: MatSelectChange) {
     this.selectedBrandData = event.source.value;
     this.selectedBrandDataWithoutSpaces = this.selectedBrandData.replace(/\s/g, '-');
-    console.log(this.selectedBrandData);
   }
 
   // Vehicle color
@@ -149,7 +138,6 @@ export class EditVehicleDialogComponent implements OnInit {
 
   selectedVehicleColor(event: MatSelectChange) {
     this.selectedColorData = event.source.value;
-    console.log(this.selectedColorData);
   }
 
   // Vehicle year model
@@ -159,7 +147,6 @@ export class EditVehicleDialogComponent implements OnInit {
 
   selectedYearModel(event: MatSelectChange) {
     this.selectedVehicleYearData = event.source.value;
-    console.log(this.selectedVehicleYearData);
   }
 
   updateVehicle(

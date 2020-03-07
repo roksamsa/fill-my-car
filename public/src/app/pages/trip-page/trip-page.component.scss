@@ -55,12 +55,12 @@
   }
 
   &__id-tag {
-    font-size: 20px;
-    color: $color__pink--primary;
+    font-size: 24px;
   }
 
   &__id-tag-string {
     @include font-titillium-semibold;
+    color: $color__pink--primary;
   }
 
   &__actions {
@@ -300,6 +300,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   width: 100%;
   height: 100%;
 }

@@ -29,6 +29,10 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   background-color: rgba(0, 4, 60, 0.4);
 }
 
+.mat-stepper-horizontal {
+  background-color: transparent;
+}
+
 .mat-stepper-horizontal-line {
   display: none;
 }

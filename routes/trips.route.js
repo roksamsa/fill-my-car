@@ -64,8 +64,31 @@ router.route(tripsURI + '/update/:id').patch((req, res, next) => {
     } else {
       res.json(trip);
     }
-  },
-  {
+  }, {
+    upsert: true,
+    returnOriginal: false
+  });
+});
+
+// Update only specific field for specific trip
+router.route(tripsURI + '/update-specific-field/:id').patch((req, res, next) => {
+  var tripId = {_id: req.params.id};
+  var tripUpdatedData = {$set: req.body};
+
+  tripSchema.findOneAndUpdate(tripId, tripUpdatedData, function(error, trip) {
+    // Handle the error using the Express error middleware
+    if (error) {
+      return next('Error: ' + error);
+    }
+    // Render not found error
+    else if (!trip) {
+      return res.status(404).json({
+        message: 'Trip with id: ' + tripId + ' can not be found! Sorry :/'
+      });
+    } else {
+      res.json(trip);
+    }
+  }, {
     upsert: true,
     returnOriginal: false
   });

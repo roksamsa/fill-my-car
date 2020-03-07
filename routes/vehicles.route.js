@@ -39,10 +39,10 @@ router.post(vehiclesURI + '/add', function (req, res) {
   var vehicle = new vehicleSchema(req.body);
   vehicle.save()
     .then(vehicle => {
-      res.status(200).json({ 'Vehicle': 'Added successfully' });
+      res.status(200).json({ 'Vehicle': vehicle + ' added successfully' });
     })
     .catch(err => {
-      res.status(400).send('Failed to create new vehicle');
+      res.status(400).send('Failed to create new vehicle, with error: ' + err);
     });
 });
 

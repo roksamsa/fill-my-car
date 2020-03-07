@@ -33,13 +33,14 @@
     grid-template-columns: repeat(5, max-content);
     grid-gap: 15px;
     align-items: center;
+    position: relative;
+    z-index: 0;
   }
 
   &__seat {
     position: relative;
     width: 60px;
     height: 70px;
-    z-index: 1;
 
     &--selected {
       .vehicle-seats__seat-shadow {
@@ -85,7 +86,6 @@
     position: absolute;
     top: -6px;
     left: -11px;
-    z-index: 2;
   }
 
   &__person {
