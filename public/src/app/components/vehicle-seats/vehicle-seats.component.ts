@@ -1,32 +1,42 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { VehicleSeatsService } from './vehicle-seats.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-vehicle-seats',
   templateUrl: './vehicle-seats.component.html',
   styleUrls: ['./vehicle-seats.component.scss']
 })
-export class VehicleSeatsComponent implements OnInit, AfterViewInit {
+export class VehicleSeatsComponent implements OnInit {
 
+  vehicleSeatsTakenNumber: number;
   vehicleSeatsTakenNumberValue: number[];
-  vehicleSeatsAvailableNumberValue: number[];
-  vehicleSeatsSelectedFromInputValue: number;
-  @Input() vehicleSeatsTakenNumber: number;
-  @Input() vehicleSeatsAvailableNumber: number;
-  @Input() vehicleSeatsSelectedFromInputNumber: number;
 
-  constructor() {
+  vehicleSeatsAvailableOnVehicleNumber: number;
+  vehicleSeatsAvailableOnVehicleNumberValue: number[];
+
+  vehicleSeatsSelectedFromInputNumber = 0;
+  vehicleSeatsSelectedFromInputValue = 0;
+
+  constructor(public vehicleSeatsData: VehicleSeatsService) {
   }
 
   ngOnInit() {
-    this.vehicleSeatsTakenNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsTakenNumber);
-    this.vehicleSeatsAvailableNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsAvailableNumber);
-    this.vehicleSeatsSelectedFromInputValue = this.vehicleSeatsSelectedFromInputNumber;
+    this.vehicleSeatsData.vehicleSeatsTakenNumberData.subscribe((takenNumber) => {
+      this.vehicleSeatsTakenNumber = takenNumber;
+      this.vehicleSeatsTakenNumberValue = this.generateArrayFromVehicleSeatsNumber(takenNumber);
+    });
+
+    this.vehicleSeatsData.vehicleSeatsAvailableOnVehicleNumberData.subscribe((availableNumber) => {
+      this.vehicleSeatsAvailableOnVehicleNumber = availableNumber;
+      this.vehicleSeatsAvailableOnVehicleNumberValue = this.generateArrayFromVehicleSeatsNumber(availableNumber);
+    });
+
+    this.vehicleSeatsData.vehicleSeatsSelectedFromInputValueData.subscribe((selectedFromInput) => {
+      this.vehicleSeatsSelectedFromInputNumber = selectedFromInput;
+    });
   }
 
-  ngAfterViewInit() {
-  }
-
-  generateArrayFromVehicleSeatsNumber(number) {
+  generateArrayFromVehicleSeatsNumber(number: number): Array<number> {
     return Array.from(Array(number)).map((x, i) => i);
   }
 }

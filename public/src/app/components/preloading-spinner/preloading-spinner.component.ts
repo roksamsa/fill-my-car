@@ -1,9 +1,33 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { trigger, style, animate, transition } from '@angular/animations';
+
+export const preloadingAnimationTiming = '200ms';
+export const defaultAnimationFunction = 'ease-in-out';
 
 @Component({
   selector: 'app-preloading-spinner',
   templateUrl: './preloading-spinner.component.html',
-  styleUrls: ['./preloading-spinner.component.scss']
+  styleUrls: ['./preloading-spinner.component.scss'],
+  animations: [
+    trigger('preloadingAnimation', [
+      transition(':enter', [
+        style({
+          opacity: 0
+        }),
+        animate(`${preloadingAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 1
+        }))
+      ]),
+      transition(':leave', [
+        style({
+          opacity: 1
+        }),
+        animate(`${preloadingAnimationTiming} ${defaultAnimationFunction}`, style({
+          opacity: 0
+        }))
+      ])
+    ])
+  ]
 })
 export class PreloadingSpinnerComponent implements OnInit {
 

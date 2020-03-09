@@ -48,7 +48,7 @@ router.post(vehiclesURI + '/add', function (req, res) {
 
 // Update data for specific vehicle
 router.route(vehiclesURI + '/update/:id').patch((req, res, next) => {
-  var vehicleId = req.params.id;
+  var vehicleId = {_id: req.params.id};
   var vehicleUpdatedData = req.body;
 
   vehicleSchema.findOneAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {

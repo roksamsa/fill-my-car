@@ -32,6 +32,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VehicleService } from './core/vehicle/vehicle.service';
+import { VehicleSeatsService } from '../app/components/vehicle-seats/vehicle-seats.service';
 import { HeaderService } from '../app/components/header/header.service';
 import { VehicleTileService } from '../app/components/vehicle-tile/vehicle-tile.service';
 import { UserMenuService } from '../app/components/user-menu/user-menu.service';
@@ -221,6 +222,7 @@ export function provideConfig() {
     DatePipe,
     VehicleService,
     FirebaseAuthService,
+    VehicleSeatsService,
     UserService,
     HeaderService,
     UserMenuService,

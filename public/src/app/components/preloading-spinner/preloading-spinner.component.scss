@@ -6,11 +6,6 @@ $vehicles-items__width--full-size: 14.2857142857%;
   width: 100%;
   height: 100%;
 
-  &.vehicles__items {
-    .preloading-spinner {
-    }
-  }
-
   &.vehicles__items--full-size {
     .preloading-spinner {
       display: grid;
@@ -19,13 +14,30 @@ $vehicles-items__width--full-size: 14.2857142857%;
       overflow: auto;
     }
   }
+
+  &.preloading-spinner--goes-over-content {
+    .preloading-spinner {
+      left: -20px;
+      top: -20px;
+      right: -20px;
+      bottom: -20px;
+    }
+  }
+
+  &.preloading-spinner--width-height-as-content {
+    display: inline;
+    width: auto;
+    height: auto;
+  }
 }
 
 .preloading-spinner {
   display: flex;
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 
   &__wrapper {
     display: flex;

@@ -6,13 +6,14 @@ import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { TripPassengerService } from '../../core/trip-passenger/trip-passenger.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Trip } from '../../core/trip/trip.module';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
-import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from "angularx-social-login";
+import { VehicleSeatsService } from '../../components/vehicle-seats/vehicle-seats.service';
 
 @Component({
   selector: 'app-trip-page',
@@ -23,15 +24,18 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } f
 export class TripPageComponent implements OnInit {
   public vehicle: Vehicle;
   public trip: Trip;
-  currentUser = JSON.parse(localStorage.getItem('user'));
-  areThereAnyTrips = false;
-  dateFormat = 'EEEE, dd. MMMM yyyy';
-  currentTripId: String;
-  tripFromLocationCity = '';
-  tripToLocationCity = '';
-  hereMapStart = '';
-  hereMapFinish = '';
-  dialogResult: '';
+  public currentUser = JSON.parse(localStorage.getItem('user'));
+  public dateFormat = 'EEEE, dd. MMMM yyyy';
+  public areThereAnyTrips = false;
+  public tripFromLocationCity = '';
+  public tripToLocationCity = '';
+  public hereMapStart = '';
+  public hereMapFinish = '';
+  public dialogResult: '';
+
+  private currentTripId: String;
+
+  preloadingSpinnerVisibility = true;
 
   selectedVehicleId = '';
 
@@ -44,7 +48,7 @@ export class TripPageComponent implements OnInit {
   isVehicleInsuranceChecked = false;
 
   vehicleSeatsTakenNumber: number; // Na koncu moram to številko posodobit!
-  vehicleSeatsAvailableNumber: any;
+  vehicleSeatsAvailableNumber: number;
   vehicleSeatsStillLeftForCurrentTrip: number;
   vehicleSeatsSelectedNumber: number; // Izbrana številka v inputu!
 
@@ -67,17 +71,16 @@ export class TripPageComponent implements OnInit {
   }
 
   constructor(
-    private route: ActivatedRoute,
     public authService: FirebaseAuthService,
+    private route: ActivatedRoute,
     private vehicleService: VehicleService,
     private tripService: TripService,
     private tripPassengerService: TripPassengerService,
-    private socialAuthService: AuthService,
     private popupDialog: MatDialog,
-    private router: Router,
     private form: FormBuilder,
     private location: Location,
     private authSocialService: AuthService,
+    public vehicleSeatsData: VehicleSeatsService,
     private cdref: ChangeDetectorRef) {
     this.addTripFormStepperForm = this.form.group({
       addTripFormStepperFormArray: this.form.array([
@@ -99,7 +102,26 @@ export class TripPageComponent implements OnInit {
 
   ngOnInit() {
     this.fetchTrip();
+    this.seatsData();
+  }
 
+  preloadingSpinnerShow() {
+    const that = this;
+    this.preloadingSpinnerVisibility = true;
+
+    setTimeout(function() {
+      that.preloadingSpinnerVisibility = false;
+    }, 800);
+  }
+
+  seatsData() {
+    this.vehicleSeatsData.vehicleSeatsTakenNumberData.subscribe((takenNumber) => {
+      this.vehicleSeatsTakenNumber = takenNumber;
+      this.vehicleSeatsData.vehicleSeatsAvailableOnVehicleNumberData.subscribe((availableNumber) => {
+        this.vehicleSeatsAvailableNumber = availableNumber;
+        this.vehicleSeatsStillLeftForCurrentTrip = this.vehicleSeatsAvailableNumber - this.vehicleSeatsTakenNumber;
+      });
+    });
   }
 
   getSocialUser() {
@@ -124,23 +146,22 @@ export class TripPageComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.currentTripId = params.get('id');
       this.tripService.getTripById(this.currentTripId).subscribe((data: any) => {
+        this.preloadingSpinnerShow();
+
         if (data !== null && data !== undefined) {
           this.trip = data;
           this.areThereAnyTrips = true;
-          console.log(this.trip);
-
           this.tripFromLocationCity = data.tripFromLocation.split(', ')[0];
           this.tripToLocationCity = data.tripToLocation.split(', ')[0];
           this.hereMapStart = data.tripFromLocation;
           this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = data.selectedVehicle;
-          this.vehicleSeatsTakenNumber = data.tripFreeSeats;
-
+          this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
           this.fetchVehicle(this.selectedVehicleId);
 
         } else {
           this.trip = null;
-          this.areThereAnyTrips = true;
+          this.areThereAnyTrips = false;
         }
       });
     });
@@ -150,14 +171,16 @@ export class TripPageComponent implements OnInit {
     this.vehicleService.getVehicleById(vehicleID)
       .pipe(filter(x => !!x))
       .subscribe((selectedVehicleData) => {
+        this.preloadingSpinnerShow();
+
         if (selectedVehicleData) {
           this.vehicle = selectedVehicleData;
           this.selectedTypeData = selectedVehicleData.vehicleType;
           this.selectedColorData = selectedVehicleData.vehicleColor;
           this.selectedBrandData = selectedVehicleData.vehicleBrand;
           this.selectedNameData = selectedVehicleData.vehicleName;
-          this.vehicleSeatsAvailableNumber = selectedVehicleData.vehicleSeats;
-          this.vehicleSeatsStillLeftForCurrentTrip = this.vehicleSeatsAvailableNumber - this.vehicleSeatsTakenNumber;
+          this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(selectedVehicleData.vehicleSeats);
+
         } else {
           this.vehicle = null;
         }
@@ -190,11 +213,13 @@ export class TripPageComponent implements OnInit {
 
   seatsInputChange(value: number) {
     this.vehicleSeatsSelectedNumber = value;
+    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(this.vehicleSeatsSelectedNumber);
   }
 
   joinTripStart() {
     this.stepper.next();
     this.vehicleSeatsSelectedNumber = 1;
+    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(this.vehicleSeatsSelectedNumber);
   }
 
   joinTrip1() {
@@ -209,12 +234,18 @@ export class TripPageComponent implements OnInit {
     this.stepper.next();
   }
 
-  updateSeatsOnTrip (
-    id: string,
-    tripFreeSeats: number) {
-    this.tripService.updateSeatsOnTrip(
-      id,
-      tripFreeSeats);
+  cancelTripBooking() {
+    this.stepper.selectedIndex = 0;
+    this.vehicleSeatsSelectedNumber = 0;
+    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(0);
+  }
+
+  goToFirstStepWithDelay() {
+    const that = this;
+
+    setTimeout(function() {
+      that.stepper.selectedIndex = 0;
+    }, 2000);
   }
 
   // Add vehicle on popup close
@@ -228,6 +259,11 @@ export class TripPageComponent implements OnInit {
     tripPassengerName: string,
     tripPassengerEmail: string,
     tripPassengerPhone: string) {
+    const tripId = this.trip._id;
+    const tripSeatsReservation = tripPassengerSeatsReservation;
+    const updatedTripFreeSeats = this.vehicleSeatsTakenNumber + tripSeatsReservation;
+    this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(updatedTripFreeSeats);
+
     this.tripPassengerService.addTripPassenger(
       belongsToUser,
       belongsToVehicle,
@@ -237,17 +273,16 @@ export class TripPageComponent implements OnInit {
       tripPassengerEndLocation,
       tripPassengerName,
       tripPassengerEmail,
-      tripPassengerPhone).subscribe(() => {
-        const newTripId = this.trip._id;
-        const newTripFreeSeats = +this.trip.tripFreeSeats - +tripPassengerSeatsReservation;
-        console.log('Added new seats number');
-        this.stepper.next();
-      }
+      tripPassengerPhone).subscribe(() => {}
     );
-  }
-
-  cancelTripBooking() {
-    this.stepper.selectedIndex = 0;
-    this.vehicleSeatsSelectedNumber = 0;
+    this.tripService.updateSeatsOnTrip(
+      tripId,
+      updatedTripFreeSeats
+    ).subscribe(() => {
+      this.stepper.next();
+      this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(0);
+      this.fetchTrip();
+      this.goToFirstStepWithDelay();
+    });
   }
 }

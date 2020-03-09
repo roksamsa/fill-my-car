@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Trip } from './trip.module';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +10,15 @@ import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/crea
 
 export class TripService {
 
-  private uriBase = 'http://localhost:4000';
-  private uriTrips = this.uriBase + '/trips/';
-  private uriTripsForUser = this.uriTrips + 'user/';
-  private uriTripAdd = this.uriTrips + 'add/';
-  private uriTripUpdate = this.uriTrips + 'update/';
-  private uriTripUpdateSpecificField = this.uriTrips + 'update-specific-field/';
-  private uriTripDelete = this.uriTrips + 'delete/';
+  uriBase = 'http://localhost:4000';
+  uriTrips = this.uriBase + '/trips/';
+  uriTripsForUser = this.uriTrips + 'user/';
+  uriTripAdd = this.uriTrips + 'add/';
+  uriTripUpdate = this.uriTrips + 'update/';
+  uriTripUpdateSpecificField = this.uriTrips + 'update-specific-field/';
+  uriTripDelete = this.uriTrips + 'delete/';
 
-  private dialogTripsResult: any;
-  private currentUser = JSON.parse(localStorage.getItem('user'));
-  private areThereAnyTrips = false;
-  private trips: Trip[] = [];
-
-  constructor(
-    private http: HttpClient,
-    private popupDialog: MatDialog) { }
+  constructor(private http: HttpClient) {}
 
   // Get all trips in database
   getAllTrips(): Observable<Trip[]> {
@@ -119,14 +111,18 @@ export class TripService {
     return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
   }
 
-  // Update trip from database
+  // Update specific field for trip from database
   updateSeatsOnTrip(
     id: string,
     tripFreeSeats: number): Observable<Trip[]> {
-    const trip = {tripFreeSeats: tripFreeSeats};
+    const updatedTrip = {
+      _id: id,
+      tripFreeSeats: tripFreeSeats
+    };
     console.log(id);
     console.log(tripFreeSeats);
-    return this.http.patch<Trip[]>(this.uriTripUpdateSpecificField + id, trip);
+    console.log(this.uriTripUpdateSpecificField + id);
+    return this.http.patch<Trip[]>(this.uriTripUpdateSpecificField + id, updatedTrip);
   }
 
   // Delete trip from database

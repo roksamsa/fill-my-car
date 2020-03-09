@@ -3,6 +3,7 @@ import express from 'express';
 const tripSchema = require('../models/trip.model');
 const router = express.Router();
 const tripsURI = '/trips';
+const tripOptions = {upsert: true, returnOriginal: false};
 
 // Get trips list
 router.get(tripsURI, function (req, res) {
@@ -48,10 +49,10 @@ router.post(tripsURI + '/add', function (req, res) {
 
 // Update data for specific trip
 router.route(tripsURI + '/update/:id').patch((req, res, next) => {
-  var tripId = req.params.id;
+  var tripId = {_id: req.params.id};
   var tripUpdatedData = req.body;
 
-  tripSchema.findOneAndUpdate(tripId, tripUpdatedData, function(error, trip) {
+  tripSchema.findOneAndUpdate(tripId, tripUpdatedData, tripOptions, function(error, trip) {
     // Handle the error using the Express error middleware
     if (error) {
       return next('Error: ' + error);
@@ -64,9 +65,6 @@ router.route(tripsURI + '/update/:id').patch((req, res, next) => {
     } else {
       res.json(trip);
     }
-  }, {
-    upsert: true,
-    returnOriginal: false
   });
 });
 
@@ -75,7 +73,7 @@ router.route(tripsURI + '/update-specific-field/:id').patch((req, res, next) => 
   var tripId = {_id: req.params.id};
   var tripUpdatedData = {$set: req.body};
 
-  tripSchema.findOneAndUpdate(tripId, tripUpdatedData, function(error, trip) {
+  tripSchema.findOneAndUpdate(tripId, tripUpdatedData, tripOptions, function(error, trip) {
     // Handle the error using the Express error middleware
     if (error) {
       return next('Error: ' + error);
@@ -88,9 +86,6 @@ router.route(tripsURI + '/update-specific-field/:id').patch((req, res, next) => 
     } else {
       res.json(trip);
     }
-  }, {
-    upsert: true,
-    returnOriginal: false
   });
 });
 

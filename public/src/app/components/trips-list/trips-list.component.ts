@@ -79,7 +79,7 @@ export class TripsListComponent implements OnInit {
   tripFromLocationCity = '';
   moreActionVisible: any;
   moreActionOpened = -1;
-  dateFormat = 'EEEE, dd. MMMM yyyy';
+  dateFormat = 'dd. MMMM yyyy';
   dateLocale = 'sl-SI';
   displayedColumns: string[] = [
     'tripStatus',
@@ -98,14 +98,12 @@ export class TripsListComponent implements OnInit {
   constructor(
     private popupDialog: MatDialog,
     private vehicleService: VehicleService,
-    private tripService: TripService,
-    private router: Router) { }
+    private tripService: TripService) { }
 
   ngOnInit() {
     this.fetchTrips();
     this.isTripsListEmpty();
     console.log(this.selectedVehicleId);
-    console.log(this.fetchVehicle('5e354b665199af428875e6a8'));
   }
 
   moreActionsToggle(tripIndex) {
@@ -140,8 +138,7 @@ export class TripsListComponent implements OnInit {
         this.trips = data;
         this.areThereAnyTrips = true;
         this.preloadingSpinnerShow();
-        this.selectedVehicleId = data.selectedVehicle;
-        console.log(data);
+        this.selectedVehicleId = data[0].selectedVehicle;
         this.fetchVehicle(this.selectedVehicleId);
       } else {
         this.trips = null;
@@ -157,12 +154,13 @@ export class TripsListComponent implements OnInit {
       .pipe(filter(x => !!x))
       .subscribe((selectedVehicleData) => {
         if (selectedVehicleData) {
+          console.log(vehicleID);
           this.vehicle = selectedVehicleData;
-          this.vehicleSeatsAvailableNumber = selectedVehicleData.vehicleSeats;
-          return this.vehicleSeatsAvailableNumber;
+          this.vehicleSeatsAvailableNumber = this.vehicle.vehicleSeats;
+          console.log('this.vehicleSeatsAvailableNumber');
+          console.log(this.vehicleSeatsAvailableNumber);
         } else {
           this.vehicle = null;
-          return null;
         }
       });
   }

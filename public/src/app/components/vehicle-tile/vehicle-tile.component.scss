@@ -265,8 +265,12 @@
 
   &__vehicle-name {
     @include font-titillium-semibold;
+    width: 100%;
     text-align: center;
+    text-overflow: ellipsis;
     color: $color__blue--primary;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &__text {
