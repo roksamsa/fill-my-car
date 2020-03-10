@@ -7,7 +7,9 @@
   </div>
 </div>
 
-<div class="popup__content">
+<div class="popup__content"
+     (keyup.arrowLeft)="stepperGoPreviousStep()"
+     (keyup.arrowRight)="stepperGoNextStep()">
   <mat-dialog-content>
     <form class="form" [formGroup]="addTripFormStepperForm">
       <mat-horizontal-stepper class="popup__wizard"
@@ -100,20 +102,23 @@
 
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
+              <label class="form__label">Izbrano vozilo</label>
+              <mat-form-field [floatLabel]="'never'" class="form__field">
+                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle (selectionChange)="changeClient($event.value)">
+                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
+                    <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
+                      {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
+                    </div>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="form__input form__input--space-left">
               <label class="form__label">Število prostih mest (max {{ vehicleSeatsAvailableNumber }})</label>
               <app-number-picker class="form__time-input" [min]="0" [max]="vehicleSeatsAvailableNumber" [step]="1" [precision]="1"
                 [inputDisabled]="false" [inputValueNumber]="freeSeatsValue" (change)="freeSeatsChanged($event)">
               </app-number-picker>
-            </div>
-
-            <div class="form__input form__input--space-left">
-              <label class="form__label">Cena prevoza</label>
-              <div class="form__price-wrapper">
-                <app-number-picker class="form__time-input" [min]="0" [max]="200" [step]="1" [precision]="1"
-                  [inputDisabled]="false" [inputValueNumber]="priceValue" (change)="priceChanged($event)">
-                </app-number-picker>
-                <div class="form__price-label">EUR</div>
-              </div>
             </div>
           </section>
 
@@ -128,16 +133,13 @@
             </div>
 
             <div class="form__input form__input--space-left">
-              <label class="form__label">Izbrano vozilo</label>
-              <mat-form-field [floatLabel]="'never'" class="form__field">
-                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle (selectionChange)="changeClient($event.value)">
-                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
-                    <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
-                      {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
-                    </div>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <label class="form__label">Cena prevoza</label>
+              <div class="form__price-wrapper">
+                <app-number-picker class="form__time-input" [min]="0" [max]="200" [step]="1" [precision]="1"
+                  [inputDisabled]="false" [inputValueNumber]="priceValue" (change)="priceChanged($event)">
+                </app-number-picker>
+                <div class="form__price-label">EUR</div>
+              </div>
             </div>
           </section>
         </mat-step>

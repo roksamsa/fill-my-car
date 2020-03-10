@@ -171,7 +171,6 @@ export class DashboardPageComponent implements OnInit {
       if (data.length > 0) {
         this.trips = data;
         this.areThereAnyTrips = true;
-        console.log(this.trips);
       } else {
         this.trips = null;
         this.areThereAnyTrips = false;

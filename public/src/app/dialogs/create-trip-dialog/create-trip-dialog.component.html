@@ -7,7 +7,9 @@
   </div>
 </div>
 
-<div class="popup__content">
+<div class="popup__content"
+     (keyup.arrowLeft)="stepperGoPreviousStep()"
+     (keyup.arrowRight)="stepperGoNextStep()">
   <mat-dialog-content>
     <form [formGroup]="addTripFormStepperForm" class="form">
       <mat-horizontal-stepper class="popup__wizard" [linear]="false" formArrayName="addTripFormStepperFormArray"
@@ -100,7 +102,7 @@
             <div class="form__input">
               <label class="form__label">Izbrano vozilo</label>
               <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle (change)="getSelectedVehicleData($event)">
+                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle (selectionChange)="getSelectedVehicleData($event)">
                   <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
                     <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
                       {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
@@ -110,8 +112,8 @@
               </mat-form-field>
             </div>
             <div class="form__input form__input--space-left">
-              <label class="form__label">Število prostih mest</label>
-              <app-number-picker class="form__time-input" [min]="0" [max]="10" [step]="1" [precision]="1"
+              <label class="form__label">Število prostih mest <span *ngIf="vehicleSeatsAvailableNumber" >(največ {{vehicleSeatsAvailableNumber}})</span></label>
+              <app-number-picker class="form__time-input" [min]="0" [max]="vehicleSeatsAvailableNumber" [step]="1" [precision]="1"
                 [inputDisabled]="false" (change)="freeSeatsChanged($event)">
               </app-number-picker>
             </div>
@@ -275,8 +277,6 @@
   <button *ngIf="stepper.selectedIndex === 2"
           mat-raised-button
           class="button button--primary"
-          (keydown.ArrowLeft)="stepperGoPreviousStep()"
-          (keydown.ArrowRight)="stepperGoNextStep()"
           (click)="addTrip(
           authService.userData.uid,
           selectedVehicle.value,
@@ -287,7 +287,7 @@
           tripDateInput.value,
           timeHourValue + ' : ' + timeMinutesValue,
           freeSeatsValue,
-          takenSeatsValue,
+          vehicleSeatsAvailableNumber,
           priceValue,
           luggageSpaceValue,
           tripMessage.value,

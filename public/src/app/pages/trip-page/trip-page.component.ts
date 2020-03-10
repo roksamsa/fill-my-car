@@ -59,7 +59,7 @@ export class TripPageComponent implements OnInit {
   vehicleSeatsTakenNumber: number; // Na koncu moram to številko posodobit!
   vehicleSeatsAvailableNumber: number;
   vehicleSeatsStillLeftForCurrentTrip: number;
-  vehicleSeatsSelectedNumber: number; // Izbrana številka v inputu!
+  vehicleSeatsSelectedNumber = 0; // Izbrana številka v inputu!
 
   public socialUser: SocialUser;
   public socialUserLoggedIn: boolean;
@@ -95,6 +95,8 @@ export class TripPageComponent implements OnInit {
         }),
         this.form.group({
           yourEndLocation: ['', Validators.required]
+        }),
+        this.form.group({
         }),
         this.form.group({
         })
@@ -170,9 +172,9 @@ export class TripPageComponent implements OnInit {
           this.selectedVehicleId = data.selectedVehicle;
           this.tripDate = data.tripDate;
           this.tripDateFormatted = formatDate(this.tripDate, this.dateFormat2, 'en');
+
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
           this.fetchVehicle(this.selectedVehicleId);
-
           this.checkIfTripIsActive();
 
         } else {
@@ -195,6 +197,7 @@ export class TripPageComponent implements OnInit {
           this.selectedColorData = selectedVehicleData.vehicleColor;
           this.selectedBrandData = selectedVehicleData.vehicleBrand;
           this.selectedNameData = selectedVehicleData.vehicleName;
+
           this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(selectedVehicleData.vehicleSeats);
 
         } else {
@@ -291,6 +294,7 @@ export class TripPageComponent implements OnInit {
       tripPassengerEmail,
       tripPassengerPhone).subscribe(() => {}
     );
+
     this.tripService.updateSeatsOnTrip(
       tripId,
       updatedTripFreeSeats,

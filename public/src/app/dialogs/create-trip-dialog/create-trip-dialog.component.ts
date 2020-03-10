@@ -20,7 +20,7 @@ import { filter } from 'rxjs/operators';
 export class CreateTripDialogComponent implements OnInit {
 
   public vehicle: Vehicle;
-  vehicleSeatsAvailableNumber: number;
+  vehicleSeatsAvailableNumber = 0;
   selectedVehicleId = '';
 
   addTripFormStepperForm: FormGroup;
@@ -121,12 +121,14 @@ export class CreateTripDialogComponent implements OnInit {
     this.isVehicleListEmpty();
   }
 
-  stepperGoPreviousStep() {
+  public stepperGoPreviousStep() {
     this.stepper.previous();
+    console.log('stepperGoPreviousStep');
   }
 
-  stepperGoNextStep() {
+  public stepperGoNextStep() {
     this.stepper.next();
+    console.log('stepperGoNextStep');
   }
 
   // START LOCATION SELECTION
@@ -216,7 +218,6 @@ export class CreateTripDialogComponent implements OnInit {
       .pipe(filter(x => !!x))
       .subscribe((selectedVehicleData) => {
         if (selectedVehicleData) {
-          console.log(vehicleID);
           this.vehicle = selectedVehicleData;
           this.vehicleSeatsAvailableNumber = this.vehicle.vehicleSeats;
         } else {

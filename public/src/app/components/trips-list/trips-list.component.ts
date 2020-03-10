@@ -155,11 +155,8 @@ export class TripsListComponent implements OnInit {
       .pipe(filter(x => !!x))
       .subscribe((selectedVehicleData) => {
         if (selectedVehicleData) {
-          console.log(vehicleID);
           this.vehicle = selectedVehicleData;
           this.vehicleSeatsAvailableNumber = this.vehicle.vehicleSeats;
-          console.log('this.vehicleSeatsAvailableNumber');
-          console.log(this.vehicleSeatsAvailableNumber);
         } else {
           this.vehicle = null;
         }

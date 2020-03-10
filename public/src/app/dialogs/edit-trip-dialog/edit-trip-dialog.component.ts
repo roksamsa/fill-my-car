@@ -226,7 +226,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < this.tripIdTagMaxLength; i++) {
       tripIdTag += this.tripIdTagCharacters.charAt(Math.floor(Math.random() * this.tripIdTagCharactersLength));
     }
-    console.log(tripIdTag);
     return tripIdTag;
   }
 
@@ -257,7 +256,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   }
 
   changeClient(value) {
-    console.log(value);
     this.fetchVehicle(value);
   }
 
@@ -273,7 +271,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   selectedVehicleType(event: MatSelectChange) {
     this.selectedTypeData = event.source.value;
-    console.log(this.selectedTypeData);
   }
 
   // Vehicle brand
@@ -283,7 +280,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   selectedVehicleBrand(event: MatSelectChange) {
     this.selectedBrandData = event.source.value;
-    console.log(this.selectedBrandData);
   }
 
   // Vehicle color
@@ -293,7 +289,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   selectedVehicleColor(event: MatSelectChange) {
     this.selectedColorData = event.source.value;
-    console.log(this.selectedColorData);
   }
 
   tripStopsOnTheWayToFinalDestinationChange() {

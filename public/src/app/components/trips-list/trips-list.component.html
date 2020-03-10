@@ -1,6 +1,6 @@
 <app-tile-title-top>
   <h2 tile-headline-title class="tile__title">
-    Moja potovanja <span class="trip__trips-number">({{trips.length}})</span>
+    Moja potovanja <span *ngIf="trips" class="trip__trips-number">({{trips?.length}})</span>
   </h2>
   <button tile-headline-button class="tile__headline-button" (click)="openAddTripDialog()">
     <svg class="tile__headline-button-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, SimpleChanges, OnChanges } from '@angular/core';
 import { HereMapsService } from './here-maps.service';
 
 declare var H: any;
@@ -9,7 +9,7 @@ declare var H: any;
   styleUrls: ['./here-maps.component.scss']
 })
 
-export class HereMapsComponent implements OnInit, AfterViewInit {
+export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
   private map: any;
   preloadingSpinnerVisibility = true;
   hereMapUI: any;
@@ -37,6 +37,10 @@ export class HereMapsComponent implements OnInit, AfterViewInit {
     this.hereMapInitialSetup();
   }
 
+  ngOnChanges() {
+    this.hereMapsRoute(this.hereMapStart, this.hereMapFinish);
+  }
+
   hereMapInitialSetup() {
     const defaultLayers = this.hereMap.platform.createDefaultLayers();
     defaultLayers.normal.map.setMin(2);
@@ -61,9 +65,6 @@ export class HereMapsComponent implements OnInit, AfterViewInit {
 
   hereMapsRoute(start: string, finish: string) {
     if (start !== '' || finish !== '') {
-      if (this.map.getObjects()) {
-        this.map.removeObjects(this.map.getObjects());
-      }
       this.hereMap.getCoordinates(start).then(geocoderResult1 => {
         this.hereMapRouteStartLat = geocoderResult1[0].Location.DisplayPosition.Latitude;
         this.hereMapRouteStartLng = geocoderResult1[0].Location.DisplayPosition.Longitude;

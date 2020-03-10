@@ -220,7 +220,7 @@
           <button *ngIf="stepper.selectedIndex === 0 && vehicleSeatsAvailableNumber != vehicleSeatsTakenNumber" mat-raised-button class="button button--primary"
             (click)="joinTripStart()">Prijavi se na potovanje</button>
 
-          <p *ngIf="vehicleSeatsAvailableNumber == vehicleSeatsTakenNumber">Na to potovanje prijava ni več možna!</p>
+          <p *ngIf="vehicleSeatsAvailableNumber == vehicleSeatsTakenNumber">Na potovanje prijava ni več možna!</p>
 
           <button *ngIf="stepper.selectedIndex > 0 && stepper.selectedIndex < 5" class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
             <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
