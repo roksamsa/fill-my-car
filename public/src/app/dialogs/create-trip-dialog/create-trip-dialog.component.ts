@@ -9,10 +9,8 @@ import { Trip } from '../../core/trip/trip.module';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { HereMapsService } from '../../../app/components/here-maps/here-maps.service';
-import { vehicleTypes, VehicleTypesSetup } from '../../core/vehicle/vehicle-data.types';
-import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-data.brands';
-import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
 import { DatePipe } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-trip-dialog',
@@ -21,16 +19,17 @@ import { DatePipe } from '@angular/common';
 })
 export class CreateTripDialogComponent implements OnInit {
 
+  public vehicle: Vehicle;
+  vehicleSeatsAvailableNumber: number;
+  selectedVehicleId = '';
+
   addTripFormStepperForm: FormGroup;
   vehicles: Vehicle[] = [];
+  vehicleId: string;
   currentUser = JSON.parse(localStorage.getItem('user'));
   tripIdTagCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   tripIdTagCharactersLength = this.tripIdTagCharacters.length;
   tripIdTagMaxLength = 10;
-
-  selectedTypeData = '';
-  selectedBrandData = '';
-  selectedColorData = '';
 
   hereMapStart = '';
   hereMapFinish = '';
@@ -57,6 +56,7 @@ export class CreateTripDialogComponent implements OnInit {
   timeHourValue = 0;
   timeMinutesValue = 0;
   freeSeatsValue = 0;
+  takenSeatsValue = 0;
   priceValue = 0;
   luggageSpaceValue = 0;
 
@@ -203,10 +203,26 @@ export class CreateTripDialogComponent implements OnInit {
     this.vehicleService.getVehicleByUser(this.currentUser.uid).subscribe((data: Vehicle[]) => {
       if (data.length > 0) {
         this.vehicles = data;
+        this.vehicleId = data[0]._id;
       } else {
         this.vehicles = null;
       }
     });
+  }
+
+  // Fetch all vehicles for specific user
+  fetchVehicle(vehicleID) {
+    this.vehicleService.getVehicleById(vehicleID)
+      .pipe(filter(x => !!x))
+      .subscribe((selectedVehicleData) => {
+        if (selectedVehicleData) {
+          console.log(vehicleID);
+          this.vehicle = selectedVehicleData;
+          this.vehicleSeatsAvailableNumber = this.vehicle.vehicleSeats;
+        } else {
+          this.vehicle = null;
+        }
+      });
   }
 
   // Fetch all trips for specific user
@@ -230,34 +246,9 @@ export class CreateTripDialogComponent implements OnInit {
     return this.areThereAnyVehicles;
   }
 
-  // Vehicle type
-  getVehicleTypes(): VehicleTypesSetup[] {
-    return vehicleTypes;
-  }
-
-  selectedVehicleType(event: MatSelectChange) {
-    this.selectedTypeData = event.source.value;
-    console.log(this.selectedTypeData);
-  }
-
-  // Vehicle brand
-  getVehicleBrands(): VehicleBrandsSetup[] {
-    return vehicleBrands;
-  }
-
-  selectedVehicleBrand(event: MatSelectChange) {
-    this.selectedBrandData = event.source.value;
-    console.log(this.selectedBrandData);
-  }
-
-  // Vehicle color
-  getVehicleColors(): VehicleColorsSetup[] {
-    return vehicleColors;
-  }
-
-  selectedVehicleColor(event: MatSelectChange) {
-    this.selectedColorData = event.source.value;
-    console.log(this.selectedColorData);
+  getSelectedVehicleData(event) {
+    this.selectedVehicleId = event.value;
+    this.fetchVehicle(this.selectedVehicleId);
   }
 
   tripStopsOnTheWayToFinalDestinationChange() {
@@ -303,6 +294,7 @@ export class CreateTripDialogComponent implements OnInit {
     tripDate: Date,
     tripTime: string,
     tripFreeSeats: number,
+    tripTakenSeats: number,
     tripPrice: number,
     tripLuggageSpace: number,
     tripMessage: string,
@@ -319,6 +311,7 @@ export class CreateTripDialogComponent implements OnInit {
       tripDate,
       tripTime,
       tripFreeSeats,
+      tripTakenSeats,
       tripPrice,
       tripLuggageSpace,
       tripMessage,

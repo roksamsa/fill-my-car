@@ -98,20 +98,22 @@
 
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
+              <label class="form__label">Izbrano vozilo</label>
+              <mat-form-field [floatLabel]="'never'"  class="form__field">
+                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle (change)="getSelectedVehicleData($event)">
+                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
+                    <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
+                      {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
+                    </div>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="form__input form__input--space-left">
               <label class="form__label">Število prostih mest</label>
               <app-number-picker class="form__time-input" [min]="0" [max]="10" [step]="1" [precision]="1"
                 [inputDisabled]="false" (change)="freeSeatsChanged($event)">
               </app-number-picker>
-            </div>
-
-            <div class="form__input form__input--space-left">
-              <label class="form__label">Cena prevoza</label>
-              <div class="form__price-wrapper">
-                <app-number-picker class="form__time-input" [min]="0" [max]="200" [step]="1" [precision]="1"
-                  [inputDisabled]="false" (change)="priceChanged($event)">
-                </app-number-picker>
-                <div class="form__price-label">EUR</div>
-              </div>
             </div>
           </section>
 
@@ -126,16 +128,13 @@
             </div>
 
             <div class="form__input form__input--space-left">
-              <label class="form__label">Izbrano vozilo</label>
-              <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle>
-                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
-                    <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
-                      {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
-                    </div>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <label class="form__label">Cena prevoza</label>
+              <div class="form__price-wrapper">
+                <app-number-picker class="form__time-input" [min]="0" [max]="200" [step]="1" [precision]="1"
+                  [inputDisabled]="false" (change)="priceChanged($event)">
+                </app-number-picker>
+                <div class="form__price-label">EUR</div>
+              </div>
             </div>
           </section>
         </mat-step>
@@ -288,6 +287,7 @@
           tripDateInput.value,
           timeHourValue + ' : ' + timeMinutesValue,
           freeSeatsValue,
+          takenSeatsValue,
           priceValue,
           luggageSpaceValue,
           tripMessage.value,

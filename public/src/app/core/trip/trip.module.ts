@@ -10,6 +10,7 @@ export interface Trip {
   tripTime: string;
   tripStopsOnTheWayToFinalDestination: boolean;
   tripFreeSeats: number;
+  tripTakenSeats: number;
   tripPrice: number;
   tripLuggageSpace: number;
   tripComfortable: boolean;

@@ -64,9 +64,9 @@ export class HeaderComponent implements OnInit {
     this.headerData.changeUserMenuVisibility(this.clickActiveState);
 
     // If user logs out
-    if (this.authService.userData.uid.length < 0) {
-      this.headerData.changeUserMenuVisibility(false);
-    }
+    (this.authService.userData.uid.length < 0) ?
+    this.headerData.changeUserMenuVisibility(false) :
+    this.headerData.changeUserMenuVisibility(true);
   }
 
   clickOutsideUserMenuVisibility() {
@@ -75,11 +75,9 @@ export class HeaderComponent implements OnInit {
 
   isCreateContentVisible() {
     this.createContentVisibility = !this.createContentVisibility;
-    if (this.createContentVisibility === true) {
-      this.createButtonTooltipText = 'Zapri dodajanje';
-    } else {
-      this.createButtonTooltipText = 'Dodaj novo vozilo ali potovanje';
-    }
+    (this.createContentVisibility === true) ?
+    this.createButtonTooltipText = 'Zapri dodajanje' :
+    this.createButtonTooltipText = 'Dodaj novo vozilo ali potovanje';
   }
 
   // Add vehicle dialog popup

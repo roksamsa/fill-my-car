@@ -293,7 +293,8 @@ export class TripPageComponent implements OnInit {
     );
     this.tripService.updateSeatsOnTrip(
       tripId,
-      updatedTripFreeSeats
+      updatedTripFreeSeats,
+      tripSeatsReservation
     ).subscribe(() => {
       this.stepper.next();
       this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(0);

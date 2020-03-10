@@ -64,6 +64,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   timeHourValue = 0;
   timeMinutesValue = 0;
   freeSeatsValue = 0;
+  takenSeatsValue = 0;
   priceValue = 0;
   luggageSpaceValue = 0;
 
@@ -339,6 +340,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     tripDate: Date,
     tripTime: string,
     tripFreeSeats: number,
+    tripTakenSeats: number,
     tripPrice: number,
     tripLuggageSpace: number,
     tripMessage: string,
@@ -356,6 +358,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       tripDate,
       tripTime,
       tripFreeSeats,
+      tripTakenSeats,
       tripPrice,
       tripLuggageSpace,
       tripMessage,

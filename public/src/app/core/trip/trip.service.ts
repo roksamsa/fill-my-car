@@ -46,6 +46,7 @@ export class TripService {
     tripDate: Date,
     tripTime: string,
     tripFreeSeats: number,
+    tripTakenSeats: number,
     tripPrice: number,
     tripLuggageSpace: number,
     tripMessage: string,
@@ -62,6 +63,7 @@ export class TripService {
       tripDate: tripDate,
       tripTime: tripTime,
       tripFreeSeats: tripFreeSeats,
+      tripTakenSeats: tripTakenSeats,
       tripPrice: tripPrice,
       tripLuggageSpace: tripLuggageSpace,
       tripMessage: tripMessage,
@@ -84,6 +86,7 @@ export class TripService {
     tripDate: Date,
     tripTime: string,
     tripFreeSeats: number,
+    tripTakenSeats: number,
     tripPrice: number,
     tripLuggageSpace: number,
     tripMessage: string,
@@ -101,6 +104,7 @@ export class TripService {
       tripDate: tripDate,
       tripTime: tripTime,
       tripFreeSeats: tripFreeSeats,
+      tripTakenSeats: tripTakenSeats,
       tripPrice: tripPrice,
       tripLuggageSpace: tripLuggageSpace,
       tripMessage: tripMessage,
@@ -114,10 +118,12 @@ export class TripService {
   // Update specific field for trip from database
   updateSeatsOnTrip(
     id: string,
-    tripFreeSeats: number): Observable<Trip[]> {
+    tripFreeSeats: number,
+    tripTakenSeats: number): Observable<Trip[]> {
     const updatedTrip = {
       _id: id,
-      tripFreeSeats: tripFreeSeats
+      tripFreeSeats: tripFreeSeats,
+      tripTakenSeats: tripTakenSeats
     };
     console.log(id);
     console.log(tripFreeSeats);

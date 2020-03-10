@@ -1,19 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import {
+  NgModule,
+  LOCALE_ID } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {
-  DateAdapter,
-  MAT_LABEL_GLOBAL_OPTIONS,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-  MatOptionModule,
-  MatNativeDateModule,
-  NativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -52,9 +46,6 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ContentComponent } from './style/content/content.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserComponent } from './components/user/user.component';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FirebaseAuthService } from './core/auth/auth.service';
 import { UserService } from './core/user/user.service';
@@ -77,7 +68,7 @@ import { HereMapsComponent } from './components/here-maps/here-maps.component';
 import { PreloadingSpinnerComponent } from './components/preloading-spinner/preloading-spinner.component';
 import { NumberPickerComponent } from './components/number-picker/number-picker.component';
 import { InfoBoxComponent } from './components/info-box/info-box.component';
-import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { registerLocaleData, DatePipe } from '@angular/common';
 import localeSl from '@angular/common/locales/sl';
 import { VehicleSeatsComponent } from './components/vehicle-seats/vehicle-seats.component';
@@ -91,9 +82,19 @@ import { LogoComponent } from './style/logo/logo.component';
 import { WebpageMenuComponent } from './webpage/components/webpage-menu/webpage-menu.component';
 import { TileTitleLeftComponent } from './components/tile-title-left/tile-title-left.component';
 import { TileComponent } from './style/tile/tile.component';
-/*import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";*/
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import { AngularFireModule } from '@angular/fire';
+import {
+  AngularFirestoreModule,
+  FirestoreSettingsToken } from '@angular/fire/firestore';
+import {
+  DateAdapter,
+  MAT_LABEL_GLOBAL_OPTIONS,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatOptionModule,
+  MatNativeDateModule,
+  NativeDateModule } from '@angular/material/core';
 
 registerLocaleData(localeSl);
 
