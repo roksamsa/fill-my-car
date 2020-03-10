@@ -3,25 +3,28 @@
     <app-tile class="tile tile--title-top tile--trip tile--trip-details">
       <div class="trip__headline">
         <div class="trip__headline-left">
-          <div *ngIf="authService.isLoggedIn" class="trip__go-back" (click)="goBack()">
+          <div *ngIf="authService.isLoggedIn" class="trip__go-back" (click)="goBack()" matTooltip="Vrni se nazaj" matTooltipPosition="left">
             <svg class="trip__go-back-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" /></svg>
           </div>
           <div class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip?.tripIdTag }}</span></div>
-          <div class="trip__status trip__status--{{ trip?.tripStatus }}">
+          <div class="trip__status" matTooltip="{{statusIconTooltip}}" matTooltipPosition="right" [ngClass]="{'trip__status--active': isTripActive}">
             <div class="trip__status-icon"></div>
           </div>
         </div>
         <div class="trip__actions">
-          <div class="trip__actions-item trip__actions-item--share">
+          <div class="trip__actions-item trip__actions-item--share" matTooltip="Deli potovanje" matTooltipPosition="left">
             <svg class="trip__actions-item-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24">
               <path
                 d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
             </svg>
           </div>
-          <div *ngIf="authService.isLoggedIn" class="trip__actions-item trip__actions-item--edit"
-            (click)="openEditVehicleDialog(trip, tripIndex)">
+          <div *ngIf="authService.isLoggedIn"
+               class="trip__actions-item trip__actions-item--edit"
+               matTooltip="Uredi potovanje"
+               matTooltipPosition="right"
+               (click)="openEditVehicleDialog(trip, tripIndex)">
             <svg class="trip__actions-item-svg" class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24"
               height="24" viewBox="0 0 24 24">
               <path
@@ -42,7 +45,7 @@
             </div>
           </div>
           <div class="trip__date-time">
-            <div class="trip__date">
+            <div class="trip__date" matTooltip="Datum odhoda" matTooltipPosition="above">
               <div class="trip__date-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M0 0h24v24H0z" fill="none" />
@@ -54,7 +57,7 @@
                 {{ trip?.tripDate | date: dateFormat}}
               </div>
             </div>
-            <div class="trip__time">
+            <div class="trip__time" matTooltip="Čas odhoda" matTooltipPosition="above">
               <div class="trip__time-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path
@@ -69,7 +72,7 @@
           </div>
           <div class="trip__graphics">
             <div class="trip__vehicle">
-              <app-vehicle-tile class="vehicle-tile--single single--trip-details"
+              <app-vehicle-tile class="vehicle-tile--single vehicle-tile--single-trip-details"
                                 [vehicleType]="selectedTypeData"
                                 [vehicleColor]="selectedColorData"
                                 [vehicleBrand]="selectedBrandData"
@@ -86,7 +89,7 @@
       <div class="trip__bottom-details">
         <div class="trip__bottom-divider"></div>
 
-        <form [formGroup]="addTripFormStepperForm" class="form">
+        <form [formGroup]="addTripFormStepperForm" class="form" [ngClass]="{'form--without-button': vehicleSeatsAvailableNumber == vehicleSeatsTakenNumber}">
           <mat-horizontal-stepper class="trip-add-passengers__wizard" [ngClass]="{'trip-add-passengers__wizard--last-step': stepper.selectedIndex === 5}" [linear]="true" formArrayName="addTripFormStepperFormArray" #stepper>
 
             <!-- STEP 0 -->

@@ -17,7 +17,7 @@
     <div class="table">
       <div *ngFor="let trip of trips; let tripIndex = index;" class="table__row"
         [class.table__row--selected]="moreActionOpened === tripIndex">
-        <div class="table__column trip__status trip__status--{{trip?.tripStatus | lowercase}}">
+        <div class="table__column trip__status" [ngClass]="{'trip__status--active': currentDate < trip?.tripDate}">
           <div class="trip__status-icon"></div>
         </div>
         <div class="table__column trip__id-tag">
@@ -105,9 +105,9 @@
         <div *ngIf="moreActionOpened !== tripIndex" class="trip__router-link" [routerLink]="['/potovanje/', trip?._id]">
         </div>
 
-        <div *ngIf="moreActionOpened === tripIndex" class="table__column trip__actions">
-          <div @moreActionBackgroundAnimation class="trip__actions-background"></div>
-          <div @moreActionContainerAnimation class="trip__actions-container">
+        <div class="table__column trip__actions">
+          <div *ngIf="moreActionOpened === tripIndex" @moreActionBackgroundAnimation class="trip__actions-background"></div>
+          <div *ngIf="moreActionOpened === tripIndex" @moreActionContainerAnimation class="trip__actions-container">
             <div class="trip__actions-item trip__actions-item--share">
               <svg class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0z" fill="none" />

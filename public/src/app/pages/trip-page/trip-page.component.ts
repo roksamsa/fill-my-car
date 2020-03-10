@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { Location } from '@angular/common';
+import { Location, DatePipe, formatDate } from '@angular/common';
 import { TripService } from '../../core/trip/trip.service';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
@@ -18,7 +18,8 @@ import { VehicleSeatsService } from '../../components/vehicle-seats/vehicle-seat
 @Component({
   selector: 'app-trip-page',
   templateUrl: './trip-page.component.html',
-  styleUrls: ['./trip-page.component.scss']
+  styleUrls: ['./trip-page.component.scss'],
+  providers: [DatePipe]
 })
 
 export class TripPageComponent implements OnInit {
@@ -26,16 +27,24 @@ export class TripPageComponent implements OnInit {
   public trip: Trip;
   public currentUser = JSON.parse(localStorage.getItem('user'));
   public dateFormat = 'EEEE, dd. MMMM yyyy';
+  public dateFormat2 = 'dd. MMMM yyyy';
   public areThereAnyTrips = false;
   public tripFromLocationCity = '';
   public tripToLocationCity = '';
   public hereMapStart = '';
   public hereMapFinish = '';
   public dialogResult: '';
+  public statusIconTooltip: String;
 
   private currentTripId: String;
 
   preloadingSpinnerVisibility = true;
+
+  tripDate: any;
+  tripDateFormatted: any;
+  currentDate = new Date();
+  currentDateFormatted = formatDate(this.currentDate, this.dateFormat2, 'en');
+  isTripActive: boolean;
 
   selectedVehicleId = '';
 
@@ -51,13 +60,6 @@ export class TripPageComponent implements OnInit {
   vehicleSeatsAvailableNumber: number;
   vehicleSeatsStillLeftForCurrentTrip: number;
   vehicleSeatsSelectedNumber: number; // Izbrana številka v inputu!
-
-  iWouldLikeToJointTheTrip1 = true;
-  iWouldLikeToJointTheTrip2 = false;
-  iWouldLikeToJointTheTrip3 = false;
-  iWouldLikeToJointTheTrip4 = false;
-  iWouldLikeToJointTheTrip5 = false;
-  iWouldLikeToJointTheTrip6 = false;
 
   public socialUser: SocialUser;
   public socialUserLoggedIn: boolean;
@@ -141,6 +143,16 @@ export class TripPageComponent implements OnInit {
     this.getSocialUser();
   }
 
+  checkIfTripIsActive () {
+    if (this.currentDateFormatted < this.tripDateFormatted) {
+      this.isTripActive = true;
+      this.statusIconTooltip = 'Potovanje je aktivno';
+    } else {
+      this.isTripActive = false;
+      this.statusIconTooltip = 'Potovanje ni aktivno';
+    }
+  }
+
   // Fetch all trips for specific user
   fetchTrip() {
     this.route.paramMap.subscribe(params => {
@@ -156,8 +168,12 @@ export class TripPageComponent implements OnInit {
           this.hereMapStart = data.tripFromLocation;
           this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = data.selectedVehicle;
+          this.tripDate = data.tripDate;
+          this.tripDateFormatted = formatDate(this.tripDate, this.dateFormat2, 'en');
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
           this.fetchVehicle(this.selectedVehicleId);
+
+          this.checkIfTripIsActive();
 
         } else {
           this.trip = null;

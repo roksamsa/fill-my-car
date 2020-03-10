@@ -10,8 +10,12 @@
   }
 
   &__headline {
-    color: $color__blue--primary;
     margin-top: 0;
+    color: $color__blue--primary;
+  }
+
+  &__headline-trip-id {
+    color: $color__pink--primary;
   }
 
   &__close {

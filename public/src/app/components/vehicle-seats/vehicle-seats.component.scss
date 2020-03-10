@@ -81,7 +81,7 @@
   &__persons {
     display: grid;
     grid-template-columns: repeat(5, max-content);
-    grid-gap: 15px;
+    grid-gap: 0 15px;
     align-items: center;
     position: absolute;
     top: -6px;

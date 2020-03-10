@@ -109,8 +109,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.isAcceptPassengersChecked = selectedTripData.tripNewPassengersAcceptance;
     this.isTripStopsOnTheWayToFinalDestinationChecked = selectedTripData.tripStopsOnTheWayToFinalDestination;
     this.isTripComfortableChecked = selectedTripData.tripComfortable;
-    console.log(selectedTripData);
-
     this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat);
   }
 

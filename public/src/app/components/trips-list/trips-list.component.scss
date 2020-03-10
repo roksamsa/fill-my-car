@@ -84,9 +84,12 @@
       width: 90px;
     }
 
-    &--luggage-space,
-    &--free-seats {
+    &--luggage-space {
       width: 60px;
+    }
+
+    &--free-seats {
+      width: 90px;
     }
 
     &--price {
@@ -132,7 +135,7 @@
 
   &__actions {
     position: absolute;
-    right: 54px;
+    right: 30px;
     height: 88%;
     padding: 0 15px;
   }

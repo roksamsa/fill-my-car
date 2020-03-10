@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import { HereMapsService } from './here-maps.service';
 
 declare var H: any;
@@ -9,7 +9,7 @@ declare var H: any;
   styleUrls: ['./here-maps.component.scss']
 })
 
-export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
+export class HereMapsComponent implements OnInit, AfterViewInit {
   private map: any;
   preloadingSpinnerVisibility = true;
   hereMapUI: any;
@@ -34,6 +34,10 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit() {
+    this.hereMapInitialSetup();
+  }
+
+  hereMapInitialSetup() {
     const defaultLayers = this.hereMap.platform.createDefaultLayers();
     defaultLayers.normal.map.setMin(2);
     this.map = new H.Map(
@@ -50,11 +54,8 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
     const mapEvents = new H.mapevents.MapEvents(this.map);
     const behavior = new H.mapevents.Behavior(mapEvents);
     this.hereMapUI = H.ui.UI.createDefault(this.map, defaultLayers);
-    this.map.setCenter({ lat: 46.119944, lng: 14.815333 }); // Center is GEOSS
+    this.map.setCenter({ lat: 46.119944, lng: 14.815333 }); // Center is GEOSS Slovenije
     this.map.setZoom(7.2);
-  }
-
-  ngOnChanges() {
     this.hereMapsRoute(this.hereMapStart, this.hereMapFinish);
   }
 

@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TripService } from '../../core/trip/trip.service';
 import { Trip } from '../../core/trip/trip.module';
-import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
@@ -11,9 +10,9 @@ import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { filter } from 'rxjs/operators';
 
 export const defaultAnimationFunction = 'ease-in-out';
-export const headerFadeInAnimationTiming = '300ms';
-export const headerFadeOutAnimationTiming = '250ms';
-export const headerAnimationDelay = '175ms';
+export const headerFadeInAnimationTiming = '200ms';
+export const headerFadeOutAnimationTiming = '200ms';
+export const headerAnimationDelay = '100ms';
 
 @Component({
   selector: 'app-trips-list',
@@ -51,7 +50,7 @@ export const headerAnimationDelay = '175ms';
         style({
           transform: 'scaleX(1)'
         }),
-        animate(`${headerFadeOutAnimationTiming} ${defaultAnimationFunction}`, style({
+        animate(`${headerFadeOutAnimationTiming} ${headerAnimationDelay} ${defaultAnimationFunction}`, style({
           transform: 'scaleX(0)'
         }))
       ])
@@ -95,6 +94,9 @@ export class TripsListComponent implements OnInit {
     'tripLuggageSpace',
   ];
 
+  currentDate = new Date();
+  tripStatusString: string;
+
   constructor(
     private popupDialog: MatDialog,
     private vehicleService: VehicleService,
@@ -103,7 +105,6 @@ export class TripsListComponent implements OnInit {
   ngOnInit() {
     this.fetchTrips();
     this.isTripsListEmpty();
-    console.log(this.selectedVehicleId);
   }
 
   moreActionsToggle(tripIndex) {
