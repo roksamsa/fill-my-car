@@ -1,6 +1,7 @@
 @import 'sass/global_variables';
 
 $color--main-background: $color__blue--lighter;
+$color--main-background--dark-theme: #0f0723;
 
 :host,
 .app__wrapper {
@@ -14,6 +15,6 @@ $color--main-background: $color__blue--lighter;
   background-color: $color--main-background;
 
   &.dark-theme {
-    background-color: #1e1e2f;
+    background-color: $color--main-background--dark-theme;
   }
 }

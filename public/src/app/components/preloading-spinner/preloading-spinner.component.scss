@@ -26,8 +26,6 @@ $vehicles-items__width--full-size: 14.2857142857%;
 
   &.preloading-spinner--width-height-as-content {
     display: inline;
-    width: auto;
-    height: auto;
   }
 }
 
@@ -38,6 +36,12 @@ $vehicles-items__width--full-size: 14.2857142857%;
   top: 0;
   right: 0;
   bottom: 0;
+
+  &.dark-theme {
+    .preloading-spinner__wrapper {
+      background-color: rgba(28, 18, 53, 0.5);
+    }
+  }
 
   &__wrapper {
     display: flex;

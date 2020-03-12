@@ -6,7 +6,9 @@ $tile__padding: 20px;
 $tile__padding--trip: 30px;
 $tile__padding--trip-map: 10px;
 $tile__shadow: 0 3px 15px 0 rgba(0, 19, 168, .07);
+$tile__shadow--dark-theme: 0 3px 15px 0 rgba(0, 0, 0, .2);
 $tile__background-color: $color__white--100;
+$tile__background-color--dark-theme: #1c1235;
 $tile__border-radius: 3px;
 
 :host {
@@ -76,6 +78,19 @@ $tile__border-radius: 3px;
   transition: box-shadow 200ms ease-in-out;
 
   &.dark-theme {
-    background-color: #26293b;
+    background-color: $tile__background-color--dark-theme;
+    box-shadow: $tile__shadow--dark-theme;
+
+    .tile__headline {
+      border-color: #262647;
+    }
+
+    .tile__title {
+      color: $color__white--90;
+    }
+
+    .tile__headline-button-icon {
+      fill: $color__white--90;
+    }
   }
 }

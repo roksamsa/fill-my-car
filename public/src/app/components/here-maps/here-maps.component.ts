@@ -51,9 +51,13 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
         center: {
           lat: this.hereMapCenterLAT,
           lng: this.hereMapCenterLNG
-        }
+        },
+        pixelRatio: window.devicePixelRatio || 1
       }
     );
+
+    // Add a resize listener to make sure that the map occupies the whole container
+    window.addEventListener('resize', () => this.map.getViewPort().resize());
 
     const mapEvents = new H.mapevents.MapEvents(this.map);
     const behavior = new H.mapevents.Behavior(mapEvents);

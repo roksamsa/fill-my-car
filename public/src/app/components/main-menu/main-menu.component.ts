@@ -10,9 +10,8 @@ export class MainMenuComponent implements OnInit {
 
   constructor(
     public router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
   }
-
 }

@@ -1,4 +1,5 @@
-<footer class="footer" [ngClass]="{'footer--default': footerStyle === 'default', 'footer--white': footerStyle === 'white'}">
+<footer class="footer"
+        [ngClass]="{'footer--default': footerStyle === 'default', 'footer--white': footerStyle === 'white', 'dark-theme': darkModeActivated}">
   <app-content [withPaddingTop]="false">
     <div class="footer__copyright">
       Avtorske pravice {{currentYear}} &#169; <span class="logo">Napolni<span class="logo--pink">moj</span>avto</span>

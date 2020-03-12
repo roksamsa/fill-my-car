@@ -59,3 +59,13 @@
     text-overflow: ellipsis;
   }
 }
+
+:host-context(.dark-theme) {
+  .table__row {
+    color: $color__white--90;
+
+    &:hover {
+      background-color: rgba(28, 18, 53, 0.5);
+    }
+  }
+}

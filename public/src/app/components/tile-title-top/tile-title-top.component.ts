@@ -14,6 +14,6 @@ export class TileTitleTopComponent implements OnInit {
   constructor(private userMenuDarkThemeData: UserMenuService) { }
 
   ngOnInit() {
-    this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState);
+    this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState)
   }
 }

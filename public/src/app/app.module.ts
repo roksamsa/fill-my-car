@@ -70,7 +70,6 @@ import { NumberPickerComponent } from './components/number-picker/number-picker.
 import { InfoBoxComponent } from './components/info-box/info-box.component';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { registerLocaleData, DatePipe } from '@angular/common';
-import localeSl from '@angular/common/locales/sl';
 import { VehicleSeatsComponent } from './components/vehicle-seats/vehicle-seats.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { WithoutHeaderFooterLayoutComponent } from './layouts/without-header-footer-layout/without-header-footer-layout.component';
@@ -84,6 +83,7 @@ import { TileTitleLeftComponent } from './components/tile-title-left/tile-title-
 import { TileComponent } from './style/tile/tile.component';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { AngularFireModule } from '@angular/fire';
+import localeSl from '@angular/common/locales/sl';
 import {
   AngularFirestoreModule,
   FirestoreSettingsToken } from '@angular/fire/firestore';
@@ -133,7 +133,7 @@ export const MY_FORMATS = {
 
 const config = new AuthServiceConfig([{
   id: FacebookLoginProvider.PROVIDER_ID,
-  provider: new FacebookLoginProvider('541375893390507')
+  provider: new FacebookLoginProvider('1432059290278424')
 }]);
 
 export function provideConfig() {

@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-footer [class.dark-theme]="darkModeActivated"></app-footer>
 <div *ngIf="userMenuVisibility"
       class="user-menu__backdrop"
       @userMenuBackDropAnimation

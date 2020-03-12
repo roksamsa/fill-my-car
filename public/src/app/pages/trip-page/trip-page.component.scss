@@ -313,3 +313,26 @@
 .trip-add-passengers__wizard--last-step {
   width: 100%;
 }
+
+:host-context(.dark-theme) {
+  .trip__bottom-divider {
+    background-image: url(/../../../assets/icons/icon-price-divider-dark-theme.svg);
+  }
+
+  .trip__headline {
+    border-color: #262647;
+  }
+
+  .trip-add-passengers__wizard,
+  .trip__id-tag,
+  .trip__date-time,
+  .trip__destinations {
+    color: $color__white--90;
+  }
+
+  .trip__date-icon-svg,
+  .trip__actions-item-svg,
+  .trip__go-back-icon {
+    fill: $color__white--90;
+  }
+}

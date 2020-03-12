@@ -18,3 +18,17 @@
     font-size: 16px;
   }
 }
+
+:host-context(.dark-theme) {
+  .tile__headline {
+    border-color: #262647;
+  }
+
+  .tile__title {
+    color: $color__white--90;
+  }
+
+  .tile__headline-button-icon {
+    fill: $color__white--90;
+  }
+}

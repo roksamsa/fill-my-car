@@ -301,6 +301,12 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   }
 }
 
+.user-menu__wrapper.dark-theme {
+  .mat-slide-toggle-content {
+    color: $color__white--90;
+  }
+}
+
 .mat-select--vehicle-color .mat-select-value {
   &::before {
     left: 0;

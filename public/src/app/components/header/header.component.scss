@@ -1,7 +1,8 @@
 @import '../../sass/global_variables';
 
 $header__background-color: $color__white--100;
-$header__background-color--dark-theme: #0e0e1c;
+$header__background-color--dark-theme: #1c1235;
+$header__divider-color--dark-theme: #262647;
 $header__shadow-color: rgba(48, 26, 138, .2);
 
 :host {
@@ -13,15 +14,22 @@ $header__shadow-color: rgba(48, 26, 138, .2);
   &.dark-theme {
     .header__background {
       background-color: $header__background-color--dark-theme;
+      box-shadow: 0 0 12px $color__default-shadow--dark-theme;
     }
 
     .header__username,
     .header__logo {
-      color: $color__white--100;
+      color: $color__white--90;
     }
 
     .header__create-button-icon {
-      fill: $color__white--100;
+      fill: $color__white--90;
+    }
+
+    .header__create {
+      &::before {
+        background-color: $header__divider-color--dark-theme;
+      }
     }
   }
 }

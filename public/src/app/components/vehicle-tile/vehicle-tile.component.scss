@@ -126,6 +126,18 @@
   height: 100%;
   padding: 0 25px;
 
+  &.dark-theme {
+    .vehicle-tile__svg,
+    .vehicle-tile__svg-icon {
+      fill: #402a75;
+    }
+
+    .vehicle-tile__vehicle-name,
+    .vehicle-tile__vehicle-brand {
+      color: $color__white--90;
+    }
+  }
+
   &__icon {
     position: relative;
     width: 80px;

@@ -16,6 +16,10 @@
     color: $color__white--100;
   }
 
+  &.dark-theme {
+    color: $color__white--90;
+  }
+
   &__wrapper {
     display: flex;
     flex-direction: row;

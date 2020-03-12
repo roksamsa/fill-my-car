@@ -1,4 +1,4 @@
-<div class="user-menu__wrapper">
+<div class="user-menu__wrapper" [class.dark-theme]="slideToggleChecked">
   <div class="user-menu__background" [@userMenuBackgroundFadeIn]="userMenuVisibility"></div>
   <div class="user-menu__content" [@userMenuContentFadeIn]="userMenuVisibility">
     <div *ngIf="authService.userData as user" (click)="clickUserMenuVisibility()" class="user-menu__profile" routerLink="/uporabnik/{{userName | lowercase}}">

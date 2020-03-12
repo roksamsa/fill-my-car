@@ -1,5 +1,7 @@
 @import '../../sass/global_variables';
 
+$header__background-color--dark-theme: #1c1235;
+
 :host {
   display: block;
   position: absolute;
@@ -16,6 +18,18 @@
     top: 0;
     right: 0;
     padding: 10px 0;
+
+    &.dark-theme {
+      .user-menu__background {
+        background-color: $header__background-color--dark-theme;
+        box-shadow: 0 0 12px $color__default-shadow--dark-theme;
+      }
+
+      .user-menu__profile-text,
+      .user-menu__item {
+        color: $color__white--90;
+      }
+    }
   }
 
   &__background {

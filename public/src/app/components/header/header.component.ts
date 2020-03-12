@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { trigger, query, style, group, animate, transition, state } from '@angular/animations';
+import { trigger, style, animate, transition, state } from '@angular/animations';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { HeaderService } from './header.service';
