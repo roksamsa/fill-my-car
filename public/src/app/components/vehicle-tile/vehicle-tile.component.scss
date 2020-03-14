@@ -1,20 +1,31 @@
 @import '../../sass/global_variables';
 
+$vehicle-tile__hover-background: rgba(207, 216, 232, 0.3);
+$vehicle-tile__hover-background--dark-theme: rgba(15, 7, 35, 0.5);
+
+$vehicle-tile__selected-background: rgba(207, 216, 232, 0.2);
+$vehicle-tile__selected-background--dark-theme: $vehicle-tile__hover-background--dark-theme;
+
+$vehicle-tile__selected-box-shadow: inset 0 0 0 2px $color__blue--default;
+$vehicle-tile__selected-box-shadow--dark-theme: inset 0 0 0 2px #09031b;
+
 :host {
   display: inline-block;
   height: 100%;
   width: 150px;
   border-radius: 5px;
-  transition: background-color 200ms ease-in-out;
   cursor: pointer;
 
-  &:hover {
-    background-color: rgba(207, 216, 232, 0.3);
-  }
-
   &.selected {
-    background-color: rgba(207, 216, 232, 0.2);
-    box-shadow: inset 0 0 0 2px $color__blue--default;
+    .vehicle-tile {
+      background-color: $vehicle-tile__selected-background;
+      box-shadow: $vehicle-tile__selected-box-shadow;
+    }
+
+    .vehicle-tile.dark-theme {
+      background-color: $vehicle-tile__selected-background--dark-theme;
+      box-shadow: $vehicle-tile__selected-box-shadow--dark-theme;
+    }
   }
 
   &.vehicle-tile--full-size {
@@ -125,8 +136,18 @@
   align-items: center;
   height: 100%;
   padding: 0 25px;
+  border-radius: 5px;
+  transition: background-color 200ms ease-in-out;
+
+  &:hover {
+    background-color: $vehicle-tile__hover-background;
+  }
 
   &.dark-theme {
+    &:hover {
+      background-color: $vehicle-tile__hover-background--dark-theme;
+    }
+
     .vehicle-tile__svg,
     .vehicle-tile__svg-icon {
       fill: #402a75;
@@ -146,7 +167,7 @@
     &--truck {
       .vehicle-tile__icon-background {
         height: 69%;
-        clip-path: polygon(0 100%, 0% 0, 53% 0, 53% 100%, 61% 100%, 60% 23%, 80% 23%, 87% 55%, 96% 65%, 96% 100%);
+        clip-path: polygon(0 100%, 3% 0, 53% 8%, 53% 100%, 61% 100%, 60% 23%, 80% 30%, 87% 55%, 96% 65%, 96% 100%);
       }
     }
 
@@ -160,21 +181,21 @@
     &--van {
       .vehicle-tile__icon-background {
         height: 74%;
-        clip-path: polygon(0% 15%, 10% 2%, 64% 0%, 62% 0%, 73% 14%, 86% 54%, 99% 60%, 97% 100%, 90% 100%, 84% 87%, 81% 87%, 77% 100%, 31% 100%, 22% 100%, 16% 87%, 6% 100%, 2% 100%);
+        clip-path: polygon(3% 5%, 10% 4%, 64% 2%, 62% 0%, 73% 14%, 86% 54%, 97% 60%, 97% 100%, 90% 100%, 84% 87%, 81% 87%, 77% 100%, 31% 100%, 22% 100%, 16% 87%, 6% 100%, 2% 100%);
       }
     }
 
     &--car {
       .vehicle-tile__icon-background {
         height: 70%;
-        clip-path: polygon(0% 57%, 23% 0%, 50% 0%, 72% 48%, 100% 66%, 95% 95%, 95% 100%, 83% 73%, 75% 81%, 70% 100%, 32% 100%, 26% 80%, 17% 80%, 8% 96%);
+        clip-path: polygon(1% 60%, 23% 0%, 50% 0%, 72% 48%, 100% 66%, 95% 95%, 95% 100%, 83% 73%, 75% 81%, 70% 100%, 32% 100%, 26% 80%, 17% 80%, 8% 102%);
       }
     }
 
     &--motorbike {
       .vehicle-tile__icon-background {
         height: 73%;
-        clip-path: polygon(25% 60%, 63% 26%, 73% 37%, 70% 60%, 59% 91%, 38% 100%, 35% 81%, 26% 63%);
+        clip-path: polygon(25% 60%, 63% 26%, 73% 37%, 70% 60%, 59% 91%, 38% 100%, 35% 83%, 26% 60%);
       }
     }
 

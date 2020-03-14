@@ -32,8 +32,10 @@
   </div>
 
   <!-- Element with data -->
-  <app-preloading-spinner tile-content *ngIf="areThereAnyVehicles; else emptyVehicleList"
-    class="vehicles__items vehicles__items--full-size" [visibility]="preloadingSpinnerVisibility">
+  <app-preloading-spinner tile-content
+                          *ngIf="areThereAnyVehicles; else emptyVehicleList"
+                          class="vehicles__items vehicles__items--full-size"
+                          [visibility]="preloadingSpinnerVisibility">
     <app-vehicle-tile class="vehicle-tile vehicle-tile--full-size"
                       *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index;"
                       [id]="'vehicleID_' + i"
