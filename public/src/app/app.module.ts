@@ -82,6 +82,7 @@ import { WebpageMenuComponent } from './webpage/components/webpage-menu/webpage-
 import { TileTitleLeftComponent } from './components/tile-title-left/tile-title-left.component';
 import { TileComponent } from './style/tile/tile.component';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import { ConstantsService } from '../../src/app/common/services/constants.service';
 import { AngularFireModule } from '@angular/fire';
 import localeSl from '@angular/common/locales/sl';
 import {
@@ -226,6 +227,7 @@ export function provideConfig() {
     VehicleSeatsService,
     UserService,
     HeaderService,
+    ConstantsService,
     UserMenuService,
     WebpageMenuService,
     VehicleTileService,

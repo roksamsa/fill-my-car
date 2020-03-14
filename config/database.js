@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+const databaseDomain = 'napolnimojavto.si';
 const databasePort = '27017';
 const databaseName = 'fill-my-car';
 
@@ -8,7 +9,7 @@ mongoose.promise = global.Promise;
 mongoose.set('useFindAndModify', false);
 mongoose.set('debug', true);
 
-mongoose.connect(`mongodb://localhost:${databasePort}/${databaseName}`, {
+mongoose.connect(`mongodb://${databaseDomain}:${databasePort}/${databaseName}`, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true

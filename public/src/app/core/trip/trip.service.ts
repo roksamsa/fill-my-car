@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Trip } from './trip.module';
 import { MatDialog } from '@angular/material/dialog';
+import { ConstantsService } from '../../common/services/constants.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class TripService {
-
-  uriBase = 'http://localhost:4000';
+  uriBase = this.constant.baseAppDomainLocal;
   uriTrips = this.uriBase + '/trips/';
   uriTripsForUser = this.uriTrips + 'user/';
   uriTripAdd = this.uriTrips + 'add/';
@@ -18,7 +18,9 @@ export class TripService {
   uriTripUpdateSpecificField = this.uriTrips + 'update-specific-field/';
   uriTripDelete = this.uriTrips + 'delete/';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private constant: ConstantsService) {}
 
   // Get all trips in database
   getAllTrips(): Observable<Trip[]> {

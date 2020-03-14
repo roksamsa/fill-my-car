@@ -6,6 +6,7 @@
   "scripts": {
     "start--server": "babel-watch server.js",
     "start--angular": "cd public & ng serve --ssl --ssl-key c:\\localhost.key  --ssl-cert c:\\localhost.crt --port 4444",
+    "start--local": "concurrently \"babel-watch server.js\" \"cd public & ng serve --ssl --ssl-key c:\\localhost.key  --ssl-cert c:\\localhost.crt --open --port 4444\"",
     "start": "concurrently \"babel-watch server.js\" \"cd public & ng serve --ssl --ssl-key c:\\localhost.key  --ssl-cert c:\\localhost.crt --open --port 4444\"",
     "ts-lint": "ng lint fill-my-car",
     "sass-lint": "sass-lint -v -c .sass-lint.yml",

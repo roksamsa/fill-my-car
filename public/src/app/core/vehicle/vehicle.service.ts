@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vehicle } from './vehicle.module';
+import { ConstantsService } from '../../common/services/constants.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class VehicleService {
-  uriBase = 'http://localhost:4000';
+  uriBase = this.constant.baseAppDomainLocal;
   uriVehicles = this.uriBase + '/vehicles/';
   uriVehiclesForUser = this.uriVehicles + 'user/';
   uriVehicleAdd = this.uriVehicles + 'add/';
@@ -16,7 +17,8 @@ export class VehicleService {
   uriVehicleDelete = this.uriVehicles + 'delete/';
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private constant: ConstantsService) { }
 
   // Get all vehicles in database
   getAllVehicles(): Observable<Vehicle[]> {

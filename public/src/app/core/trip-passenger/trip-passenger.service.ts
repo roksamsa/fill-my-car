@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TripPassenger } from './trip-passenger.module';
+import { ConstantsService } from '../../common/services/constants.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class TripPassengerService {
-
-  uriBase = 'http://localhost:4000';
+  uriBase = this.constant.baseAppDomainLocal;
   uriTripsPassengers = this.uriBase + '/trip-passengers/';
   uriTripsPassengersForUser = this.uriTripsPassengers + 'user/';
   uriTripPassengerAdd = this.uriTripsPassengers + 'add/';
@@ -17,7 +17,8 @@ export class TripPassengerService {
   uriTripDelete = this.uriTripsPassengers + 'delete/';
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private constant: ConstantsService) { }
 
   // Get all trips in database
   getAllTrips(): Observable<TripPassenger[]> {

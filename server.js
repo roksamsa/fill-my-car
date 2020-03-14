@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import session from 'express-session';
-import passport from 'passport';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
@@ -43,10 +42,6 @@ app.use(function(err, req, res, next) {
   console.error(err);
   res.status(500).send();
 });
-
-// Passport.js
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 // Import data
 app.use(require('./routes/index'));
