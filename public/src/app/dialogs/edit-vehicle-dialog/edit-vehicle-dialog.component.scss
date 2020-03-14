@@ -19,21 +19,6 @@
     margin-top: 0;
   }
 
-  &__close {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    transition: background-color 200ms ease-in-out;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $color__blue--lightest;
-    }
-  }
-
   &__close-icon {
     fill: $color__blue--primary;
   }

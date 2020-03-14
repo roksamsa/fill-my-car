@@ -1,10 +1,14 @@
 <div class="popup__header">
   <h2 class="popup__headline">Urejanje potovanja <span class="popup__headline-trip-id">#{{ selectedTripData.tripIdTag }}</span></h2>
-  <div class="popup__close" (click)="onCloseCancel()">
+  <app-button-icon class="popup__close"
+                   [buttonTooltipText]="'Zapri'"
+                   [buttonTooltipPosition]="'left'"
+                   (clicked)="onCloseCancel()">
     <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
       <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-      <path d="M0 0h24v24H0z" fill="none" /></svg>
-  </div>
+      <path d="M0 0h24v24H0z" fill="none" />
+    </svg>
+  </app-button-icon>
 </div>
 
 <div class="popup__content"
