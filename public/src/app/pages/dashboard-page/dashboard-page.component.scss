@@ -109,6 +109,27 @@
   }
 }
 
+:host-context(.dark-theme) {
+  .tile.tile--title-top .tile__headline {
+    border-color: #262647;
+  }
+
+  .tile.tile--title-left .tile__title,
+  .tile__title.tile__title--title-left {
+    color: $color__white--90;
+
+    &::before {
+      background-color: #262647;
+    }
+  }
+
+  .vehicles__actions {
+    &::before {
+      background-color: #262647;
+    }
+  }
+}
+
 @media only screen and (max-width: 890px) {
   .tile__title--vehicles {
     display: none;

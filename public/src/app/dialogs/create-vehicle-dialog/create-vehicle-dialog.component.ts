@@ -74,8 +74,8 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
       vehicleName: '',
       vehicleModelYear: '',
       vehicleColor: this.selectedColorData,
-      vehicleSeats: '',
-      vehicleMaxLuggage: '',
+      vehicleSeats: ['', Validators.required],
+      vehicleMaxLuggage: ['', Validators.required],
       vehicleInsurance: false
     });
   }
@@ -104,7 +104,8 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
   }
 
   selectedVehicleType(event: MatSelectChange) {
-    this.selectedTypeData = event.source.value;
+    this.selectedTypeData = event.value;
+    console.log(event.value);
   }
 
   // Vehicle brand

@@ -63,9 +63,10 @@
 :host-context(.dark-theme) {
   .table__row {
     color: $color__white--90;
+    border-color: #262647;
 
     &:hover {
-      background-color: rgba(28, 18, 53, 0.5);
+      background-color: rgba(20, 12, 40, 1);
     }
   }
 }

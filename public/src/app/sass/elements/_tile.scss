@@ -57,26 +57,6 @@ $tile__border-radius: 3px;
     flex-direction: column;
   }
 
-  &__headline-button {
-    padding: 0;
-    width: 36px;
-    height: 36px;
-    background: none;
-    border: 0 none;
-    border-radius: 50%;
-    cursor: pointer;
-    outline: none;
-    transition: background-color 200ms ease-in-out;
-
-    &:hover {
-      background-color: rgba(207, 216, 232, 0.3);
-
-      .tile__headline-button-icon {
-        fill: $color__pink--primary;
-      }
-    }
-  }
-
   &__headline-button-icon {
     width: 26px;
     height: 26px;
@@ -91,6 +71,11 @@ $tile__border-radius: 3px;
 :host-context(.dark-theme) {
   .tile.tile--title-top .tile__headline {
     border-color: #262647;
+  }
+
+  .tile.tile--title-left .tile__title,
+  .tile__title.tile__title--title-left {
+    color: $color__white--90;
   }
 }
 

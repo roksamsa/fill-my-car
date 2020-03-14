@@ -1,6 +1,10 @@
 @import '../../sass/global_variables';
 
 $header__background-color--dark-theme: #1c1235;
+$header-user-wrapper__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
+
+$header-user-avatar__border: 2px solid $color__default-shadow;
+$header-user-avatar__border--dark-theme: 2px solid rgba(15, 7, 35, 1);
 
 :host {
   display: block;
@@ -28,6 +32,18 @@ $header__background-color--dark-theme: #1c1235;
       .user-menu__profile-text,
       .user-menu__item {
         color: $color__white--90;
+      }
+
+      .user-menu__item--menu {
+        &:hover {
+          background-color: $header-user-wrapper__hover-background--dark-theme;
+        }
+      }
+
+      .user-menu__avatar {
+        &::before {
+          border: $header-user-avatar__border--dark-theme;
+        }
       }
     }
   }
@@ -103,7 +119,7 @@ $header__background-color--dark-theme: #1c1235;
       right: 0;
       top: 0;
       border-radius: 50%;
-      border: 2px solid $color__default-shadow;
+      border: $header-user-avatar__border;
       transition: top 200ms ease-in-out, bottom 200ms ease-in-out, left 200ms ease-in-out, right 200ms ease-in-out, border-color 200ms ease-in-out;
     }
 

@@ -14,16 +14,16 @@
 
         <div class="header__create">
           <div class="header__create-wrapper" [@createContentWrapperAnimation]="createContentVisibility">
-            <button class="header__create-button"
-                    matTooltip="{{createButtonTooltipText}}"
-                    matTooltipPosition="left"
-                    [ngClass]="{'header__create-button--rotated': createContentVisibility}"
-                    (click)="isCreateContentVisible()">
+            <app-button-icon class="header__create-button"
+                             [buttonTooltipText]="createButtonTooltipText"
+                             [buttonTooltipPosition]="'left'"
+                             [ngClass]="{'header__create-button--rotated': createContentVisibility}"
+                             (clicked)="isCreateContentVisible()">
               <svg class="header__create-button-icon"
                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/>
               </svg>
-            </button>
+            </app-button-icon>
             <div class="header__create-content">
               <div class="header__create-content-item" (click)="openAddDialog()">Novo vozilo</div>
               <div class="header__create-content-item" (click)="openAddTripDialog()">Novo potovanje</div>

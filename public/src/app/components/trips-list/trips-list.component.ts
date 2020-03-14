@@ -65,6 +65,7 @@ export class TripsListComponent implements OnInit {
   preloadingSpinnerVisibility = true;
   vehicleSeatsAvailableNumber: number;
   selectedVehicleId = '';
+  createButtonTooltipText = 'Dodaj novo potovanje';
 
   emptyDataType = 'vertical';
   emptyDataText = 'Še nisi delil prevoza z drugimi.';

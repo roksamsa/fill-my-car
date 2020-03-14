@@ -96,6 +96,7 @@ import {
   MatOptionModule,
   MatNativeDateModule,
   NativeDateModule } from '@angular/material/core';
+import { ButtonIconComponent } from './style/button-icon/button-icon.component';
 
 registerLocaleData(localeSl);
 
@@ -184,7 +185,8 @@ export function provideConfig() {
     LogoComponent,
     WebpageMenuComponent,
     TileTitleLeftComponent,
-    TileComponent
+    TileComponent,
+    ButtonIconComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

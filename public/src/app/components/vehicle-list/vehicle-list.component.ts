@@ -21,7 +21,10 @@ export class VehicleListComponent implements OnInit {
   emptyDataIcon = 'vehicle';
   emptyDataButtonText = 'Dodaj novo vozilo';
 
-  @Input() selectedVehicle: any;
+  buttonTooltipTextEdit: string;
+  buttonTooltipTextDelete: string;
+  buttonTooltipTextAdd = 'Dodaj novo vozilo';
+
   selectedVehicleIndex: number;
   isSelectedVehicle: boolean;
   vehicles: Vehicle[] = [];
@@ -40,6 +43,8 @@ export class VehicleListComponent implements OnInit {
     'vehicleID',
     'actions'
   ];
+
+  @Input() selectedVehicle: any;
 
   constructor(
     private vehicleService: VehicleService,
@@ -92,6 +97,9 @@ export class VehicleListComponent implements OnInit {
       this.selectedVehicle = vehicle;
       this.selectedVehicleIndex = index;
       this.isSelectedVehicle = true;
+
+      this.buttonTooltipTextEdit = 'Uredi vozilo ' + this.selectedVehicle.vehicleBrand + ' ' + this.selectedVehicle.vehicleName;
+      this.buttonTooltipTextDelete = 'Odstrani vozilo ' + this.selectedVehicle.vehicleBrand + ' ' + this.selectedVehicle.vehicleName;
     }
   }
 

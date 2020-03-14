@@ -1,11 +1,28 @@
 @import '../../sass/global_variables';
 
+$vehicle-tile__hover-background: rgba(207, 216, 232, 0.3);
+$vehicle-tile__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
+
 :host {
   height: 100%;
 
   &.dark-theme {
     .menu__item {
       color: $color__white--90;
+
+      &:hover {
+        .menu__item-wrapper {
+          background-color: $vehicle-tile__hover-background--dark-theme;
+        }
+      }
+
+      &--active {
+        color: $color__pink--primary;
+
+        &:hover {
+          color: $color__pink--primary;
+        }
+      }
     }
 
     .menu__item-icon-svg {
@@ -39,7 +56,7 @@
       color: $color__blue--darker;
 
       .menu__item-wrapper {
-        background-color: rgba(207, 216, 232, 0.3);
+        background-color: $vehicle-tile__hover-background;
       }
     }
 

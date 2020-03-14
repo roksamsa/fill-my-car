@@ -103,5 +103,14 @@
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button mat-raised-button class="button button--primary"
-    (click)="addVehicle(authService.userData.uid, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeatsValue, vehicleLuggageValue, isVehicleInsuranceChecked)">Dodaj novo vozilo</button>
+    (click)="addVehicle(
+      authService.userData.uid,
+      vehicleType.value,
+      vehicleBrand.value,
+      vehicleName.value,
+      vehicleModelYear.value,
+      vehicleColor.value,
+      vehicleSeatsValue,
+      vehicleLuggageValue,
+      isVehicleInsuranceChecked)">Dodaj novo vozilo</button>
 </mat-dialog-actions>
