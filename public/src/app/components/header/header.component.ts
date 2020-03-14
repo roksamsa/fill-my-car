@@ -38,7 +38,7 @@ export const headerAnimationDelay = '450ms';
 
 export class HeaderComponent implements OnInit {
 
-  clickActiveState  = false;
+  clickActiveState = false;
   dialogResult = '';
   createContentVisibility = false;
   createButtonTooltipText = 'Dodaj novo vozilo ali potovanje';
@@ -60,13 +60,15 @@ export class HeaderComponent implements OnInit {
   }
 
   setUserMenuVisibility() {
-    this.clickActiveState = !this.clickActiveState;
-    this.headerData.changeUserMenuVisibility(this.clickActiveState);
-
     // If user logs out
-    (this.authService.userData.uid.length < 0) ?
-    this.headerData.changeUserMenuVisibility(false) :
-    this.headerData.changeUserMenuVisibility(true);
+    if (this.authService.userData.uid.length < 0) {
+      this.clickActiveState = false;
+      this.headerData.changeUserMenuVisibility(this.clickActiveState);
+    } else {
+      this.clickActiveState = !this.clickActiveState;
+      this.headerData.changeUserMenuVisibility(this.clickActiveState);
+      console.log(this.clickActiveState);
+    }
   }
 
   clickOutsideUserMenuVisibility() {

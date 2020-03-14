@@ -24,7 +24,7 @@ export const defaultAnimationFunction = 'ease-in-out';
           transform: 'scaleY(1)'
         }))
       ]),
-      transition('true => false', [
+      transition(':leave', [
         style({
           opacity: 1,
           transform: 'scaleY(1)'
@@ -44,7 +44,7 @@ export const defaultAnimationFunction = 'ease-in-out';
           opacity: 1
         }))
       ]),
-      transition('true => false', [
+      transition(':leave', [
         style({
           opacity: 1
         }),
