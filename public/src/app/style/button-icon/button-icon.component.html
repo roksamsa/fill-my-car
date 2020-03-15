@@ -1,7 +1,7 @@
 <button class="button button--just-icon"
         matTooltip="{{buttonTooltipText}}"
         matTooltipPosition="{{buttonTooltipPosition}}"
-        [ngClass]="{'button--dark-theme': darkModeActivated}"
+        [ngClass]="{'button--dark-theme': darkModeActivated, 'button--clicked': buttonClicked}"
         (click)="clickFunction()">
   <div class="button__background"></div>
   <div class="button__content">

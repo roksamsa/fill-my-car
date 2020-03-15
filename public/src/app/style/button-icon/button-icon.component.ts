@@ -14,6 +14,7 @@ export class ButtonIconComponent implements OnInit {
   @Input() buttonTooltipText = '';
 
   darkModeActivated: boolean;
+  buttonClicked: boolean;
 
   constructor(private userMenuDarkThemeData: UserMenuService) { }
 
@@ -23,6 +24,12 @@ export class ButtonIconComponent implements OnInit {
 
   clickFunction() {
     this.clicked.emit('clickFunction');
+    this.buttonClicked = true;
+    const that = this;
+
+    setTimeout(function() {
+      that.buttonClicked = false;
+    }, 2500);
   }
 
 }

@@ -85,14 +85,6 @@
     &:last-child {
       margin-bottom: 0;
     }
-
-    &:hover {
-      background-color: $color__blue--lightest;
-
-      .vehicles__button-icon {
-        fill: $color__pink--primary;
-      }
-    }
   }
 
   &__button-icon {
