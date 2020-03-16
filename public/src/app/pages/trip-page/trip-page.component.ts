@@ -41,9 +41,10 @@ export class TripPageComponent implements OnInit {
   preloadingSpinnerVisibility = true;
 
   tripDate: any;
+  tripTime: any;
   tripDateFormatted: any;
   currentDate = new Date();
-  currentDateFormatted = formatDate(this.currentDate, this.dateFormat2, 'en');
+  currentDateFormatted = formatDate(this.currentDate, this.dateFormat, 'sl');
   isTripActive: boolean;
 
   selectedVehicleId = '';
@@ -153,6 +154,8 @@ export class TripPageComponent implements OnInit {
       this.isTripActive = false;
       this.statusIconTooltip = 'Potovanje ni aktivno';
     }
+    console.log(this.currentDateFormatted);
+    console.log(this.tripDateFormatted);
   }
 
   // Fetch all trips for specific user
@@ -171,7 +174,8 @@ export class TripPageComponent implements OnInit {
           this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = data.selectedVehicle;
           this.tripDate = data.tripDate;
-          this.tripDateFormatted = formatDate(this.tripDate, this.dateFormat2, 'en');
+          this.tripTime = data.tripTime;
+          this.tripDateFormatted = formatDate(this.tripDate + this.tripTime, this.dateFormat, 'sl');
 
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
           this.fetchVehicle(this.selectedVehicleId);

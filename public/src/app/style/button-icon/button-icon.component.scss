@@ -23,6 +23,10 @@ $button__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
       transform: scale(1);
       background-color: $button__hover-background;
     }
+
+    .button__content {
+      fill: $color__pink--primary;
+    }
   }
 
   &--clicked {
@@ -36,6 +40,10 @@ $button__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
       .button__background {
         background-color: $button__hover-background--dark-theme;
       }
+    }
+
+    .button__content {
+      fill: $color__white--90;
     }
   }
 
@@ -57,5 +65,6 @@ $button__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
     align-items: center;
     position: relative;
     transition: transform 250ms ease-in-out;
+    fill: $color__blue--primary;
   }
 }

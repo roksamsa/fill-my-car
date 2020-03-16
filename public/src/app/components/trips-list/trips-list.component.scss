@@ -157,6 +157,7 @@
     position: relative;
     width: 100%;
     height: 100%;
+    padding-right: 4px;
   }
 
   &__actions-item {
@@ -164,11 +165,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding: 0 10px;
-  }
-
-  &__svg-icon {
-    fill: $color__blue--primary;
+    padding: 0 2px;
   }
 }
 
@@ -183,11 +180,5 @@
 
   .trip__status-icon {
     border-color: $color__white--90;
-  }
-
-  .trip__arrow-icon,
-  .trip__svg-icon,
-  .tile__headline-button-icon {
-    fill: $color__white--90;
   }
 }

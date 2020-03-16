@@ -86,19 +86,6 @@
       margin-bottom: 0;
     }
   }
-
-  &__button-icon {
-    position: relative;
-    width: 26px;
-    height: 26px;
-    fill: $color__blue--primary;
-
-    &--delete,
-    &--edit {
-      width: 20px;
-      height: 20px;
-    }
-  }
 }
 
 :host-context(.dark-theme) {

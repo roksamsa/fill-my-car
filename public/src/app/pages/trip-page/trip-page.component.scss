@@ -29,7 +29,6 @@
   &__go-back-icon {
     width: 32px;
     height: 32px;
-    fill: $color__blue--primary;
   }
 
   &__status {
@@ -71,14 +70,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
     margin-left: 10px;
-    cursor: pointer;
-  }
-
-  &__actions-item-svg {
-    fill: $color__blue--primary;
   }
 
   &__main-details {
@@ -328,11 +320,5 @@
   .trip__date-time,
   .trip__destinations {
     color: $color__white--90;
-  }
-
-  .trip__date-icon-svg,
-  .trip__actions-item-svg,
-  .trip__go-back-icon {
-    fill: $color__white--90;
   }
 }
