@@ -42,14 +42,16 @@
               </mat-option>
             </mat-autocomplete>
 
-            <div class="form__button form__button--just-icon form__button--space-left-right"
-              (click)="swapStartFinishLocation()">
+            <app-button-icon class="form__button form__button--just-icon form__button--space-left-right"
+                   [buttonTooltipText]="'Zamenjaj lokacije'"
+                   [buttonTooltipPosition]="'below'"
+                   (clicked)="swapStartFinishLocation()">
               <svg class="form__svg-icon form__svg-icon--change-arrows" xmlns="http://www.w3.org/2000/svg" width="24"
                 height="18.667" viewBox="0 0 24 18.667">
                 <path d="M5.333,0,0,5.32H4v9.347H6.667V5.32h4Zm9.333,18.68V9.333H12V18.68H8L13.333,24l5.333-5.32Z"
                   transform="translate(24) rotate(90)" />
               </svg>
-            </div>
+            </app-button-icon>
 
             <div class="form__input">
               <label class="form__label">Prihod v</label>

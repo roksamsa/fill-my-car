@@ -14,6 +14,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { MatStepper } from '@angular/material/stepper';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from "angularx-social-login";
 import { VehicleSeatsService } from '../../components/vehicle-seats/vehicle-seats.service';
+import { ConstantsService } from '../../common/services/constants.service';
 
 @Component({
   selector: 'app-trip-page',
@@ -26,8 +27,7 @@ export class TripPageComponent implements OnInit {
   public vehicle: Vehicle;
   public trip: Trip;
   public currentUser = JSON.parse(localStorage.getItem('user'));
-  public dateFormat = 'EEEE, dd. MMMM yyyy';
-  public dateFormat2 = 'dd. MMMM yyyy';
+  public dateFormat = this.constant.dateFormatWithoutTime;
   public areThereAnyTrips = false;
   public tripFromLocationCity = '';
   public tripToLocationCity = '';
@@ -81,6 +81,7 @@ export class TripPageComponent implements OnInit {
     private tripPassengerService: TripPassengerService,
     private popupDialog: MatDialog,
     private form: FormBuilder,
+    private constant: ConstantsService,
     private location: Location,
     private authSocialService: AuthService,
     public vehicleSeatsData: VehicleSeatsService,
@@ -174,8 +175,7 @@ export class TripPageComponent implements OnInit {
           this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = data.selectedVehicle;
           this.tripDate = data.tripDate;
-          this.tripTime = data.tripTime;
-          this.tripDateFormatted = formatDate(this.tripDate + this.tripTime, this.dateFormat, 'sl');
+          this.tripTime = this.constant.numberZeroPadding(data.tripTime);
 
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
           this.fetchVehicle(this.selectedVehicleId);

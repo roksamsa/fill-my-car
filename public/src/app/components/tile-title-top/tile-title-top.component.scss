@@ -34,3 +34,10 @@
     color: $color__white--90;
   }
 }
+
+:host-context(.trips-list) {
+  .tile__content {
+    max-height: 460px;
+    overflow: auto;
+  }
+}

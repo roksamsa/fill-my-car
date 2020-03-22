@@ -56,7 +56,7 @@
             </div>
           </div>
           <div class="trip__date-time">
-            <div class="trip__date" matTooltip="Datum odhoda" matTooltipPosition="below">
+            <div *ngIf="trip?.tripDate" class="trip__date" matTooltip="Datum odhoda" matTooltipPosition="below">
               <div class="trip__date-icon">
                 <svg class="trip__date-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M0 0h24v24H0z" fill="none" />
@@ -68,7 +68,7 @@
                 {{ trip?.tripDate | date: dateFormat}}
               </div>
             </div>
-            <div class="trip__time" matTooltip="Čas odhoda" matTooltipPosition="below">
+            <div *ngIf="trip?.tripTime" class="trip__time" matTooltip="Čas odhoda" matTooltipPosition="below">
               <div class="trip__time-icon">
                 <svg class="trip__date-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path

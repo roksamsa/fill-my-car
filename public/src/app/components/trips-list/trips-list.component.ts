@@ -121,6 +121,7 @@ export class TripsListComponent implements OnInit {
     this.tripService.deleteTrip(id)
       .subscribe(() => {
         this.fetchTrips();
+        this.moreActionOpened = -1;
       });
   }
 

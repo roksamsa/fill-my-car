@@ -105,14 +105,6 @@
       margin-left: 10px;
       margin-right: 10px;
     }
-
-    &:hover {
-      background-color: $color__blue--lightest;
-
-      .form__svg-icon {
-        fill: $color__pink--primary;
-      }
-    }
   }
 
   &__icon-wrapper {
@@ -123,13 +115,6 @@
     &--icon-label {
       margin-right: 10px;
     }
-  }
-
-  &__svg-icon {
-    width: 24px;
-    height: 24px;
-    fill: $color__blue--primary;
-    transition: fill 250ms ease-in-out;
   }
 
   &__radio-button {
