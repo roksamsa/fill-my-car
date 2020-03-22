@@ -27,7 +27,8 @@ export class TripPageComponent implements OnInit {
   public vehicle: Vehicle;
   public trip: Trip;
   public currentUser = JSON.parse(localStorage.getItem('user'));
-  public dateFormat = this.constant.dateFormatWithoutTime;
+  public dateFormat = this.constant.dateFormat;
+  public dateFormatWithoutTime = this.constant.dateFormatWithoutTime;
   public areThereAnyTrips = false;
   public tripFromLocationCity = '';
   public tripToLocationCity = '';
@@ -41,10 +42,9 @@ export class TripPageComponent implements OnInit {
   preloadingSpinnerVisibility = true;
 
   tripDate: any;
-  tripTime: any;
   tripDateFormatted: any;
-  currentDate = new Date();
-  currentDateFormatted = formatDate(this.currentDate, this.dateFormat, 'sl');
+  currentDate = this.constant.currentDate;
+  tripTime: any;
   isTripActive: boolean;
 
   selectedVehicleId = '';
@@ -147,16 +147,16 @@ export class TripPageComponent implements OnInit {
     this.getSocialUser();
   }
 
-  checkIfTripIsActive () {
-    if (this.currentDateFormatted < this.tripDateFormatted) {
+  checkIfTripIsActive(): void {
+    if (this.currentDate < this.tripDateFormatted) {
       this.isTripActive = true;
       this.statusIconTooltip = 'Potovanje je aktivno';
     } else {
       this.isTripActive = false;
       this.statusIconTooltip = 'Potovanje ni aktivno';
     }
-    console.log(this.currentDateFormatted);
     console.log(this.tripDateFormatted);
+    console.log(this.currentDate);
   }
 
   // Fetch all trips for specific user
@@ -176,6 +176,8 @@ export class TripPageComponent implements OnInit {
           this.selectedVehicleId = data.selectedVehicle;
           this.tripDate = data.tripDate;
           this.tripTime = this.constant.numberZeroPadding(data.tripTime);
+
+          this.tripDateFormatted = new Date(this.tripDate);
 
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
           this.fetchVehicle(this.selectedVehicleId);

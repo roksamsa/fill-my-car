@@ -8,6 +8,7 @@ import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/crea
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { filter } from 'rxjs/operators';
+import { ConstantsService } from '../../common/services/constants.service';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '200ms';
@@ -95,11 +96,18 @@ export class TripsListComponent implements OnInit {
     'tripLuggageSpace',
   ];
 
-  currentDate = new Date();
   tripStatusString: string;
+
+  tripDate: any;
+  tripDateFormatted: any;
+  currentDate = this.constant.currentDate;
+  tripTime: any;
+  isTripActive: boolean;
+  public statusIconTooltip: String;
 
   constructor(
     private popupDialog: MatDialog,
+    private constant: ConstantsService,
     private vehicleService: VehicleService,
     private tripService: TripService) { }
 
@@ -114,6 +122,22 @@ export class TripsListComponent implements OnInit {
     } else {
       this.moreActionOpened = -1;
     }
+  }
+
+  private checkIfTripIsActive(): void {
+    if (this.currentDate < this.tripDateFormatted) {
+      this.isTripActive = true;
+      this.statusIconTooltip = 'Potovanje je aktivno';
+    } else {
+      this.isTripActive = false;
+      this.statusIconTooltip = 'Potovanje ni aktivno';
+    }
+    console.log(this.tripDateFormatted);
+    console.log(this.currentDate);
+  }
+
+  public makeTripDateFormatted(date): Date {
+    return new Date(date);
   }
 
   // Delete specific trip

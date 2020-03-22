@@ -19,9 +19,10 @@
                           [visibility]="preloadingSpinnerVisibility">
 
     <div class="table">
-      <div *ngFor="let trip of trips; let tripIndex = index;" class="table__row"
-        [class.table__row--selected]="moreActionOpened === tripIndex">
-        <div class="table__column trip__status" [ngClass]="{'trip__status--active': currentDate < trip?.tripDate}">
+      <div *ngFor="let trip of trips; let tripIndex = index;"
+           class="table__row"
+           [class.table__row--selected]="moreActionOpened === tripIndex">
+        <div class="table__column trip__status" [ngClass]="{'trip__status--active': makeTripDateFormatted(trip?.tripDate) > currentDate}">
           <div class="trip__status-icon"></div>
         </div>
         <div class="table__column trip__id-tag">
