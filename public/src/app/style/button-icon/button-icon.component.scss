@@ -25,6 +25,7 @@ $button__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
     }
 
     .button__content {
+      transform: scale(0.9);
       fill: $color__pink--primary;
     }
   }
