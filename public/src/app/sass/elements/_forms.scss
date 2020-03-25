@@ -41,6 +41,10 @@
       }
     }
 
+    &--last {
+      margin-bottom: 0;
+    }
+
     &--inputs-with-space {
       .form__input {
         margin-right: 30px;

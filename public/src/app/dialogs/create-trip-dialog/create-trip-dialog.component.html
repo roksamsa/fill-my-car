@@ -92,7 +92,9 @@
                                  [max]="23"
                                  [step]="1"
                                  [precision]="1"
+                                 [isTimeInput]="true"
                                  [inputDisabled]="false"
+                                 [inputPlaceholder]="'00test'"
                                  (change)="timeHourChanged($event)">
               </app-number-picker>
               <div class="form__time-input-dots">
@@ -108,7 +110,9 @@
                                  [max]="55"
                                  [step]="5"
                                  [precision]="1"
+                                 [isTimeInput]="true"
                                  [inputDisabled]="false"
+                                 [inputPlaceholder]="'00'"
                                  (change)="timeMinutesChanged($event)">
               </app-number-picker>
             </div>
@@ -135,7 +139,7 @@
             </div>
           </section>
 
-          <section class="form__row form__row--2-input-fields">
+          <section class="form__row form__row--2-input-fields form__row--last">
             <div class="form__input">
               <label class="form__label">Največja količina prtljage</label>
               <div class="form__price-wrapper">

@@ -65,7 +65,7 @@
                 </svg>
               </div>
               <div class="trip__date-text">
-                {{ trip?.tripDate | date: dateFormat}}
+                {{ trip?.tripDate | date: dateFormatWithoutTime}}
               </div>
             </div>
             <div *ngIf="trip?.tripTime" class="trip__time" matTooltip="Čas odhoda" matTooltipPosition="below">

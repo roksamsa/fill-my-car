@@ -49,9 +49,10 @@ input[type=number]::-webkit-outer-spin-button {
 
   &__input {
     @include font-titillium-semibold;
+    display: flex;
+    flex-grow: 1;
     position: relative;
-    width: 100%;
-    padding: 14px;
+    padding: 14px 0 14px 14px;
     background-color: transparent;
     border: 0 none;
   }

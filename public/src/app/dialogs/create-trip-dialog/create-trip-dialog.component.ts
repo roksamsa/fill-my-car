@@ -311,8 +311,6 @@ export class CreateTripDialogComponent implements OnInit {
         this.constant.numberZeroPadding(this.dateHourValue) + ':' +
         this.constant.numberZeroPadding(this.dateMinutesValue) + ':00';
       this.dateValue = new Date(this.dateInputValue);
-      console.log(this.constant.numberZeroPadding(this.dateHourValue));
-      console.log(this.constant.numberZeroPadding(this.dateMinutesValue));
       // Expected result '1995-12-17T03:24:00'
       return this.dateValue;
     }

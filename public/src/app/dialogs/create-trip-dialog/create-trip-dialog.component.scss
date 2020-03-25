@@ -60,6 +60,15 @@
     align-items: center;
   }
 
+  &__time-input-dots {
+    width: 24px;
+  }
+
+  &__svg-icon {
+    width: 100%;
+    fill: $color__blue--primary;
+  }
+
   &__price-label {
     @include font-titillium-semibold;
     margin-left: 16px;

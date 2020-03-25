@@ -12,7 +12,8 @@ import {
 })
 
 export class AppLongPressDirective {
-  @Input() duration = 500;
+  @Input() appOnLongPressDuration = 1000;
+  @Input() appOnLongPressingDuration = 1000;
 
   @Output() appOnLongPress: EventEmitter<any> = new EventEmitter();
   @Output() appOnLongPressing: EventEmitter<any> = new EventEmitter();
@@ -31,7 +32,7 @@ export class AppLongPressDirective {
   get longPress() { return this.longPressing; }
 
   @HostListener('mousedown', ['$event'])
-  onMouseDown(event) {
+  public onMouseDown(event: any): void {
 
     // don't do right/middle clicks
     if (event.which !== 1) {
@@ -48,13 +49,13 @@ export class AppLongPressDirective {
       this.longPressing = true;
       this.appOnLongPress.emit(event);
       this.loop(event);
-    }, this.duration);
+    }, this.appOnLongPressDuration);
 
     this.loop(event);
   }
 
   @HostListener('mousemove', ['$event'])
-  onMouseMove(event) {
+  public onMouseMove(event: any): void {
     if (this.pressing && !this.longPressing) {
       const xThres = (event.clientX - this.mouseX) > 10;
       const yThres = (event.clientY - this.mouseY) > 10;
@@ -64,16 +65,16 @@ export class AppLongPressDirective {
     }
   }
 
-  loop(event) {
+  public loop(event: any): void {
     if (this.longPressing) {
       this.timeout = setTimeout(() => {
         this.appOnLongPressing.emit(event);
         this.loop(event);
-      }, 50);
+      }, this.appOnLongPressingDuration);
     }
   }
 
-  endPress() {
+  public endPress(): void {
     clearTimeout(this.timeout);
     this.longPressing = false;
     this.pressing = false;

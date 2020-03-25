@@ -13,6 +13,7 @@ import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-da
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
 import { filter } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
+import { ConstantsService } from '../../common/services/constants.service';
 
 @Component({
   selector: 'app-edit-trip-dialog',
@@ -61,17 +62,31 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   isTripComfortableChecked = false;
   isAcceptPassengersChecked = 'auto';
 
-  timeHourValue = 0;
-  timeMinutesValue = 0;
   freeSeatsValue = 0;
   takenSeatsValue = 0;
   priceValue = 0;
   luggageSpaceValue = 0;
 
-  dateFormat = 'EEEE, dd. MMMM yyyy';
-  dateLocale = 'sl-SI';
+  // Date values
+  public readonly dateFormat = this.constant.dateFormat;
+  public readonly dateFormatWithoutTime = this.constant.dateFormatWithoutTime;
+  date: Date;
+  dateDayValue = 0;
+  dateMonthValue = 0;
+  dateYearValue = 2020;
+  dateHourValue = 0;
+  dateMinutesValue = 0;
+  dateHourString = '00';
+  dateMinutesString = '00';
+  dateInputValue: string;
+  dateValue = new Date();
   currentDateString = '';
-  currentDate = new Date();
+
+  tripDate: any;
+  tripDateFormatted: any;
+  currentDate = this.constant.currentDate;
+  tripTime: any;
+  isTripActive: boolean;
 
   @ViewChild('tripFromLocation') tripFromLocation: ElementRef;
   @ViewChild('tripToLocation') tripToLocation: ElementRef;
@@ -84,13 +99,14 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public selectedTripData: any,
-    public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
-    public hereMap: HereMapsService,
     private formBuilder: FormBuilder,
+    private constant: ConstantsService,
     private cdref: ChangeDetectorRef,
     private datePipe: DatePipe,
+    public authService: FirebaseAuthService,
+    public hereMap: HereMapsService,
     public thisDialogRef: MatDialogRef<EditTripDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) {
 
@@ -102,8 +118,9 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
     this.hereMapStartEditValue = selectedTripData.tripFromLocation;
     this.hereMapFinishEditValue = selectedTripData.tripToLocation;
-    this.timeHourValue = selectedTripData.tripTime.split(' : ')[0];
-    this.timeMinutesValue = selectedTripData.tripTime.split(' : ')[1];
+    this.date = selectedTripData.tripDate;
+    this.dateHourValue = selectedTripData.tripTime.split(' : ')[0];
+    this.dateMinutesValue = selectedTripData.tripTime.split(' : ')[1];
     this.freeSeatsValue = selectedTripData.tripFreeSeats;
     this.priceValue = selectedTripData.tripPrice;
     this.luggageSpaceValue = selectedTripData.tripLuggageSpace;
@@ -114,6 +131,14 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log(this.dateMinutesValue);
+    console.log(this.dateHourValue);
+    console.log('test');
+    console.log(this.date);
+    console.log(this.dateMinutesValue);
+    console.log(this.dateHourValue);
+    //console.log(this.selectedTripData.tripDate.getHours());
+    //console.log(this.selectedTripData.tripDate.getMinutes());
     this.fetchVehicles();
     this.isVehicleListEmpty();
 
@@ -129,7 +154,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
           tripFromLocation: [this.selectedTripData.tripFromLocation, Validators.required],
           tripToLocation: [this.selectedTripData.tripToLocation, Validators.required],
           tripDateInput: this.selectedTripData.tripDate,
-          tripTime: ['', Validators.required],
+          tripTime: [this.constant.numberZeroPadding(this.selectedTripData.tripTime), Validators.required],
           tripFreeSeats: ['', Validators.required],
           tripPrice: ['', Validators.required],
           luggageSpaceValue: ''
@@ -249,6 +274,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
           this.vehicle = selectedVehicleData;
           this.vehicleSeatsAvailableNumber = selectedVehicleData.vehicleSeats;
           this.vehicleSeatsStillLeftForCurrentTrip = this.vehicleSeatsAvailableNumber - this.vehicleSeatsTakenNumber;
+
         } else {
           this.vehicle = null;
         }
@@ -303,12 +329,46 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.isAcceptPassengersChecked = event.value;
   }
 
-  timeHourChanged(value: number) {
-    this.timeHourValue = value;
+  // "tripDate": "2020-03-27T10:25:00.000Z",YYYY-MM-DDThh:mm:ssTZD
+
+  // Date setup
+  public getDateFromInput(event: any): void {
+    if (event) {
+      this.dateDayValue = event.getDate();
+      this.dateMonthValue = event.getMonth() + 1; // Because getMonth() starts from 0!
+      this.dateYearValue = event.getFullYear();
+      this.setDate();
+    }
   }
 
-  timeMinutesChanged(value: number) {
-    this.timeMinutesValue = value;
+  public timeHourChanged(value: number): void {
+    this.dateHourValue = value;
+    this.dateHourString = this.constant.numberZeroPadding(value);
+    this.setDate();
+  }
+
+  public timeMinutesChanged(value: number): void {
+    this.dateMinutesValue = value;
+    this.dateMinutesString = this.constant.numberZeroPadding(value);
+    this.setDate();
+  }
+
+  public setFinalDateValue(): void {
+    this.setDate();
+  }
+
+  public setDate(): Date {
+    if (this.dateMonthValue || this.dateDayValue || this.dateYearValue || this.dateHourValue || this.dateMinutesValue) {
+      this.dateInputValue =
+        this.dateYearValue + '-' +
+        this.constant.numberZeroPadding(this.dateMonthValue) + '-' +
+        this.constant.numberZeroPadding(this.dateDayValue) + 'T' +
+        this.constant.numberZeroPadding(this.dateHourValue) + ':' +
+        this.constant.numberZeroPadding(this.dateMinutesValue) + ':00';
+      this.dateValue = new Date(this.dateInputValue);
+      // Expected result '1995-12-17T03:24:00'
+      return this.dateValue;
+    }
   }
 
   freeSeatsChanged(value: number) {

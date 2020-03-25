@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { Location, DatePipe, formatDate } from '@angular/common';
+import { Location, DatePipe } from '@angular/common';
 import { TripService } from '../../core/trip/trip.service';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
