@@ -53,7 +53,6 @@ export class NumberPickerComponent implements OnInit {
     if (this.step == null) {
       this.step = 1;
     }
-
     if (this.inputValueNumber) {
       this.inputStartValue = this.inputValueNumber;
     } else {

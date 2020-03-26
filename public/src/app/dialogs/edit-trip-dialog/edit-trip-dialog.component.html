@@ -76,7 +76,7 @@
             <div class="form__input">
               <label class="form__label">Datum in ura odhoda</label>
               <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <input autocomplete="off" matInput [matDatepicker]="tripDate" placeholder="Datum ..." formControlName="tripDateInput" #tripDateInput (click)="tripDate.open()" (dateInput)="getDateFromInput($event.value._d)">
+                <input autocomplete="off" matInput [matDatepicker]="tripDate" placeholder="Datum ..." formControlName="tripDateInput" #tripDateInput (click)="tripDate.open()" (dateChange)="getDateFromInput($event.value._d)" (dateInput)="getDateFromInput($event.value._d)">
                 <mat-datepicker-toggle matSuffix [for]="tripDate"></mat-datepicker-toggle>
                 <mat-datepicker startAt="{{currentDateString | date: dateFormat}}" weekStartsOn="1" #tripDate></mat-datepicker>
               </mat-form-field>
@@ -92,13 +92,14 @@
                   <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" /></svg>
               </div>
               <app-number-picker class="form__time-input"
+                                 #dateHour
                                  [min]="0"
                                  [max]="23"
                                  [step]="1"
                                  [precision]="1"
                                  [isTimeInput]="true"
                                  [inputDisabled]="false"
-                                 [inputPlaceholder]="00"
+                                 [inputPlaceholder]="'00'"
                                  [inputValueNumber]="dateHourValue"
                                  (change)="timeHourChanged($event)">
               </app-number-picker>
@@ -110,13 +111,14 @@
                 </svg>
               </div>
               <app-number-picker class="form__time-input"
+                                 #dateMinutes
                                  [min]="0"
                                  [max]="55"
                                  [step]="5"
                                  [precision]="1"
                                  [isTimeInput]="true"
                                  [inputDisabled]="false"
-                                 [inputPlaceholder]="00"
+                                 [inputPlaceholder]="'00'"
                                  [inputValueNumber]="dateMinutesValue"
                                  (change)="timeMinutesChanged($event)">
               </app-number-picker>

@@ -92,6 +92,9 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('tripToLocation') tripToLocation: ElementRef;
   @ViewChild('swapLocationButton') swapLocationButton: ElementRef;
   @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('tripDateInput') tripDateInput: ElementRef;
+  @ViewChild('dateHour') dateHour: ElementRef;
+  @ViewChild('dateMinutes') dateMinutes: ElementRef;
 
   get addTripFormStepperFormArray(): AbstractControl | null {
     return this.addTripFormStepperForm.get('addTripFormStepperFormArray');
@@ -174,6 +177,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.hereMapStart = this.hereMapStartEditValue;
     this.hereMapFinish = this.hereMapFinishEditValue;
+    this.checkIfDateInputHasValue();
     this.cdref.detectChanges();
   }
 
@@ -344,17 +348,13 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   public timeHourChanged(value: number): void {
     this.dateHourValue = value;
     this.dateHourString = this.constant.numberZeroPadding(value);
-    this.setDate();
+    this.checkIfDateInputHasValue();
   }
 
   public timeMinutesChanged(value: number): void {
     this.dateMinutesValue = value;
     this.dateMinutesString = this.constant.numberZeroPadding(value);
-    this.setDate();
-  }
-
-  public setFinalDateValue(): void {
-    this.setDate();
+    this.checkIfDateInputHasValue();
   }
 
   public setDate(): Date {
@@ -368,6 +368,19 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       this.dateValue = new Date(this.dateInputValue);
       // Expected result '1995-12-17T03:24:00'
       return this.dateValue;
+    }
+  }
+
+  public checkIfDateInputHasValue() {
+    if (this.tripDateInput.nativeElement.value || this.dateHour.nativeElement.value  || this.dateMinutes.nativeElement.value) {
+      this.dateValue = new Date(this.tripDateInput.nativeElement.value);
+      this.dateHourValue = this.dateValue.getHours();
+      this.dateMinutesValue = this.dateValue.getMinutes();
+      console.log('*********************************');
+      console.log(this.dateHourValue);
+      console.log(this.dateMinutesValue);
+    } else {
+      this.setDate();
     }
   }
 
