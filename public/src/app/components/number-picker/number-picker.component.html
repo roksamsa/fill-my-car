@@ -1,4 +1,4 @@
-<div class="form-number-picker" [class.form-number-picker--active]="isNumberPickerActivated">
+<div class="form-number-picker" #numberPickerElement [class.form-number-picker--active]="isNumberPickerActivated" (focus)="onFocus()">
   <input matInput
          class="form-number-picker__input"
          type="number"

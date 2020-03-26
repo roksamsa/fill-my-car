@@ -139,8 +139,14 @@
 
             <div class="form__input form__input--space-left">
               <label class="form__label">Število prostih mest (največ {{ vehicleSeatsAvailableNumber }})</label>
-              <app-number-picker class="form__time-input" [min]="0" [max]="vehicleSeatsAvailableNumber" [step]="1" [precision]="1"
-                [inputDisabled]="false" [inputValueNumber]="freeSeatsValue" (change)="freeSeatsChanged($event)">
+              <app-number-picker class="form__time-input"
+                                 [min]="0"
+                                 [step]="1"
+                                 [precision]="1"
+                                 [max]="vehicleSeatsAvailableNumber"
+                                 [inputDisabled]="vehicleSeatsAvailableNumber"
+                                 [inputValueNumber]="freeSeatsValue"
+                                 (change)="freeSeatsChanged($event)">
               </app-number-picker>
             </div>
           </section>

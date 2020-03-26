@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ConstantsService } from '../../common/services/constants.service';
 
@@ -20,6 +20,8 @@ export class NumberPickerComponent implements OnInit {
 
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() inputValue = new EventEmitter<number>();
+
+  @ViewChild('numberPickerElement') numberPickerElement: ElementRef;
 
   public numberPicker: FormControl;
   isNumberPickerActivated: boolean;
@@ -54,10 +56,8 @@ export class NumberPickerComponent implements OnInit {
 
     if (this.inputValueNumber) {
       this.inputStartValue = this.inputValueNumber;
-      this.isNumberPickerActivated = true;
     } else {
       this.inputStartValue = this.min;
-      this.isNumberPickerActivated = false;
     }
 
     this.numberPicker = new FormControl({
@@ -135,5 +135,10 @@ export class NumberPickerComponent implements OnInit {
 
   public getValue(): number {
     return this.numberPicker.value;
+  }
+
+  public onFocus(): void {
+    this.isNumberPickerActivated = true;
+    this.numberPickerElement.nativeElement.focus();
   }
 }
