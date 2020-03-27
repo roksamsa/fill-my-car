@@ -110,6 +110,9 @@
             <div *ngIf="tripEditedDate > tripCreationDate" class="trip__location trip__location--end">
               {{ tripEditedDate | date: dateFormat }}
             </div>
+            <div class="trip__location trip__location--end">
+              {{ tripMessage }}
+            </div>
           </div>
         </app-preloading-spinner>
       </div>

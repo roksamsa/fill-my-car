@@ -47,14 +47,20 @@ var tripSchema = new Schema({
   tripMessage: {
     type: String
   },
+  tripNewPassengersAcceptance: {
+    type: String
+  },
   tripComfortable: {
     type: Boolean
   },
   tripStopsOnTheWayToFinalDestination: {
     type: Boolean
   },
-  tripNewPassengersAcceptance: {
-    type: String
+  tripPassengersCanSmoke: {
+    type: Boolean
+  },
+  tripPetsAreAllowed: {
+    type: Boolean
   },
   tripPageVisitsCounter: {
     type: Number
