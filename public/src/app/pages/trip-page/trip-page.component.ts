@@ -28,8 +28,6 @@ export class TripPageComponent implements OnInit {
   public vehicle: Vehicle;
   public trip: Trip;
   public currentUser = JSON.parse(localStorage.getItem('user'));
-  public dateFormat = this.constant.dateFormat;
-  public dateFormatWithoutTime = this.constant.dateFormatWithoutTime;
   public areThereAnyTrips = false;
   public tripFromLocationCity = '';
   public tripToLocationCity = '';
@@ -43,9 +41,12 @@ export class TripPageComponent implements OnInit {
   preloadingSpinnerVisibility = true;
 
   tripDate: any;
+  tripCreationDate: any;
   tripDateFormatted: any;
   currentDate = this.constant.currentDate;
-  tripTime: string | number;
+  public dateFormat = this.constant.dateFormat;
+  public dateFormatWithoutTime = this.constant.dateFormatWithoutTime;
+
   isTripActive: boolean;
 
   selectedVehicleId = '';
@@ -65,7 +66,6 @@ export class TripPageComponent implements OnInit {
 
   public socialUser: SocialUser;
   public socialUserLoggedIn: boolean;
-
   public addTripFormStepperForm: FormGroup;
 
   @ViewChild('stepper') stepper: MatStepper;
@@ -177,9 +177,8 @@ export class TripPageComponent implements OnInit {
           this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = data.selectedVehicle;
           this.tripDate = data.tripDate;
-          this.tripTime = data.tripTime;
-
           this.tripDateFormatted = new Date(this.tripDate);
+          this.tripCreationDate = data.tripCreationDate;
 
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
           this.fetchVehicle(this.selectedVehicleId);
