@@ -105,7 +105,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     private vehicleService: VehicleService,
     private tripService: TripService,
     private formBuilder: FormBuilder,
-    private constant: ConstantsService,
+    public constant: ConstantsService,
     private cdref: ChangeDetectorRef,
     private datePipe: DatePipe,
     public authService: FirebaseAuthService,

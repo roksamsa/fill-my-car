@@ -90,13 +90,13 @@ export class CreateTripDialogComponent implements OnInit {
   }
 
   constructor(
-    public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
     private tripService: TripService,
-    public hereMap: HereMapsService,
-    private constant: ConstantsService,
     private form: FormBuilder,
     private datePipe: DatePipe,
+    public authService: FirebaseAuthService,
+    public hereMap: HereMapsService,
+    public constant: ConstantsService,
     public thisDialogRef: MatDialogRef<CreateTripDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) {
     this.addTripFormStepperForm = this.form.group({
