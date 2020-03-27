@@ -371,7 +371,8 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.setDate();
     console.log(this.dateInputString);
     console.log(this.tripDatePicker);
-    console.log(new Date(this.tripDatePicker.yearSelected).getFullYear());
+    console.log(this.tripDateInput);
+    console.log(this.tripDatePicker.getConnectedOverlayOrigin);
     console.log(new Date(this.tripDatePicker._validSelected._d).getMonth() + 1);
     console.log(new Date(this.tripDatePicker._validSelected._d).getDate());
   }
