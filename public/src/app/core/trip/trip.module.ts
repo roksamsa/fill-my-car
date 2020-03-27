@@ -6,8 +6,10 @@ export interface Trip {
   tripStatus: string;
   tripFromLocation: string;
   tripToLocation: string;
+  tripCreationDate: Date;
   tripDate: Date;
-  tripTime: string;
+  tripTimeHour: string;
+  tripTimeMinutes: string;
   tripStopsOnTheWayToFinalDestination: boolean;
   tripFreeSeats: number;
   tripTakenSeats: number;

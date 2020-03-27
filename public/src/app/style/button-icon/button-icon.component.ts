@@ -23,13 +23,13 @@ export class ButtonIconComponent implements OnInit {
   }
 
   clickFunction() {
+    const that = this;
     this.clicked.emit('clickFunction');
     this.buttonClicked = true;
-    const that = this;
 
     setTimeout(function() {
       that.buttonClicked = false;
-    }, 2500);
+    }, 500);
   }
 
 }

@@ -4,7 +4,7 @@
          type="number"
          min="{{ min }}"
          max="{{ max }}"
-         placeholder="{{inputPlaceholder}}"
+         placeholder="{{ inputPlaceholder }}"
          [formControl]="numberPicker" />
   <div class="form-number-picker__button">
     <button mat-button class="button button--just-icon" appLongPress (appOnLongPressing)="decreaseValue()" (click)="decreaseValue()" [appOnLongPressingDuration]="300">

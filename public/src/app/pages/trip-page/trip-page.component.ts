@@ -15,6 +15,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from "angularx-social-login";
 import { VehicleSeatsService } from '../../components/vehicle-seats/vehicle-seats.service';
 import { ConstantsService } from '../../common/services/constants.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trip-page',
@@ -44,7 +45,7 @@ export class TripPageComponent implements OnInit {
   tripDate: any;
   tripDateFormatted: any;
   currentDate = this.constant.currentDate;
-  tripTime: any;
+  tripTime: string | number;
   isTripActive: boolean;
 
   selectedVehicleId = '';
@@ -76,6 +77,7 @@ export class TripPageComponent implements OnInit {
   constructor(
     public authService: FirebaseAuthService,
     private route: ActivatedRoute,
+    private router: Router,
     private vehicleService: VehicleService,
     private tripService: TripService,
     private tripPassengerService: TripPassengerService,
@@ -175,7 +177,7 @@ export class TripPageComponent implements OnInit {
           this.hereMapFinish = data.tripToLocation;
           this.selectedVehicleId = data.selectedVehicle;
           this.tripDate = data.tripDate;
-          this.tripTime = this.constant.numberZeroPadding(data.tripTime);
+          this.tripTime = data.tripTime;
 
           this.tripDateFormatted = new Date(this.tripDate);
 
@@ -230,6 +232,14 @@ export class TripPageComponent implements OnInit {
       this.dialogResult = result;
       this.fetchTrip();
     });
+  }
+
+  // Delete specific trip
+  deleteTrip(id: any) {
+    this.tripService.deleteTrip(id)
+      .subscribe(() => {
+        this.router.navigate(['/nadzorna-plosca']);
+      });
   }
 
   goBack() {

@@ -82,19 +82,6 @@ export class TripsListComponent implements OnInit {
   moreActionOpened = -1;
   dateFormat = 'dd. MMMM yyyy';
   dateLocale = 'sl-SI';
-  displayedColumns: string[] = [
-    'tripStatus',
-    'tripIdTag',
-    'selectedTrip',
-    'tripFromLocation',
-    'tripToLocation',
-    'tripDate',
-    'tripCategory',
-    'tripDistance',
-    'tripDuration',
-    'tripPrice',
-    'tripLuggageSpace',
-  ];
 
   tripStatusString: string;
 

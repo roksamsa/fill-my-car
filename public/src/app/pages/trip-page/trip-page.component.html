@@ -13,17 +13,26 @@
               <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
             </svg>
           </app-button-icon>
-          <div class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip?.tripIdTag }}</span></div>
-          <div class="trip__status" matTooltip="{{statusIconTooltip}}" matTooltipPosition="right" [ngClass]="{'trip__status--active': isTripActive}">
+          <div *ngIf="trip?.tripIdTag" class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip?.tripIdTag }}</span></div>
+          <div *ngIf="trip?.tripIdTag" class="trip__status" matTooltip="{{ statusIconTooltip }}" matTooltipPosition="right" [ngClass]="{'trip__status--active': isTripActive}">
             <div class="trip__status-icon"></div>
           </div>
         </div>
         <div class="trip__actions">
           <app-button-icon *ngIf="authService.isLoggedIn"
+                           class="trip__actions-item trip__actions-item--delete"
+                           [class.trip__more--selected]="moreActionOpened === tripIndex"
+                           [buttonTooltipText]="'Prekliči in odstrani potovanje'"
+                           [buttonTooltipPosition]="'above'"
+                           (clicked)="deleteTrip(currentTripId)">
+            <svg *ngIf="isTripActive" class="tile__headline-button-icon vehicles__button-icon trip__svg-icon" width="22" height="22" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 57" id="Layer_57"><path d="M18.83,16l8.59-8.59a2,2,0,0,0-2.83-2.83L16,13.17,7.41,4.59A2,2,0,0,0,4.59,7.41L13.17,16,4.59,24.59a2,2,0,1,0,2.83,2.83L16,18.83l8.59,8.59a2,2,0,0,0,2.83-2.83Z"/></g></svg>
+            <svg *ngIf="!isTripActive" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+          </app-button-icon>
+          <app-button-icon *ngIf="authService.isLoggedIn"
                            class="trip__actions-item trip__actions-item--share"
                            [class.trip__more--selected]="moreActionOpened === tripIndex"
                            [buttonTooltipText]="'Deli potovanje'"
-                           [buttonTooltipPosition]="'left'"
+                           [buttonTooltipPosition]="'above'"
                            (clicked)="openEditVehicleDialog(trip, tripIndex)">
             <svg class="trip__actions-item-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24">
@@ -35,7 +44,7 @@
                            class="trip__actions-item trip__actions-item--edit"
                            [class.trip__more--selected]="moreActionOpened === tripIndex"
                            [buttonTooltipText]="'Uredi potovanje'"
-                           [buttonTooltipPosition]="'right'"
+                           [buttonTooltipPosition]="'above'"
                            (clicked)="openEditVehicleDialog(trip, tripIndex)">
             <svg class="trip__actions-item-svg trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path
@@ -68,7 +77,7 @@
                 {{ trip?.tripDate | date: dateFormatWithoutTime}}
               </div>
             </div>
-            <div *ngIf="trip?.tripTime" class="trip__time" matTooltip="Čas odhoda" matTooltipPosition="below">
+            <div *ngIf="trip?.tripTimeHour && trip?.tripTimeMinutes" class="trip__time" matTooltip="Čas odhoda" matTooltipPosition="below">
               <div class="trip__time-icon">
                 <svg class="trip__date-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path
@@ -77,7 +86,7 @@
                   <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" /></svg>
               </div>
               <div class="trip__time-text">
-                {{ trip?.tripTime }}
+                {{ trip?.tripTimeHour + ':' + trip?.tripTimeMinutes}}
               </div>
             </div>
           </div>

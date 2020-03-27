@@ -68,6 +68,7 @@ export class CreateTripDialogComponent implements OnInit {
   dateMinutesString = '00';
   dateInputValue: string;
   dateValue = new Date();
+  currentDate = this.constant.currentDate;
   currentDateString = '';
 
   freeSeatsValue = 0;
@@ -123,7 +124,7 @@ export class CreateTripDialogComponent implements OnInit {
         })
       ])
     });
-    this.currentDateString = this.datePipe.transform(this.constant.currentDate, this.dateFormat, this.dateLocale);
+    this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat, this.dateLocale);
   }
 
   ngOnInit() {
@@ -336,8 +337,10 @@ export class CreateTripDialogComponent implements OnInit {
     tripIdTag: string,
     tripFromLocation: string,
     tripToLocation: string,
+    tripCreationDate: Date,
     tripDate: Date,
-    tripTime: string,
+    tripTimeHour: string,
+    tripTimeMinutes: string,
     tripFreeSeats: number,
     tripTakenSeats: number,
     tripPrice: number,
@@ -354,8 +357,10 @@ export class CreateTripDialogComponent implements OnInit {
       tripIdTag = this.createTripIdTag(),
       tripFromLocation,
       tripToLocation,
+      tripCreationDate,
       tripDate,
-      tripTime,
+      tripTimeHour,
+      tripTimeMinutes,
       tripFreeSeats,
       tripTakenSeats,
       tripPrice,

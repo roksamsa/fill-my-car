@@ -244,6 +244,7 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
       line-height: 1.6;
       background-color: $color__blue--lighter;
       border-radius: 3px;
+      color: $color__blue--primary;
     }
 
     .mat-form-field-label {

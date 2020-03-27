@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div class="table__column trip__additional-data trip__additional-data--time">
+        <div *ngIf="trip?.tripTimeHour && trip?.tripTimeMinutes" class="table__column trip__additional-data trip__additional-data--time">
           <div class="trip__icon trip__icon--time">
             <svg class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path
@@ -66,7 +66,7 @@
           </div>
           <div class="table__column-content">
             <div class="trip__time-text">
-              {{ trip?.tripTime }}
+              {{ trip?.tripTimeHour + ':' + trip?.tripTimeMinutes}}
             </div>
           </div>
         </div>
@@ -140,10 +140,8 @@
                              [buttonTooltipText]="'Izbriši'"
                              [buttonTooltipPosition]="'above'"
                              (clicked)="deleteTrip(trip._id)">
-              <svg class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-              </svg>
+              <svg *ngIf="makeTripDateFormatted(trip?.tripDate) > currentDate" class="trip__svg-icon" width="22" height="22" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 57" id="Layer_57"><path d="M18.83,16l8.59-8.59a2,2,0,0,0-2.83-2.83L16,13.17,7.41,4.59A2,2,0,0,0,4.59,7.41L13.17,16,4.59,24.59a2,2,0,1,0,2.83,2.83L16,18.83l8.59,8.59a2,2,0,0,0,2.83-2.83Z"/></g></svg>
+              <svg *ngIf="!(makeTripDateFormatted(trip?.tripDate) > currentDate)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
             </app-button-icon>
           </div>
         </div>

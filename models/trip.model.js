@@ -20,10 +20,16 @@ var tripSchema = new Schema({
   tripToLocation: {
     type: String
   },
+  tripCreationDate: {
+    type: Date
+  },
   tripDate: {
     type: Date
   },
-  tripTime: {
+  tripTimeHour: {
+    type: String
+  },
+  tripTimeMinutes: {
     type: String
   },
   tripFreeSeats: {

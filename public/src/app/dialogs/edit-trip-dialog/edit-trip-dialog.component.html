@@ -11,8 +11,6 @@
   </app-button-icon>
 </div>
 
-{{ date }}
-
 <div class="popup__content"
      (keyup.arrowLeft)="stepperGoPreviousStep()"
      (keyup.arrowRight)="stepperGoNextStep()">
@@ -74,11 +72,20 @@
 
           <section class="form__row form__row--2-input-fields">
             <div class="form__input">
-              <label class="form__label">Datum in ura odhoda</label>
+              <label class="form__label">Datum in ura odhoda {{dateHourValue + ' ' + dateMinutesValue}}</label>
               <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <input autocomplete="off" matInput [matDatepicker]="tripDate" placeholder="Datum ..." formControlName="tripDateInput" #tripDateInput (click)="tripDate.open()" (dateChange)="getDateFromInput($event.value._d)" (dateInput)="getDateFromInput($event.value._d)">
-                <mat-datepicker-toggle matSuffix [for]="tripDate"></mat-datepicker-toggle>
-                <mat-datepicker startAt="{{currentDateString | date: dateFormat}}" weekStartsOn="1" #tripDate></mat-datepicker>
+                <input autocomplete="off"
+                       matInput
+                       #tripDateInput
+                       placeholder="Datum ..."
+                       formControlName="tripDateInput"
+                       [matDatepicker]="tripDatePicker"
+                       [matDatepickerFilter]="constant.dateFilter"
+                       (click)="tripDatePicker.open()"
+                       (dateChange)="getDateFromDatePickerInput($event.value._d)"
+                       (dateInput)="getDateFromDatePickerInput($event.value._d)">
+                <mat-datepicker-toggle matSuffix [for]="tripDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker startAt="{{currentDateString | date: dateFormat}}" weekStartsOn="1" #tripDatePicker></mat-datepicker>
               </mat-form-field>
             </div>
 
@@ -101,7 +108,7 @@
                                  [inputDisabled]="false"
                                  [inputPlaceholder]="'00'"
                                  [inputValueNumber]="dateHourValue"
-                                 (change)="timeHourChanged($event)">
+                                 (change)="getTimeHour($event)">
               </app-number-picker>
               <div class="form__time-input-dots">
                 <svg class="form__svg-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +127,7 @@
                                  [inputDisabled]="false"
                                  [inputPlaceholder]="'00'"
                                  [inputValueNumber]="dateMinutesValue"
-                                 (change)="timeMinutesChanged($event)">
+                                 (change)="getTimeMinutes($event)">
               </app-number-picker>
             </div>
           </section>
@@ -330,8 +337,10 @@
             selectedTripData.tripIdTag,
             tripFromLocation.value,
             tripToLocation.value,
-            dateValue,
-            dateHourString + ' : ' + dateMinutesString,
+            currentDate,
+            date,
+            dateHourString,
+            dateMinutesString,
             freeSeatsValue,
             takenSeatsValue,
             priceValue,

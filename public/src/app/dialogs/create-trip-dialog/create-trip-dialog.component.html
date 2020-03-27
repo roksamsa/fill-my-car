@@ -72,7 +72,15 @@
             <div class="form__input">
               <label class="form__label">Datum in ura odhoda</label>
               <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <input autocomplete="off" matInput [matDatepicker]="tripDate" placeholder="Datum ..." formControlName="tripDateInput" #tripDateInput (click)="tripDate.open()" (dateInput)="getDateFromInput($event.value._d)">
+                <input autocomplete="off"
+                       matInput
+                       #tripDateInput
+                       placeholder="Datum ..."
+                       formControlName="tripDateInput"
+                       [matDatepicker]="tripDate"
+                       [matDatepickerFilter]="constant.dateFilter"
+                       (click)="tripDate.open()"
+                       (dateInput)="getDateFromInput($event.value._d)">
                 <mat-datepicker-toggle matSuffix [for]="tripDate"></mat-datepicker-toggle>
                 <mat-datepicker startAt="{{currentDateString | date: dateFormat}}" weekStartsOn="1" #tripDate></mat-datepicker>
               </mat-form-field>
@@ -304,8 +312,10 @@
           createTripIdTag(),
           tripFromLocation.value,
           tripToLocation.value,
+          currentDate,
           dateValue,
-          dateHourString + ' : ' + dateMinutesString,
+          dateHourString,
+          dateMinutesString,
           freeSeatsValue,
           vehicleSeatsAvailableNumber,
           priceValue,

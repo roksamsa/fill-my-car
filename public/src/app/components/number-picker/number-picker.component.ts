@@ -12,10 +12,10 @@ export class NumberPickerComponent implements OnInit {
   @Input() max: number;
   @Input() step: number;
   @Input() precision: number;
+  @Input() isTimeInput = false;
   @Input() inputValueNumber: number;
   @Input() inputDisabled: boolean;
   @Input() inputPlaceholder = '';
-  @Input() isTimeInput = false;
   @Input() formControlName: FormGroup;
 
   @Output() change: EventEmitter<any> = new EventEmitter();
@@ -25,7 +25,7 @@ export class NumberPickerComponent implements OnInit {
 
   public numberPicker: FormControl;
   isNumberPickerActivated: boolean;
-  inputStartValue: number;
+  inputStartValue: number | string;
 
   constructor(
     private constant: ConstantsService) { }
@@ -33,6 +33,15 @@ export class NumberPickerComponent implements OnInit {
   ngOnInit() {
     if (this.inputDisabled == null) {
       this.inputDisabled = false;
+    }
+    if (this.max == null) {
+      this.max = 100;
+    }
+    if (this.precision == null) {
+      this.precision = 1;
+    }
+    if (this.step == null) {
+      this.step = 1;
     }
     if (this.min == null) {
       if (this.isTimeInput === true) {
@@ -44,19 +53,18 @@ export class NumberPickerComponent implements OnInit {
         this.inputPlaceholder = '0';
       }
     }
-    if (this.max == null) {
-      this.max = 100;
-    }
-    if (this.precision == null) {
-      this.precision = 1;
-    }
-    if (this.step == null) {
-      this.step = 1;
-    }
     if (this.inputValueNumber) {
-      this.inputStartValue = this.inputValueNumber;
+      if (this.isTimeInput === true) {
+        this.inputStartValue = this.constant.numberZeroPadding(this.inputValueNumber);
+      } else {
+        this.inputStartValue = this.inputValueNumber;
+      }
     } else {
-      this.inputStartValue = this.min;
+      if (this.isTimeInput === true) {
+        this.inputStartValue = this.constant.numberZeroPadding(this.min);
+      } else {
+        this.inputStartValue = this.min;
+      }
     }
 
     this.numberPicker = new FormControl({
