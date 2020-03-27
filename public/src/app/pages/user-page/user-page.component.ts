@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
+import { Title } from '@angular/platform-browser';;
 
 @Component({
   selector: 'app-user-page',
@@ -8,9 +9,12 @@ import { FirebaseAuthService } from '../../core/auth/auth.service';
 })
 export class UserPageComponent implements OnInit {
 
-  constructor(public authService: FirebaseAuthService) { }
+  private currentUser = JSON.parse(localStorage.getItem('user'));
+
+  constructor(public authService: FirebaseAuthService,
+              private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle(this.currentUser.displayName);
   }
-
 }

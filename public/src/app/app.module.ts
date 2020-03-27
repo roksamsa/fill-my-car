@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import {
   NgModule,
   LOCALE_ID } from '@angular/core';
@@ -223,6 +223,7 @@ export function provideConfig() {
     SocialLoginModule
   ],
   providers: [
+    Title,
     DatePipe,
     VehicleService,
     FirebaseAuthService,

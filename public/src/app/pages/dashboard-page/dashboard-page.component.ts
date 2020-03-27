@@ -10,6 +10,7 @@ import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/ed
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 import { HeaderService } from '../../../app/components/header/header.service';
 import { trigger, stagger, query, style, animate, transition, animateChild, group } from '@angular/animations';
+import { Title } from '@angular/platform-browser';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const logoFadeInAnimationTiming = '250ms';
@@ -125,6 +126,7 @@ export class DashboardPageComponent implements OnInit {
     private vehicleService: VehicleService,
     private tripService: TripService,
     public popupDialog: MatDialog,
+    private titleService: Title,
     private headerData: HeaderService,
     private vehicleTileData: VehicleTileService) { }
 
@@ -133,6 +135,7 @@ export class DashboardPageComponent implements OnInit {
     this.isVehicleListEmpty();
     this.vehicleTileData.currentVehicleSelectState.subscribe(clickActiveState => this.isSelectedVehicle = clickActiveState);
     this.headerData.changeHeaderVisibility(true);
+    this.titleService.setTitle('Nadzorna plošča');
   }
 
   preloadingSpinnerShow() {

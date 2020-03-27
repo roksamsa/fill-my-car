@@ -76,6 +76,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   currentDate = this.constant.currentDate;
   currentDateString = '';
   date: Date;
+  createdDate: Date;
   dateDayValue: number;
   dateMonthValue: number;
   dateYearValue: number;
@@ -120,6 +121,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     }
 
     this.date = new Date(selectedTripData.tripDate);
+    this.createdDate = new Date(selectedTripData.tripCreationDate);
     this.dateHourValue = this.date.getHours();
     this.dateMinutesValue = this.date.getMinutes();
 
@@ -410,6 +412,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     tripFromLocation: string,
     tripToLocation: string,
     tripCreationDate: Date,
+    tripEditedDate: Date,
     tripDate: Date,
     tripTimeHour: string,
     tripTimeMinutes: string,
@@ -430,6 +433,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       tripFromLocation,
       tripToLocation,
       tripCreationDate,
+      tripEditedDate,
       tripDate,
       tripTimeHour,
       tripTimeMinutes,

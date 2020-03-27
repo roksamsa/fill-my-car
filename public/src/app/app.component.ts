@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { UserMenuService } from '../app/components/user-menu/user-menu.service';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+
+declare let gtag;
 
 @Component({
   selector: 'app-root',
@@ -31,6 +33,13 @@ export class AppComponent implements OnInit {
             this.renderer.addClass(this.appWrapper.nativeElement, currentUrlSlug);
           }
           this.previousUrl = currentUrlSlug;
+        }
+
+        if (event instanceof NavigationEnd) {
+          gtag('config', 'G-JVRCTRMGHK', {
+            page_path: event.urlAfterRedirects
+          });
+
         }
       });
   }

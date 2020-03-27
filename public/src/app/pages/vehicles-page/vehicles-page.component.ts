@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -8,13 +9,18 @@ import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialo
   styleUrls: ['./vehicles-page.component.scss']
 })
 
-export class VehiclesPageComponent {
+export class VehiclesPageComponent implements OnInit {
 
   dialogResult = '';
   tileTitle = 'Moja vozila';
   tileHeadlineAddButtonTooltipText = 'Dodaj novo vozilo';
 
-  constructor(private popupVehicle: MatDialog) { }
+  constructor(private popupVehicle: MatDialog,
+              private titleService: Title) {}
+
+    ngOnInit() {
+      this.titleService.setTitle(this.tileTitle);
+    }
 
   // Add dialog popup
   openAddDialog() {

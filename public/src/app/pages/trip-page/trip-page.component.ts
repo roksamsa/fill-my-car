@@ -16,6 +16,7 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } f
 import { VehicleSeatsService } from '../../components/vehicle-seats/vehicle-seats.service';
 import { ConstantsService } from '../../common/services/constants.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-trip-page',
@@ -31,17 +32,22 @@ export class TripPageComponent implements OnInit {
   public areThereAnyTrips = false;
   public tripFromLocationCity = '';
   public tripToLocationCity = '';
+  public tripComfortable: boolean;
+  public tripStopsOnTheWayToFinalDestination: boolean;
+  public tripMessage: string;
   public hereMapStart = '';
   public hereMapFinish = '';
   public dialogResult: '';
-  public statusIconTooltip: String;
+  public statusIconTooltip: string;
 
-  private currentTripId: String;
+  private currentTripId: string;
+  private tripIdTag: string;
 
   preloadingSpinnerVisibility = true;
 
   tripDate: any;
   tripCreationDate: any;
+  tripEditedDate: any;
   tripDateFormatted: any;
   currentDate = this.constant.currentDate;
   public dateFormat = this.constant.dateFormat;
@@ -82,6 +88,7 @@ export class TripPageComponent implements OnInit {
     private tripService: TripService,
     private tripPassengerService: TripPassengerService,
     private popupDialog: MatDialog,
+    private titleService: Title,
     private form: FormBuilder,
     private constant: ConstantsService,
     private location: Location,
@@ -157,8 +164,6 @@ export class TripPageComponent implements OnInit {
       this.isTripActive = false;
       this.statusIconTooltip = 'Potovanje ni aktivno';
     }
-    console.log(this.tripDateFormatted);
-    console.log(this.currentDate);
   }
 
   // Fetch all trips for specific user
@@ -170,6 +175,7 @@ export class TripPageComponent implements OnInit {
 
         if (data !== null && data !== undefined) {
           this.trip = data;
+          this.tripIdTag = data.tripIdTag;
           this.areThereAnyTrips = true;
           this.tripFromLocationCity = data.tripFromLocation.split(', ')[0];
           this.tripToLocationCity = data.tripToLocation.split(', ')[0];
@@ -179,10 +185,15 @@ export class TripPageComponent implements OnInit {
           this.tripDate = data.tripDate;
           this.tripDateFormatted = new Date(this.tripDate);
           this.tripCreationDate = data.tripCreationDate;
+          this.tripEditedDate = data.tripEditedDate;
+          this.tripComfortable = data.tripComfortable;
+          this.tripStopsOnTheWayToFinalDestination = data.tripStopsOnTheWayToFinalDestination;
+          this.tripMessage = data.tripMessage;
 
-          this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
-          this.fetchVehicle(this.selectedVehicleId);
           this.checkIfTripIsActive();
+          this.fetchVehicle(this.selectedVehicleId);
+          this.titleService.setTitle('Potovanje #' + this.tripIdTag + ': ' + this.tripFromLocationCity + ' - ' + this.tripToLocationCity);
+          this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
 
         } else {
           this.trip = null;

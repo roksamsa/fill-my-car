@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 import { TripService } from '../../core/trip/trip.service';
 import { Trip } from '../../core/trip/trip.module';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-trips-page',
@@ -19,10 +20,12 @@ export class TripsPageComponent implements OnInit {
   areThereAnyTrips = false;
 
   constructor(public popupTrip: MatDialog,
+              private titleService: Title,
               private tripService: TripService) { }
 
   ngOnInit() {
     this.fetchTrips();
+    this.titleService.setTitle(this.tileTitle);
   }
 
   // Fetch all trips for specific user

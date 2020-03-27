@@ -103,8 +103,13 @@
               <app-vehicle-seats></app-vehicle-seats>
             </div>
           </div>
-          <div class="trip__location trip__location--end">
-            {{ tripCreationDate | date: dateFormat }}
+          <div class="trip__graphics">
+            <div class="trip__location trip__location--end">
+              {{ tripCreationDate | date: dateFormat }}
+            </div>
+            <div *ngIf="tripEditedDate > tripCreationDate" class="trip__location trip__location--end">
+              {{ tripEditedDate | date: dateFormat }}
+            </div>
           </div>
         </app-preloading-spinner>
       </div>

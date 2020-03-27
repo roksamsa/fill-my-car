@@ -23,6 +23,9 @@ var tripSchema = new Schema({
   tripCreationDate: {
     type: Date
   },
+  tripEditedDate: {
+    type: Date
+  },
   tripDate: {
     type: Date
   },
@@ -52,6 +55,9 @@ var tripSchema = new Schema({
   },
   tripNewPassengersAcceptance: {
     type: String
+  },
+  tripPageVisitsCounter: {
+    type: Number
   }
 });
 
