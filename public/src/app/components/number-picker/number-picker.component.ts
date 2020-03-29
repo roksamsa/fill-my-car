@@ -80,28 +80,35 @@ export class NumberPickerComponent implements OnInit {
   public increaseValue(): void {
     let currentValue = this.getValue();
 
-    if (this.isTimeInput === true) {
-      if (+currentValue < this.max) {
-        currentValue = +currentValue + this.step;
-        if (this.precision != null) {
-          currentValue = this.round(+currentValue, this.precision);
+    console.log(currentValue);
+    console.log(this.inputDisabled );
+
+    if (this.inputDisabled === false) {
+      if (this.isTimeInput === true) {
+        if (+currentValue < this.max) {
+          currentValue = +currentValue + this.step;
+          if (this.precision != null) {
+            currentValue = this.round(+currentValue, this.precision);
+          }
+          +currentValue < 10 ?
+            this.numberPicker.setValue(this.constant.numberZeroPadding(+currentValue)) :
+            this.numberPicker.setValue(+currentValue);
+        } else if (+currentValue === this.max) {
+          this.numberPicker.setValue(this.constant.numberZeroPadding(+this.min));
         }
-        +currentValue < 10 ?
-          this.numberPicker.setValue(this.constant.numberZeroPadding(+currentValue)) :
-          this.numberPicker.setValue(+currentValue);
-      } else if (+currentValue === this.max) {
-        this.numberPicker.setValue(this.constant.numberZeroPadding(+this.min));
+      } else {
+        if (+currentValue < this.max) {
+          currentValue = +currentValue + this.step;
+          if (this.precision != null) {
+            currentValue = this.round(+currentValue, this.precision);
+          }
+          this.numberPicker.setValue(currentValue);
+        } else if (currentValue === this.max) {
+          this.numberPicker.setValue(this.min);
+        }
       }
     } else {
-      if (+currentValue < this.max) {
-        currentValue = +currentValue + this.step;
-        if (this.precision != null) {
-          currentValue = this.round(+currentValue, this.precision);
-        }
-        this.numberPicker.setValue(currentValue);
-      } else if (currentValue === this.max) {
-        this.numberPicker.setValue(this.min);
-      }
+      currentValue = this.getValue();
     }
     this.isNumberPickerActivated = true;
   }
@@ -109,28 +116,35 @@ export class NumberPickerComponent implements OnInit {
   public decreaseValue(): void {
     let currentValue = this.getValue();
 
-    if (this.isTimeInput === true) {
-      if (+currentValue > this.min) {
-        currentValue = +currentValue - this.step;
-        if (this.precision != null) {
-          currentValue = this.round(+currentValue, this.precision);
+    console.log(currentValue);
+    console.log(this.inputDisabled );
+
+    if (this.inputDisabled === false) {
+      if (this.isTimeInput === true) {
+        if (+currentValue > this.min) {
+          currentValue = +currentValue - this.step;
+          if (this.precision != null) {
+            currentValue = this.round(+currentValue, this.precision);
+          }
+          +currentValue < 10 ?
+            this.numberPicker.setValue(this.constant.numberZeroPadding(+currentValue)) :
+            this.numberPicker.setValue(+currentValue);
+        } else if (+currentValue === this.min) {
+          this.numberPicker.setValue(this.constant.numberZeroPadding(+this.max));
         }
-        +currentValue < 10 ?
-          this.numberPicker.setValue(this.constant.numberZeroPadding(+currentValue)) :
-          this.numberPicker.setValue(+currentValue);
-      } else if (+currentValue === this.min) {
-        this.numberPicker.setValue(this.constant.numberZeroPadding(+this.max));
+      } else {
+        if (currentValue > this.min) {
+          currentValue = currentValue - this.step;
+          if (this.precision != null) {
+            currentValue = this.round(currentValue, this.precision);
+          }
+          this.numberPicker.setValue(currentValue);
+        } else if (currentValue === this.min) {
+          this.numberPicker.setValue(this.max);
+        }
       }
     } else {
-      if (currentValue > this.min) {
-        currentValue = currentValue - this.step;
-        if (this.precision != null) {
-          currentValue = this.round(currentValue, this.precision);
-        }
-        this.numberPicker.setValue(currentValue);
-      } else if (currentValue === this.min) {
-        this.numberPicker.setValue(this.max);
-      }
+      currentValue = this.getValue();
     }
     this.isNumberPickerActivated = true;
   }

@@ -35,6 +35,12 @@ var tripSchema = new Schema({
   tripTimeMinutes: {
     type: String
   },
+  tripAvailableSeats: {
+    type: Number
+  },
+  tripTakenSeats: {
+    type: Number
+  },
   tripFreeSeats: {
     type: Number
   },
@@ -62,9 +68,12 @@ var tripSchema = new Schema({
   tripPetsAreAllowed: {
     type: Boolean
   },
-  tripPageVisitsCounter: {
-    type: Number
+  tripQuiet: {
+    type: Boolean
   }
+  /*tripPageVisitsCounter: {
+    type: Number
+  }*/
 });
 
 module.exports = mongoose.model('trips', tripSchema);

@@ -21,14 +21,14 @@ export class VehicleSeatsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.vehicleSeatsData.vehicleSeatsTakenNumberData.subscribe((takenNumber) => {
-      this.vehicleSeatsTakenNumber = takenNumber;
-      this.vehicleSeatsTakenNumberValue = this.generateArrayFromVehicleSeatsNumber(takenNumber);
-    });
-
     this.vehicleSeatsData.vehicleSeatsAvailableOnVehicleNumberData.subscribe((availableNumber) => {
       this.vehicleSeatsAvailableOnVehicleNumber = availableNumber;
-      this.vehicleSeatsAvailableOnVehicleNumberValue = this.generateArrayFromVehicleSeatsNumber(availableNumber);
+      this.vehicleSeatsAvailableOnVehicleNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsAvailableOnVehicleNumber);
+    });
+
+    this.vehicleSeatsData.vehicleSeatsTakenNumberData.subscribe((takenNumber) => {
+      this.vehicleSeatsTakenNumber = takenNumber;
+      this.vehicleSeatsTakenNumberValue = this.generateArrayFromVehicleSeatsNumber(this.vehicleSeatsTakenNumber);
     });
 
     this.vehicleSeatsData.vehicleSeatsSelectedFromInputValueData.subscribe((selectedFromInput) => {

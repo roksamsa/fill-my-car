@@ -124,7 +124,7 @@
                                  [step]="5"
                                  [precision]="1"
                                  [isTimeInput]="true"
-                                 [inputDisabled]="false"
+                                 [inputDisabled]="isSeatValueInputDisabled"
                                  [inputPlaceholder]="'00'"
                                  [inputValueNumber]="dateMinutesValue"
                                  (change)="getTimeMinutes($event)">
@@ -147,30 +147,30 @@
             </div>
 
             <div class="form__input form__input--space-left">
-              <label class="form__label">Število prostih mest (največ {{ vehicleSeatsAvailableNumber }})</label>
+              <label class="form__label">Število prostih mest <span *ngIf="vehicleSeatsAvailableValue">(največ {{vehicleSeatsAvailableValue}})</span></label>
               <app-number-picker class="form__time-input"
                                  [min]="0"
                                  [step]="1"
                                  [precision]="1"
-                                 [max]="vehicleSeatsAvailableNumber"
-                                 [inputDisabled]="vehicleSeatsAvailableNumber"
-                                 [inputValueNumber]="freeSeatsValue"
+                                 [max]="vehicleSeatsAvailableValue"
+                                 [inputDisabled]="isSeatValueInputDisabled"
+                                 [inputValueNumber]="seatsAvailableValue"
                                  (change)="freeSeatsChanged($event)">
               </app-number-picker>
             </div>
           </section>
 
-          <section class="form__row form__row--2-input-fields form__row--last">
-            <div class="form__input">
+          <section class="form__row form__row--2-input-fields form__row--last form__row--half-size">
+            <!--<div class="form__input">
               <label class="form__label">Največja količina prtljage</label>
               <div class="form__price-wrapper">
                 <app-number-picker class="form__time-input" [min]="0" [max]="10" [step]="1" [precision]="1"
                   [inputDisabled]="false" [inputValueNumber]="luggageSpaceValue" (change)="luggageSpace($event)">
                 </app-number-picker>
               </div>
-            </div>
+            </div>-->
 
-            <div class="form__input form__input--space-left">
+            <div class="form__input">
               <label class="form__label">Cena prevoza</label>
               <div class="form__price-wrapper">
                 <app-number-picker class="form__time-input" [min]="0" [max]="200" [step]="1" [precision]="1"
@@ -186,7 +186,7 @@
         <mat-step formGroupName="1" [stepControl]="addTripFormStepperFormArray?.get([1])">
           <ng-template matStepLabel>Podrobnosti</ng-template>
 
-          <section class="form__row">
+          <section class="form__row form__row--message">
             <div class="form__text-area">
               <label class="form__label">Opombe</label>
               <mat-form-field [floatLabel]="'never'"  class="form__text-area-field">
@@ -195,7 +195,7 @@
             </div>
           </section>
 
-          <section class="form__row">
+          <section class="form__row form__row--checkbox">
             <div class="form__input">
               <mat-checkbox class="example-margin" formControlName="tripStopsOnTheWayToFinalDestination" (change)="tripStopsOnTheWayToFinalDestinationChange()">
                 Ustavljam v krajih na poti do cilja po dogovoru z iskalci prevoza.
@@ -203,10 +203,40 @@
             </div>
           </section>
 
-          <section class="form__row">
+          <section class="form__row form__row--checkbox">
             <div class="form__input">
               <mat-checkbox class="example-margin" formControlName="tripComfortable" (change)="tripComfortableChange()">
                 Zagotavljam udoben prevoz (največ 2 osebi na zadnjih sedežih).
+              </mat-checkbox>
+            </div>
+          </section>
+
+          <section class="form__row form__row--checkbox">
+            <div class="form__input">
+              <mat-checkbox class="example-margin"
+                            formControlName="tripPetsAreAllowed"
+                            (change)="tripPetsAreAllowedChange()">
+              Dovolim prevoz hišnih ljubljenčkov.
+              </mat-checkbox>
+            </div>
+          </section>
+
+          <section class="form__row form__row--checkbox">
+            <div class="form__input">
+              <mat-checkbox class="example-margin"
+                            formControlName="tripPassengersCanSmoke"
+                            (change)="tripPassengersCanSmokeChange()">
+              Dovolim kajenje v avtomobilu.
+              </mat-checkbox>
+            </div>
+          </section>
+
+          <section class="form__row form__row--checkbox">
+            <div class="form__input">
+              <mat-checkbox class="example-margin"
+                            formControlName="tripQuiet"
+                            (change)="tripQuietChange()">
+              Rad imam tišino med vožnjo.
               </mat-checkbox>
             </div>
           </section>
@@ -342,12 +372,14 @@
             date,
             dateHourString,
             dateMinutesString,
-            freeSeatsValue,
-            takenSeatsValue,
+            seatsAvailableValue,
             priceValue,
             luggageSpaceValue,
             tripMessage.value,
+            isAcceptPassengersChecked,
             isTripComfortableChecked,
             isTripStopsOnTheWayToFinalDestinationChecked,
-            isAcceptPassengersChecked)">Shrani popravke potovanja</button>
+            isTripPassengersCanSmokeChecked,
+            isTripPetsAreAllowedChecked,
+            isTripQuietChecked)">Shrani popravke potovanja</button>
 </mat-dialog-actions>

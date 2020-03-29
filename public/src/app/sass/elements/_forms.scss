@@ -54,6 +54,18 @@
         }
       }
     }
+
+    &--checkbox {
+      margin-bottom: 20px;
+    }
+
+    &--half-size {
+      width: 50%;
+    }
+
+    &--message {
+      margin-bottom: 30px;
+    }
   }
 
   &__label {

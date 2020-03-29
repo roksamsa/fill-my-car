@@ -71,7 +71,7 @@
           </div>
         </div>
 
-        <div class="table__column trip__additional-data trip__additional-data--luggage-space">
+        <!--<div class="table__column trip__additional-data trip__additional-data--luggage-space">
           <div class="trip__icon trip__icon--luggage">
             <svg class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0z" fill="none" />
@@ -84,7 +84,7 @@
               {{ trip?.tripLuggageSpace }}
             </div>
           </div>
-        </div>
+        </div>-->
 
         <div class="table__column trip__additional-data trip__additional-data--free-seats">
           <div class="trip__icon trip__icon--free-seats">
@@ -96,7 +96,7 @@
           </div>
           <div class="table__column-content">
             <div class="trip__time-text">
-              {{ trip?.tripFreeSeats }} / {{ vehicle?.vehicleSeats }}
+              {{ trip?.tripTakenSeats }} / {{ vehicle?.vehicleSeats }}
             </div>
           </div>
         </div>

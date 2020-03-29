@@ -23,7 +23,7 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 20px;
-    border-bottom: 1px solid $color__blue--light-2;
+    border-bottom: 2px solid $color__blue--light-2;
   }
 
   &__headline-left {
@@ -164,9 +164,10 @@
 
   &__date-time {
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 30px;
-    font-size: 24px;
+    margin-top: 40px;
+    font-size: 26px;
   }
 
   &__date,
@@ -187,6 +188,40 @@
     margin-right: 10px;
   }
 
+  &__quick-infos {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 40px 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 15%;
+      right: 15%;
+      top: 0;
+      height: 2px;
+      background-color: $color__blue--light-2;
+    }
+  }
+
+  &__quick-infos-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40px;
+    outline: none;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &__info-icon-svg {
+    fill: $color__blue--primary;
+    outline: none;
+  }
+
   &__graphics {
     display: flex;
     margin-top: 50px;
@@ -202,6 +237,33 @@
     display: flex;
     align-items: center;
     margin-left: 50px;
+  }
+
+  &__other-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+
+  &__create-edit-dates {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__create-edit-dates-title {
+    @include font-titillium-semibold;
+    margin-bottom: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  &__message {
+    max-height: 110px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.5;
+    overflow: auto;
   }
 
   &__bottom-details {

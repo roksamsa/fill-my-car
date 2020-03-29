@@ -67,7 +67,7 @@
           <div class="trip__date-time">
             <div *ngIf="trip?.tripDate" class="trip__date" matTooltip="Datum odhoda" matTooltipPosition="below">
               <div class="trip__date-icon">
-                <svg class="trip__date-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <svg class="trip__info-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M0 0h24v24H0z" fill="none" />
                   <path
                     d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
@@ -79,7 +79,7 @@
             </div>
             <div *ngIf="trip?.tripTimeHour && trip?.tripTimeMinutes" class="trip__time" matTooltip="Čas odhoda" matTooltipPosition="below">
               <div class="trip__time-icon">
-                <svg class="trip__date-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <svg class="trip__info-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path
                     d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
                   <path d="M0 0h24v24H0z" fill="none" />
@@ -99,19 +99,23 @@
                                 [vehicleName]="selectedNameData"
                                 [vehicleTextVisible]="true"></app-vehicle-tile>
             </div>
-            <div *ngIf="vehicleSeatsAvailableNumber" class="trip__vehicle-seats">
+            <div *ngIf="seatsAvailableNumber" class="trip__vehicle-seats">
               <app-vehicle-seats></app-vehicle-seats>
             </div>
           </div>
-          <div class="trip__graphics">
-            <div class="trip__location trip__location--end">
-              {{ tripCreationDate | date: dateFormat }}
-            </div>
-            <div *ngIf="tripEditedDate > tripCreationDate" class="trip__location trip__location--end">
-              {{ tripEditedDate | date: dateFormat }}
-            </div>
-            <div class="trip__location trip__location--end">
+          <div *ngIf="tripMessage || tripCreationDate" class="trip__other-info">
+            <div *ngIf="tripMessage" class="trip__message">
               {{ tripMessage }}
+            </div>
+            <div *ngIf="tripCreationDate" class="trip__create-edit-dates">
+              <div *ngIf="tripCreationDate"  class="trip__create-date">
+                <p class="trip__create-edit-dates-title">Objavljeno</p>
+                {{ tripCreationDate | date: dateFormat }}
+              </div>
+              <div *ngIf="tripEditedDate > tripCreationDate" class="trip__edit-date">
+                <p class="trip__create-edit-dates-title">Posodobljeno</p>
+                {{ tripEditedDate | date: dateFormat }}
+              </div>
             </div>
           </div>
         </app-preloading-spinner>
@@ -120,7 +124,7 @@
       <div class="trip__bottom-details">
         <div class="trip__bottom-divider"></div>
 
-        <form [formGroup]="addTripFormStepperForm" class="form" [ngClass]="{'form--without-button': vehicleSeatsAvailableNumber == vehicleSeatsTakenNumber}">
+        <form [formGroup]="addTripFormStepperForm" class="form" [ngClass]="{'form--without-button': seatsAvailableNumber == seatsTakenNumber}">
           <mat-horizontal-stepper class="trip-add-passengers__wizard" [ngClass]="{'trip-add-passengers__wizard--last-step': stepper.selectedIndex === 5}" [linear]="true" formArrayName="addTripFormStepperFormArray" #stepper>
 
             <!-- STEP 0 -->
@@ -139,12 +143,12 @@
                       formGroupName="1"
                       [stepControl]="addTripFormStepperFormArray?.get([1])">
               <div class="form__input form__input--join-trip">
-                <label class="form__label">Koliko mest želite rezervirati? (največ {{vehicleSeatsStillLeftForCurrentTrip}})</label>
+                <label class="form__label">Koliko mest želite rezervirati? <span *ngIf="seatsFreeNumber">(največ {{seatsFreeNumber}})</span></label>
                 <div class="form__seats-reservation-wrapper">
                   <app-number-picker class="form__time-input"
                                      [min]="1"
                                      [step]="1"
-                                     [max]="vehicleSeatsStillLeftForCurrentTrip"
+                                     [max]="seatsFreeNumber"
                                      [precision]="1"
                                      [inputDisabled]="false"
                                      (change)="seatsInputChange($event)">
@@ -237,10 +241,10 @@
                   <div class="end-of-registration__icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="64.747" height="64.747" viewBox="0 0 64.747 64.747"><g transform="translate(-1 -1)"><path d="M33.374,65.747A32.374,32.374,0,1,1,65.747,33.374,32.374,32.374,0,0,1,33.374,65.747Zm0-60.431A28.057,28.057,0,1,0,61.431,33.374,28.057,28.057,0,0,0,33.374,5.316Z" transform="translate(0 0)" fill="#56ab00"/><path d="M20.183,35.957a2.158,2.158,0,0,1-1.576-.691L8.529,24.475A2.158,2.158,0,0,1,11.68,21.54l8.5,9.086L38.744,10.749a2.158,2.158,0,1,1,3.151,2.935L21.759,35.266A2.158,2.158,0,0,1,20.183,35.957Z" transform="translate(8.162 10.366)" fill="#56ab00"/></g></svg>
                   </div>
-                  <label *ngIf="vehicleSeatsSelectedNumber === 1" class="end-of-registration__label">Rezervirali ste <b>eno mesto</b> na tem potovanju.</label>
-                  <label *ngIf="vehicleSeatsSelectedNumber === 2" class="end-of-registration__label">Rezervirali ste <b>dve mesti</b> na tem potovanju.</label>
-                  <label *ngIf="vehicleSeatsSelectedNumber === 3 || vehicleSeatsSelectedNumber === 4" class="end-of-registration__label">Rezervirali ste <b>{{vehicleSeatsSelectedNumber}} mesta</b> na tem potovanju.</label>
-                  <label *ngIf="vehicleSeatsSelectedNumber > 4" class="end-of-registration__label">Rezervirali ste {{vehicleSeatsSelectedNumber}} mest na tem potovanju.</label>
+                  <label *ngIf="seatsSelectedNumberFromInput === 1" class="end-of-registration__label">Rezervirali ste <b>eno mesto</b> na tem potovanju.</label>
+                  <label *ngIf="seatsSelectedNumberFromInput === 2" class="end-of-registration__label">Rezervirali ste <b>dve mesti</b> na tem potovanju.</label>
+                  <label *ngIf="seatsSelectedNumberFromInput === 3 || seatsSelectedNumberFromInput === 4" class="end-of-registration__label">Rezervirali ste <b>{{seatsSelectedNumberFromInput}} mesta</b> na tem potovanju.</label>
+                  <label *ngIf="seatsSelectedNumberFromInput > 4" class="end-of-registration__label">Rezervirali ste {{seatsSelectedNumberFromInput}} mest na tem potovanju.</label>
                 </div>
               </div>
             </mat-step>
@@ -248,10 +252,10 @@
         </form>
 
         <div class="trip__button-wrapper">
-          <button *ngIf="stepper.selectedIndex === 0 && vehicleSeatsAvailableNumber != vehicleSeatsTakenNumber" mat-raised-button class="button button--primary"
+          <button *ngIf="stepper.selectedIndex === 0 && seatsAvailableNumber != seatsTakenNumber" mat-raised-button class="button button--primary"
             (click)="joinTripStart()">Prijavi se na potovanje</button>
 
-          <p *ngIf="vehicleSeatsAvailableNumber == vehicleSeatsTakenNumber">Na potovanje prijava ni več možna!</p>
+          <p *ngIf="seatsAvailableNumber == seatsTakenNumber">Na potovanje prijava ni več možna!</p>
 
           <button *ngIf="stepper.selectedIndex > 0 && stepper.selectedIndex < 5" class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
             <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -298,7 +302,7 @@
                     trip?.tripPrice,
                     trip?.selectedVehicle,
                     trip?.tripIdTag,
-                    vehicleSeatsSelectedNumber,
+                    seatsSelectedNumberFromInput,
                     yourStartLocation?.value,
                     yourEndLocation?.value,
                     socialUser?.name,
@@ -311,8 +315,39 @@
       </div>
     </app-tile>
     <app-tile class="tile tile--trip tile--trip-map">
-      <app-here-maps class="here-maps--trip-map" [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish">
+      <app-here-maps class="here-maps here-maps--trip-map"
+                     [hereMapStart]="hereMapStart"
+                     [hereMapFinish]="hereMapFinish"
+                     [showRouteDetails]="true">
       </app-here-maps>
+      <div class="trip__quick-infos">
+        <div *ngIf="tripQuiet" class="trip__quiet trip__quick-infos-item trip__quick-infos-item--first">
+          <svg class="trip__info-icon-svg" matTooltip="Voznik ima rad tišino med vožnjo" matTooltipPosition="below" xmlns="http://www.w3.org/2000/svg" width="34.735" height="30" viewBox="0 0 34.735 30"><path d="M19.932,13.337c0-.095.016-.189.016-.284a6.314,6.314,0,0,0-6.316-6.316c-.095,0-.189.016-.284.016ZM10.3,7.716,6.163,3.579,4.158,5.584,8.295,9.721a6.154,6.154,0,0,0-.979,3.332,6.314,6.314,0,0,0,6.316,6.316,6.154,6.154,0,0,0,3.332-.979L30.574,32l2.005-2.005L18.968,16.384,10.3,7.716Zm3.332,14.811C9.416,22.526,1,24.642,1,28.842V32H26.263V28.842C26.263,24.642,17.847,22.526,13.632,22.526ZM25.884,7.305,23.232,9.974a5.238,5.238,0,0,1,0,6.142l2.653,2.668c3.189-3.189,3.189-8.005,0-11.479ZM31.111,2,28.537,4.574a12.6,12.6,0,0,1,0,16.958l2.574,2.574A15.52,15.52,0,0,0,31.111,2Z" transform="translate(-1 -2)" fill="#242b61"/></svg>
+        </div>
+
+        <div class="trip__comfortable trip__quick-infos-item">
+          <svg *ngIf="tripStopsOnTheWayToFinalDestination" class="trip__info-icon-svg" matTooltip="Voznik ustavlja v krajih na poti do cilja po dogovoru z iskalci prevoza" matTooltipPosition="below" xmlns="http://www.w3.org/2000/svg" width="30" height="30.974" viewBox="0 0 30 30.974"><g transform="translate(-628 -404)"><circle cx="15" cy="15" r="15" transform="translate(628 404)" fill="#242b61"/><path d="M16.467,4l2.855,2.855-3.591,3.591,1.77,1.77,3.591-3.591,2.855,2.855V4ZM11.48,4H4v7.48L6.855,8.625l5.872,5.86V25.947H15.22V13.462l-6.6-6.608Z" transform="translate(629.026 409.026)" fill="#fff"/></g></svg>
+
+          <svg *ngIf="!tripStopsOnTheWayToFinalDestination" class="trip__info-icon-svg" matTooltip="Voznik ne ustavlja v krajih na poti do cilja po dogovoru z iskalci prevoza" matTooltipPosition="below"  xmlns="http://www.w3.org/2000/svg" width="33.915" height="33.915" viewBox="0 0 33.915 33.915"><g transform="translate(-679.564 -402)"><path d="M.011.193,45.387.057,45.379,2.5,0,2.637Z" transform="translate(681.426 401.958) rotate(45)" fill="#242b61"/><path d="M-11141.809-1500.051h0a14.95,14.95,0,0,1-9.766-4.763,14.956,14.956,0,0,1-3.989-10.187,14.915,14.915,0,0,1,4.278-10.488l5.549,5.516h-4.8v7.481l2.854-2.856,5.874,5.86v9.436Zm2.494,0h0v-10.458l-6.6-6.607,1.52-1.518,14.381,14.294a15,15,0,0,1-9.3,4.29Zm10.9-6.149h0l-7.11-7.067,2.083-2.08,2.854,2.856v-7.481h-7.479l2.855,2.856-2.088,2.086-12.136-12.063a14.884,14.884,0,0,1,8.874-2.9,14.9,14.9,0,0,1,10.605,4.394,14.9,14.9,0,0,1,4.393,10.6,14.9,14.9,0,0,1-2.85,8.8Z" transform="translate(11837.563 1933)" fill="#242b61"/></g></svg>
+        </div>
+
+        <div class="trip__comfortable trip__quick-infos-item">
+          <svg *ngIf="tripComfortable" class="trip__info-icon-svg" matTooltip="Voznik zagotavlja udoben prevoz (največ 2 osebi na zadnjih sedežih)" matTooltipPosition="below"  xmlns="http://www.w3.org/2000/svg" width="33.163" height="30" viewBox="0 0 33.163 30"><g transform="translate(-260.587 -167.504)"><path d="M280.587,292.086c-2.1-.017-4.2-.013-6.306,0-1.475.009-2.683-.37-3.663.705-.438.48-1.837,2-2.251,2.5a12.355,12.355,0,0,1-2.709,2.682c-1.478.956-2.112.323-3.851.325-.707,0-1.21,1.515-1.22,2.2a1.179,1.179,0,0,0,1.177,1.246,10.808,10.808,0,0,0,8.475-3.65c.338-.367.663-.746.982-1.13q.136,1,.206,2.019a23.622,23.622,0,0,1-.077,4.12.455.455,0,0,0,.3.531q2.63,1.2,5.25,2.419a.689.689,0,0,0,.641,0q2.707-1.3,5.423-2.581a.436.436,0,0,0,.27-.54,8.977,8.977,0,0,1-.118-1.005,26.162,26.162,0,0,1,.25-5.338c.062.076.125.152.186.229C284.592,298.129,282.1,292.1,280.587,292.086Z" transform="translate(0 -115.215)" fill="#242b61"/><path d="M426.2,436.023a2.789,2.789,0,0,0-1.88-.644,2.064,2.064,0,0,0-1.043.238l-14.043,6.633a2.3,2.3,0,0,0-.568.361,1.381,1.381,0,0,0,.148,2.272,2.044,2.044,0,0,0,2,.186q7.26-2.8,14.524-5.6a3.279,3.279,0,0,0,.821-.447A1.855,1.855,0,0,0,426.2,436.023Z" transform="translate(-136.467 -247.751)" fill="#242b61"/><path d="M432.2,175.886a4.18,4.18,0,0,0,4.208-4.183,4.212,4.212,0,1,0-4.208,4.183Z" transform="translate(-154.822 0)" fill="#242b61"/><path d="M321.563,439.458c.082-.039.216-.053.2-.185-.013-.1-.127-.11-.2-.146q-3.9-1.844-7.8-3.687a2.8,2.8,0,0,0-1.16-.266,2.5,2.5,0,0,0-1.4.359,1.942,1.942,0,0,0-1.093,1.759,1.97,1.97,0,0,0,1.316,1.809c1.9.774,3.81,1.512,5.717,2.266a.539.539,0,0,0,.467,0C318.928,440.727,320.247,440.1,321.563,439.458Z" transform="translate(-45.804 -247.565)" fill="#242b61"/><path d="M510.265,538.138q-1.05.4-2.1.795c-.439.168-.876.343-1.313.515l0,.1a13.708,13.708,0,0,0,1.745.633,1.917,1.917,0,0,0,1.412-.2,1.417,1.417,0,0,0,.772-1.56C510.7,538.066,510.6,538.01,510.265,538.138Z" transform="translate(-227.768 -342.739)" fill="#242b61"/><path d="M264.75,292.086c2.1-.017,4.2-.013,6.306,0,1.475.009,2.683-.37,3.663.705.438.48,1.837,2,2.251,2.5a12.354,12.354,0,0,0,2.709,2.682c1.478.956,2.112.323,3.851.324.707,0,1.21,1.515,1.22,2.2a1.179,1.179,0,0,1-1.177,1.246,10.808,10.808,0,0,1-8.475-3.65c-.338-.367-.663-.746-.982-1.13q-.136,1-.206,2.019a23.622,23.622,0,0,0,.077,4.12.455.455,0,0,1-.3.531q-2.63,1.2-5.25,2.419a.689.689,0,0,1-.641,0q-2.707-1.3-5.423-2.581a.436.436,0,0,1-.27-.54,8.977,8.977,0,0,0,.118-1.005,26.161,26.161,0,0,0-.25-5.338c-.062.076-.125.152-.186.229C260.746,298.129,263.235,292.1,264.75,292.086Z" transform="translate(9 -115.215)" fill="#242b61"/></g></svg>
+
+          <svg *ngIf="!tripComfortable" class="trip__info-icon-svg" matTooltip="Voznik ne zagotavlja udoben prevoz (največ 2 osebi na zadnjih sedežih)" matTooltipPosition="below" xmlns="http://www.w3.org/2000/svg" width="34.16" height="34.416" viewBox="0 0 34.16 34.416"><g transform="translate(-505.502 -388.5)"><path d="M-11135.319-1501a1.59,1.59,0,0,1-.439-.059,13.434,13.434,0,0,1-1.744-.633v-.1l.538-.211.034-.013c.229-.091.491-.194.741-.29l1.107-.419.006,0,.275-.1.711-.269a.783.783,0,0,1,.257-.061c.138,0,.2.088.258.347a1.417,1.417,0,0,1-.772,1.559A2.11,2.11,0,0,1-11135.319-1501Zm-7.794-.008a1.975,1.975,0,0,1-1.129-.361,1.445,1.445,0,0,1-.674-1.092,1.458,1.458,0,0,1,.525-1.182,2.332,2.332,0,0,1,.568-.361l7.11-3.359,3.542-1.673,3.155,3.136c-4.556,1.754-8.556,3.3-12.229,4.715A2.424,2.424,0,0,1-11143.113-1501.009Zm-1.888-3.64a.662.662,0,0,1-.246-.053c-.608-.241-1.229-.485-1.828-.721l-.1-.04c-1.239-.487-2.52-.99-3.784-1.506a1.973,1.973,0,0,1-1.315-1.809,1.939,1.939,0,0,1,1.092-1.758,2.481,2.481,0,0,1,1.314-.359h.083a2.809,2.809,0,0,1,1.159.266c1.608.763,3.235,1.531,4.808,2.275l1.055.5,1.935.915c.019.009.038.016.06.023.065.023.134.046.143.122.016.105-.065.135-.145.163-.02.007-.038.014-.055.022-.658.319-1.327.641-1.975.953-.6.288-1.294.623-1.976.954A.481.481,0,0,1-11145-1504.649Zm17.481-2.218h0l-3.3-3.28.515-.243.523-.247a2.213,2.213,0,0,1,.925-.243c.041,0,.082,0,.12.005h.094a2.774,2.774,0,0,1,1.784.645,1.9,1.9,0,0,1,.745,1.5,1.92,1.92,0,0,1-.784,1.5,3.022,3.022,0,0,1-.622.363Zm-11.843-.716h-.056l-.056,0a.714.714,0,0,1-.313-.078q-1.576-.756-3.15-1.506l-.475-.218-.037-.017c-.488-.224-.994-.456-1.49-.681a.646.646,0,0,1-.179-.115c-.034-.018-.066-.033-.093-.045a.437.437,0,0,1-.269-.541,8.566,8.566,0,0,0,.117-1.005,26.39,26.39,0,0,0-.168-4.771c-.3.362-.572.668-.817.935a10.823,10.823,0,0,1-8.246,3.653l-.229,0a1.174,1.174,0,0,1-1.176-1.246c.008-.655.488-2.206,1.218-2.206a8.432,8.432,0,0,1,1.266.1l.124.017a6.144,6.144,0,0,0,.864.083,2.8,2.8,0,0,0,1.6-.529,12.153,12.153,0,0,0,2.666-2.628l.044-.054c.3-.364,1.12-1.26,1.718-1.914l.09-.1c.185-.2.341-.371.443-.485a2.349,2.349,0,0,1,.447-.385l11.4,11.333c-.654.3-1.231.562-1.767.808-1.2.572-2.207,1.052-3.163,1.512A.7.7,0,0,1-11139.362-1507.583Zm15.12-4.388a10.822,10.822,0,0,1-8.246-3.653c-.271-.295-.546-.609-.817-.935a25.12,25.12,0,0,0-.2,3.741l-8.871-8.818c.986-.007,1.989-.007,2.96-.007,1.013,0,2.061,0,3.088.008.2,0,.392-.012.578-.022l.116-.006.039,0h.01c.256-.013.5-.026.733-.026a2.449,2.449,0,0,1,1.987.762l.446.488.035.038c.581.635,1.46,1.6,1.77,1.971l.057.068a12.042,12.042,0,0,0,2.65,2.614,2.809,2.809,0,0,0,1.6.529,6.144,6.144,0,0,0,.864-.083l.124-.017a8.343,8.343,0,0,1,1.266-.1c.729,0,1.21,1.551,1.218,2.206a1.178,1.178,0,0,1-1.176,1.246Zm-14.969-10.647a4.217,4.217,0,0,1-2.973-1.208,4.126,4.126,0,0,1-1.244-2.93,4.172,4.172,0,0,1,1.224-2.988,4.222,4.222,0,0,1,3.02-1.257,4.223,4.223,0,0,1,4.182,4.2,4.1,4.1,0,0,1-1.2,2.936A4.2,4.2,0,0,1-11139.211-1522.618Z" transform="translate(11662 1920)" fill="#242b61" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1"/><path d="M.011.193,45.387.057,45.379,2.5,0,2.637Z" transform="translate(507.426 388.958) rotate(45)" fill="#242b61"/></g></svg>
+        </div>
+
+        <div class="trip__smoking trip__quick-infos-item">
+          <svg *ngIf="tripPassengersCanSmoke" class="trip__info-icon-svg" matTooltip="Voznik dovoli kajenje v vozilu" matTooltipPosition="below" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="34" viewBox="0 0 35 34"><defs><clipPath id="a"><rect width="35" height="34" class="trip__info-icon-svg" transform="translate(547 344)" fill="#fff"/></clipPath></defs><g transform="translate(-547 -344)" clip-path="url(#a)"><path d="M-11151-1509.334h-5v-4.855h24.288v4.855l-.023-.025.018.03Zm24.952,0v-4.855h2.431v4.855Zm-4.046,0v-4.855h2.428v4.855Zm4.046-6.476v-3.368a6.508,6.508,0,0,0-6.476-6.588v-2.427a3,3,0,0,0,3-3h2.431a5.382,5.382,0,0,1-1.621,3.853,9,9,0,0,1,5.1,8.159v3.368Zm-4.046,0v-2.024a3.12,3.12,0,0,0-3.191-3.318h-2.476a5.422,5.422,0,0,1-5.423-5.423,5.422,5.422,0,0,1,5.423-5.423v2.427a2.864,2.864,0,0,0-3,2.833,3.214,3.214,0,0,0,3,3.237h2.476a5.375,5.375,0,0,1,5.619,5.118v2.573Z" transform="translate(11704 1877)"/></g></svg>
+
+          <svg *ngIf="!tripPassengersCanSmoke" class="trip__info-icon-svg" matTooltip="Voznik ne dovoli kajenje v vozilu" matTooltipPosition="below" xmlns="http://www.w3.org/2000/svg" width="32.381" height="34" viewBox="0 0 32.381 34"><path d="M2,8.476,13.317,19.81H2v4.857H18.174L29.508,36l2.04-2.024L4.024,6.452ZM31.952,19.81h2.429v4.857H31.952Zm-4.048,0h2.429v4.857H27.9ZM29.281,6.663A5.381,5.381,0,0,0,30.9,2.81H28.471a3,3,0,0,1-3,3V8.233a6.51,6.51,0,0,1,6.476,6.59V18.19h2.429V14.823A9,9,0,0,0,29.281,6.663Zm-7.043,6.185h2.477a3.12,3.12,0,0,1,3.19,3.319V18.19h2.429V15.616A5.374,5.374,0,0,0,24.715,10.5H22.238a3.216,3.216,0,0,1-3-3.238,2.865,2.865,0,0,1,3-2.833V2a5.424,5.424,0,1,0,0,10.848Zm4.048,11.706V19.81H21.542Z" transform="translate(-2 -2)"/></svg>
+        </div>
+        <div class="trip__pets trip__quick-infos-item">
+          <svg *ngIf="tripPetsAreAllowed" class="trip__info-icon-svg" matTooltip="Voznik dovoli prevoz hišnih ljubljenčkov" matTooltipPosition="below" xmlns="http://www.w3.org/2000/svg" width="33.09" height="29.708" viewBox="0 0 33.09 29.708"><g transform="translate(-1664.959 -902.074)"><path d="M0,17.745q0-4.857,0-9.714A1.413,1.413,0,0,1,1.359,6.453,1.432,1.432,0,0,1,2.738,8.061c0,.619-.008,1.238,0,1.856a.915.915,0,0,0,.959,1.011c3.6.007,7.208,0,10.813.009a.857.857,0,0,0,.643-.34Q20.006,5.589,24.867.583A1.441,1.441,0,0,1,26.283.035a1.407,1.407,0,0,1,.748,2.322c-.32.38-.671.733-1.024,1.081-.19.187-.215.316-.012.524q3.083,3.143,6.15,6.3c.03.031.062.058.092.089,1.142,1.19,1.138,1.859-.016,3.049-.968,1-1.952,1.979-2.9,3a1.579,1.579,0,0,1-2.517.055c-.806-.895-1.666-1.739-2.511-2.6-.425-.431-.4-.375-.857-.007a2.122,2.122,0,0,0-.755,1.877c.037,2.053.041,4.107.043,6.16,0,1.465-.022,2.929-.035,4.394,0,.43.031.859,0,1.292a2.209,2.209,0,0,1-2.208,2.136,2.239,2.239,0,0,1-2.119-2.2c-.017-1.065-.008-2.13-.005-3.195,0-1.205-.528-1.784-1.7-1.787q-5.364-.013-10.728,0a1.511,1.511,0,0,0-1.6,1.681c-.006,1.079.006,2.159,0,3.238a2.228,2.228,0,0,1-2.183,2.261A2.209,2.209,0,0,1,0,27.415Q0,22.58,0,17.745Zm25.329-9.4A.666.666,0,0,0,26,7.624a.66.66,0,0,0-.693-.7.713.713,0,0,0-.685.721A.706.706,0,0,0,25.329,8.344Z" transform="translate(1664.959 902.074)" /></g></svg>
+
+          <svg *ngIf="!tripPetsAreAllowed" class="trip__info-icon-svg" matTooltip="Voznik ne dovoli prevoz hišnih ljubljenčkov" matTooltipPosition="below" xmlns="http://www.w3.org/2000/svg" width="34.49" height="33.915" viewBox="0 0 34.49 33.915"><g transform="translate(-1663.563 -900.916)"><path d="M20.531,29.708h-.045a2.248,2.248,0,0,1-2.119-2.2c-.014-.865-.011-1.744-.007-2.594,0-.2,0-.4,0-.6,0-1.217-.539-1.784-1.7-1.786-1.714,0-3.519-.007-5.363-.007-1.718,0-3.473,0-5.364.006a1.5,1.5,0,0,0-1.6,1.681c0,.514,0,1.034,0,1.538v.006c0,.555,0,1.129,0,1.694a2.234,2.234,0,0,1-2.168,2.261H2.141A2.209,2.209,0,0,1,0,27.415q0-3.626,0-7.253V15.317q0-3.642,0-7.285A1.406,1.406,0,0,1,1.359,6.453H1.37a1.266,1.266,0,0,1,.922.376,1.72,1.72,0,0,1,.447,1.232q0,.257,0,.515v.016c0,.434,0,.882,0,1.325a.912.912,0,0,0,.96,1.011c1.806,0,3.638,0,5.409,0h2.766L22.725,22.117c0,.977-.012,1.97-.022,2.931q-.007.616-.013,1.233c0,.167,0,.336.007.5.007.259.013.527,0,.791A2.222,2.222,0,0,1,20.531,29.708Zm2.184-11.2,0,0-7.619-7.849.055-.056,4.412-4.547Q22.214,3.318,24.867.583A1.546,1.546,0,0,1,25.987,0a1.313,1.313,0,0,1,.3.035,1.413,1.413,0,0,1,1.04.929,1.453,1.453,0,0,1-.292,1.393c-.327.389-.685.747-1.024,1.08a.4.4,0,0,0-.154.265A.389.389,0,0,0,26,3.962c1.566,1.6,3.154,3.227,4.689,4.8l.057.058,1.4,1.441.04.039c.018.017.035.033.051.05,1.149,1.2,1.145,1.852-.015,3.048q-.441.455-.886.907c-.666.68-1.355,1.382-2.014,2.09a1.818,1.818,0,0,1-1.314.655,1.626,1.626,0,0,1-1.2-.6c-.641-.712-1.327-1.4-1.99-2.071l-.52-.525c-.2-.2-.3-.3-.407-.3s-.177.072-.337.2l-.114.093a2.11,2.11,0,0,0-.754,1.877c.015.849.026,1.757.032,2.776ZM25.3,6.928h0a.682.682,0,0,0-.484.217.706.706,0,0,0,.5,1.2h.011A.67.67,0,0,0,26,7.624a.662.662,0,0,0-.692-.695Z" transform="translate(1664.959 902.074)" /><path d="M.011.193,45.387.057,45.379,2.5,0,2.637Z" transform="translate(1665.425 900.874) rotate(45)" /></g></svg>
+        </div>
+      </div>
     </app-tile>
   </div>
 </app-content>

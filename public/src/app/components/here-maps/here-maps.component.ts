@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, AfterViewInit, Input, ViewChild, ElementRef, OnChanges, AfterViewChecked } from '@angular/core';
 import { HereMapsService } from './here-maps.service';
+import { ConstantsService } from '../../common/services/constants.service';
 
 declare var H: any;
 
@@ -9,7 +10,7 @@ declare var H: any;
   styleUrls: ['./here-maps.component.scss']
 })
 
-export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
+export class HereMapsComponent implements AfterViewInit, AfterViewChecked, OnChanges {
   private map: any;
   preloadingSpinnerVisibility = true;
   hereMapUI: any;
@@ -21,20 +22,35 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
   hereMapStartMarkerIcon = new H.map.Icon('assets/icons/icon-map-start-pin.svg', { size: { w: 18, h: 18 } });
   hereMapFinishMarkerIcon = new H.map.Icon('assets/icons/icon-map-finish-pin.svg', { anchor: { x: 20, y: 36 } });
 
+  public hereMapRouteDistance: number;
+  public hereMapRouteTravelHours: number;
+  public hereMapRouteTravelMinutes: number;
+  private hereMapRouteTravelTime: number;
+
+  // Link: https://www.eea.europa.eu/highlights/average-co2-emissions-from-new
+  // Link: http://shrinkthatfootprint.com/calculate-your-carbon-footprint
+  private averageVehicleCO2emissions = 121.5 / 1000; // 121.5 g we divide with 1000, so we get kg
+  private hereMapRouteVehicleCO2emissions: number;
+
   @ViewChild('hereMaps') mapElement: ElementRef;
+  @ViewChild('hereMapsContainer') hereMapsContainer: ElementRef;
+
   @Input() hereMapCenterLAT: any = '50.1120423728813';
   @Input() hereMapCenterLNG: any = '8.68340740740811';
   @Input() hereMapStart: any;
   @Input() hereMapFinish: any;
+  @Input() showRouteDetails: boolean;
 
-  constructor(public hereMap: HereMapsService) {
-  }
-
-  ngOnInit() {
+  constructor(public hereMap: HereMapsService,
+              public constant: ConstantsService) {
   }
 
   ngAfterViewInit() {
     this.hereMapInitialSetup();
+  }
+
+  ngAfterViewChecked() {
+    this.map.getViewPort().resize();
   }
 
   ngOnChanges() {
@@ -44,6 +60,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
   hereMapInitialSetup() {
     const defaultLayers = this.hereMap.platform.createDefaultLayers();
     defaultLayers.normal.map.setMin(2);
+
     this.map = new H.Map(
       this.mapElement.nativeElement,
       defaultLayers.normal.map, {
@@ -56,15 +73,15 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
       }
     );
 
-    // Add a resize listener to make sure that the map occupies the whole container
-    window.addEventListener('resize', () => this.map.getViewPort().resize());
-
     const mapEvents = new H.mapevents.MapEvents(this.map);
     const behavior = new H.mapevents.Behavior(mapEvents);
     this.hereMapUI = H.ui.UI.createDefault(this.map, defaultLayers);
     this.map.setCenter({ lat: 46.119944, lng: 14.815333 }); // Center is GEOSS Slovenije
     this.map.setZoom(7.2);
     this.hereMapsRoute(this.hereMapStart, this.hereMapFinish);
+
+    // Add a resize listener to make sure that the map occupies the whole container
+    window.addEventListener('resize', () => this.map.getViewPort().resize());
   }
 
   hereMapsRoute(start: string, finish: string) {
@@ -72,6 +89,10 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
       this.hereMap.getCoordinates(start).then(geocoderResult1 => {
         this.hereMapRouteStartLat = geocoderResult1[0].Location.DisplayPosition.Latitude;
         this.hereMapRouteStartLng = geocoderResult1[0].Location.DisplayPosition.Longitude;
+
+        if (this.map != null && this.map.getObjects() != null) {
+          this.map.removeObjects(this.map.getObjects());
+        }
 
         // Start marker
         const startMarker = new H.map.Marker({
@@ -99,6 +120,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
             'waypoint0': 'geo!' + this.hereMapRouteStartLat + ',' + this.hereMapRouteStartLng,
             'waypoint1': 'geo!' + this.hereMapRouteFinishLat + ',' + this.hereMapRouteFinishLng,
             'representation': 'display',
+            'routeattributes': 'summary',
             'departure': 'Now',
             'language ': 'sl-sl',
             'country': 'SVN',
@@ -106,10 +128,12 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
           };
 
           this.hereMap.router.calculateRoute(routeParameters, data => {
-            if (data.response) {
+            const route = data.response.route[0];
+
+            if (route) {
               this.preloadingSpinnerVisibility = false;
-              this.hereMap.directions = data.response.route[0].leg[0].maneuver;
-              data = data.response.route[0];
+              this.hereMap.directions = route.leg[0].maneuver;
+              data = route;
 
               const lineString = new H.geo.LineString();
               data.shape.forEach(point => {
@@ -127,6 +151,7 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
               this.map.addObject(routeLine);
               this.map.setViewBounds(routeLine.getBounds());
+              this.getRouteSummaryData(route.summary);
             } else {
               this.preloadingSpinnerVisibility = true;
             }
@@ -138,5 +163,15 @@ export class HereMapsComponent implements OnInit, AfterViewInit, OnChanges {
 
       });
     }
+  }
+
+  public getRouteSummaryData(summary: any): void {
+    this.hereMapRouteDistance = this.constant.roundNumber(summary.distance / 1000, 0, 'up'); // 1000 is number for Km, as 1000m is 1Km
+    this.hereMapRouteTravelTime = this.constant.roundNumber(summary.travelTime / 60, 0, 'up'); // 1000 is number for Km, as 1000m is 1Km
+    this.hereMapRouteTravelHours = this.constant.roundNumber(this.hereMapRouteTravelTime / 60, 0, 'down');
+    this.hereMapRouteTravelMinutes = this.hereMapRouteTravelTime % 60;
+    // Route distance divided by average vehicle CO2 emissions and in the end multiplied with 1000, so we get kg from g
+    this.hereMapRouteVehicleCO2emissions =
+      this.constant.roundNumber(this.hereMapRouteDistance * this.averageVehicleCO2emissions, 0, 'down');
   }
 }

@@ -16,8 +16,10 @@
      (keyup.arrowRight)="stepperGoNextStep()">
   <mat-dialog-content>
     <form [formGroup]="addTripFormStepperForm" class="form">
-      <mat-horizontal-stepper class="popup__wizard" [linear]="false" formArrayName="addTripFormStepperFormArray"
-        #stepper>
+      <mat-horizontal-stepper #stepper
+                              class="popup__wizard"
+                              formArrayName="addTripFormStepperFormArray"
+                              [linear]="false">
 
         <!-- STEP 1 -->
         <mat-step formGroupName="0" [stepControl]="addTripFormStepperFormArray?.get([0])">
@@ -27,23 +29,27 @@
             <div class="form__input">
               <label class="form__label">Odhod iz</label>
               <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <input (keyup)="valueChangeStartDestination($event)" matInput
-                  placeholder="Ljubljana, Maribor, Koper, ..." formControlName="tripFromLocation" #tripFromLocation
-                  [matAutocomplete]="matAutocompleteStart">
+                <input matInput
+                       #tripFromLocation
+                       placeholder="Ljubljana, Maribor, Koper, ..."
+                       formControlName="tripFromLocation"
+                       [matAutocomplete]="matAutocompleteStart"
+                       (keyup)="valueChangeStartDestination($event)">
               </mat-form-field>
             </div>
 
             <mat-autocomplete #matAutocompleteStart="matAutocomplete"
-              (optionSelected)="selectStartLocationSuggestion($event.option.value)">
+                              (optionSelected)="selectStartLocationSuggestion($event.option.value)">
               <mat-option *ngFor="let hereMapsLocation of locationStartSuggestions"
-                [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}
+                          [value]="hereMapsLocation.Location.Address.Label">
+                {{hereMapsLocation.Location.Address.Label}}
               </mat-option>
             </mat-autocomplete>
 
             <app-button-icon class="form__button form__button--just-icon form__button--space-left-right"
-                   [buttonTooltipText]="'Zamenjaj lokacije'"
-                   [buttonTooltipPosition]="'below'"
-                   (clicked)="swapStartFinishLocation()">
+                             [buttonTooltipText]="'Zamenjaj lokacije'"
+                             [buttonTooltipPosition]="'below'"
+                             (clicked)="swapStartFinishLocation()">
               <svg class="form__svg-icon form__svg-icon--change-arrows" xmlns="http://www.w3.org/2000/svg" width="24"
                 height="18.667" viewBox="0 0 24 18.667">
                 <path d="M5.333,0,0,5.32H4v9.347H6.667V5.32h4Zm9.333,18.68V9.333H12V18.68H8L13.333,24l5.333-5.32Z"
@@ -54,16 +60,20 @@
             <div class="form__input">
               <label class="form__label">Prihod v</label>
               <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <input (keyup)="valueChangeFinishDestination($event)" matInput
-                  placeholder="Ljubljana, Maribor, Koper, ..." formControlName="tripToLocation" #tripToLocation
-                  [matAutocomplete]="matAutocompleteFinish">
+                <input matInput
+                       #tripToLocation
+                       placeholder="Ljubljana, Maribor, Koper, ..."
+                       formControlName="tripToLocation"
+                       [matAutocomplete]="matAutocompleteFinish"
+                       (keyup)="valueChangeFinishDestination($event)" >
               </mat-form-field>
             </div>
 
             <mat-autocomplete #matAutocompleteFinish="matAutocomplete"
-              (optionSelected)="selectFinishLocationSuggestion($event.option.value)">
+                              (optionSelected)="selectFinishLocationSuggestion($event.option.value)">
               <mat-option *ngFor="let hereMapsLocation of locationFinishSuggestions"
-                [value]="hereMapsLocation.Location.Address.Label">{{hereMapsLocation.Location.Address.Label}}
+                          [value]="hereMapsLocation.Location.Address.Label">
+                {{hereMapsLocation.Location.Address.Label}}
               </mat-option>
             </mat-autocomplete>
           </section>
@@ -82,7 +92,9 @@
                        (click)="tripDate.open()"
                        (dateInput)="getDateFromInput($event.value._d)">
                 <mat-datepicker-toggle matSuffix [for]="tripDate"></mat-datepicker-toggle>
-                <mat-datepicker startAt="{{currentDateString | date: dateFormat}}" weekStartsOn="1" #tripDate></mat-datepicker>
+                <mat-datepicker #tripDate
+                                startAt="{{currentDateString | date: dateFormat}}"
+                                weekStartsOn="1"></mat-datepicker>
               </mat-form-field>
             </div>
 
@@ -130,7 +142,11 @@
             <div class="form__input">
               <label class="form__label">Izbrano vozilo</label>
               <mat-form-field [floatLabel]="'never'"  class="form__field">
-                <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle (selectionChange)="getSelectedVehicleData($event)">
+                <mat-select matInput
+                            #selectedVehicle
+                            placeholder="Izbrano vozilo"
+                            formControlName="selectedVehicle"
+                            (selectionChange)="getSelectedVehicleData($event)">
                   <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
                     <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
                       {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
@@ -140,28 +156,43 @@
               </mat-form-field>
             </div>
             <div class="form__input form__input--space-left">
-              <label class="form__label">Število prostih mest <span *ngIf="vehicleSeatsAvailableNumber" >(največ {{vehicleSeatsAvailableNumber}})</span></label>
-              <app-number-picker class="form__time-input" [min]="0" [max]="vehicleSeatsAvailableNumber" [step]="1" [precision]="1"
-                [inputDisabled]="false" (change)="freeSeatsChanged($event)">
+              <label class="form__label">Število prostih mest <span *ngIf="vehicleSeatsAvailableValue">(največ {{vehicleSeatsAvailableValue}})</span></label>
+              <app-number-picker class="form__time-input"
+                                 [min]="0"
+                                 [max]="vehicleSeatsAvailableValue"
+                                 [step]="1"
+                                 [precision]="1"
+                                 [inputDisabled]="false"
+                                 (change)="freeSeatsChanged($event)">
               </app-number-picker>
             </div>
           </section>
 
-          <section class="form__row form__row--2-input-fields form__row--last">
-            <div class="form__input">
+          <section class="form__row form__row--2-input-fields form__row--last form__row--half-size">
+            <!--<div class="form__input">
               <label class="form__label">Največja količina prtljage</label>
               <div class="form__price-wrapper">
-                <app-number-picker class="form__time-input" [min]="0" [max]="10" [step]="1" [precision]="1"
-                  [inputDisabled]="false" (change)="luggageSpace($event)">
+                <app-number-picker class="form__time-input"
+                                   [min]="0"
+                                   [max]="10"
+                                   [step]="1"
+                                   [precision]="1"
+                                   [inputDisabled]="false"
+                                   (change)="luggageSpace($event)">
                 </app-number-picker>
               </div>
-            </div>
+            </div>-->
 
-            <div class="form__input form__input--space-left">
+            <div class="form__input">
               <label class="form__label">Cena prevoza</label>
               <div class="form__price-wrapper">
-                <app-number-picker class="form__time-input" [min]="0" [max]="200" [step]="1" [precision]="1"
-                  [inputDisabled]="false" (change)="priceChanged($event)">
+                <app-number-picker class="form__time-input"
+                                   [min]="0"
+                                   [max]="200"
+                                   [step]="1"
+                                   [precision]="1"
+                                   [inputDisabled]="false"
+                                   (change)="priceChanged($event)">
                 </app-number-picker>
                 <div class="form__price-label">EUR</div>
               </div>
@@ -173,7 +204,7 @@
         <mat-step formGroupName="1" [stepControl]="addTripFormStepperFormArray?.get([1])">
           <ng-template matStepLabel>Podrobnosti</ng-template>
 
-          <section class="form__row">
+          <section class="form__row form__row--message">
             <div class="form__text-area">
               <label class="form__label">Opombe</label>
               <mat-form-field [floatLabel]="'never'"  class="form__text-area-field">
@@ -182,18 +213,52 @@
             </div>
           </section>
 
-          <section class="form__row">
+          <section class="form__row form__row--checkbox">
             <div class="form__input">
-              <mat-checkbox class="example-margin" formControlName="tripStopsOnTheWayToFinalDestination" (change)="tripStopsOnTheWayToFinalDestinationChange()">
+              <mat-checkbox class="example-margin"
+                            formControlName="tripStopsOnTheWayToFinalDestination"
+                            (change)="tripStopsOnTheWayToFinalDestinationChange()">
                 Ustavljam v krajih na poti do cilja po dogovoru z iskalci prevoza.
               </mat-checkbox>
             </div>
           </section>
 
-          <section class="form__row">
+          <section class="form__row form__row--checkbox">
             <div class="form__input">
-              <mat-checkbox class="example-margin" formControlName="tripComfortable" (change)="tripComfortableChange()">
-                Zagotavljam udoben prevoz (največ 2 osebi na zadnjih sedežih).
+              <mat-checkbox class="example-margin"
+                            formControlName="tripComfortable"
+                            (change)="tripComfortableChange()">
+              Zagotavljam udoben prevoz (največ 2 osebi na zadnjih sedežih).
+              </mat-checkbox>
+            </div>
+          </section>
+
+          <section class="form__row form__row--checkbox">
+            <div class="form__input">
+              <mat-checkbox class="example-margin"
+                            formControlName="tripPetsAreAllowed"
+                            (change)="tripPetsAreAllowedChange()">
+              Dovolim prevoz hišnih ljubljenčkov.
+              </mat-checkbox>
+            </div>
+          </section>
+
+          <section class="form__row form__row--checkbox">
+            <div class="form__input">
+              <mat-checkbox class="example-margin"
+                            formControlName="tripPassengersCanSmoke"
+                            (change)="tripPassengersCanSmokeChange()">
+              Dovolim kajenje v avtomobilu.
+              </mat-checkbox>
+            </div>
+          </section>
+
+          <section class="form__row form__row--checkbox">
+            <div class="form__input">
+              <mat-checkbox class="example-margin"
+                            formControlName="tripQuiet"
+                            (change)="tripQuietChange()">
+              Rad imam tišino med vožnjo.
               </mat-checkbox>
             </div>
           </section>
@@ -251,8 +316,8 @@
               <svg class="info-box__icon info-box__icon--warning" xmlns="http://www.w3.org/2000/svg" width="24"
                 height="24" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" /></svg>Ta navodila so namenjena le
-              načrtovanju. Na poti utegnete naleteti na nepredvidene dogodke, kot so gradbeni projekti, promet,
+                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" /></svg>
+                Ta navodila so namenjena le načrtovanju. Na poti utegnete naleteti na nepredvidene dogodke, kot so gradbeni projekti, promet,
               vremenske razmere ali druge dogodke, ki bi lahko povzročili razmere drugačne tistim, ki so bile navede v
               načrtu poti. Svoje potovanje zato načrtujte temu primerno.
             </app-info-box>
@@ -306,23 +371,27 @@
           mat-raised-button
           class="button button--primary"
           (click)="addTrip(
-          authService.userData.uid,
-          selectedVehicle.value,
-          'active',
-          createTripIdTag(),
-          tripFromLocation.value,
-          tripToLocation.value,
-          currentDate,
-          currentDate,
-          dateValue,
-          dateHourString,
-          dateMinutesString,
-          freeSeatsValue,
-          vehicleSeatsAvailableNumber,
-          priceValue,
-          luggageSpaceValue,
-          tripMessage.value,
-          isTripComfortableChecked,
-          isTripStopsOnTheWayToFinalDestinationChecked,
-          isAcceptPassengersChecked)">Dodaj novo potovanje</button>
+                    authService.userData.uid,
+                    selectedVehicle.value,
+                    'active',
+                    createTripIdTag(),
+                    tripFromLocation.value,
+                    tripToLocation.value,
+                    currentDate,
+                    currentDate,
+                    dateValue,
+                    dateHourString,
+                    dateMinutesString,
+                    seatsAvailableValue,
+                    seatsTakenValue,
+                    seatsFreeValue,
+                    priceValue,
+                    luggageSpaceValue,
+                    tripMessage.value,
+                    isAcceptPassengersChecked,
+                    isTripComfortableChecked,
+                    isTripStopsOnTheWayToFinalDestinationChecked,
+                    isTripPassengersCanSmokeChecked,
+                    isTripPetsAreAllowedChecked,
+                    isTripQuietChecked)">Dodaj novo potovanje</button>
 </mat-dialog-actions>

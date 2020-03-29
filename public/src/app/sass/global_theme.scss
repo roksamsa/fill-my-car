@@ -236,8 +236,8 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
     }
 
     .mat-input-element {
-      height: 150px;
-      max-height: 170px;
+      height: 140px;
+      max-height: 140px;
       min-height: 80px;
       max-width: 100%;
       padding: 14px;
@@ -300,6 +300,11 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
     @include font-titillium-regular;
     color: $color__blue--primary;
   }
+}
+
+.mat-radio-button {
+  @include font-titillium-regular;
+  color: $color__blue--primary;
 }
 
 .user-menu__wrapper.dark-theme {

@@ -23,4 +23,15 @@ export class ConstantsService {
     const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     return yesterday < date;
   }
+
+  public roundNumber(value: number, precision: number, type: string): number {
+    const multiplier = Math.pow(10, precision || 0);
+    if (type === 'up') {
+      return Math.round(value * multiplier) / multiplier;
+    } else if (type === 'down') {
+      return Math.floor(value * multiplier) / multiplier;
+    } else {
+      return Math.round(value * multiplier) / multiplier;
+    }
+}
 }

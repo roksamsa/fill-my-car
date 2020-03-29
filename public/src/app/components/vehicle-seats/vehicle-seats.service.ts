@@ -18,12 +18,12 @@ export class VehicleSeatsService {
 
   constructor() { }
 
-  changeVehicleSeatsTakenNumber(takenNumberData: number) {
-    this.vehicleSeatsTakenNumberData.next(takenNumberData);
-  }
-
   changeVehicleSeatsAvailableNumber(availableNumberData: number) {
     this.vehicleSeatsAvailableOnVehicleNumberData.next(availableNumberData);
+  }
+
+  changeVehicleSeatsTakenNumber(takenNumberData: number) {
+    this.vehicleSeatsTakenNumberData.next(takenNumberData);
   }
 
   changeVehicleSeatsSeatsSelectedFromInput(selectedFromInputNumberData: number) {

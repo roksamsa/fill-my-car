@@ -32,13 +32,16 @@ export class TripPageComponent implements OnInit {
   public areThereAnyTrips = false;
   public tripFromLocationCity = '';
   public tripToLocationCity = '';
-  public tripComfortable: boolean;
-  public tripStopsOnTheWayToFinalDestination: boolean;
   public tripMessage: string;
   public hereMapStart = '';
   public hereMapFinish = '';
   public dialogResult: '';
   public statusIconTooltip: string;
+  public tripComfortable: boolean;
+  public tripStopsOnTheWayToFinalDestination: boolean;
+  public tripPetsAreAllowed: boolean;
+  public tripPassengersCanSmoke: boolean;
+  public tripQuiet: boolean;
 
   private currentTripId: string;
   private tripIdTag: string;
@@ -65,10 +68,11 @@ export class TripPageComponent implements OnInit {
   selectedVehicleYearData = '';
   isVehicleInsuranceChecked = false;
 
-  vehicleSeatsTakenNumber: number; // Na koncu moram to številko posodobit!
-  vehicleSeatsAvailableNumber: number;
-  vehicleSeatsStillLeftForCurrentTrip: number;
-  vehicleSeatsSelectedNumber = 0; // Izbrana številka v inputu!
+  // Koliko sedežev je na voljo na poti. Ne pozabi, največje število je možno iz vozila, koliko jih ima.
+  seatsAvailableNumber: number;
+  seatsTakenNumber: number; // Na koncu moram to številko posodobit!
+  seatsFreeNumber: number;
+  seatsSelectedNumberFromInput = 1; // Izbrana številka v inputu!
 
   public socialUser: SocialUser;
   public socialUserLoggedIn: boolean;
@@ -117,7 +121,6 @@ export class TripPageComponent implements OnInit {
 
   ngOnInit() {
     this.fetchTrip();
-    this.seatsData();
   }
 
   preloadingSpinnerShow() {
@@ -127,16 +130,6 @@ export class TripPageComponent implements OnInit {
     setTimeout(function() {
       that.preloadingSpinnerVisibility = false;
     }, 800);
-  }
-
-  seatsData() {
-    this.vehicleSeatsData.vehicleSeatsTakenNumberData.subscribe((takenNumber) => {
-      this.vehicleSeatsTakenNumber = takenNumber;
-      this.vehicleSeatsData.vehicleSeatsAvailableOnVehicleNumberData.subscribe((availableNumber) => {
-        this.vehicleSeatsAvailableNumber = availableNumber;
-        this.vehicleSeatsStillLeftForCurrentTrip = this.vehicleSeatsAvailableNumber - this.vehicleSeatsTakenNumber;
-      });
-    });
   }
 
   getSocialUser() {
@@ -189,11 +182,24 @@ export class TripPageComponent implements OnInit {
           this.tripComfortable = data.tripComfortable;
           this.tripStopsOnTheWayToFinalDestination = data.tripStopsOnTheWayToFinalDestination;
           this.tripMessage = data.tripMessage;
+          this.tripPetsAreAllowed = data.tripPetsAreAllowed;
+          this.tripPassengersCanSmoke = data.tripPassengersCanSmoke;
+          this.tripQuiet = data.tripQuiet;
 
-          this.checkIfTripIsActive();
-          this.fetchVehicle(this.selectedVehicleId);
+          this.seatsAvailableNumber = data.tripAvailableSeats;
+          this.seatsTakenNumber = data.tripTakenSeats;
+          this.seatsFreeNumber = data.tripFreeSeats;
+          this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(this.seatsAvailableNumber);
+          this.vehicleSeatsData.changeVehicleSeatsTakenNumber(this.seatsTakenNumber);
+
+          console.log(this.seatsAvailableNumber);
+          console.log(this.seatsTakenNumber);
+          console.log(this.seatsFreeNumber);
+
           this.titleService.setTitle('Potovanje #' + this.tripIdTag + ': ' + this.tripFromLocationCity + ' - ' + this.tripToLocationCity);
-          this.vehicleSeatsData.changeVehicleSeatsTakenNumber(data.tripFreeSeats);
+          this.fetchVehicle(this.selectedVehicleId);
+          this.checkIfTripIsActive();
+          this.setNewSeatsData();
 
         } else {
           this.trip = null;
@@ -215,9 +221,6 @@ export class TripPageComponent implements OnInit {
           this.selectedColorData = selectedVehicleData.vehicleColor;
           this.selectedBrandData = selectedVehicleData.vehicleBrand;
           this.selectedNameData = selectedVehicleData.vehicleName;
-
-          this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(selectedVehicleData.vehicleSeats);
-
         } else {
           this.vehicle = null;
         }
@@ -257,14 +260,13 @@ export class TripPageComponent implements OnInit {
   }
 
   seatsInputChange(value: number) {
-    this.vehicleSeatsSelectedNumber = value;
-    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(this.vehicleSeatsSelectedNumber);
+    this.seatsSelectedNumberFromInput = value;
+    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(this.seatsSelectedNumberFromInput);
   }
 
   joinTripStart() {
     this.stepper.next();
-    this.vehicleSeatsSelectedNumber = 1;
-    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(this.vehicleSeatsSelectedNumber);
+    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(this.seatsSelectedNumberFromInput);
   }
 
   joinTrip1() {
@@ -281,7 +283,7 @@ export class TripPageComponent implements OnInit {
 
   cancelTripBooking() {
     this.stepper.selectedIndex = 0;
-    this.vehicleSeatsSelectedNumber = 0;
+    this.seatsSelectedNumberFromInput = 0;
     this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(0);
   }
 
@@ -291,6 +293,18 @@ export class TripPageComponent implements OnInit {
     setTimeout(function() {
       that.stepper.selectedIndex = 0;
     }, 2000);
+  }
+
+  setNewSeatsData() {
+    this.vehicleSeatsData.vehicleSeatsTakenNumberData.subscribe((takenNumber) => {
+      this.seatsTakenNumber = takenNumber;
+
+      this.vehicleSeatsData.vehicleSeatsAvailableOnVehicleNumberData.subscribe((availableNumber) => {
+        this.seatsFreeNumber = availableNumber;
+
+        //this.seatsFreeNumber = this.seatsAvailableNumber - this.seatsTakenNumber;
+      });
+    });
   }
 
   // Add vehicle on popup close
@@ -304,10 +318,19 @@ export class TripPageComponent implements OnInit {
     tripPassengerName: string,
     tripPassengerEmail: string,
     tripPassengerPhone: string) {
+
     const tripId = this.trip._id;
-    const tripSeatsReservation = tripPassengerSeatsReservation;
-    const updatedTripFreeSeats = this.vehicleSeatsTakenNumber + tripSeatsReservation;
-    this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(updatedTripFreeSeats);
+    this.seatsTakenNumber = this.seatsTakenNumber + this.seatsSelectedNumberFromInput;
+    this.seatsFreeNumber = this.seatsFreeNumber - this.seatsSelectedNumberFromInput;
+
+    console.log('this.seatsFreeNumber:');
+    console.log(this.seatsFreeNumber);
+    console.log('this.seatsTakenNumber:');
+    console.log(this.seatsTakenNumber);
+    console.log('tripPassengerSeatsReservation:');
+    console.log(tripPassengerSeatsReservation);
+    console.log('this.seatsSelectedNumberFromInput:');
+    console.log(this.seatsSelectedNumberFromInput);
 
     this.tripPassengerService.addTripPassenger(
       belongsToUser,
@@ -323,13 +346,15 @@ export class TripPageComponent implements OnInit {
 
     this.tripService.updateSeatsOnTrip(
       tripId,
-      updatedTripFreeSeats,
-      tripSeatsReservation
+      this.seatsTakenNumber,
+      this.seatsFreeNumber,
     ).subscribe(() => {
       this.stepper.next();
       this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(0);
-      this.fetchTrip();
+      this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(this.seatsFreeNumber);
+      this.vehicleSeatsData.changeVehicleSeatsTakenNumber(this.seatsTakenNumber);
       this.goToFirstStepWithDelay();
+      this.fetchTrip();
     });
   }
 }

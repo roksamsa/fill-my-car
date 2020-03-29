@@ -63,6 +63,8 @@ $tile__border-radius: 3px;
 
   &.tile--trip-map {
     .tile__wrapper {
+      display: flex;
+      flex-direction: column;
       padding: $tile__padding--trip-map;
     }
   }

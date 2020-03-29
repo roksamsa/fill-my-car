@@ -50,7 +50,7 @@ router.post(tripsURI + '/add', function (req, res) {
 // Update data for specific trip
 router.route(tripsURI + '/update/:id').patch((req, res, next) => {
   var tripId = {_id: req.params.id};
-  var tripUpdatedData = req.body;
+  var tripUpdatedData = {$set: req.body};
 
   tripSchema.findOneAndUpdate(tripId, tripUpdatedData, tripOptions, function(error, trip) {
     // Handle the error using the Express error middleware

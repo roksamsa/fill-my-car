@@ -50,14 +50,18 @@ export class TripService {
     tripDate: Date,
     tripTimeHour: string,
     tripTimeMinutes: string,
-    tripFreeSeats: number,
+    tripAvailableSeats: number,
     tripTakenSeats: number,
+    tripFreeSeats: number,
     tripPrice: number,
     tripLuggageSpace: number,
     tripMessage: string,
+    tripNewPassengersAcceptance: string,
     tripComfortable: boolean,
     tripStopsOnTheWayToFinalDestination: boolean,
-    tripNewPassengersAcceptance: string) {
+    tripPassengersCanSmoke: boolean,
+    tripPetsAreAllowed: boolean,
+    tripQuiet: boolean) {
     const trip = {
       belongsToUser: belongsToUser,
       selectedVehicle: selectedVehicle,
@@ -70,14 +74,18 @@ export class TripService {
       tripDate: tripDate,
       tripTimeHour: tripTimeHour,
       tripTimeMinutes: tripTimeMinutes,
-      tripFreeSeats: tripFreeSeats,
+      tripAvailableSeats: tripAvailableSeats,
       tripTakenSeats: tripTakenSeats,
+      tripFreeSeats: tripFreeSeats,
       tripPrice: tripPrice,
       tripLuggageSpace: tripLuggageSpace,
       tripMessage: tripMessage,
+      tripNewPassengersAcceptance: tripNewPassengersAcceptance,
       tripComfortable: tripComfortable,
       tripStopsOnTheWayToFinalDestination: tripStopsOnTheWayToFinalDestination,
-      tripNewPassengersAcceptance: tripNewPassengersAcceptance
+      tripPassengersCanSmoke: tripPassengersCanSmoke,
+      tripPetsAreAllowed: tripPetsAreAllowed,
+      tripQuiet: tripQuiet
     };
     return this.http.post(this.uriTripAdd, trip);
   }
@@ -96,14 +104,16 @@ export class TripService {
     tripDate: Date,
     tripTimeHour: string,
     tripTimeMinutes: string,
-    tripFreeSeats: number,
-    tripTakenSeats: number,
+    tripAvailableSeats: number,
     tripPrice: number,
     tripLuggageSpace: number,
     tripMessage: string,
+    tripNewPassengersAcceptance: string,
     tripComfortable: boolean,
     tripStopsOnTheWayToFinalDestination: boolean,
-    tripNewPassengersAcceptance: string): Observable<Trip[]> {
+    tripPassengersCanSmoke: boolean,
+    tripPetsAreAllowed: boolean,
+    tripQuiet: boolean): Observable<Trip[]> {
     const trip = {
       id: id,
       belongsToUser: belongsToUser,
@@ -117,14 +127,16 @@ export class TripService {
       tripDate: tripDate,
       tripTimeHour: tripTimeHour,
       tripTimeMinutes: tripTimeMinutes,
-      tripFreeSeats: tripFreeSeats,
-      tripTakenSeats: tripTakenSeats,
+      tripAvailableSeats: tripAvailableSeats,
       tripPrice: tripPrice,
       tripLuggageSpace: tripLuggageSpace,
       tripMessage: tripMessage,
+      tripNewPassengersAcceptance: tripNewPassengersAcceptance,
       tripComfortable: tripComfortable,
       tripStopsOnTheWayToFinalDestination: tripStopsOnTheWayToFinalDestination,
-      tripNewPassengersAcceptance: tripNewPassengersAcceptance
+      tripPassengersCanSmoke: tripPassengersCanSmoke,
+      tripPetsAreAllowed: tripPetsAreAllowed,
+      tripQuiet: tripQuiet
     };
     return this.http.patch<Trip[]>(this.uriTripUpdate + id, trip);
   }
@@ -132,16 +144,13 @@ export class TripService {
   // Update specific field for trip from database
   updateSeatsOnTrip(
     id: string,
-    tripFreeSeats: number,
-    tripTakenSeats: number): Observable<Trip[]> {
+    tripTakenSeats: number,
+    tripFreeSeats: number): Observable<Trip[]> {
     const updatedTrip = {
       _id: id,
-      tripFreeSeats: tripFreeSeats,
-      tripTakenSeats: tripTakenSeats
+      tripTakenSeats: tripTakenSeats,
+      tripFreeSeats: tripFreeSeats
     };
-    console.log(id);
-    console.log(tripFreeSeats);
-    console.log(this.uriTripUpdateSpecificField + id);
     return this.http.patch<Trip[]>(this.uriTripUpdateSpecificField + id, updatedTrip);
   }
 

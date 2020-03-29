@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 declare var H: any;
 
@@ -7,9 +6,8 @@ declare var H: any;
   providedIn: 'root'
 })
 export class HereMapsService {
-
-  appId = 'Y24GW4waR5Z72Hqxj3PT';
-  appCode = '-coOP6S8RnEsWPuHwc9lHA';
+  private readonly appId = 'Y24GW4waR5Z72Hqxj3PT';
+  private readonly appCode = '-coOP6S8RnEsWPuHwc9lHA';
 
   public queryCountry = 'Slovenija';
   public platform: any;
@@ -33,7 +31,6 @@ export class HereMapsService {
   // Get coordinates for Location string query
   public getCoordinates(query: string) {
     return new Promise((resolve, reject) => {
-      const searchQuery = query;
       this.geocoder.geocode({ searchText: query }, result => {
         if (result.Response.View.length > 0) {
           if (result.Response.View[0].Result.length > 0) {

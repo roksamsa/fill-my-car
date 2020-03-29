@@ -15,6 +15,8 @@ import { filter } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { ConstantsService } from '../../common/services/constants.service';
 import { NumberPickerComponent } from '../../components/number-picker/number-picker.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-trip-dialog',
@@ -59,12 +61,20 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   areThereAnyVehicles = false;
 
-  isTripStopsOnTheWayToFinalDestinationChecked = false;
-  isTripComfortableChecked = false;
-  isAcceptPassengersChecked = 'auto';
+  public isAcceptPassengersChecked = 'auto';
+  public isTripStopsOnTheWayToFinalDestinationChecked = false;
+  public isTripComfortableChecked = false;
+  public isTripPetsAreAllowedChecked = false;
+  public isTripPassengersCanSmokeChecked = false;
+  public isTripQuietChecked = false;
 
-  freeSeatsValue = 0;
-  takenSeatsValue = 0;
+  // Seats
+  vehicleSeatsAvailableValue = 0;
+  seatsAvailableValue = 0;
+  seatsTakenValue = 0;
+  seatsFreeValue = 0;
+  isSeatValueInputDisabled = false;
+
   priceValue = 0;
   luggageSpaceValue = 0;
   isTripActive: boolean;
@@ -109,8 +119,10 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     public constant: ConstantsService,
     private cdref: ChangeDetectorRef,
     private datePipe: DatePipe,
+    private titleService: Title,
     public authService: FirebaseAuthService,
     public hereMap: HereMapsService,
+    private _snackBar: MatSnackBar,
     public thisDialogRef: MatDialogRef<EditTripDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) {
 
@@ -127,19 +139,35 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
     this.hereMapStartEditValue = selectedTripData.tripFromLocation;
     this.hereMapFinishEditValue = selectedTripData.tripToLocation;
-    this.freeSeatsValue = selectedTripData.tripFreeSeats;
     this.priceValue = selectedTripData.tripPrice;
     this.luggageSpaceValue = selectedTripData.tripLuggageSpace;
     this.isAcceptPassengersChecked = selectedTripData.tripNewPassengersAcceptance;
     this.isTripStopsOnTheWayToFinalDestinationChecked = selectedTripData.tripStopsOnTheWayToFinalDestination;
     this.isTripComfortableChecked = selectedTripData.tripComfortable;
+    this.isTripPetsAreAllowedChecked = selectedTripData.tripPetsAreAllowed;
+    this.isTripPassengersCanSmokeChecked = selectedTripData.tripPassengersCanSmoke;
+    this.isTripQuietChecked = selectedTripData.tripQuiet;
     this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat);
+
+    this.seatsAvailableValue = selectedTripData.tripAvailableSeats;
+    this.seatsTakenValue = selectedTripData.tripTakenSeats;
+    this.seatsFreeValue = selectedTripData.tripFreeSeats;
 
     this.constant.numberZeroPadding(this.dateHourValue);
     this.constant.numberZeroPadding(this.dateMinutesValue);
 
-    console.log(this.dateHourValue);
-    console.log(this.dateMinutesValue);
+    this.titleService.setTitle('Urejanje potovanja #' +
+    selectedTripData.tripIdTag +
+    ': ' + this.hereMapStartEditValue +
+    ' - ' + this.hereMapFinishEditValue);
+  }
+
+  private readonly snackBarStringForWhenSeatsTakenHigherSeatsAvailable = 'Na tem potovanju že imate vse sedeže zapolnjene in ne morate spremeniti količino prostih mest.';
+
+  openSnackBar() {
+    this._snackBar.open(this.snackBarStringForWhenSeatsTakenHigherSeatsAvailable, 'Zapri', {
+      duration: 7500
+    });
   }
 
   ngOnInit() {
@@ -166,7 +194,10 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
         this.formBuilder.group({
           tripMessage: this.selectedTripData.tripMessage,
           tripStopsOnTheWayToFinalDestination: this.selectedTripData.tripStopsOnTheWayToFinalDestination,
-          tripComfortable: this.selectedTripData.tripComfortable
+          tripComfortable: this.selectedTripData.tripComfortable,
+          tripPetsAreAllowed: this.selectedTripData.tripPetsAreAllowed,
+          tripPassengersCanSmoke: this.selectedTripData.tripPassengersCanSmoke,
+          tripQuiet: this.selectedTripData.tripQuiet
         }),
         this.formBuilder.group({
           isAcceptPassengersChecked: ''
@@ -226,27 +257,19 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   }
 
   // Change Start for Finish location
-  swapStartFinishLocation() {
-    const data1 = this.tripFromLocation.nativeElement.value;
-    const data2 = this.tripToLocation.nativeElement.value;
+  swapStartFinishLocation(): void {
+    const dataLocation1 = this.tripFromLocation.nativeElement.value;
+    const dataLocation2 = this.tripToLocation.nativeElement.value;
 
     if (this.tripFromLocation && this.tripFromLocation) {
-      this.tripFromLocation.nativeElement.value = data2;
-      this.tripToLocation.nativeElement.value = data1;
+      this.tripFromLocation.nativeElement.value = dataLocation2;
+      this.tripToLocation.nativeElement.value = dataLocation1;
       this.hereMapStart = this.tripFromLocation.nativeElement.value;
       this.hereMapFinish = this.tripToLocation.nativeElement.value;
-    } else if (this.tripFromLocation && !this.tripFromLocation) {
-      this.tripFromLocation.nativeElement.value = '';
-      this.tripToLocation.nativeElement.value = data1;
-      this.hereMapStart = '';
-      this.hereMapFinish = this.tripToLocation.nativeElement.value;
-    } else if (!this.tripFromLocation && this.tripFromLocation) {
-      this.tripFromLocation.nativeElement.value = data2;
-      this.tripToLocation.nativeElement.value = '';
-      this.hereMapStart = this.tripFromLocation.nativeElement.value;
-      this.hereMapFinish = '';
+    } else {
+      this.hereMapStart = dataLocation1;
+      this.hereMapFinish = dataLocation2;
     }
-    this.swapLocationButton.nativeElement.onclick = this.swapStartFinishLocation();
   }
 
   // Generate random ID for trip
@@ -276,8 +299,8 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       .subscribe((selectedVehicleData) => {
         if (selectedVehicleData) {
           this.vehicle = selectedVehicleData;
-          this.vehicleSeatsAvailableNumber = selectedVehicleData.vehicleSeats;
-          this.vehicleSeatsStillLeftForCurrentTrip = this.vehicleSeatsAvailableNumber - this.vehicleSeatsTakenNumber;
+          this.vehicleSeatsAvailableValue = selectedVehicleData.vehicleSeats;
+          this.vehicleSeatsStillLeftForCurrentTrip = this.vehicleSeatsAvailableValue - this.vehicleSeatsTakenNumber;
 
         } else {
           this.vehicle = null;
@@ -321,12 +344,25 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.selectedColorData = event.source.value;
   }
 
-  tripStopsOnTheWayToFinalDestinationChange() {
+  public tripStopsOnTheWayToFinalDestinationChange(): void {
     this.isTripStopsOnTheWayToFinalDestinationChecked = (this.isTripStopsOnTheWayToFinalDestinationChecked === true) ? false : true;
   }
 
-  tripComfortableChange() {
+  public tripComfortableChange(): void {
     this.isTripComfortableChecked = (this.isTripComfortableChecked === true) ? false : true;
+  }
+
+  public tripPetsAreAllowedChange(): void {
+    this.isTripPetsAreAllowedChecked = (this.isTripPetsAreAllowedChecked === true) ? false : true;
+  }
+
+  public tripPassengersCanSmokeChange(): void {
+    this.isTripPassengersCanSmokeChecked = (this.isTripPassengersCanSmokeChecked === true ) ? false : true;
+  }
+
+  public tripQuietChange(): void {
+    this.isTripQuietChecked = (this.isTripQuietChecked === true ) ? false : true;
+    console.log(this.isTripQuietChecked);
   }
 
   acceptPassengersChange(event) {
@@ -358,9 +394,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.dateYearValue = event.getFullYear();
     this.dateHourString = this.dateHour.numberPicker.value;
     this.dateMinutesString = this.dateMinutes.numberPicker.value;
-
     this.setDate();
-    console.log(this.dateInputString);
   }
 
   public getTimeHour(value: number): void {
@@ -369,14 +403,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.dateDayValue = new Date(this.tripDatePicker._validSelected._d).getDate();
     this.dateHourString = this.constant.numberZeroPadding(value);
     this.dateMinutesString = this.dateMinutes.numberPicker.value;
-
     this.setDate();
-    console.log(this.dateInputString);
-    console.log(this.tripDatePicker);
-    console.log(this.tripDateInput);
-    console.log(this.tripDatePicker.getConnectedOverlayOrigin);
-    console.log(new Date(this.tripDatePicker._validSelected._d).getMonth() + 1);
-    console.log(new Date(this.tripDatePicker._validSelected._d).getDate());
   }
 
   public getTimeMinutes(value: number): void {
@@ -385,13 +412,19 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.dateDayValue = new Date(this.tripDatePicker._validSelected._d).getDate();
     this.dateHourString = this.dateHour.numberPicker.value;
     this.dateMinutesString = this.constant.numberZeroPadding(value);
-
     this.setDate();
-    console.log(this.dateInputString);
   }
 
   freeSeatsChanged(value: number) {
-    this.freeSeatsValue = value;
+    this.seatsAvailableValue = value;
+
+    console.log(this.seatsAvailableValue);
+
+    if (this.seatsTakenValue = this.vehicleSeatsAvailableValue) {
+      this.openSnackBar();
+      this.isSeatValueInputDisabled = true;
+      this.seatsAvailableValue = this.seatsTakenValue;
+    }
   }
 
   priceChanged(value: number) {
@@ -416,14 +449,16 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     tripDate: Date,
     tripTimeHour: string,
     tripTimeMinutes: string,
-    tripFreeSeats: number,
-    tripTakenSeats: number,
+    tripAvailableSeats: number,
     tripPrice: number,
     tripLuggageSpace: number,
     tripMessage: string,
+    tripNewPassengersAcceptance: string,
     tripComfortable: boolean,
     tripStopsOnTheWayToFinalDestination: boolean,
-    tripNewPassengersAcceptance: string) {
+    tripPassengersCanSmoke: boolean,
+    tripPetsAreAllowed: boolean,
+    tripQuiet: boolean) {
     this.tripService.updateTrip(
       id,
       belongsToUser,
@@ -437,14 +472,16 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       tripDate,
       tripTimeHour,
       tripTimeMinutes,
-      tripFreeSeats,
-      tripTakenSeats,
+      tripAvailableSeats,
       tripPrice,
       tripLuggageSpace,
       tripMessage,
+      tripNewPassengersAcceptance,
       tripComfortable,
       tripStopsOnTheWayToFinalDestination,
-      tripNewPassengersAcceptance).subscribe(() => {
+      tripPassengersCanSmoke,
+      tripPetsAreAllowed,
+      tripQuiet).subscribe(() => {
         this.thisDialogRef.close('Confirm');
       });
   }
