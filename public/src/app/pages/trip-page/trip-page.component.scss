@@ -311,6 +311,16 @@
   flex-direction: column;
 }
 
+.form__input--contact-social {
+  display: flex;
+  flex-direction: row;
+  padding-right: 30px;
+
+  .form__input--join-trip {
+    width: 150px;
+  }
+}
+
 .join-this-trip {
   &__options {
     display: flex;
@@ -320,6 +330,7 @@
     &-icon {
       width: 50px;
       height: 50px;
+      margin-right: 10px;
       cursor: pointer;
 
       &--facebook {
@@ -333,6 +344,25 @@
       &--phone {
         fill: #555;
       }
+    }
+  }
+
+  &__social-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__social {
+    margin-right: 15px;
+  }
+
+  &__phone-number {
+    display: flex;
+    flex-grow: 1;
+
+    .form__input--join-trip {
+      width: 100%;
     }
   }
 
