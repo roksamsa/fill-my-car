@@ -166,7 +166,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 30px;
     font-size: 26px;
   }
 
@@ -209,7 +209,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 40px;
+    margin-left: 45px;
     outline: none;
 
     &:first-child {
@@ -224,8 +224,8 @@
 
   &__graphics {
     display: flex;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 40px;
+    margin-bottom: 30px;
   }
 
   &__vehicle {
@@ -412,13 +412,13 @@
 
 .tile {
   &--trip-details {
-    width: 60%;
-    margin-right: 15px;
+    width: 59%;
+    margin-right: 1%;
   }
 
   &--trip-map {
-    width: 40%;
-    margin-left: 15px;
+    width: 39%;
+    margin-left: 1%;
   }
 }
 

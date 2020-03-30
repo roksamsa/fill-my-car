@@ -95,6 +95,10 @@ $header-user-wrapper__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
     height: 100%;
   }
 
+  &__logo {
+    margin-right: 20px;
+  }
+
   &__user-wrapper {
     display: flex;
     flex-direction: row;

@@ -124,8 +124,16 @@
       <div class="trip__bottom-details">
         <div class="trip__bottom-divider"></div>
 
-        <form [formGroup]="addTripFormStepperForm" class="form" [ngClass]="{'form--without-button': seatsAvailableNumber == seatsTakenNumber}">
-          <mat-horizontal-stepper class="trip-add-passengers__wizard" [ngClass]="{'trip-add-passengers__wizard--last-step': stepper.selectedIndex === 5 || stepper.selectedIndex === 4}" [linear]="true" formArrayName="addTripFormStepperFormArray" #stepper>
+        <form class="form"
+              [formGroup]="addTripFormStepperForm"
+              [ngClass]="{
+                'form--without-button': seatsTakenNumber > seatsAvailableNumber || seatsTakenNumber === seatsAvailableNumber}">
+          <mat-horizontal-stepper #stepper
+                                  class="trip-add-passengers__wizard"
+                                  formArrayName="addTripFormStepperFormArray"
+                                  [ngClass]="{
+                                    'trip-add-passengers__wizard--last-step': stepper.selectedIndex === 5 || stepper.selectedIndex === 4}"
+                                  [linear]="true">
 
             <!-- STEP 0 -->
             <mat-step id="tripInputStep0" class="trip__price-container">
@@ -255,10 +263,10 @@
         </form>
 
         <div class="trip__button-wrapper">
-          <button *ngIf="stepper.selectedIndex === 0 && seatsAvailableNumber != seatsTakenNumber" mat-raised-button class="button button--primary"
+          <button *ngIf="stepper.selectedIndex === 0 && seatsAvailableNumber > seatsTakenNumber || seatsAvailableNumber !== seatsTakenNumber" mat-raised-button class="button button--primary"
             (click)="joinTripStart()">Prijavi se na potovanje</button>
 
-          <p *ngIf="seatsAvailableNumber == seatsTakenNumber">Na potovanje prijava ni več možna!</p>
+          <p *ngIf="seatsTakenNumber > seatsAvailableNumber || seatsTakenNumber === seatsAvailableNumber">Na potovanje prijava ni več možna!</p>
 
           <button *ngIf="stepper.selectedIndex > 0 && stepper.selectedIndex < 5" class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
             <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
