@@ -197,7 +197,6 @@
                       formGroupName="4"
                       [stepControl]="addTripFormStepperFormArray?.get([4])">
               <div class="form__input form__input--contact-social">
-
                 <div *ngIf="!socialUser" class="join-this-trip__social">
                   <div class="form__input form__input--join-trip">
                     <label class="form__label">Prijavite se na prevoz z:</label>
@@ -263,10 +262,12 @@
         </form>
 
         <div class="trip__button-wrapper">
-          <button *ngIf="stepper.selectedIndex === 0 && seatsAvailableNumber > seatsTakenNumber || seatsAvailableNumber !== seatsTakenNumber" mat-raised-button class="button button--primary"
-            (click)="joinTripStart()">Prijavi se na potovanje</button>
+          <button *ngIf="(stepper.selectedIndex === 0) && (seatsAvailableNumber > seatsTakenNumber) || (seatsAvailableNumber !== seatsTakenNumber)"
+                  mat-raised-button
+                  class="button button--primary"
+                  (click)="joinTripStart()">Prijavi se na potovanje</button>
 
-          <p *ngIf="seatsTakenNumber > seatsAvailableNumber || seatsTakenNumber === seatsAvailableNumber">Na potovanje prijava ni več možna!</p>
+          <p *ngIf="(seatsTakenNumber > seatsAvailableNumber) || (seatsTakenNumber === seatsAvailableNumber)">Na potovanje prijava ni več možna!</p>
 
           <button *ngIf="stepper.selectedIndex > 0 && stepper.selectedIndex < 5" class="button button--just-icon button--space-right" (click)="cancelTripBooking()" type="button">
             <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"

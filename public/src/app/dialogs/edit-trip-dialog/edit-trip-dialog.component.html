@@ -106,7 +106,6 @@
                                  [precision]="1"
                                  [isTimeInput]="true"
                                  [inputDisabled]="false"
-                                 [inputPlaceholder]="'00'"
                                  [inputValueNumber]="dateHourValue"
                                  (change)="getTimeHour($event)">
               </app-number-picker>
@@ -125,7 +124,6 @@
                                  [precision]="1"
                                  [isTimeInput]="true"
                                  [inputDisabled]="isSeatValueInputDisabled"
-                                 [inputPlaceholder]="'00'"
                                  [inputValueNumber]="dateMinutesValue"
                                  (change)="getTimeMinutes($event)">
               </app-number-picker>
@@ -315,6 +313,10 @@
   </div>
 </div>
 
+{{seatsAvailableValue}}
+{{seatsTakenValue}}
+{{seatsFreeValue}}
+
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button *ngIf="stepper.selectedIndex === 0"
@@ -373,6 +375,8 @@
             dateHourString,
             dateMinutesString,
             seatsAvailableValue,
+            seatsTakenValue,
+            seatsFreeValue,
             priceValue,
             luggageSpaceValue,
             tripMessage.value,

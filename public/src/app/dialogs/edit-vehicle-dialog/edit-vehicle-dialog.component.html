@@ -74,15 +74,13 @@
       <div class="form__input">
         <label class="form__label">Število sedežev</label>
         <app-number-picker class="form__seats-input" [min]="1" [max]="10" [step]="1" [precision]="1"
-          [inputDisabled]="false" [inputValueNumber]="inputSeatsValueNumber" [inputPlaceholder]="inputSeatsPlaceholder"
-          (change)="onNumberOfSeatsChanged($event)"></app-number-picker>
+          [inputDisabled]="false" [inputValueNumber]="inputSeatsValueNumber" (change)="onNumberOfSeatsChanged($event)"></app-number-picker>
       </div>
 
       <!--<div class="form__input">
         <label class="form__label">Največja količina prtljage</label>
         <app-number-picker class="form__luggage-input" [min]="0" [max]="50" [step]="1" [precision]="1"
-          [inputDisabled]="false" [inputValueNumber]="inputLuggageValueNumber"
-          [inputPlaceholder]="inputLuggagePlaceholder" (change)="onNumberOfLuggageChanged($event)"></app-number-picker>
+          [inputDisabled]="false" [inputValueNumber]="inputLuggageValueNumber" (change)="onNumberOfLuggageChanged($event)"></app-number-picker>
       </div>-->
 
       <div class="form__input">
@@ -107,5 +105,14 @@
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button mat-raised-button class="button button--primary"
-    (click)="updateVehicle(selectedVehicleData._id, vehicleType.value, vehicleBrand.value, vehicleName.value, vehicleModelYear.value, vehicleColor.value, vehicleSeatsValue, vehicleLuggageValue, isVehicleInsuranceChecked)">Shrani spremembe na vozilu</button>
+    (click)="updateVehicle(
+             selectedVehicleData._id,
+             vehicleType.value,
+             vehicleBrand.value,
+             vehicleName.value,
+             vehicleModelYear.value,
+             vehicleColor.value,
+             vehicleSeatsValue,
+             vehicleLuggageValue,
+             isVehicleInsuranceChecked)">Shrani spremembe na vozilu</button>
 </mat-dialog-actions>

@@ -10,6 +10,7 @@ import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-da
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
 import { vehicleYears, VehicleYearsSetup } from '../../core/vehicle/vehicle-data.years';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { NumberPickerService } from '../../components/number-picker/number-picker.service';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '400ms';
@@ -54,7 +55,7 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
   selectedVehicleYearData = '';
   isVehicleInsuranceChecked = false;
 
-  public inputSeatsPlaceholder: string;
+  public inputSeatsPlaceholder = 'Test test test';
   public inputSeatsValueNumber: number;
   public vehicleSeatsValue: number;
 
@@ -65,6 +66,7 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
   constructor (
     public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
+    private numberPickerData: NumberPickerService,
     private fb: FormBuilder,
     public thisDialogRef: MatDialogRef<CreateVehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
     this.createForm = this.fb.group({
@@ -82,6 +84,8 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.isDialogOpen = true;
+    //this.numberPickerData.currentInputPlaceholderData.subscribe(clickActiveState => this.inputSeatsPlaceholder = clickActiveState);
+    this.numberPickerData.changeInputPlaceholderValue(this.inputSeatsPlaceholder);
   }
 
   // Fetch all vehicles for specific user

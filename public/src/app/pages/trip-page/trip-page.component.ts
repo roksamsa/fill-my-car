@@ -112,7 +112,7 @@ export class TripPageComponent implements OnInit {
           yourEndLocation: ['', Validators.required]
         }),
         this.form.group({
-          tripPassengerPhone: ['', Validators.required]
+          passengerPhoneNumber: ['', Validators.required]
         }),
         this.form.group({
         })

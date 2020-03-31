@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NumberPickerService } from './number-picker.service';
 import { ConstantsService } from '../../common/services/constants.service';
 
 @Component({
@@ -15,8 +16,9 @@ export class NumberPickerComponent implements OnInit {
   @Input() isTimeInput = false;
   @Input() inputValueNumber: number;
   @Input() inputDisabled: boolean;
-  @Input() inputPlaceholder = '';
   @Input() formControlName: FormGroup;
+
+  public inputPlaceholder = '';
 
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() inputValue = new EventEmitter<number>();
@@ -28,9 +30,14 @@ export class NumberPickerComponent implements OnInit {
   inputStartValue: number | string;
 
   constructor(
+    public numberPickerData: NumberPickerService,
     private constant: ConstantsService) { }
 
   ngOnInit() {
+    this.numberPickerData.inputPlaceholderData.subscribe((inputPlaceholder) => {
+      this.inputPlaceholder = inputPlaceholder;
+    });
+
     if (this.inputDisabled == null) {
       this.inputDisabled = false;
     }

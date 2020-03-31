@@ -365,8 +365,9 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     console.log(this.isTripQuietChecked);
   }
 
-  acceptPassengersChange(event) {
+  acceptPassengersChange(event: any) {
     this.isAcceptPassengersChecked = event.value;
+    console.log(this.isAcceptPassengersChecked);
   }
 
   /*
@@ -418,12 +419,11 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   freeSeatsChanged(value: number) {
     this.seatsAvailableValue = value;
 
-    console.log(this.seatsAvailableValue);
-
-    if (this.seatsTakenValue = this.vehicleSeatsAvailableValue) {
+    if (this.seatsAvailableValue >= this.seatsTakenValue) {
+      this.seatsFreeValue = this.seatsAvailableValue - this.seatsTakenValue;
+    } else if (this.seatsTakenValue > this.seatsAvailableValue) {
+      value = this.seatsTakenValue;
       this.openSnackBar();
-      this.isSeatValueInputDisabled = true;
-      this.seatsAvailableValue = this.seatsTakenValue;
     }
   }
 
@@ -450,6 +450,8 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     tripTimeHour: string,
     tripTimeMinutes: string,
     tripAvailableSeats: number,
+    tripTakenSeats: number,
+    tripFreeSeats: number,
     tripPrice: number,
     tripLuggageSpace: number,
     tripMessage: string,
@@ -473,6 +475,8 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       tripTimeHour,
       tripTimeMinutes,
       tripAvailableSeats,
+      tripTakenSeats,
+      tripFreeSeats,
       tripPrice,
       tripLuggageSpace,
       tripMessage,

@@ -73,16 +73,20 @@
     <section class="form__row form__row--3-input-fields form__row--inputs-with-space">
       <div class="form__input">
         <label class="form__label">Število sedežev</label>
-        <app-number-picker class="form__seats-input" [min]="1" [max]="10" [step]="1" [precision]="1"
-          [inputDisabled]="false" [inputValueNumber]="inputSeatsValueNumber" [inputPlaceholder]="inputSeatsPlaceholder"
-          (change)="onNumberOfSeatsChanged($event)"></app-number-picker>
+        <app-number-picker class="form__seats-input"
+                           [min]="1"
+                           [max]="10"
+                           [step]="1"
+                           [precision]="1"
+                           [inputDisabled]="false"
+                           [inputValueNumber]="inputSeatsValueNumber"
+                           (change)="onNumberOfSeatsChanged($event)"></app-number-picker>
       </div>
 
       <!--<div class="form__input">
         <label class="form__label">Največja količina prtljage</label>
         <app-number-picker class="form__luggage-input" [min]="0" [max]="50" [step]="1" [precision]="1"
-          [inputDisabled]="false" [inputValueNumber]="inputLuggageValueNumber"
-          [inputPlaceholder]="inputLuggagePlaceholder" (change)="onNumberOfLuggageChanged($event)"></app-number-picker>
+          [inputDisabled]="false" [inputValueNumber]="inputLuggageValueNumber" (change)="onNumberOfLuggageChanged($event)"></app-number-picker>
       </div>-->
 
       <div class="form__input">
