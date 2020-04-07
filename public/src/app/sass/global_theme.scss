@@ -223,6 +223,10 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   position: relative;
 }
 
+.mat-tooltip {
+  text-align: center;
+}
+
 .mat-form-field {
   &.form__field {
     height: 44px;

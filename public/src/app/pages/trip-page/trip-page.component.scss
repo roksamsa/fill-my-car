@@ -248,7 +248,7 @@
   &__create-edit-dates {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   &__create-edit-dates-title {
@@ -258,13 +258,8 @@
     text-transform: uppercase;
   }
 
-  &__create-date,
   &__edit-date {
-    text-align: center;
-  }
-
-  &__edit-date {
-    margin-left: 40px;
+    margin-left: 60px;
   }
 
   &__message {
@@ -379,15 +374,23 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    max-width: 50%;
+    margin-right: 5%;
+    overflow: hidden;
+  }
+
+  &__user-right {
+    max-width: 100%;
+    overflow: hidden;
   }
 
   &__user-image {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 3px solid #ddd;
     overflow: hidden;
-    margin-right: 15px;
+    margin-right: 10px;
   }
 
   &__user-url-image {
@@ -397,6 +400,14 @@
 
   &__user-name {
     font-weight: bold;
+  }
+
+  &__user-name,
+  &__user-email {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 
@@ -435,9 +446,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-grow: 1;
   position: relative;
-  width: 100%;
   height: 100%;
+  max-width: 560px;
 
   &--without-button {
     width: unset;

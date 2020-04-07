@@ -57,6 +57,7 @@ export class TripPassengerService {
       tripPassengerEmail: tripPassengerEmail,
       tripPassengerPhone: tripPassengerPhone
     };
+    console.log(tripPassenger);
     return this.http.post(this.uriTripPassengerAdd, tripPassenger);
   }
 
@@ -102,7 +103,12 @@ export class TripPassengerService {
   }
 
   // Delete trip from database
-  deleteTrip(id: any): Observable<TripPassenger[]> {
+  deleteTripPassenger(id: any): Observable<TripPassenger[]> {
     return this.http.delete<TripPassenger[]>(this.uriTripDelete + id);
+  }
+
+  // Delete trip from database
+  deleteAllTripPassengers(): Observable<TripPassenger[]> {
+    return this.http.delete<TripPassenger[]>(this.uriTripDelete);
   }
 }

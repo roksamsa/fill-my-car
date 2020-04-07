@@ -156,7 +156,7 @@
             <div class="form__input form__input--space-left">
               <label class="form__label">Število prostih mest <span *ngIf="vehicleSeatsAvailableValue">(največ {{vehicleSeatsAvailableValue}})</span></label>
               <app-number-picker class="form__time-input"
-                                 [min]="0"
+                                 [min]="1"
                                  [max]="vehicleSeatsAvailableValue"
                                  [step]="1"
                                  [precision]="1"

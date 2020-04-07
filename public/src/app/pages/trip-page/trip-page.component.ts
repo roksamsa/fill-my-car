@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
+import { ShareMyTripDialogComponent } from '../../dialogs/share-my-trip-dialog/share-my-trip-dialog.component';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from "angularx-social-login";
@@ -45,6 +46,7 @@ export class TripPageComponent implements OnInit {
 
   private currentTripId: string;
   private tripIdTag: string;
+  private tripId: string;
 
   preloadingSpinnerVisibility = true;
 
@@ -73,6 +75,7 @@ export class TripPageComponent implements OnInit {
   seatsTakenNumber: number; // Na koncu moram to številko posodobit!
   seatsFreeNumber: number;
   seatsSelectedNumberFromInput = 1; // Izbrana številka v inputu!
+  seatsFreeNumberForInput: number;
 
   public socialUser: SocialUser;
   public socialUserLoggedIn: boolean;
@@ -136,6 +139,7 @@ export class TripPageComponent implements OnInit {
   getSocialUser() {
     this.authSocialService.authState.subscribe((user) => {
       this.socialUser = user;
+      console.log(user);
       this.socialUserLoggedIn = (user != null);
     });
   }
@@ -169,6 +173,7 @@ export class TripPageComponent implements OnInit {
 
         if (data !== null && data !== undefined) {
           this.trip = data;
+          this.tripId = data.id;
           this.tripIdTag = data.tripIdTag;
           this.areThereAnyTrips = true;
           this.tripFromLocationCity = data.tripFromLocation.split(', ')[0];
@@ -190,6 +195,7 @@ export class TripPageComponent implements OnInit {
           this.seatsAvailableNumber = data.tripAvailableSeats;
           this.seatsTakenNumber = data.tripTakenSeats;
           this.seatsFreeNumber = data.tripFreeSeats;
+          this.seatsFreeNumberForInput = data.tripFreeSeats;
           this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(this.seatsAvailableNumber);
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(this.seatsTakenNumber);
 
@@ -248,6 +254,25 @@ export class TripPageComponent implements OnInit {
     });
   }
 
+  // Share my trip dialog popup
+  openShareMyTripDialog(trip: any, tripIndex: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = true;
+    dialogConfig.width = '600px';
+    dialogConfig.position = {
+      top: '100px'
+    };
+    dialogConfig.data = trip;
+
+    const dialogRef = this.popupDialog.open(ShareMyTripDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+    });
+  }
+
   // Delete specific trip
   deleteTrip(id: any) {
     this.tripService.deleteTrip(id)
@@ -293,7 +318,7 @@ export class TripPageComponent implements OnInit {
 
     setTimeout(function() {
       that.stepper.selectedIndex = 0;
-    }, 2000);
+    }, 3000);
   }
 
   setNewSeatsData() {

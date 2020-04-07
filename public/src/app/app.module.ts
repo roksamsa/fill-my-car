@@ -62,6 +62,7 @@ import { TileTitleTopComponent } from './components/tile-title-top/tile-title-to
 import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { ClickOutsideDirective } from './core/other/click-outside.directive';
+import { CopyClipboardModule } from './core/other/copy-clipboard.module';
 import { AppLongPressDirective } from './core/other/long-press.directive';
 import { TripsListComponent } from './components/trips-list/trips-list.component';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
@@ -98,6 +99,7 @@ import {
   MatNativeDateModule,
   NativeDateModule } from '@angular/material/core';
 import { ButtonIconComponent } from './style/button-icon/button-icon.component';
+import { ShareMyTripDialogComponent } from './dialogs/share-my-trip-dialog/share-my-trip-dialog.component';
 
 registerLocaleData(localeSl);
 
@@ -187,7 +189,8 @@ export function provideConfig() {
     WebpageMenuComponent,
     TileTitleLeftComponent,
     TileComponent,
-    ButtonIconComponent
+    ButtonIconComponent,
+    ShareMyTripDialogComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -206,6 +209,7 @@ export function provideConfig() {
     MatTooltipModule,
     MatStepperModule,
     MatSlideToggleModule,
+    CopyClipboardModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
@@ -237,6 +241,7 @@ export function provideConfig() {
     WebpageMenuService,
     VehicleTileService,
     MatDatepickerModule,
+    CopyClipboardModule,
     AuthGuard,
     { provide: FirestoreSettingsToken, useValue: {} },
     { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'never' } },

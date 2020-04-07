@@ -26,7 +26,7 @@ var tripPassengerSchema = new Schema({
   tripPassengerEmail: {
     type: String
   },
-  tripPassengerNamePhone: {
+  tripPassengerPhone: {
     type: String
   }
 });

@@ -1,8 +1,8 @@
 import express from 'express';
 
 const tripPassengerSchema = require('../models/trip-passenger.model');
-const router = express.Router();
 const tripsURI = '/trip-passengers';
+const router = express.Router();
 
 // Get trip passengers list
 router.get(tripsURI, function (req, res) {
@@ -37,6 +37,8 @@ router.get(tripsURI + '/:id', function (req, res) {
 // Add trip passenger
 router.post(tripsURI + '/add', function (req, res) {
   var tripPassenger = new tripPassengerSchema(req.body);
+  console.log('tripPassenger');
+  console.log(tripPassenger);
   tripPassenger.save()
     .then(tripPassenger => {
       res.status(200).json({'Trip passenger': tripPassenger + ' Added successfully'});
@@ -74,6 +76,16 @@ router.route(tripsURI + '/delete/:id').delete((req, res) => {
       res.json(err);
     else
       res.json('Trip passenger removed successfully!');
+  });
+});
+
+// Delete all trip passengers
+router.route(tripsURI + '/delete-all/').delete((req, res) => {
+  tripPassengerSchema.deleteMany((err, tripPassengers) => {
+    if (err)
+      res.json(err);
+    else
+      res.json('All trip passengers removed successfully!');
   });
 });
 

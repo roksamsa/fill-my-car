@@ -16,9 +16,8 @@ export class NumberPickerComponent implements OnInit {
   @Input() isTimeInput = false;
   @Input() inputValueNumber: number;
   @Input() inputDisabled: boolean;
+  @Input() inputPlaceholder: string;
   @Input() formControlName: FormGroup;
-
-  public inputPlaceholder = '';
 
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() inputValue = new EventEmitter<number>();
@@ -34,10 +33,6 @@ export class NumberPickerComponent implements OnInit {
     private constant: ConstantsService) { }
 
   ngOnInit() {
-    this.numberPickerData.inputPlaceholderData.subscribe((inputPlaceholder) => {
-      this.inputPlaceholder = inputPlaceholder;
-    });
-
     if (this.inputDisabled == null) {
       this.inputDisabled = false;
     }

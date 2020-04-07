@@ -1,0 +1,25 @@
+@import '../../sass/global_variables';
+@import '../../sass/elements/button';
+@import '../../sass/elements/forms';
+@import '../../sass/elements/dialog';
+
+:host {
+  display: block;
+}
+
+.popup {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  &__headline {
+    color: $color__blue--primary;
+    margin-top: 0;
+  }
+
+  &__close-icon {
+    fill: $color__blue--primary;
+  }
+}
