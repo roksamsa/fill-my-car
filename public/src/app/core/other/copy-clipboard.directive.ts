@@ -7,7 +7,7 @@ export class CopyClipboardDirective {
 
   @Input() public payload: string;
 
-  @Input() public context: string;
+  @Input() public appCopyClipboard: string;
 
   @Output() public copied: EventEmitter<string> = new EventEmitter<string>();
 

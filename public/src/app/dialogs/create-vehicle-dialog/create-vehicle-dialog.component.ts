@@ -11,6 +11,7 @@ import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-da
 import { vehicleYears, VehicleYearsSetup } from '../../core/vehicle/vehicle-data.years';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { NumberPickerService } from '../../components/number-picker/number-picker.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '400ms';
@@ -68,6 +69,7 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
     private vehicleService: VehicleService,
     private numberPickerData: NumberPickerService,
     private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
     public thisDialogRef: MatDialogRef<CreateVehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
     this.createForm = this.fb.group({
       belongsToUser: '',
@@ -82,9 +84,17 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
     });
   }
 
+  private snackBarStringForWhenVehicleIsCreated = 'Ustvarili ste novo vozilo.';
+
+  private openSnackBarWhenVehicleIsCreated(): void {
+    this._snackBar.open(this.snackBarStringForWhenVehicleIsCreated, 'Zapri', {
+      duration: 7500,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
+  }
+
   ngAfterViewInit() {
     this.isDialogOpen = true;
-    //this.numberPickerData.currentInputPlaceholderData.subscribe(clickActiveState => this.inputSeatsPlaceholder = clickActiveState);
     this.numberPickerData.changeInputPlaceholderValue(this.inputSeatsPlaceholder);
   }
 
@@ -167,6 +177,7 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
       vehicleMaxLuggage,
       vehicleInsurance).subscribe(() => {
         this.thisDialogRef.close('Confirm');
+        this.openSnackBarWhenVehicleIsCreated();
       });
   }
 

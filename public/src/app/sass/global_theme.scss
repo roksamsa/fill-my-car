@@ -55,6 +55,20 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   border-top: 0  none;
 }
 
+// Angular Material Snack bar
+.mat-toolbar.mat-primary {
+  background-color: $color__blue--primary;
+}
+
+.mat-simple-snackbar-action {
+  color: $color__pink--primary;
+  transition: color 150ms ease-in-out;
+
+  &:hover {
+    color: $color__pink--darker;
+  }
+}
+
 // Angular Material Stepper component
 .mat-horizontal-stepper-header-container {
   display: flex;

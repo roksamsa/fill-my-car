@@ -2,6 +2,18 @@
   display: block;
   height: 100%;
   width: 100%;
+
+  &.webpage-header__content {
+    .app__wrapper {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .app__content {
+      width: 100%;
+    }
+  }
 }
 
 .app__wrapper {
@@ -25,6 +37,9 @@
 }
 
 :host-context(.home__content) {
+  position: relative;
+  top: 80px;
+
   .app__wrapper,
   .app__content {
     height: 100%;

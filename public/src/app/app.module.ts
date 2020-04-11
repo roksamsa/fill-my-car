@@ -241,7 +241,6 @@ export function provideConfig() {
     WebpageMenuService,
     VehicleTileService,
     MatDatepickerModule,
-    CopyClipboardModule,
     AuthGuard,
     { provide: FirestoreSettingsToken, useValue: {} },
     { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'never' } },

@@ -160,13 +160,24 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     selectedTripData.tripIdTag +
     ': ' + this.hereMapStartEditValue +
     ' - ' + this.hereMapFinishEditValue);
+
+    this.snackBarStringForWhenEditIsOver = 'Uredili ste potovanje: ' + selectedTripData.tripIdTag + '.';
   }
 
+  private readonly snackBarStringForWhenEditIsOver: string;
   private readonly snackBarStringForWhenSeatsTakenHigherSeatsAvailable = 'Na tem potovanju že imate vse sedeže zapolnjene in ne morate spremeniti količino prostih mest.';
 
-  openSnackBar() {
+  private openSnackBar(): void {
     this._snackBar.open(this.snackBarStringForWhenSeatsTakenHigherSeatsAvailable, 'Zapri', {
-      duration: 7500
+      duration: 7500,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
+  }
+
+  private openSnackBarWhenEditIsOver(): void {
+    this._snackBar.open(this.snackBarStringForWhenEditIsOver, 'Zapri', {
+      duration: 7500,
+      panelClass: ['mat-toolbar', 'mat-primary']
     });
   }
 
@@ -487,6 +498,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       tripPetsAreAllowed,
       tripQuiet).subscribe(() => {
         this.thisDialogRef.close('Confirm');
+        this.openSnackBarWhenEditIsOver();
       });
   }
 

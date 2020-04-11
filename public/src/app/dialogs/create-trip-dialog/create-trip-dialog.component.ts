@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { ConstantsService } from '../../common/services/constants.service';
 import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-trip-dialog',
@@ -32,6 +33,7 @@ export class CreateTripDialogComponent implements OnInit {
   tripIdTagCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   tripIdTagCharactersLength = this.tripIdTagCharacters.length;
   tripIdTagMaxLength = 6;
+  public tripIdTag = '';
 
   // Here map
   hereMapStart = '';
@@ -103,6 +105,7 @@ export class CreateTripDialogComponent implements OnInit {
     private form: FormBuilder,
     private datePipe: DatePipe,
     private titleService: Title,
+    private _snackBar: MatSnackBar,
     public authService: FirebaseAuthService,
     public hereMap: HereMapsService,
     public constant: ConstantsService,
@@ -139,10 +142,21 @@ export class CreateTripDialogComponent implements OnInit {
     this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat, this.dateLocale);
   }
 
+  private snackBarStringForWhenTripIsCreated: string;
+
+  private openSnackBarWhenTripIsCreated(): void {
+    this._snackBar.open(this.snackBarStringForWhenTripIsCreated, 'Zapri', {
+      duration: 7500,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
+  }
+
   ngOnInit() {
     this.fetchVehicles();
     this.isVehicleListEmpty();
     this.titleService.setTitle('Dodajanje novega potovanja');
+    this.createTripIdTag();
+    this.snackBarStringForWhenTripIsCreated = 'Ustvarili ste potovanje: ' + this.tripIdTag + '.';
   }
 
   public stepperGoPreviousStep() {
@@ -206,12 +220,10 @@ export class CreateTripDialogComponent implements OnInit {
   }
 
   // Generate random ID for trip
-  createTripIdTag(): string {
-    let tripIdTag = '';
+  private createTripIdTag(): void {
     for (let i = 0; i < this.tripIdTagMaxLength; i++) {
-      tripIdTag += this.tripIdTagCharacters.charAt(Math.floor(Math.random() * this.tripIdTagCharactersLength));
+      this.tripIdTag += this.tripIdTagCharacters.charAt(Math.floor(Math.random() * this.tripIdTagCharactersLength));
     }
-    return tripIdTag;
   }
 
   // Fetch all vehicles for specific user
@@ -378,7 +390,7 @@ export class CreateTripDialogComponent implements OnInit {
       belongsToUser,
       selectedVehicle,
       tripStatus,
-      tripIdTag = this.createTripIdTag(),
+      tripIdTag,
       tripFromLocation,
       tripToLocation,
       tripCreationDate,
@@ -399,6 +411,7 @@ export class CreateTripDialogComponent implements OnInit {
       tripPetsAreAllowed,
       tripQuiet).subscribe(() => {
         this.thisDialogRef.close('Confirm');
+        this.openSnackBarWhenTripIsCreated();
       });
   }
 

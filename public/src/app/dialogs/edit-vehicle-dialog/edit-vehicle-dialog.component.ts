@@ -10,6 +10,7 @@ import { vehicleBrands, VehicleBrandsSetup } from '../../core/vehicle/vehicle-da
 import { vehicleColors, VehicleColorsSetup } from '../../core/vehicle/vehicle-data.colors';
 import { vehicleYears, VehicleYearsSetup } from '../../core/vehicle/vehicle-data.years';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '400ms';
@@ -68,6 +69,7 @@ export class EditVehicleDialogComponent implements AfterViewInit {
     public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
     private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
     public thisDialogRef: MatDialogRef<EditVehicleDialogComponent>) {
     this.createForm = this.fb.group({
       belongsToUser: selectedVehicleData.belongsToUser,
@@ -94,6 +96,15 @@ export class EditVehicleDialogComponent implements AfterViewInit {
     this.inputLuggageValueNumber = selectedVehicleData.vehicleMaxLuggage;
 
     this.isVehicleInsuranceChecked = selectedVehicleData.vehicleInsurance;
+  }
+
+  private snackBarStringForWhenVehicleIsEdited = 'Uredili ste vozilo.';
+
+  private openSnackBarWhenVehicleIsEdited(): void {
+    this._snackBar.open(this.snackBarStringForWhenVehicleIsEdited, 'Zapri', {
+      duration: 7500,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
   }
 
   ngAfterViewInit() {
