@@ -9,11 +9,19 @@
     </div>
   </div>
   <div class="webpage-login">
-    <app-login-register-content class="webpage-login__content webpage-login__content--text">
+    <app-login-register-content *ngIf="isLoginFormVisible" class="webpage-login__content webpage-login__content--text" [@formChangeEnterAnimation]>
       <h2 login-register-content-title>Pozdravljeni nazaj!</h2>
       <div login-register-content-text class="webpage-login__text">
-        <p>Še nimate uporabniškega računa pri nas?</p>
-        <p><span class="webpage-login__link">Registrirajte se</span> čimprej in popestrite svoja potovanja.</p>
+        <p>Še nimate uporabniškega računa?</p>
+        <p><span class="webpage-login__link" (click)="changeFromRegisterToLogin()">Registrirajte se</span> čimprej in popestrite svoja potovanja.</p>
+      </div>
+    </app-login-register-content>
+
+    <app-login-register-content *ngIf="!isLoginFormVisible" class="webpage-login__content webpage-login__content--text" [@formChangeEnterAnimation]>
+      <h2 login-register-content-title>Le še korak do svojega zabavnega potovanja.</h2>
+      <div login-register-content-text class="webpage-login__text">
+        <p>Že imate račun?</p>
+        <p><span class="webpage-login__link" (click)="changeFromLoginToRegister()">Prijavite se</span> čimprej in popestrite svoja potovanja.</p>
       </div>
     </app-login-register-content>
     <app-login class="webpage-login__content"></app-login>

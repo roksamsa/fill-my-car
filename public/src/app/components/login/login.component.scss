@@ -2,11 +2,22 @@
 @import '../../sass/elements/button';
 @import '../../sass/elements/forms';
 
-.login-form {
-  &__title {
-    color: #fff;
-  }
+.login-register-tabs {
+  display: flex;
+  margin-bottom: 20px;
 
+  &__title {
+    margin-right: 30px;
+    color: #fff;
+    cursor: pointer;
+
+    &--active {
+      color: $color__pink--primary;
+    }
+  }
+}
+
+.login-form {
   &__input {
     margin-bottom: 20px;
   }

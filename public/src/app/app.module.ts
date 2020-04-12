@@ -29,6 +29,7 @@ import { VehicleService } from './core/vehicle/vehicle.service';
 import { VehicleSeatsService } from '../app/components/vehicle-seats/vehicle-seats.service';
 import { NumberPickerService } from '../app/components/number-picker/number-picker.service';
 import { HeaderService } from '../app/components/header/header.service';
+import { LoginService } from '../app/components/login/login.service';
 import { VehicleTileService } from '../app/components/vehicle-tile/vehicle-tile.service';
 import { UserMenuService } from '../app/components/user-menu/user-menu.service';
 import { WebpageMenuService } from '../app/webpage/components/webpage-menu/webpage-menu.service';
@@ -236,6 +237,7 @@ export function provideConfig() {
     NumberPickerService,
     UserService,
     HeaderService,
+    LoginService,
     ConstantsService,
     UserMenuService,
     WebpageMenuService,
