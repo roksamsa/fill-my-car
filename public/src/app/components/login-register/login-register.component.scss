@@ -27,10 +27,16 @@
   }
 
   &__content {
-    width: 50%;
-
     &--text {
-      margin-right: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+      margin-right: 5%;
+    }
+
+    &--form {
+      width: 45%;
     }
   }
 

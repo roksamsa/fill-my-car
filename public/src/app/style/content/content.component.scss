@@ -3,6 +3,7 @@
   height: 100%;
   width: 100%;
 
+  &.webpage-login__wrapper,
   &.webpage-header__content {
     .app__wrapper {
       display: flex;
@@ -12,6 +13,24 @@
 
     .app__content {
       width: 100%;
+    }
+  }
+
+  &.webpage-login__wrapper {
+    .app__wrapper {
+      align-items: flex-start;
+      height: 100%;
+    }
+  }
+
+  &.home__content {
+    display: flex;
+    flex-grow: 1;
+    height: unset;
+
+    .app__wrapper,
+    .app__content {
+      height: 100%;
     }
   }
 }
@@ -32,16 +51,6 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    height: 100%;
-  }
-}
-
-:host-context(.home__content) {
-  position: relative;
-  top: 80px;
-
-  .app__wrapper,
-  .app__content {
     height: 100%;
   }
 }

@@ -101,6 +101,7 @@ import {
   NativeDateModule } from '@angular/material/core';
 import { ButtonIconComponent } from './style/button-icon/button-icon.component';
 import { ShareMyTripDialogComponent } from './dialogs/share-my-trip-dialog/share-my-trip-dialog.component';
+import { AllTripsListComponent } from './components/all-trips-list/all-trips-list.component';
 
 registerLocaleData(localeSl);
 
@@ -191,7 +192,8 @@ export function provideConfig() {
     TileTitleLeftComponent,
     TileComponent,
     ButtonIconComponent,
-    ShareMyTripDialogComponent
+    ShareMyTripDialogComponent,
+    AllTripsListComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -1,5 +1,5 @@
 <div class="webpage-login__background"></div>
-<app-content>
+<app-content class="webpage-login__wrapper">
   <div class="webpage-login__headline">
     <div routerLink="/nadzorna-plosca" class="login-register-content__logo login-register-content__logo--white">
       <app-logo routerLink="/home" [logoType]="'white'"></app-logo>
@@ -18,13 +18,13 @@
     </app-login-register-content>
 
     <app-login-register-content *ngIf="!isLoginFormVisible" class="webpage-login__content webpage-login__content--text" [@formChangeEnterAnimation]>
-      <h2 login-register-content-title>Le še korak do svojega zabavnega potovanja.</h2>
+      <h2 login-register-content-title>Le še korak do zabavnega potovanja.</h2>
       <div login-register-content-text class="webpage-login__text">
         <p>Že imate račun?</p>
         <p><span class="webpage-login__link" (click)="changeFromLoginToRegister()">Prijavite se</span> čimprej in popestrite svoja potovanja.</p>
       </div>
     </app-login-register-content>
-    <app-login class="webpage-login__content"></app-login>
+    <app-login class="webpage-login__content webpage-login__content--form"></app-login>
   </div>
   <app-footer class="webpage-login__footer" [footerStyle]="'white'"></app-footer>
 </app-content>

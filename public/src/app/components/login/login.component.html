@@ -88,7 +88,7 @@
       <div class="login-form__group login-form__group--buttons">
         <!-- Calling SignIn Api from AuthService -->
         <div class="login-form__button">
-          <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Prijava</button>
+          <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Registracija</button>
         </div>
 
         <div class="login-form__group login-form__group--buttons-social">
@@ -116,10 +116,6 @@
             </button>
           </div>
         </div>
-      </div>
-
-      <div class="login-form__forgot">
-        <p routerLink="/forgot-password">Ste pozabili geslo?</p>
       </div>
     </div>
 

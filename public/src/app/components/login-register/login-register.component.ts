@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WebpageMenuService } from '../../webpage/components/webpage-menu/webpage-menu.service';
 import { LoginService } from '../login/login.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Title } from '@angular/platform-browser';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '400ms';
@@ -25,17 +26,23 @@ export const headerFadeInAnimationTiming = '400ms';
     ])
   ]
 })
-export class LoginRegisterComponent implements OnInit {
+export class LoginRegisterComponent implements OnInit, OnDestroy {
 
+  private readonly appTitle = 'Napolni moj avto';
   private loginRegisterOverlayVisibility = true;
   public isLoginFormVisible = true;
 
   constructor(
     public loginFromVisibility: LoginService,
+    private titleService: Title,
     private webpageMenuData: WebpageMenuService) { }
 
   ngOnInit() {
     this.loginFromVisibility.currentLoginFormVisibleState.subscribe(loginFormVisibility => this.isLoginFormVisible = loginFormVisibility);
+  }
+
+  ngOnDestroy() {
+    this.titleService.setTitle(this.appTitle);
   }
 
   openLoginRegisterOverlay() {
