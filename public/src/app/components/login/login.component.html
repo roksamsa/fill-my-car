@@ -2,14 +2,19 @@
   <div class="displayTableCell">
 
     <div class="login-register-tabs">
-      <h3 class="login-register-tabs__title" [ngClass]="{'login-register-tabs__title--active': isLoginFormVisible}" (click)="changeFromLoginToRegister()">Prijava</h3>
-      <h3 class="login-register-tabs__title" [ngClass]="{'login-register-tabs__title--active': !isLoginFormVisible}" (click)="changeFromRegisterToLogin()">Registracija</h3>
+      <h3 class="login-register-tabs__title link" [ngClass]="{'login-register-tabs__title--active': isLoginFormVisible}" (click)="changeFromLoginToRegister()">Prijava</h3>
+      <h3 class="login-register-tabs__title link" [ngClass]="{'login-register-tabs__title--active': !isLoginFormVisible}" (click)="changeFromRegisterToLogin()">Registracija</h3>
+    </div>
+
+    <div *ngIf="isRegisterNotificationVisible" class="register__notification">
+      <p>Uspešno ste se registrirali.</p>
+      <p>Za zaključek registracije preverite svoj elektronski poštni nabiralnik in potrdite registracjo.</p>
     </div>
 
     <div *ngIf="isLoginFormVisible" class="login-form" [@formEnterAnimation]>
       <div class="login-form__input form__input">
         <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
-          <input matInput type="text" class="formControl" placeholder="Uporabniško ime" #userName required>
+          <input matInput type="text" class="formControl" placeholder="Email" #userName required>
         </mat-form-field>
       </div>
 
@@ -22,7 +27,7 @@
       <div class="login-form__group login-form__group--buttons">
         <!-- Calling SignIn Api from AuthService -->
         <div class="login-form__button">
-          <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Prijava</button>
+          <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.EmailSignIn(userName.value, userPassword.value)">Prijava</button>
         </div>
 
         <div class="login-form__group login-form__group--buttons-social">
@@ -59,36 +64,22 @@
 
     <div *ngIf="!isLoginFormVisible" class="register-form" [@formEnterAnimation]>
 
-      <section class="form__row form__row--2-input-fields form__row--last">
-        <div class="login-form__input form__input">
-          <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
-            <input matInput type="text" class="formControl" placeholder="Ime" #name required>
-          </mat-form-field>
-        </div>
-
-        <div class="login-form__input form__input form__input--space-left">
-          <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
-            <input matInput type="text" class="formControl" placeholder="Priimek" #lastName required>
-          </mat-form-field>
-        </div>
-      </section>
-
       <div class="login-form__input form__input">
         <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
-          <input matInput type="text" class="formControl" placeholder="Uporabniško ime" #userName required>
+          <input matInput type="text" class="formControl" placeholder="Email" #emailForRegistration required>
         </mat-form-field>
       </div>
 
       <div class="login-form__input form__input">
         <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
-          <input matInput type="password" class="formControl" placeholder="Geslo" #userPassword required>
+          <input matInput type="password" class="formControl" placeholder="Geslo" #userPasswordForRegistration required>
         </mat-form-field>
       </div>
 
       <div class="login-form__group login-form__group--buttons">
         <!-- Calling SignIn Api from AuthService -->
         <div class="login-form__button">
-          <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.SignIn(userName.value, userPassword.value)">Registracija</button>
+          <button type="button" mat-raised-button class="button button--primary" value="Registracija" (click)="registerWithEmail(emailForRegistration.value, userPasswordForRegistration.value)">Registracija</button>
         </div>
 
         <div class="login-form__group login-form__group--buttons-social">

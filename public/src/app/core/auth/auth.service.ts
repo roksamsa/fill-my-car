@@ -35,7 +35,7 @@ export class FirebaseAuthService {
   }
 
   // Sign in with email/password
-  SignIn(email, password) {
+  public EmailSignIn(email: string, password: string): Promise<void> {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
@@ -48,7 +48,7 @@ export class FirebaseAuthService {
   }
 
   // Sign up with email/password
-  SignUp(email, password) {
+  public EmailSignUp(email: string, password: string): Promise<void> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificationMail() function when new user sign up and returns promise */
@@ -66,15 +66,12 @@ export class FirebaseAuthService {
   }
 
   // Send email verification when new user sign up
-  SendVerificationMail() {
-    return this.afAuth.auth.currentUser.sendEmailVerification()
-    .then(() => {
-      this.router.navigate(['verify-email-address']);
-    });
+  public SendVerificationMail(): Promise<void> {
+    return this.afAuth.auth.currentUser.sendEmailVerification();
   }
 
   // Reset password
-  ForgotPassword(passwordResetEmail) {
+  public ForgotPassword(passwordResetEmail): Promise<void> {
     return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
       window.alert('Password reset email sent, check your inbox.');
@@ -84,22 +81,22 @@ export class FirebaseAuthService {
   }
 
   // Sign in with Google
-  GoogleAuth() {
+  public GoogleAuth(): Promise<void> {
     return this.AuthLogin(new auth.GoogleAuthProvider());
   }
 
   // Sign in with Facebook
-  FacebookAuth() {
+  public FacebookAuth(): Promise<void> {
     return this.AuthLogin(new auth.FacebookAuthProvider());
   }
 
   // Sign in with Github
-  GithubAuth() {
+  public GithubAuth(): Promise<void> {
     return this.AuthLogin(new auth.GithubAuthProvider());
   }
 
   // Auth logic to run auth providers
-  public AuthLogin(provider) {
+  public AuthLogin(provider: any): Promise<void> {
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result) => {
       this.ngZone.run(() => {
@@ -116,7 +113,7 @@ export class FirebaseAuthService {
 
   /* Setting up user data when sign in with username/password, sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user) {
+  public SetUserData(user): Promise<void> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`user/${user.uid}`);
     const userData: FirebaseUserModel = {
       uid: user.uid,
@@ -132,7 +129,7 @@ export class FirebaseAuthService {
   }
 
   // Sign out
-  SignOut() {
+  public SignOut(): Promise<void> {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['prijava']);

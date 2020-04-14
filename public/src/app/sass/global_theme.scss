@@ -526,3 +526,36 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
     }
   }
 }
+
+.link {
+  position: relative;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    width: 50%;
+    height: 2px;
+    background-color: $color__pink--primary;
+  }
+
+  &::before {
+    left: 50%;
+    transform: scaleX(0);
+    transition: transform .2s ease-in-out;
+    transform-origin: left;
+  }
+
+  &::after {
+    right: 50%;
+    transform: scaleX(0);
+    transition: transform .2s ease-in-out;
+    transform-origin: right;
+  }
+
+  &:hover::after,
+  &:hover::before {
+    transform: scaleX(1);
+  }
+}

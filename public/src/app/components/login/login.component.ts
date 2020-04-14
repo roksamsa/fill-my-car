@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   tileTitle = 'Prijava / Registracija';
   loginForm: FormGroup;
   isLoginFormVisible = true;
+  public isRegisterNotificationVisible = false;
 
   constructor(
     public authService: FirebaseAuthService,
@@ -56,4 +57,17 @@ export class LoginComponent implements OnInit {
     this.isLoginFormVisible = false;
     this.loginFromVisibility.changeLoginRegisterVisibility(this.isLoginFormVisible);
   }
+
+  public registerWithEmail(email: string, password: string): void {
+    const that = this;
+
+    this.authService.EmailSignUp(email, password).then(() => {
+      this.isRegisterNotificationVisible = true;
+      setTimeout(function() {
+        that.isRegisterNotificationVisible = false;
+      }, 5000);
+    }).catch((error) => {
+      window.alert(error.message);
+    });
+  };
 }
