@@ -338,6 +338,7 @@ $home-background-elements__top: 55%;
     top: 50%;
     left: 40%;
     margin-top: -130px;
+    transition: width 300ms ease-in-out;
 
     &--enter-animation-done {
       animation: van-moving-up-down 6s forwards infinite;
@@ -345,6 +346,8 @@ $home-background-elements__top: 55%;
   }
 
   &__van-svg {
+    width: 100%;
+    height: auto;
     position: relative;
   }
 
@@ -384,10 +387,7 @@ $home-background-elements__top: 55%;
 
   .home__van {
     left: 50%;
-    margin-left: -200px;
-  }
-
-  .home__van-svg {
     width: 400px;
+    margin-left: -200px;
   }
 }
