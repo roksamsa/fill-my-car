@@ -338,7 +338,8 @@ $home-background-elements__top: 55%;
     top: 50%;
     left: 40%;
     margin-top: -130px;
-    transition: width 300ms ease-in-out;
+    margin-left: 0;
+    transition: width 300ms ease-in-out, top 300ms ease-in-out, left 300ms ease-in-out, margin-left 300ms ease-in-out;
 
     &--enter-animation-done {
       animation: van-moving-up-down 6s forwards infinite;
@@ -387,7 +388,21 @@ $home-background-elements__top: 55%;
 
   .home__van {
     left: 50%;
+    top: 60%;
     width: 400px;
     margin-left: -200px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .home__main-content-wrapper {
+    width: 100%;
+  }
+
+  .home__van {
+    left: 50%;
+    top: 60%;
+    width: 80%;
+    margin-left: -40%;
   }
 }
