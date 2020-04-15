@@ -31,7 +31,9 @@
   }
 
   &__menu {
+    display: flex;
     margin: 0;
+    padding: 0;
 
     li {
       float: left;
@@ -52,5 +54,16 @@
 
   &--pink {
     color: $color__pink--primary;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .footer__menu {
+    flex-direction: column;
+
+    li {
+      padding-left: 0;
+      text-align: center;
+    }
   }
 }

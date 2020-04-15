@@ -88,21 +88,21 @@ $home-background-elements__top: 55%;
 
 @keyframes van-light {
   0% {
-    transform: scaleX(1) translateX(0);
+    transform: scale(1) translateX(0);
     animation-timing-function: ease-in-out;
-    opacity: 0.8;
+    opacity: 0.5;
   }
 
   50% {
-    transform: scaleX(2) translateX(10%);
+    transform: scale(2) translateX(5%);
     animation-timing-function: ease-in-out;
-    opacity: 0.6;
+    opacity: 0.3;
   }
 
   100% {
-    transform: scaleX(1) translateX(0);
+    transform: scale(1) translateX(0);
     animation-timing-function: ease-in-out;
-    opacity: 1;
+    opacity: 0.5;
   }
 }
 
@@ -323,13 +323,14 @@ $home-background-elements__top: 55%;
 
   &__van-light {
     position: absolute;
-    right: -32%;
-    top: 44%;
+    right: -80px;
+    top: 42%;
     height: 150px;
     width: 250px;
     //background-color: #FFE230;
-    background-image: radial-gradient(ellipse at center left, rgba(255, 226, 48, 100%), rgba(255, 226, 48, 0) 50%);
-    animation: van-light 10s forwards infinite;
+    background-image: radial-gradient(ellipse at center right, rgba(255, 226, 48, 100%) 0, rgba(255, 226, 48, 0) 50%);
+    -webkit-mask-image: linear-gradient(to left, transparent 0, black 15%);
+    animation: van-light 20s forwards infinite;
   }
 
   &__van {
@@ -354,7 +355,7 @@ $home-background-elements__top: 55%;
     height: 80px;
     opacity: 0.7;
     background-image: radial-gradient(ellipse, rgba(0, 20, 40, 1) 0%, rgba(0, 20, 40, 0) 70%);
-    animation: van-shadow-moving 2s forwards infinite;
+    animation: van-shadow-moving 10s forwards infinite;
   }
 
   &__main-content {

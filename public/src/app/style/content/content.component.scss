@@ -68,3 +68,11 @@
     width: 90%;
   }
 }
+
+@media only screen and (max-width: 760px) {
+  :host-context(.footer) {
+    .app__content {
+      flex-direction: column;;
+    }
+  }
+}
