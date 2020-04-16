@@ -163,7 +163,9 @@ $home-background-elements__top: 55%;
 :host {
   display: flex;
   flex-grow: 1;
+  position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 .home {

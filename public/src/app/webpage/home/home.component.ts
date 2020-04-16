@@ -10,17 +10,17 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
     trigger('loginRegisterOverlayAnimation', [
       state('in', style({
         opacity: '1',
-        height: '100%'
+        top: '0'
       })),
       transition(':enter', [
         group([
           style({
             opacity: '0',
-            height: '50%'
+            top: '100%'
           }),
           animate('300ms', style({
             opacity: '1',
-            height: '100%'
+            top: '0'
           })),
           query('.webpage-login', style({
             opacity: 0,
@@ -47,14 +47,18 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
         ])
       ]),
       transition(':leave', [
+        state('in', style({
+          opacity: '1',
+          top: '100%'
+        })),
         group([
           style({
             opacity: '1',
-            height: '100%'
+            top: '0'
           }),
           animate('200ms 400ms', style({
             opacity: '0',
-            height: '50%'
+            top: '100%'
           })),
           query('.webpage-login', style({
             opacity: 1,
@@ -111,22 +115,22 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
 })
 export class HomeComponent implements OnInit {
 
-  loginRegisterOverlayVisible: boolean;
-  vanAnimationState = false;
+  public loginRegisterOverlayVisible = false;
+  public vanAnimationState = false;
 
   constructor(private webpageMenuData: WebpageMenuService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.webpageMenuData.currentLoginRegisterOverlayVisibilityState.subscribe(
       clickActiveState => this.loginRegisterOverlayVisible = clickActiveState
     );
   }
 
-  openLoginOverlay() {
+  public openLoginOverlay(): void {
     this.webpageMenuData.openLoginRegisterOverlay(true);
   }
 
-  homeVanAnimationDoneEvent(event: AnimationEvent) {
+  public homeVanAnimationDoneEvent(event: AnimationEvent): void {
     this.vanAnimationState = true;
   }
 }
