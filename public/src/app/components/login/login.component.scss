@@ -47,3 +47,15 @@
     color: white;
   }
 }
+
+@media only screen and (max-width: 760px) {
+  .login-register-tabs {
+    justify-content: center;
+  }
+
+  .login-register-tabs__title {
+    &:nth-child(2) {
+      margin-right: 0;
+    }
+  }
+}

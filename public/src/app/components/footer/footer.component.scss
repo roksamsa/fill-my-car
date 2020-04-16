@@ -38,7 +38,7 @@
     li {
       float: left;
       list-style: none;
-      padding: 15px 0 15px 10px;
+      padding: 10px 0 10px 10px;
       margin: 0 0 0 20px;
       cursor: pointer;
 
@@ -59,11 +59,18 @@
 
 @media only screen and (max-width: 760px) {
   .footer__menu {
+    margin-top: 10%;
     flex-direction: column;
 
     li {
-      padding-left: 0;
+      margin-left: 0;
+      margin-bottom: 12%;
+      padding: 0;
       text-align: center;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }

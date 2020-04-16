@@ -60,6 +60,25 @@
 
   &__footer {
     display: block;
-    margin-top: 100px;
+    margin-top: 10%;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .webpage-login {
+    flex-direction: column;
+  }
+
+  .webpage-login__content {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .webpage-login__content--text {
+    text-align: center;
+  }
+
+  .webpage-login__content--form {
+    margin-top: 10%;
   }
 }
