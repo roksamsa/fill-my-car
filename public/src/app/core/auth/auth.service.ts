@@ -97,14 +97,13 @@ export class FirebaseAuthService {
 
   // Auth logic to run auth providers
   public AuthLogin(provider: any): Promise<void> {
-    return this.afAuth.auth.signInWithPopup(provider)
-    .then((result) => {
+    return this.afAuth.auth.signInWithPopup(provider).then((result) => {
       this.ngZone.run(() => {
+        console.log('You have been successfully logged in!');
+        console.log(result);
         this.SetUserData(result.user);
         this.router.navigate(['nadzorna-plosca']);
       });
-      console.log('You have been successfully logged in!');
-      console.log(result);
     }).catch((error) => {
       window.alert(error);
       console.log('errorerrorerrorerrorerror');

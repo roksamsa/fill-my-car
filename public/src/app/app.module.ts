@@ -118,6 +118,8 @@ const routes: Routes = [
     path: '', component: TripPageComponent}], pathMatch: 'full' },
   { path: 'uporabnik/:id', component: DefaultLayoutComponent, children: [{
     path: '', component: UserPageComponent}], pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'dodajanje-novega-vozila', component: DefaultLayoutComponent, children: [{
+    path: '', component: CreateVehicleDialogComponent}], canActivate: [AuthGuard] },
   { path: '', component: WithoutHeaderFooterLayoutComponent, children: [{
       path: '', component: HomeComponent}], canActivate: [SecureInnerPagesGuard]},
   { path: '**', component: HomeComponent }

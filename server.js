@@ -10,6 +10,8 @@ const path = require('path');
 const listeningPort = 4000;
 const consoleDivider = '\n******************************************\n\n';
 const consoleMessage = 'Server runs on port ';
+const databaseDomainLocal = 'https://localhost/';
+const databaseDomainWeb = 'https://napolnimojavto.si/';
 
 // Import database settings
 import './config/database';
@@ -50,6 +52,12 @@ app.use(require('./routes/trips.route'));
 app.use(require('./routes/trip-passengers.route'));
 require('./routes/auth');
 app.use('/', router);
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", databaseDomainLocal); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.listen(listeningPort, function () {
   console.log(consoleDivider + consoleMessage + listeningPort);

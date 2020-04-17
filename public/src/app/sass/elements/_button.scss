@@ -24,6 +24,13 @@
     }
   }
 
+  &--white {
+    background-color: $color__white--100;
+
+    &:hover {
+      background-color: $color__white--80;
+    }
+  }
   &--just-icon {
     padding: 0;
     background-color: transparent;
@@ -47,6 +54,25 @@
     width: 20px;
     height: 20px;
     fill: white;
+
+    &--social {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      background-size: 100% 100%;
+    }
+
+    &--google {
+      background-image: url(./../../../assets/icons/icon-google.svg);
+    }
+
+    &--facebook {
+      background-image: url(./../../../assets/icons/icon-facebook.svg);
+    }
+
+    &--github {
+      background-image: url(./../../../assets/icons/icon-github.svg);
+    }
   }
 
   &__icon--on-left {

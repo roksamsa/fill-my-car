@@ -9,13 +9,17 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
   animations: [
     trigger('loginRegisterOverlayAnimation', [
       state('in', style({
-        opacity: '1',
-        top: '0'
+        opacity: 1,
+        top: 0
       })),
       transition(':enter', [
+        style({
+          opacity: 1,
+          top: 0
+        }),
         group([
           style({
-            opacity: '0',
+            opacity: 0,
             top: '100%'
           }),
           animate('300ms', style({
@@ -47,17 +51,13 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
         ])
       ]),
       transition(':leave', [
-        state('in', style({
-          opacity: '1',
-          top: '100%'
-        })),
         group([
           style({
-            opacity: '1',
-            top: '0'
+            opacity: 1,
+            top: 0
           }),
           animate('200ms 400ms', style({
-            opacity: '0',
+            opacity: 0,
             top: '100%'
           })),
           query('.webpage-login', style({
@@ -124,6 +124,7 @@ export class HomeComponent implements OnInit {
     this.webpageMenuData.currentLoginRegisterOverlayVisibilityState.subscribe(
       clickActiveState => this.loginRegisterOverlayVisible = clickActiveState
     );
+    this.webpageMenuData.openLoginRegisterOverlay(this.loginRegisterOverlayVisible);
   }
 
   public openLoginOverlay(): void {
