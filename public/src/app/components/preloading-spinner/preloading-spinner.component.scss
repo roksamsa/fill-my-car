@@ -1,4 +1,4 @@
-$vehicles-items__width--full-size: 14.2857142857%;
+$vehicles-items__width--full-size: 20%;
 
 :host {
   display: block;
@@ -7,12 +7,15 @@ $vehicles-items__width--full-size: 14.2857142857%;
   height: 100%;
 
   &.vehicles__items--full-size {
-    .preloading-spinner {
-      display: grid;
-      grid-template-columns: $vehicles-items__width--full-size $vehicles-items__width--full-size $vehicles-items__width--full-size $vehicles-items__width--full-size $vehicles-items__width--full-size $vehicles-items__width--full-size $vehicles-items__width--full-size;
-      max-height: 960px;
-      overflow: auto;
-    }
+    display: grid;
+    grid-template-columns: $vehicles-items__width--full-size
+                           $vehicles-items__width--full-size
+                           $vehicles-items__width--full-size
+                           $vehicles-items__width--full-size
+                           $vehicles-items__width--full-size;
+    max-height: 960px;
+    padding-top: 20px;
+    overflow: auto;
   }
 
   &.preloading-spinner--goes-over-content {

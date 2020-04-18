@@ -1,6 +1,6 @@
 import express from 'express';
 
-const tripPassengerSchema = require('../models/trip-passenger.model');
+const tripPassengerSchema = require('../database/models/trip-passenger.model');
 const tripsURI = '/trip-passengers';
 const router = express.Router();
 

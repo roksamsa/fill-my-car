@@ -1,26 +1,39 @@
-import mongoose from 'mongoose';
+/* jshint node: true */
+'use strict';
+
 import express from 'express';
 import session from 'express-session';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-const path = require('path');
-
-// Listening
-const listeningPort = 4000;
-const consoleDivider = '\n******************************************\n\n';
-const consoleMessage = 'Server runs on port ';
-const databaseDomainLocal = 'https://localhost/';
-const databaseDomainWeb = 'https://napolnimojavto.si/';
 
 // Import database settings
-import './config/database';
+import database from './database/database-setup';
+
+// Listening
+const portForDatabase = 5432;
+const portForServer = 4000;
+const portForApp = 4444;
+const localDomainName = 'https://localhost';
+const webDomainName = 'https://napolnimojavto.si';
+const defaultDomainName = localDomainName;
+const corsOptionsOrigin = defaultDomainName + ':' + portForApp;
+const path = require('path');
+const consoleDivider = '\n******************************************\n';
+const consoleMessage = 'Server runs on port: ';
+const connectionMessageRunning =
+'Connection from PostgreSQL database has been established successfully and it is running.';
+const connectionMessageNotRunning = 'Unable to connect to the PostgreSQL database. Error:';
 
 // Variables
 const router = express.Router();
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: corsOptionsOrigin,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 // Parse application/x-www-form-urlencoded
@@ -45,20 +58,58 @@ app.use(function(err, req, res, next) {
   res.status(500).send();
 });
 
+// Database
+database.sequelize.sync().then(() => {
+  console.log(consoleDivider);
+  console.log(connectionMessageRunning);
+}).catch((error) => {
+  console.log(consoleDivider);
+  console.error(connectionMessageNotRunning, error);
+  console.log(consoleDivider);
+});
+
+
+/*function initial() {
+  let vehicles = [{
+      belongsToUser: 'kV6FwjmHrbZiJQwwBcBYO5EMJmq1',
+      vehicleType: 'car',
+      vehicleBrand: 'Citroen',
+      vehicleName: 'C4',
+      vehicleModelYear: 2011,
+      vehicleColor: 'silver',
+      vehicleSeats: 5,
+      vehicleMaxLuggage: 10,
+      vehicleInsurance: true,
+  }];
+  // console.log(database);
+  // Init data -> save to PostgreSQL
+  const Vehicle = database.vehicles;
+  for (let i = 0; i < vehicles.length; i++) {
+    Vehicle.create(vehicles[i]);
+  }
+}*/
+
 // Import data
-app.use(require('./routes/index'));
-app.use(require('./routes/vehicles.route'));
+require('./controller/auth');
+
+app.use('/', router);
+app.use(require('./controller/index'));
+app.use(require('./controller/vehicles/vehicles.route'));
+
+/*
 app.use(require('./routes/trips.route'));
 app.use(require('./routes/trip-passengers.route'));
-require('./routes/auth');
-app.use('/', router);
+*/
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", databaseDomainLocal); // update to match the domain you will make the request from
+  // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", corsOptionsOrigin);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-app.listen(listeningPort, function () {
-  console.log(consoleDivider + consoleMessage + listeningPort);
+app.listen(portForServer, function () {
+  console.log(consoleDivider);
+  console.log(consoleMessage + portForServer);
+  console.log(consoleDivider);
 });

@@ -1,6 +1,6 @@
 import express from 'express';
 
-const tripSchema = require('../models/trip.model');
+const tripSchema = require('../database/models/trip.model');
 const router = express.Router();
 const tripsURI = '/trips';
 const tripOptions = {upsert: true, returnOriginal: false};

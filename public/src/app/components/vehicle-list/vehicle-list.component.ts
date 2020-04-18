@@ -71,7 +71,7 @@ export class VehicleListComponent implements OnInit {
   fetchVehicles() {
     this.vehicleService.getVehicleByUser(this.currentUser.uid)
       .subscribe((data: Vehicle[]) => {
-        if (data.length > 0 && data.length != null) {
+        if (data.length > 0 && data != null) {
           this.vehicles = data;
           this.areThereAnyVehicles = true;
           this.preloadingSpinnerShow();

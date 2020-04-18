@@ -24,11 +24,8 @@ html {
 }
 
 body {
-  min-height: 100vh;
-}
-
-body {
   @include font-titillium-regular;
+  min-height: 100vh;
   margin: 0;
   box-sizing: border-box;
   color: $color__blue--primary;

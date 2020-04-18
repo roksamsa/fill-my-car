@@ -38,6 +38,7 @@
     &--3-input-fields {
       .form__input {
         flex-grow: 1;
+        max-width: 50%;
       }
     }
 
@@ -47,7 +48,8 @@
 
     &--inputs-with-space {
       .form__input {
-        margin-right: 30px;
+        width: 48%;
+        margin-right: 4%;
 
         &:last-child {
           margin-right: 0;

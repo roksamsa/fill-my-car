@@ -527,6 +527,12 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
   }
 }
 
+.mat-select-value-text {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
 .link {
   position: relative;
 

@@ -42,10 +42,10 @@
   <!-- Element with data -->
   <app-preloading-spinner tile-content
                           *ngIf="areThereAnyVehicles; else emptyVehicleList"
-                          class="vehicles__items vehicles__items--full-size"
+                          class="vehicles__items--full-size"
                           [visibility]="preloadingSpinnerVisibility">
-    <app-vehicle-tile class="vehicle-tile vehicle-tile--full-size"
-                      *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index;"
+    <app-vehicle-tile *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index;"
+                      class="vehicle-tile vehicle-tile--full-size"
                       [id]="'vehicleID_' + i"
                       [ngClass]="{'selected': selectedVehicle === vehicle}"
                       [vehicleID]="vehicle.vehicleId"
@@ -59,8 +59,11 @@
   <!-- Element without data-->
   <ng-template #emptyVehicleList>
     <app-preloading-spinner tile-content [visibility]="preloadingSpinnerVisibility">
-      <app-empty-data [emptyDataType]="emptyDataType" [emptyDataButtonText]="emptyDataButtonText"
-        [emptyDataText]="emptyDataText" [emptyDataIcon]="emptyDataIcon" (clicked)="openAddVehicleDialog()">
+      <app-empty-data [emptyDataType]="emptyDataType"
+                      [emptyDataButtonText]="emptyDataButtonText"
+                      [emptyDataText]="emptyDataText"
+                      [emptyDataIcon]="emptyDataIcon"
+                      (clicked)="openAddVehicleDialog()">
       </app-empty-data>
     </app-preloading-spinner>
   </ng-template>
