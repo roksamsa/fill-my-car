@@ -16,10 +16,10 @@
 
 <app-vehicle-tile *ngIf="isDialogOpen"
                   class="vehicle-tile--single vehicle-tile--centered"
+                  @vehicleEnterAnimation
                   [vehicleType]="selectedTypeData"
                   [vehicleColor]="selectedColorData"
-                  [vehicleTextVisible]="false"
-                  @vehicleEnterAnimation></app-vehicle-tile>
+                  [vehicleTextVisible]="false"></app-vehicle-tile>
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">
@@ -28,9 +28,13 @@
       <div class="form__input">
         <label class="form__label">Tip</label>
         <mat-form-field [floatLabel]="'never'"  class="form__field">
-          <mat-select matInput placeholder="Tip" formControlName="vehicleType" #vehicleType name="vehicleType"
-            (selectionChange)="selectedVehicleType($event)">
-            <mat-option *ngFor="let type of getVehicleTypes()" [value]="type.id">
+          <mat-select matInput placeholder="Tip"
+                      formControlName="vehicleType"
+                      name="vehicleType"
+                      #vehicleType
+                      (selectionChange)="selectedVehicleType($event)">
+            <mat-option *ngFor="let type of getVehicleTypes()"
+                        [value]="type.id">
               {{type.vehicleType}}
             </mat-option>
           </mat-select>
@@ -40,8 +44,14 @@
       <div class="form__input">
         <label class="form__label">Barva</label>
         <mat-form-field [floatLabel]="'never'"  class="form__field">
-          <mat-select matInput placeholder="Barva" class="mat-select mat-select--vehicle-color mat-select--{{selectedColorData | lowercase}}" formControlName="vehicleColor" #vehicleColor (selectionChange)="selectedVehicleColor($event)">
-            <mat-option *ngFor="let color of getVehicleColors()" class="mat-option mat-option--vehicle-color mat-option--{{color.id | lowercase}}" [value]="color.id">
+          <mat-select matInput
+                      placeholder="Barva"
+                      class="mat-select mat-select--vehicle-color mat-select--{{selectedColorData | lowercase}}" formControlName="vehicleColor"
+                      #vehicleColor
+                      (selectionChange)="selectedVehicleColor($event)">
+            <mat-option *ngFor="let color of getVehicleColors()"
+                        class="mat-option mat-option--vehicle-color mat-option--{{color.id | lowercase}}"
+                        [value]="color.id">
               {{color.vehicleColor}}
             </mat-option>
           </mat-select>
@@ -53,8 +63,10 @@
       <div class="form__input">
         <label class="form__label">Znamka</label>
         <mat-form-field [floatLabel]="'never'"  class="form__field">
-          <mat-select matInput placeholder="Znamka" formControlName="vehicleBrand" #vehicleBrand
-            (selectionChange)="selectedVehicleBrand($event)">
+          <mat-select matInput placeholder="Znamka"
+                      formControlName="vehicleBrand"
+                      #vehicleBrand
+                      (selectionChange)="selectedVehicleBrand($event)">
             <mat-option *ngFor="let brand of getVehicleBrands()" [value]="brand.vehicleBrand">
               {{brand.vehicleBrand}}
             </mat-option>
@@ -64,7 +76,7 @@
 
       <div class="form__input">
         <label class="form__label">Ime</label>
-        <mat-form-field [floatLabel]="'never'"  class="form__field">
+        <mat-form-field [floatLabel]="'never'" class="form__field">
           <input matInput placeholder="Ime" formControlName="vehicleName" #vehicleName>
         </mat-form-field>
       </div>
@@ -98,8 +110,10 @@
       <div class="form__input">
         <label class="form__label">Leto proizvodnje</label>
         <mat-form-field [floatLabel]="'never'"  class="form__field">
-          <mat-select matInput placeholder="Leto proizvodnje" formControlName="vehicleModelYear" #vehicleModelYear
-            (selectionChange)="selectedYearModel($event)">
+          <mat-select matInput placeholder="Leto proizvodnje"
+                      formControlName="vehicleModelYear"
+                      #vehicleModelYear
+                      (selectionChange)="selectedYearModel($event)">
             <mat-option *ngFor="let year of getVehicleYearModel()" [value]="year.vehicleYear">
               {{year.vehicleYear}}
             </mat-option>
@@ -109,7 +123,10 @@
     </section>
 
     <section class="form__row">
-      <mat-checkbox matInput formControlName="vehicleInsurance" (change)="vehicleInsuranceChange()">Imam nezgodno zavarovanje za potnike v tem vozilu.</mat-checkbox>
+      <mat-checkbox matInput
+                    formControlName="vehicleInsurance"
+                    (change)="vehicleInsuranceChange()">
+        Imam nezgodno zavarovanje za potnike v tem vozilu.</mat-checkbox>
     </section>
 
   </form>
@@ -119,7 +136,7 @@
   <button mat-raised-button class="button button--primary"
     (click)="addVehicle(
       authService.userData.uid,
-      vehicleType.value,
+      selectedTypeData,
       vehicleBrand.value,
       vehicleName.value,
       vehicleModelYear.value,

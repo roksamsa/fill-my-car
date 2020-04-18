@@ -8,7 +8,7 @@ const router = express.Router();
 const Vehicle = database.vehicles;
 const vehiclesURI = '/api/vehicles';
 
-// Get all Vehicles
+// Get all vehicles
 router.get(vehiclesURI, function (req, res) {
   Vehicle.findAll().then(vehicles => {
     // Send All Vehicles to Client
@@ -21,9 +21,10 @@ router.get(vehiclesURI, function (req, res) {
   });
 });
 
-// Get all Vehicles for Specific User
+// Get all vehicles for specific user
 router.get(vehiclesURI + '/user/:belongsToUser', function (req, res) {
-  Vehicle.findAll({ where: { belongsToUser: req.params.belongsToUser }}).then(vehicles => {
+  Vehicle.findAll({where: {belongsToUser: req.params.belongsToUser}})
+    .then(vehicles => {
       res.json(vehicles);
     }).catch(error => {
       console.log(error);
@@ -31,25 +32,65 @@ router.get(vehiclesURI + '/user/:belongsToUser', function (req, res) {
     });
 });
 
-// Create a new Vehicle
+// Create a new vehicle
 router.post(vehiclesURI + '/add', function (req, res) {
-  var vehicle = new Vehicle(req.body);
+  const vehicle = new Vehicle(req.body);
   vehicle.save()
     .then(vehicle => {
-      res.status(200).json({ 'Vehicle': vehicle + ' added successfully' });
+      res.status(200).json({'Vehicle': vehicle + ' added successfully'});
     })
-    .catch(err => {
-      res.status(400).send('Failed to create new vehicle, with error: ' + err);
+    .catch(error => {
+      res.status(400).send('Failed to create new vehicle, with error: ' + error);
+    });
+});
+
+// Delete a specific vehicle with id
+router.delete(vehiclesURI + '/delete/:id', function (req, res) {
+  const id = req.params.id;
+  Vehicle.destroy({where: {id: id}})
+    .then(vehicle => {
+      res.status(200).json({msg: 'Vehicle with id: ' + vehicle + ' deleted successfully.'});
+    })
+    .catch(error => {
+      res.status(500).json({msg: "error", details: error});
     });
 });
 
 // Retrieve a single Vehicle by Id
-//router.get('/api/vehicles/:id', vehicles.findById);
+router.get(vehiclesURI + '/:id', function (req, res) {
+  const id = req.params.id;
+  Vehicle.findOne({where: {id: id}})
+    .then(vehicle => {
+      res.json(vehicle);
+    })
+    .catch(error => {
+      res.status(500).json({msg: "error", details: error});
+    });
+});
 
 // Update a Vehicle with Id
-//router.update('/api/vehicles', vehicles.update);
+router.patch(vehiclesURI + '/update/:id', function (req, res) {
+  const id = req.params.id;
+  const vehicleUpdatedData = req.body;
 
-// Delete a Vehicle with Id
-//router.delete('/api/vehicles/:id', vehicles.delete);
+  console.log('kkkkkkkkkkkkkkkkkkkkkkkk');
+  console.log(vehicleUpdatedData);
+  console.log('kkkkkkkkkkkkkkkkkkkkkkkk');
+
+  Vehicle.update(vehicleUpdatedData, {where: {id: id}})
+    .then(vehicle => {
+      if (!vehicle) {
+        return res.status(404).json({
+          message: 'Vehicle with id: ' + id + ' can not be found! Sorry :/'
+        });
+      } else {
+        res.json(vehicle);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({msg: "error", details: error});
+    });
+});
 
 module.exports = router;

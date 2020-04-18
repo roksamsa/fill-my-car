@@ -51,6 +51,7 @@ export class EditVehicleDialogComponent implements AfterViewInit {
   isDialogOpen = false;
   selectedTypeData = '';
   selectedBrandData = '';
+  selectedNameData = '';
   selectedBrandDataWithoutSpaces = '';
   selectedColorData = '';
   selectedVehicleYearData = '';
@@ -63,6 +64,8 @@ export class EditVehicleDialogComponent implements AfterViewInit {
   public inputLuggagePlaceholder: string;
   public inputLuggageValueNumber: number;
   public vehicleLuggageValue: number;
+
+  public snackBarStringForWhenVehicleIsEdited: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public selectedVehicleData: any,
@@ -85,6 +88,7 @@ export class EditVehicleDialogComponent implements AfterViewInit {
 
     this.selectedTypeData = selectedVehicleData.vehicleType;
     this.selectedBrandData = selectedVehicleData.vehicleBrand;
+    this.selectedNameData = selectedVehicleData.vehicleName;
     this.selectedBrandDataWithoutSpaces = this.selectedBrandData.replace(/\s/g, '-');
     this.selectedColorData = selectedVehicleData.vehicleColor;
     this.selectedVehicleYearData = selectedVehicleData.vehicleModelYear;
@@ -96,9 +100,10 @@ export class EditVehicleDialogComponent implements AfterViewInit {
     this.inputLuggageValueNumber = selectedVehicleData.vehicleMaxLuggage;
 
     this.isVehicleInsuranceChecked = selectedVehicleData.vehicleInsurance;
+
+    this.snackBarStringForWhenVehicleIsEdited = 'Uredili ste vozilo ' + this.selectedBrandData + ' ' + this.selectedNameData;
   }
 
-  private snackBarStringForWhenVehicleIsEdited = 'Uredili ste vozilo.';
 
   private openSnackBarWhenVehicleIsEdited(): void {
     this._snackBar.open(this.snackBarStringForWhenVehicleIsEdited, 'Zapri', {
@@ -180,6 +185,7 @@ export class EditVehicleDialogComponent implements AfterViewInit {
       vehicleSeats,
       vehicleMaxLuggage,
       vehicleInsurance).subscribe(() => {
+        this.openSnackBarWhenVehicleIsEdited();
         this.thisDialogRef.close('Confirm');
       });
   }

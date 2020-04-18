@@ -75,7 +75,7 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
       belongsToUser: '',
       vehicleType: [this.selectedTypeData, Validators.required],
       vehicleBrand: '',
-      vehicleName: '',
+      vehicleName: ['', Validators.required],
       vehicleModelYear: '',
       vehicleColor: this.selectedColorData,
       vehicleSeats: ['', Validators.required],
@@ -93,13 +93,14 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.isDialogOpen = true;
+    this.selectedTypeData = 'car';
     this.numberPickerData.changeInputPlaceholderValue(this.inputSeatsPlaceholder);
   }
 
   // Fetch all vehicles for specific user
-  fetchVehicles() {
+  private fetchVehicles(): void {
     this.vehicleService.getVehicleByUser(this.currentUser.uid)
     .subscribe((data: Vehicle[]) => {
       if (data.length > 0) {
@@ -113,21 +114,21 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
   }
 
   // Vehicle type
-  getVehicleTypes(): VehicleTypesSetup[] {
+  public getVehicleTypes(): VehicleTypesSetup[] {
     return vehicleTypes;
   }
 
-  selectedVehicleType(event: MatSelectChange) {
-    this.selectedTypeData = event.value;
+  public selectedVehicleType(event: MatSelectChange) {
+    event ? (this.selectedTypeData = event.value) : (this.selectedTypeData = 'car');
     console.log(event.value);
   }
 
   // Vehicle brand
-  getVehicleBrands(): VehicleBrandsSetup[] {
+  public getVehicleBrands(): VehicleBrandsSetup[] {
     return vehicleBrands;
   }
 
-  selectedVehicleBrand(event: MatSelectChange) {
+  public selectedVehicleBrand(event: MatSelectChange) {
     this.selectedBrandData = event.source.value;
     if (this.selectedBrandData.length < 0) {
       this.selectedBrandDataWithoutSpaces = '';
@@ -137,26 +138,26 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
   }
 
   // Vehicle color
-  getVehicleColors(): VehicleColorsSetup[] {
+  public getVehicleColors(): VehicleColorsSetup[] {
     return vehicleColors;
   }
 
-  selectedVehicleColor(event: MatSelectChange) {
+  public selectedVehicleColor(event: MatSelectChange) {
     this.selectedColorData = event.source.value;
   }
 
   // Vehicle year model
-  getVehicleYearModel(): VehicleYearsSetup[] {
+  public getVehicleYearModel(): VehicleYearsSetup[] {
     return vehicleYears.reverse();
   }
 
-  selectedYearModel(event: MatSelectChange) {
+  public selectedYearModel(event: MatSelectChange) {
     this.selectedVehicleYearData = event.source.value;
     console.log(this.selectedVehicleYearData);
   }
 
   // Add vehicle on popup close
-  addVehicle (
+  public addVehicle(
     belongsToUser: any,
     vehicleType: any,
     vehicleBrand: any,
@@ -165,7 +166,7 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
     vehicleColor: any,
     vehicleSeats: number,
     vehicleMaxLuggage: number,
-    vehicleInsurance: boolean) {
+    vehicleInsurance: boolean): void {
     this.vehicleService.addVehicle(
       belongsToUser,
       vehicleType,
@@ -181,20 +182,20 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
       });
   }
 
-  onNumberOfSeatsChanged(value: number) {
+  public onNumberOfSeatsChanged(value: number): void {
     this.vehicleSeatsValue = value;
   }
 
-  onNumberOfLuggageChanged(value: number) {
+  public onNumberOfLuggageChanged(value: number): void {
     this.vehicleLuggageValue = value;
   }
 
-  vehicleInsuranceChange() {
+  public vehicleInsuranceChange(): void {
     this.isVehicleInsuranceChecked = (this.isVehicleInsuranceChecked === true ) ? false : true;
   }
 
   // Cancel adding vehicle on popup close
-  onCloseCancel() {
+  public onCloseCancel(): void {
     this.thisDialogRef.close('Cancel');
   }
 }

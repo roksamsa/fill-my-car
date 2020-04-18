@@ -129,7 +129,7 @@ export class VehicleListComponent implements OnInit {
   }
 
   // Edit vehicle dialog popup
-  openEditVehicleDialog(vehicleID) {
+  openEditVehicleDialog(vehicleID: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;

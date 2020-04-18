@@ -181,7 +181,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.fetchVehicles();
     this.isVehicleListEmpty();
 

@@ -11,7 +11,7 @@
                               [visibility]="preloadingSpinnerVisibility">
 
         <ng-container *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index; trackBy: trackByFn">
-          <app-vehicle-tile *ngIf="i < 6"
+          <app-vehicle-tile *ngIf="i < 5"
                             @vehicleFadeIn
                             [id]="'vehicleID_' + i"
                             [ngClass]="{'selected': selectedVehicle === vehicle}"
@@ -42,7 +42,7 @@
                          class="vehicles__button vehicles__button--just-icon button button--just-icon"
                          [buttonTooltipText]="'Odstrani vozilo'"
                          [buttonTooltipPosition]="'left'"
-                         (clicked)="deleteVehicle(selectedVehicle._id)">
+                         (clicked)="deleteVehicle(selectedVehicle.id)">
           <svg class="vehicles__button-icon vehicles__button-icon--delete" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/><path d="M0 0h24v24H0z" fill="none"/>
           </svg>
