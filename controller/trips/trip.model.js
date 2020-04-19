@@ -52,7 +52,8 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     tripMessage: {
-      type: Sequelize.TEXT('long')
+      type: Sequelize.TEXT('long'),
+      unique: false
     },
     tripNewPassengersAcceptance: {
       type: Sequelize.STRING

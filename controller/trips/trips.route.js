@@ -34,9 +34,6 @@ router.get(tripsURI + '/:id', function (req, res) {
 
 // Get a single Trip by tripIdTag
 router.get(tripURI + '/:tripIdTag', function (req, res) {
-  console.log('req.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.params');
-  console.log(req.params);
-  console.log('req.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.paramsreq.params');
   const tripIdTag = req.params.tripIdTag;
   Trip.findOne({where: {tripIdTag: tripIdTag}})
     .then(trip => {
