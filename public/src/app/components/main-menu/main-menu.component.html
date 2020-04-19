@@ -1,8 +1,8 @@
 <ul class="menu">
-  <li class="menu__item" routerLink="/nadzorna-plosca" routerLinkActive="menu__item--active">
+  <li class="menu__item" routerLink="/pregled" routerLinkActive="menu__item--active">
     <div class="menu__item-wrapper">
       <div class="menu__item-icon-wrapper menu__item-icon-wrapper--control-panel">
-        <div *ngIf="router.url === '/nadzorna-plosca'" class="menu__item-icon menu__item-icon--active-bg"></div>
+        <div *ngIf="router.url === '/pregled'" class="menu__item-icon menu__item-icon--active-bg"></div>
         <div class="menu__item-icon menu__item-icon--front">
           <svg class="menu__item-icon-svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18.245"
             viewBox="0 0 18 18.245">
@@ -11,7 +11,7 @@
               transform="translate(-1 -1.7)" /></svg>
         </div>
       </div>
-      <div class="menu__item-text">Nadzorna plošča</div>
+      <div class="menu__item-text">Pregled</div>
     </div>
   </li>
   <li class="menu__item" routerLink="/moja-vozila" routerLinkActive="menu__item--active">
@@ -34,7 +34,9 @@
       <div class="menu__item-text">Moja vozila</div>
     </div>
   </li>
-  <li class="menu__item" routerLink="/moja-potovanja" routerLinkActive="menu__item--active">
+  <li class="menu__item"
+      routerLink="/moja-potovanja"
+      routerLinkActive="menu__item--active">
     <div class="menu__item-wrapper">
       <div class="menu__item-icon-wrapper menu__item-icon-wrapper--my-trips">
         <div *ngIf="router.url === '/moja-potovanja'" class="menu__item-icon menu__item-icon--active-bg"></div>

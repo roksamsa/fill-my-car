@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebpageMenuService } from './webpage-menu.service';
+import { FirebaseAuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-webpage-menu',
@@ -9,14 +10,30 @@ import { WebpageMenuService } from './webpage-menu.service';
 export class WebpageMenuComponent implements OnInit {
 
   private loginRegisterOverlayVisibility = false;
+  public isUserLoggedIn: boolean;
 
-  constructor(private webpageMenuData: WebpageMenuService) { }
+  constructor(private webpageMenuData: WebpageMenuService,
+              public authService: FirebaseAuthService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.setUserLoggedInStatus();
+    console.log(this.authService);
   }
 
-  openLoginRegisterOverlay() {
+  public setUserLoggedInStatus(): void {
+    if (this.authService.userData.uid.length < 0) {
+      this.isUserLoggedIn = false;
+    } else {
+      this.isUserLoggedIn = true;
+    }
+  }
+
+  public openLoginRegisterOverlay(): void {
     this.loginRegisterOverlayVisibility = true;
     this.webpageMenuData.openLoginRegisterOverlay(this.loginRegisterOverlayVisibility);
+  }
+
+  public userMenuSignOut(): void {
+    this.authService.SignOut();
   }
 }

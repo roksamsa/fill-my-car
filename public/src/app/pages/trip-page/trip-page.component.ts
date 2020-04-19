@@ -284,7 +284,7 @@ export class TripPageComponent implements OnInit {
   public deleteTrip(id: any) {
     this.tripService.deleteTrip(id)
       .subscribe(() => {
-        this.router.navigate(['/nadzorna-plosca']);
+        this.router.navigate(['/pregled']);
       });
   }
 

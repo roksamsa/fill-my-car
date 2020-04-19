@@ -1,5 +1,7 @@
 @import '../../sass/global_variables';
 
+$home-background-elements__top: 55%;
+
 :host {
   position: absolute;
   bottom: 0;
@@ -61,6 +63,104 @@
   &__footer {
     display: block;
     margin-top: 10%;
+  }
+
+  &__background-elements {
+    opacity: 0.2;
+  }
+
+  &__mountains {
+    position: absolute;
+    top: $home-background-elements__top;
+    width: 100%;
+    height: 300px;
+    margin-top: -300px;
+    background-repeat: repeat-x;
+  }
+
+  &__mountains-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__mountains-image {
+    width: 200%;
+    height: 100%;
+    background-image: url("/../../../assets/graphics/webpage/graphic-mountains.png");
+    background-repeat: repeat-x;
+  }
+
+  &__road {
+    position: absolute;
+    top: $home-background-elements__top;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+  }
+
+  &__road-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__road-image {
+    width: 200%;
+    height: 100%;
+    background-image: url("/../../../assets/graphics/webpage/graphics-road.png");
+    background-repeat: repeat-x;
+    opacity: 0.4;
+  }
+
+  &__grass {
+    position: absolute;
+    top: $home-background-elements__top;
+    width: 100%;
+    height: 300px;
+    margin-top: -300px;
+    background-repeat: repeat-x;
+  }
+
+  &__grass-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__grass-image {
+    width: 200%;
+    height: 100%;
+    background-image: url("/../../../assets/graphics/webpage/graphic-grass.png");
+    background-repeat: repeat-x;
+  }
+
+  &__sun {
+    position: absolute;
+    top: 18%;
+    left: 70%;
+    width: 120px;
+    height: 120px;
+    margin-top: -55px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -60px;
+      top: -60px;
+      width: 100%;
+      height: 100%;
+      padding: 60px;
+      background-image: radial-gradient(circle, rgba(255, 241, 115, 1) 0%, rgba(255, 255, 255, 0) 70%);
+      border-radius: 50%;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #FFF173;
+      border: 2px solid #242B61;
+      border-radius: 50%;
+    }
   }
 }
 

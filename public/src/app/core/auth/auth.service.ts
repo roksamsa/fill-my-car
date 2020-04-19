@@ -39,7 +39,7 @@ export class FirebaseAuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['nadzorna-plosca']);
+          this.router.navigate(['pregled']);
         });
         this.SetUserData(result.user);
       }).catch((error) => {
@@ -102,7 +102,7 @@ export class FirebaseAuthService {
         console.log('You have been successfully logged in!');
         console.log(result);
         this.SetUserData(result.user);
-        this.router.navigate(['nadzorna-plosca']);
+        this.router.navigate(['pregled']);
       });
     }).catch((error) => {
       window.alert(error);

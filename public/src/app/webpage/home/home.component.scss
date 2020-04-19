@@ -374,6 +374,19 @@ $home-background-elements__top: 55%;
     width: 50%;
   }
 
+  &__title {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+
+  &__text {
+    margin-top: 0;
+  }
+
+  &__button {
+    margin-top: 20px;
+  }
+
   &__footer {
     position: absolute;
     bottom: 10%;
@@ -399,6 +412,20 @@ $home-background-elements__top: 55%;
     top: 60%;
     width: 400px;
     margin-left: -200px;
+  }
+
+  .home__van-luggage {
+    margin-top: -30px;
+    transform: scale(0.7);
+  }
+
+  .home__van-light {
+    height: 100px;
+    width: 150px;
+  }
+
+  .home__road {
+    top: 50%;
   }
 
   .home__footer {

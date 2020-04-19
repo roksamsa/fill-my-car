@@ -47,6 +47,12 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
           }), { optional: true }),
           query('.webpage-login__headline', animate('300ms 700ms ease-in-out', style({
             opacity: 1
+          })), { optional: true }),
+          query('.webpage-login__background-elements', style({
+            opacity: 0
+          }), { optional: true }),
+          query('.webpage-login__background-elements', animate('300ms 1000ms ease-in-out', style({
+            opacity: 0.2
           })), { optional: true })
         ])
       ]),
@@ -80,6 +86,12 @@ import { trigger, query, style, group, animate, transition, state } from '@angul
             opacity: 1
           }), { optional: true }),
           query('.webpage-login__headline', animate('200ms ease-in-out', style({
+            opacity: 0
+          })), { optional: true }),
+          query('.webpage-login__background-elements', style({
+            opacity: 0.2
+          }), { optional: true }),
+          query('.webpage-login__background-elements', animate('200ms ease-in-out', style({
             opacity: 0
           })), { optional: true })
         ])

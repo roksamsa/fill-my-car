@@ -5,7 +5,7 @@
   <div class="header__wrapper">
     <div class="header__left"
          (click)="clickOutsideUserMenuVisibility()">
-      <app-logo class="header__logo" routerLink="/nadzorna-plosca"></app-logo>
+      <app-logo class="header__logo" routerLink="/"></app-logo>
       <app-main-menu *ngIf="authService.isLoggedIn" class="header__menu" [class.dark-theme]="darkModeActivated"></app-main-menu>
     </div>
 
@@ -41,7 +41,9 @@
       </div>
 
       <ng-template #loggedOut>
-        <div class="header__register" routerLink="/" (click)="redirectToHomeAndOpenLogin()">
+        <div class="header__register"
+             routerLink="/"
+             (click)="redirectToHomeAndOpenLogin()">
           Prijava
         </div>
       </ng-template>

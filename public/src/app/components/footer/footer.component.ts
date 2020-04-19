@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserMenuService } from '../user-menu/user-menu.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -12,7 +13,8 @@ export class FooterComponent implements OnInit {
   currentYear = new Date().getFullYear();
   darkModeActivated: boolean;
 
-  constructor(private userMenuDarkThemeData: UserMenuService) { }
+  constructor(private userMenuDarkThemeData: UserMenuService,
+              public router: Router) { }
 
   ngOnInit() {
     this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState);

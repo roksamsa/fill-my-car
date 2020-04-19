@@ -1,5 +1,14 @@
 @import '../../sass/global_variables';
 
+:host {
+  transform: scale(1);
+  transition: transform 200ms ease-in-out;
+
+  &:hover {
+    transform: scale(0.95);
+  }
+}
+
 .logo {
   font-weight: bold;
   font-size: 20px;

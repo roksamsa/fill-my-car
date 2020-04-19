@@ -50,6 +50,73 @@
   }
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  color: $color__blue--primary;
+
+  &__user-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 4px;
+    transition: background-color 200ms ease-in-out;
+    cursor: pointer;
+  }
+
+  &__avatar {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid $color__white--70;
+    margin-right: 10px;
+    overflow: hidden;
+
+    &--default {
+      .header__avatar-image {
+        width: 32px;
+        height: 32px;
+        margin-top: 2px;
+      }
+    }
+
+    &-image {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 24px;
+      height: 24px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &__user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &--open {
+      .header__user-wrapper {
+        background-color: rgba(207, 216, 232, 0.3);
+      }
+    }
+  }
+
+  &__username {
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
 @media only screen and (max-width: 890px) {
   .menu__item-icon-wrapper {
     margin-right: 0;

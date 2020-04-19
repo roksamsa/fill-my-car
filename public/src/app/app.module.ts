@@ -102,27 +102,101 @@ import {
 import { ButtonIconComponent } from './style/button-icon/button-icon.component';
 import { ShareMyTripDialogComponent } from './dialogs/share-my-trip-dialog/share-my-trip-dialog.component';
 import { AllTripsListComponent } from './components/all-trips-list/all-trips-list.component';
+import { IzjavaOZasebnostiComponent } from './webpage/izjava-o-zasebnosti/izjava-o-zasebnosti.component';
+import { InformacijeOStraniComponent } from './webpage/informacije-o-strani/informacije-o-strani.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 registerLocaleData(localeSl);
 
 const routes: Routes = [
-  { path: 'nadzorna-plosca', component: DefaultLayoutComponent, children: [{
-    path: '', component: DashboardPageComponent}], canActivate: [AuthGuard] },
-  { path: 'registracija', component: WithoutHeaderFooterLayoutComponent, children: [{
-    path: '', component: HomeComponent}], canActivate: [SecureInnerPagesGuard] },
-  { path: 'moja-vozila', component: DefaultLayoutComponent, children: [{
-    path: '', component: VehiclesPageComponent}], canActivate: [AuthGuard] },
-  { path: 'moja-potovanja', component: DefaultLayoutComponent, children: [{
-    path: '', component: TripsPageComponent}], canActivate: [AuthGuard] },
-  { path: 'potovanje/:id', component: DefaultLayoutComponent, children: [{
-    path: '', component: TripPageComponent}], pathMatch: 'full' },
-  { path: 'uporabnik/:id', component: DefaultLayoutComponent, children: [{
-    path: '', component: UserPageComponent}], pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'dodajanje-novega-vozila', component: DefaultLayoutComponent, children: [{
-    path: '', component: CreateVehicleDialogComponent}], canActivate: [AuthGuard] },
-  { path: '', component: WithoutHeaderFooterLayoutComponent, children: [{
-      path: '', component: HomeComponent}], canActivate: [SecureInnerPagesGuard]},
-  { path: '**', component: HomeComponent }
+  { path: 'pregled',
+    component: DefaultLayoutComponent,
+    children: [{
+      path: '',
+      component: DashboardPageComponent
+    }], canActivate: [AuthGuard]
+  },
+
+  { path: 'prijava-registracija',
+    component: WithoutHeaderFooterLayoutComponent,
+    children: [{
+      path: '',
+      component: LoginRegisterComponent
+    }], canActivate: [SecureInnerPagesGuard]
+  },
+
+  { path: 'moja-vozila',
+    component: DefaultLayoutComponent,
+    children: [{
+      path: '',
+      component: VehiclesPageComponent
+    }], canActivate: [AuthGuard]
+  },
+
+  { path: 'moja-potovanja',
+    component: DefaultLayoutComponent,
+    children: [{
+      path: '',
+      component: TripsPageComponent
+    }], canActivate: [AuthGuard]
+  },
+
+  { path: 'potovanje/:id',
+    component: DefaultLayoutComponent,
+    children: [{
+      path: '',
+      component: TripPageComponent
+    }], pathMatch: 'full'
+  },
+
+  { path: 'uporabnik/:id',
+    component: DefaultLayoutComponent,
+    children: [{
+      path: '',
+      component: UserPageComponent
+    }], pathMatch: 'full', canActivate: [AuthGuard]
+  },
+
+  { path: 'dodajanje-novega-vozila',
+    component: DefaultLayoutComponent,
+    children: [{
+      path: '',
+      component: CreateVehicleDialogComponent
+    }], canActivate: [AuthGuard]
+  },
+
+  { path: 'dialog/deli-potovanje',
+    outlet: 'dialog',
+    component: ShareMyTripDialogComponent
+  },
+
+  { path: 'izjava-o-zasebnosti',
+    component: WithoutHeaderFooterLayoutComponent,
+    children: [{
+      path: '',
+      component: IzjavaOZasebnostiComponent
+    }]
+  },
+
+  { path: 'informacije-o-strani',
+    component: WithoutHeaderFooterLayoutComponent,
+    children: [{
+      path: '',
+      component: InformacijeOStraniComponent
+    }]
+  },
+
+  { path: '',
+    component: WithoutHeaderFooterLayoutComponent,
+    children: [{
+      path: '',
+      component: HomeComponent
+    }]
+  },
+
+  { path: '**',
+    component: HomeComponent
+  }
 ];
 
 const dateFormatParse = 'DD. MMMM YYYY';
@@ -195,7 +269,10 @@ export function provideConfig() {
     TileComponent,
     ButtonIconComponent,
     ShareMyTripDialogComponent,
-    AllTripsListComponent
+    AllTripsListComponent,
+    IzjavaOZasebnostiComponent,
+    InformacijeOStraniComponent,
+    DialogComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
