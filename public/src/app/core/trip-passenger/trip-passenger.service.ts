@@ -10,7 +10,7 @@ import { ConstantsService } from '../../common/services/constants.service';
 
 export class TripPassengerService {
   uriBase = this.constant.baseAppDomainLocal;
-  uriTripsPassengers = this.uriBase + '/trip-passengers/';
+  uriTripsPassengers = this.uriBase + 'trip-passengers/';
   uriTripsPassengersForUser = this.uriTripsPassengers + 'user/';
   uriTripPassengerAdd = this.uriTripsPassengers + 'add/';
   uriTripUpdate = this.uriTripsPassengers + 'update/';

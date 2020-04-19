@@ -5,9 +5,9 @@ import { Directive, Input, Output, EventEmitter, HostListener } from '@angular/c
 })
 export class CopyClipboardDirective {
 
-  @Input() public payload: string;
+  @Input('appCopyClipboard') public payload: string;
 
-  @Input() public appCopyClipboard: string;
+  @Input() public context: string;
 
   @Output() public copied: EventEmitter<string> = new EventEmitter<string>();
 

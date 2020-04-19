@@ -1,92 +1,106 @@
+/* jshint node: true */
+'use strict';
+
 import express from 'express';
+import database from '../../database/database-setup';
 
-const tripPassengerSchema = require('./trip-passenger.model');
-const tripsURI = '/trip-passengers';
 const router = express.Router();
+const TripPassenger = database.TripPassenger;
+const tripPassengersURI = '/api/trip-passengers';
 
-// Get trip passengers list
-router.get(tripsURI, function (req, res) {
-  tripPassengerSchema.find((err, passengers) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(passengers);
+// Get all trip passengers list
+router.get(tripPassengersURI, function (req, res) {
+  TripPassenger.findAll().then(tripPassengers => {
+    // Send All tripPassengers to Client
+    res.json(tripPassengers);
+  }).catch(error => {
+    console.log(error);
+    res.status(500).json({msg: "error", details: error});
   });
 });
 
-// Get trips for specific user
-router.get(tripsURI + '/user/:belongsToUser', function (req, res) {
-  tripPassengerSchema.find({belongsToUser: req.params.belongsToUser}, (err, passengers) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(passengers);
-  });
-});
-
-// Get trip passenger by specific id
-router.get(tripsURI + '/:id', function (req, res) {
-  tripPassengerSchema.findById(req.params.id, (err, passengers) => {
-    if (err)
-      console.log(err);
-    else
-      res.json(passengers);
-  });
-});
-
-// Add trip passenger
-router.post(tripsURI + '/add', function (req, res) {
-  var tripPassenger = new tripPassengerSchema(req.body);
-  console.log('tripPassenger');
-  console.log(tripPassenger);
-  tripPassenger.save()
+// Get a single trip passenger by Id
+router.get(tripPassengersURI + '/:id', function (req, res) {
+  const id = req.params.id;
+  TripPassenger.findOne({where: {id: id}})
     .then(tripPassenger => {
-      res.status(200).json({'Trip passenger': tripPassenger + ' Added successfully'});
+      res.json(tripPassenger);
     })
-    .catch(err => {
-      res.status(400).send(err + 'Failed to add passenger to this trip');
+    .catch(error => {
+      res.status(500).json({msg: "error", details: error});
     });
 });
 
-// Update data for specific trip passenger
-router.route(tripsURI + '/update/:id').patch((req, res, next) => {
-  var vehicleId = req.params.id;
-  var vehicleUpdatedData = req.body;
-
-  tripPassengerSchema.findOneAndUpdate(vehicleId, vehicleUpdatedData, function(error, vehicle) {
-    // Handle the error using the Express error middleware
-    if (error) {
-      return next('Error: ' + error);
-    }
-    // Render not found error
-    else if (!vehicle) {
-      return res.status(404).json({
-        message: 'Vehicle with id: ' + vehicleId + ' can not be found! Sorry :/'
-      });
-    } else {
-      res.json(vehicle);
-    }
-  });
+// Get all trip passengers for specific user
+router.get(tripPassengersURI + '/user/:belongsToUser', function (req, res) {
+  TripPassenger.findAll({where: {belongsToUser: req.params.belongsToUser},
+    order: [
+      ['id', 'DESC']
+    ]})
+    .then(tripPassenger => {
+      res.json(tripPassenger);
+    }).catch(error => {
+      console.log(error);
+      res.status(500).json({msg: "Error!", details: error});
+    });
 });
 
-// Delete specific trip passenger
-router.route(tripsURI + '/delete/:id').delete((req, res) => {
-  tripPassengerSchema.findByIdAndRemove({ id: req.params.id }, (err, tripPassengers) => {
-    if (err)
-      res.json(err);
-    else
-      res.json('Trip passenger removed successfully!');
-  });
+// Create a new trip passenger
+router.post(tripPassengersURI + '/add', function (req, res) {
+  const tripPassengerValue = new TripPassenger(req.body);
+  console.log(tripPassengerValue);
+  tripPassengerValue.save()
+    .then(tripPassengerValue => {
+      res.status(200).json({'TripPassenger': tripPassengerValue + ' added successfully'});
+    })
+    .catch(error => {
+      res.status(400).send('Failed to create new trip, with error: ' + error);
+    });
+});
+
+// Delete a specific trip with id
+router.delete(tripPassengersURI + '/delete/:id', function (req, res) {
+  const id = req.params.id;
+  TripPassenger.destroy({where: {id: id}})
+    .then(tripPassenger => {
+      res.status(200).json({msg: 'Trip with id: ' + tripPassenger + ' deleted successfully.'});
+    })
+    .catch(error => {
+      res.status(500).json({msg: "error", details: error});
+    });
 });
 
 // Delete all trip passengers
-router.route(tripsURI + '/delete-all/').delete((req, res) => {
-  tripPassengerSchema.deleteMany((err, tripPassengers) => {
-    if (err)
-      res.json(err);
-    else
-      res.json('All trip passengers removed successfully!');
-  });
+router.delete(tripPassengersURI + '/delete/:id', function (req, res) {
+  const id = req.params.id;
+  TripPassenger.destroy({where: {}, truncate: true})
+    .then(tripPassenger => {
+      res.status(200).json({msg: 'Trip with id: ' + tripPassenger + ' deleted successfully.'});
+    })
+    .catch(error => {
+      res.status(500).json({msg: "error", details: error});
+    });
+});
+
+// Update data for specific trip
+router.patch(tripPassengersURI + '/update/:id', function (req, res) {
+  const id = req.params.id;
+  const tripUpdatedData = req.body;
+
+  TripPassenger.update(tripUpdatedData, {where: {id: id}})
+    .then(tripPassenger => {
+      if (!tripPassenger) {
+        return res.status(404).json({
+          message: 'Trip with id: ' + id + ' can not be found! Sorry :/'
+        });
+      } else {
+        res.json(tripPassenger);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(400).json({msg: "error", details: error});
+    });
 });
 
 module.exports = router;

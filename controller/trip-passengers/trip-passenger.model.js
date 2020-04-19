@@ -1,34 +1,35 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+/* jshint node: true */
+'use strict';
 
-var tripPassengerSchema = new Schema({
-  belongsToUser: {
-    type: String
-  },
-  belongsToVehicle: {
-    type: String
-  },
-  belongsToTrip: {
-    type: String
-  },
-  tripPassengerSeatsReservation: {
-    type: Number
-  },
-  tripPassengerStartLocation: {
-    type: String
-  },
-  tripPassengerEndLocation: {
-    type: String
-  },
-  tripPassengerName: {
-    type: String
-  },
-  tripPassengerEmail: {
-    type: String
-  },
-  tripPassengerPhone: {
-    type: String
-  }
-});
-
-module.exports = mongoose.model('tripPassenger', tripPassengerSchema);
+module.exports = (sequelize, Sequelize) => {
+  const TripPassenger = sequelize.define('TripPassenger', {
+    belongsToUser: {
+      type: Sequelize.STRING
+    },
+    belongsToVehicle: {
+      type: Sequelize.STRING
+    },
+    belongsToTrip: {
+      type: Sequelize.STRING
+    },
+    tripPassengerSeatsReservation: {
+      type: Sequelize.INTEGER
+    },
+    tripPassengerStartLocation: {
+      type: Sequelize.INTEGER
+    },
+    tripPassengerEndLocation: {
+      type: Sequelize.STRING
+    },
+    tripPassengerName: {
+      type: Sequelize.INTEGER
+    },
+    tripPassengerEmail: {
+      type: Sequelize.INTEGER
+    },
+    tripPassengerPhone: {
+      type: Sequelize.BOOLEAN
+    }
+  });
+  return TripPassenger;
+};

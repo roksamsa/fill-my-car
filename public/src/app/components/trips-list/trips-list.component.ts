@@ -10,6 +10,7 @@ import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { filter } from 'rxjs/operators';
 import { ConstantsService } from '../../common/services/constants.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '200ms';
@@ -93,17 +94,25 @@ export class TripsListComponent implements OnInit {
   isTripActive: boolean;
   public statusIconTooltip: String;
 
+  public currentDomainName: string;
+  public currentURL = '/potovanje/';
+  public tripIdTagValue = '';
+  public status: string;
+  private snackBarStringForWhenMakeTripLinkCopy = 'Povezava poti je bila kopirana v odložišče.';
+
   constructor(
     private popupDialog: MatDialog,
     private constant: ConstantsService,
     private route: ActivatedRoute,
     private router: Router,
+    private _snackBar: MatSnackBar,
     private vehicleService: VehicleService,
     private tripService: TripService) { }
 
   public ngOnInit(): void {
     this.fetchTrips();
     this.isTripsListEmpty();
+    this.currentDomainName = window.location.hostname;
   }
 
   public moreActionsToggle(tripIndex): void {
@@ -235,5 +244,21 @@ export class TripsListComponent implements OnInit {
 
   public linkToSelectedTrip(tripIdTag: string): void {
     this.router.navigate(['/potovanje/', tripIdTag]);
+    this.tripIdTagValue = tripIdTag;
+  }
+
+  private openSnackBarWhenMakeTripLinkCopy(): void {
+    this._snackBar.open(this.snackBarStringForWhenMakeTripLinkCopy, 'Zapri', {
+      duration: 7500,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
+  }
+
+  public copyToClipboard(event: string): void {
+    const message = `'${event}' has been copied to clipboard`
+    console.log(message);
+    this.status = message;
+    this.openSnackBarWhenMakeTripLinkCopy();
+    this.moreActionOpened = -1;
   }
 }

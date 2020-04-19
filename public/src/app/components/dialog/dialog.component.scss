@@ -1,0 +1,25 @@
+@import '../../sass/global_variables';
+
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.popup {
+  width: 100%;
+  color: $color__blue--primary;
+
+  &__header {
+    display: flex;
+  }
+
+  &__headline {
+    display: flex;
+    flex-grow: 1;
+    margin: 0;
+  }
+}
+
+.mat-dialog-actions {
+  margin-bottom: 0;
+}

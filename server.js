@@ -62,32 +62,12 @@ app.use(function(err, req, res, next) {
 database.sequelize.sync().then(() => {
   console.log(consoleDivider);
   console.log(connectionMessageRunning);
+  console.log(consoleDivider);
 }).catch((error) => {
   console.log(consoleDivider);
   console.error(connectionMessageNotRunning, error);
   console.log(consoleDivider);
 });
-
-
-/*function initial() {
-  let vehicles = [{
-      belongsToUser: 'kV6FwjmHrbZiJQwwBcBYO5EMJmq1',
-      vehicleType: 'car',
-      vehicleBrand: 'Citroen',
-      vehicleName: 'C4',
-      vehicleModelYear: 2011,
-      vehicleColor: 'silver',
-      vehicleSeats: 5,
-      vehicleMaxLuggage: 10,
-      vehicleInsurance: true,
-  }];
-  // console.log(database);
-  // Init data -> save to PostgreSQL
-  const Vehicle = database.vehicles;
-  for (let i = 0; i < vehicles.length; i++) {
-    Vehicle.create(vehicles[i]);
-  }
-}*/
 
 // Import data
 require('./controller/auth');
@@ -96,11 +76,7 @@ app.use('/', router);
 app.use(require('./controller/index'));
 app.use(require('./controller/vehicles/vehicles.route'));
 app.use(require('./controller/trips/trips.route'));
-
-/*
-app.use(require('./routes/trips.route'));
-app.use(require('./routes/trip-passengers.route'));
-*/
+app.use(require('./controller/trip-passengers/trip-passengers.route'));
 
 app.use(function(req, res, next) {
   // update to match the domain you will make the request from

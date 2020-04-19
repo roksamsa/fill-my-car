@@ -1,18 +1,22 @@
-<app-dialog>
-  <div class="popup__header">
-    <span popup-headline>Deli potovanje z drugimi</span>
+<app-dialog (closePopup)="onCloseCancel()">
+  <div popup-headline class="popup__header">
+    Deli potovanje z drugimi
   </div>
 
   <div popup-body class="share-my-trip__body">
     <div class="share-my-trip__link"
-        [appCopyClipboard]="'test'"
-        (click)="copyToClipboard($event)">
+        [appCopyClipboard]="currentDomainName + currentURL"
+        (copied)="copyToClipboard($event)">
       <p class="share-my-trip__link-text">{{currentDomainName}}{{currentURL}}</p>
+      <div class="share-my-trip__copy">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M6,6V2A2.006,2.006,0,0,1,8,0H18a2,2,0,0,1,2,2V12a2,2,0,0,1-2,2H14v4a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V8A2.006,2.006,0,0,1,2,6ZM8,6h4a2,2,0,0,1,2,2v4h4V2H8ZM2,8V18H12V8Z"/></svg>
+      </div>
     </div>
   </div>
 
   <div popup-footer class="share-my-trip__footer">
-    <button mat-raised-button class="button button--default">Prekliči</button>
-    <button mat-raised-button class="button button--primary">Shrani spremembe na vozilu</button>
+    <button mat-raised-button
+            class="button button--default"
+            (click)="onCloseCancel()">Zapri</button>
   </div>
 </app-dialog>

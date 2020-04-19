@@ -135,7 +135,7 @@ export class DashboardPageComponent implements OnInit {
     this.isVehicleListEmpty();
     this.vehicleTileData.currentVehicleSelectState.subscribe(clickActiveState => this.isSelectedVehicle = clickActiveState);
     this.headerData.changeHeaderVisibility(true);
-    this.titleService.setTitle('Nadzorna plošča');
+    this.titleService.setTitle('Pregled');
   }
 
   preloadingSpinnerShow() {

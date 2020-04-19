@@ -111,7 +111,7 @@
 
         <div *ngIf="moreActionOpened !== tripIndex"
              class="trip__router-link"
-             (click)="linkToSelectedTrip(trip.tripIdTag)">
+             (click)="linkToSelectedTrip(trip?.tripIdTag)">
         </div>
 
         <div class="table__column trip__actions">
@@ -121,7 +121,8 @@
                              [class.trip__more--selected]="moreActionOpened === tripIndex"
                              [buttonTooltipText]="'Deli'"
                              [buttonTooltipPosition]="'above'"
-                             (clicked)="alert('test')">
+                             [appCopyClipboard]="currentDomainName + currentURL + trip?.tripIdTag"
+                             (copied)="copyToClipboard($event)">
               <svg class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0z" fill="none" />
                 <path

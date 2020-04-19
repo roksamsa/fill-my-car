@@ -7,19 +7,35 @@
   display: block;
 }
 
-.popup {
-  &__header {
+.share-my-trip {
+  &__link {
     display: flex;
-    justify-content: space-between;
-    position: relative;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 30px;
+    padding: 5px 15px;
+    border: 1px solid $color__blue--default;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out;
+
+    &:hover {
+      background-color: $color__blue--light-2;
+    }
   }
 
-  &__headline {
-    color: $color__blue--primary;
-    margin-top: 0;
+  &__link-text {
+    display: flex;
+    flex-grow: 1;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
-  &__close-icon {
+  &__copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     fill: $color__blue--primary;
   }
 }
