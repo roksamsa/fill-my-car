@@ -12,18 +12,31 @@ const vehiclesURI = '/api/vehicles';
 router.get(vehiclesURI, function (req, res) {
   Vehicle.findAll().then(vehicles => {
     // Send All Vehicles to Client
-    res.json(vehicles.sort(function(v1, v2) {
-      return v1.id - v2.id;
-    }));
+    res.json(vehicles);
   }).catch(error => {
     console.log(error);
     res.status(500).json({msg: "error", details: error});
   });
 });
 
+// Get a single Vehicle by Id
+router.get(vehiclesURI + '/:id', function (req, res) {
+  const id = req.params.id;
+  Vehicle.findOne({where: {id: id}})
+    .then(vehicle => {
+      res.json(vehicle);
+    })
+    .catch(error => {
+      res.status(500).json({msg: "error", details: error});
+    });
+});
+
 // Get all vehicles for specific user
 router.get(vehiclesURI + '/user/:belongsToUser', function (req, res) {
-  Vehicle.findAll({where: {belongsToUser: req.params.belongsToUser}})
+  Vehicle.findAll({where: {belongsToUser: req.params.belongsToUser},
+    order: [
+      ['id', 'DESC']
+    ]})
     .then(vehicles => {
       res.json(vehicles);
     }).catch(error => {
@@ -56,26 +69,10 @@ router.delete(vehiclesURI + '/delete/:id', function (req, res) {
     });
 });
 
-// Retrieve a single Vehicle by Id
-router.get(vehiclesURI + '/:id', function (req, res) {
-  const id = req.params.id;
-  Vehicle.findOne({where: {id: id}})
-    .then(vehicle => {
-      res.json(vehicle);
-    })
-    .catch(error => {
-      res.status(500).json({msg: "error", details: error});
-    });
-});
-
 // Update a Vehicle with Id
 router.patch(vehiclesURI + '/update/:id', function (req, res) {
   const id = req.params.id;
   const vehicleUpdatedData = req.body;
-
-  console.log('kkkkkkkkkkkkkkkkkkkkkkkk');
-  console.log(vehicleUpdatedData);
-  console.log('kkkkkkkkkkkkkkkkkkkkkkkk');
 
   Vehicle.update(vehicleUpdatedData, {where: {id: id}})
     .then(vehicle => {

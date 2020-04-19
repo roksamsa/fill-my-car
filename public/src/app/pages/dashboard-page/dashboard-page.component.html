@@ -10,8 +10,8 @@
                               class="vehicles__items vehicles__items--horizontal"
                               [visibility]="preloadingSpinnerVisibility">
 
-        <ng-container *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index; trackBy: trackByFn">
-          <app-vehicle-tile *ngIf="i < 5"
+        <ng-container *ngFor="let vehicle of vehicles; let i = index; trackBy: trackByFn">
+          <app-vehicle-tile *ngIf="i < 6"
                             @vehicleFadeIn
                             [id]="'vehicleID_' + i"
                             [ngClass]="{'selected': selectedVehicle === vehicle}"

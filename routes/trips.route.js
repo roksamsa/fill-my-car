@@ -1,6 +1,6 @@
 import express from 'express';
 
-const tripSchema = require('../database/models/trip.model');
+const tripSchema = require('../controller/trips/trip.model');
 const router = express.Router();
 const tripsURI = '/trips';
 const tripOptions = {upsert: true, returnOriginal: false};
@@ -49,7 +49,7 @@ router.post(tripsURI + '/add', function (req, res) {
 
 // Update data for specific trip
 router.route(tripsURI + '/update/:id').patch((req, res, next) => {
-  var tripId = {_id: req.params.id};
+  var tripId = {id: req.params.id};
   var tripUpdatedData = {$set: req.body};
 
   tripSchema.findOneAndUpdate(tripId, tripUpdatedData, tripOptions, function(error, trip) {
@@ -70,7 +70,7 @@ router.route(tripsURI + '/update/:id').patch((req, res, next) => {
 
 // Update only specific field for specific trip
 router.route(tripsURI + '/update-specific-field/:id').patch((req, res, next) => {
-  var tripId = {_id: req.params.id};
+  var tripId = {id: req.params.id};
   var tripUpdatedData = {$set: req.body};
 
   tripSchema.findOneAndUpdate(tripId, tripUpdatedData, tripOptions, function(error, trip) {
@@ -91,7 +91,7 @@ router.route(tripsURI + '/update-specific-field/:id').patch((req, res, next) => 
 
 // Delete specific trip
 router.route(tripsURI + '/delete/:id').delete((req, res) => {
-  tripSchema.findByIdAndRemove({ _id: req.params.id }, (err, trips) => {
+  tripSchema.findByIdAndRemove({ id: req.params.id }, (err, trips) => {
     if (err)
       res.json(err);
     else

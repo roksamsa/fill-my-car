@@ -6,11 +6,40 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { VehicleTileService } from '../../../app/components/vehicle-tile/vehicle-tile.service';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
+import { trigger, stagger, query, style, animate, transition, animateChild, group } from '@angular/animations';
 
 @Component({
   selector: 'app-vehicle-list',
   templateUrl: './vehicle-list.component.html',
-  styleUrls: ['./vehicle-list.component.scss']
+  styleUrls: ['./vehicle-list.component.scss'],
+  animations: [
+    trigger('vehicleActionIconsFadeIn', [
+      transition(':enter', [
+        style({
+          transform: 'translateX(30px)',
+          opacity: 0
+        }),
+        animate('300ms cubic-bezier(.8,-0.6,0.2,1.5)',
+          style({
+            transform: 'translateX(0)',
+            opacity: 1
+          })
+        )
+      ]),
+      transition(':leave', [
+        style({
+          transform: 'translateX(0)',
+          opacity: 1
+        }),
+        animate('300ms cubic-bezier(.8,-0.6,0.2,1.5)',
+          style({
+            transform: 'translateX(30px)',
+            opacity: 0
+          })
+        )
+      ])
+    ])
+  ]
 })
 
 export class VehicleListComponent implements OnInit {

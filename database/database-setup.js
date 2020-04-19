@@ -26,5 +26,6 @@ database.sequelize = sequelize;
 
 // Models
 database.vehicles = require('../controller/vehicles/vehicle.model')(sequelize, Sequelize);
+database.trips = require('../controller/trips/trip.model')(sequelize, Sequelize);
 
 module.exports = database;

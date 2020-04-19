@@ -1,6 +1,6 @@
 import express from 'express';
 
-const tripPassengerSchema = require('../database/models/trip-passenger.model');
+const tripPassengerSchema = require('./trip-passenger.model');
 const tripsURI = '/trip-passengers';
 const router = express.Router();
 
@@ -71,7 +71,7 @@ router.route(tripsURI + '/update/:id').patch((req, res, next) => {
 
 // Delete specific trip passenger
 router.route(tripsURI + '/delete/:id').delete((req, res) => {
-  tripPassengerSchema.findByIdAndRemove({ _id: req.params.id }, (err, tripPassengers) => {
+  tripPassengerSchema.findByIdAndRemove({ id: req.params.id }, (err, tripPassengers) => {
     if (err)
       res.json(err);
     else

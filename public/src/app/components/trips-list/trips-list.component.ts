@@ -9,6 +9,7 @@ import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { filter } from 'rxjs/operators';
 import { ConstantsService } from '../../common/services/constants.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '200ms';
@@ -95,15 +96,17 @@ export class TripsListComponent implements OnInit {
   constructor(
     private popupDialog: MatDialog,
     private constant: ConstantsService,
+    private route: ActivatedRoute,
+    private router: Router,
     private vehicleService: VehicleService,
     private tripService: TripService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.fetchTrips();
     this.isTripsListEmpty();
   }
 
-  moreActionsToggle(tripIndex) {
+  public moreActionsToggle(tripIndex): void {
     if (this.moreActionOpened !== tripIndex) {
       this.moreActionOpened = tripIndex;
     } else {
@@ -123,12 +126,12 @@ export class TripsListComponent implements OnInit {
     console.log(this.currentDate);
   }
 
-  public makeTripDateFormatted(date): Date {
+  public makeTripDateFormatted(date: Date): Date {
     return new Date(date);
   }
 
   // Delete specific trip
-  deleteTrip(id: any) {
+  public deleteTrip(id: string): void {
     this.tripService.deleteTrip(id)
       .subscribe(() => {
         this.fetchTrips();
@@ -136,7 +139,7 @@ export class TripsListComponent implements OnInit {
       });
   }
 
-  preloadingSpinnerShow() {
+  public preloadingSpinnerShow(): void {
     const that = this;
     this.preloadingSpinnerVisibility = true;
 
@@ -146,9 +149,9 @@ export class TripsListComponent implements OnInit {
   }
 
   // Fetch all trips for specific user
-  fetchTrips() {
+  public fetchTrips(): void {
     this.tripService.getTripsByUser(this.currentUser.uid).subscribe((data: any) => {
-      if (data.length > 0) {
+      if (data.length > 0 && data != null) {
         this.trips = data;
         this.areThereAnyTrips = true;
         this.preloadingSpinnerShow();
@@ -228,5 +231,9 @@ export class TripsListComponent implements OnInit {
       this.fetchTrips();
       this.dialogResult = result;
     });
+  }
+
+  public linkToSelectedTrip(tripIdTag: string): void {
+    this.router.navigate(['/potovanje/', tripIdTag]);
   }
 }

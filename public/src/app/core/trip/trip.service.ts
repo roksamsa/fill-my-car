@@ -11,7 +11,8 @@ import { ConstantsService } from '../../common/services/constants.service';
 
 export class TripService {
   uriBase = this.constant.baseAppDomainLocal;
-  uriTrips = this.uriBase + '/trips/';
+  uriTrip = this.uriBase + 'trip/';
+  uriTrips = this.uriBase + 'trips/';
   uriTripsForUser = this.uriTrips + 'user/';
   uriTripAdd = this.uriTrips + 'add/';
   uriTripUpdate = this.uriTrips + 'update/';
@@ -23,22 +24,27 @@ export class TripService {
     private constant: ConstantsService) {}
 
   // Get all trips in database
-  getAllTrips(): Observable<Trip[]> {
+  public getAllTrips(): Observable<Trip[]> {
     return this.http.get<Trip[]>(this.uriTrips);
   }
 
   // Get specific trip by ID
-  getTripById(id: any): Observable<Trip[]> {
+  public getTripById(id: string): Observable<Trip[]> {
     return this.http.get<Trip[]>(this.uriTrips + id);
   }
 
+  // Get specific trip by tripIdTag
+  public getTripByTagId(tripIdTag: string): Observable<Trip[]> {
+    return this.http.get<Trip[]>(this.uriTrip + tripIdTag);
+  }
+
   // Get trips for specific user
-  getTripsByUser(belongsToUser: any): Observable<Trip[]> {
+  public getTripsByUser(belongsToUser: string): Observable<Trip[]> {
     return this.http.get<Trip[]>(this.uriTripsForUser + belongsToUser);
   }
 
   // Add new trip to database
-  addTrip(
+  public addTrip(
     belongsToUser: string,
     selectedVehicle: string,
     tripStatus: string,
@@ -91,7 +97,7 @@ export class TripService {
   }
 
   // Update trip from database
-  updateTrip(
+  public updateTrip(
     id: string,
     belongsToUser: string,
     selectedVehicle: string,
@@ -146,7 +152,7 @@ export class TripService {
   }
 
   // Update specific field for trip from database
-  updateSeatsOnTrip(
+  public updateSeatsOnTrip(
     id: string,
     tripTakenSeats: number,
     tripFreeSeats: number): Observable<Trip[]> {
@@ -159,7 +165,7 @@ export class TripService {
   }
 
   // Delete trip from database
-  deleteTrip(id: any): Observable<Trip[]> {
+  public deleteTrip(id: any): Observable<Trip[]> {
     return this.http.delete<Trip[]>(this.uriTripDelete + id);
   }
 }

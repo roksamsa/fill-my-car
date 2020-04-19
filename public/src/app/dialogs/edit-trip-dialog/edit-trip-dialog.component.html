@@ -135,7 +135,7 @@
               <label class="form__label">Izbrano vozilo</label>
               <mat-form-field [floatLabel]="'never'" class="form__field">
                 <mat-select matInput placeholder="Izbrano vozilo" formControlName="selectedVehicle" #selectedVehicle (selectionChange)="changeClient($event.value)">
-                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
+                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
                     <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
                       {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
                     </div>
@@ -362,7 +362,7 @@
   <button mat-raised-button
           class="button button--primary"
           (click)="updateTrip(
-            selectedTripData._id,
+            selectedTripData.id,
             authService.userData.uid,
             selectedVehicle.value,
             'active',

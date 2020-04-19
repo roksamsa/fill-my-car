@@ -4,6 +4,7 @@
   <div tile-headline-button class="vehicles__actions">
     <app-button-icon *ngIf="selectedVehicle"
                      class="tile__headline-button vehicles__button vehicles__button--just-icon button button--just-icon"
+                     [@vehicleActionIconsFadeIn]
                      [buttonTooltipText]="buttonTooltipTextEdit"
                      [buttonTooltipPosition]="'left'"
                      (clicked)="openEditVehicleDialog(selectedVehicle.id)">
@@ -17,6 +18,7 @@
 
     <app-button-icon *ngIf="selectedVehicle"
                      class="tile__headline-button vehicles__button vehicles__button--just-icon button button--just-icon"
+                     [@vehicleActionIconsFadeIn]
                      [buttonTooltipText]="buttonTooltipTextDelete"
                      [buttonTooltipPosition]="'left'"
                      (clicked)="deleteVehicle(selectedVehicle.id)">
@@ -44,7 +46,7 @@
                           *ngIf="areThereAnyVehicles; else emptyVehicleList"
                           class="vehicles__items--full-size"
                           [visibility]="preloadingSpinnerVisibility">
-    <app-vehicle-tile *ngFor="let vehicle of vehicles?.slice().reverse(); let i = index;"
+    <app-vehicle-tile *ngFor="let vehicle of vehicles; let i = index;"
                       class="vehicle-tile vehicle-tile--full-size"
                       [id]="'vehicleID_' + i"
                       [ngClass]="{'selected': selectedVehicle === vehicle}"

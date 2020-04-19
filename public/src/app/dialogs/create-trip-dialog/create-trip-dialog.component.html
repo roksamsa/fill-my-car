@@ -145,7 +145,7 @@
                             placeholder="Izbrano vozilo"
                             formControlName="selectedVehicle"
                             (selectionChange)="getSelectedVehicleData($event)">
-                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle._id">
+                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
                     <div class="vehicle-type--{{vehicle.vehicleType}} vehicle-color--{{vehicle.vehicleColor}}">
                       {{vehicle.vehicleBrand}} {{vehicle.vehicleName}}
                     </div>

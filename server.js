@@ -95,6 +95,7 @@ require('./controller/auth');
 app.use('/', router);
 app.use(require('./controller/index'));
 app.use(require('./controller/vehicles/vehicles.route'));
+app.use(require('./controller/trips/trips.route'));
 
 /*
 app.use(require('./routes/trips.route'));

@@ -61,6 +61,7 @@ export class TripPageComponent implements OnInit {
   isTripActive: boolean;
 
   selectedVehicleId = '';
+  selectedVehicleId2 = '';
 
   selectedTypeData = '';
   selectedBrandData = '';
@@ -123,11 +124,11 @@ export class TripPageComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.fetchTrip();
   }
 
-  preloadingSpinnerShow() {
+  public preloadingSpinnerShow(): void {
     const that = this;
     this.preloadingSpinnerVisibility = true;
 
@@ -136,7 +137,7 @@ export class TripPageComponent implements OnInit {
     }, 800);
   }
 
-  getSocialUser() {
+  public getSocialUser(): void {
     this.authSocialService.authState.subscribe((user) => {
       this.socialUser = user;
       console.log(user);
@@ -144,17 +145,17 @@ export class TripPageComponent implements OnInit {
     });
   }
 
-  signInWithGoogle(): void {
+  public signInWithGoogle(): void {
     this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.getSocialUser();
   }
 
-  signInWithFacebook(): void {
+  public signInWithFacebook(): void {
     this.authSocialService.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.getSocialUser();
   }
 
-  checkIfTripIsActive(): void {
+  public checkIfTripIsActive(): void {
     if (this.currentDate < this.tripDateFormatted) {
       this.isTripActive = true;
       this.statusIconTooltip = 'Potovanje je aktivno';
@@ -165,10 +166,16 @@ export class TripPageComponent implements OnInit {
   }
 
   // Fetch all trips for specific user
-  fetchTrip() {
+  public fetchTrip(): void {
+    /*this.route.data.subscribe(databaseId => console.log(databaseId));
+    this.route.queryParams.subscribe(params => {
+      this.selectedVehicleId2 = params['tripIdTag'];
+      console.log(params);
+    });*/
     this.route.paramMap.subscribe(params => {
+      console.log(params);
       this.currentTripId = params.get('id');
-      this.tripService.getTripById(this.currentTripId).subscribe((data: any) => {
+      this.tripService.getTripByTagId(this.currentTripId).subscribe((data: any) => {
         this.preloadingSpinnerShow();
 
         if (data !== null && data !== undefined) {
@@ -216,7 +223,7 @@ export class TripPageComponent implements OnInit {
     });
   }
 
-  fetchVehicle(vehicleID) {
+  public fetchVehicle(vehicleID: string) {
     this.vehicleService.getVehicleById(vehicleID)
       .pipe(filter(x => !!x))
       .subscribe((selectedVehicleData) => {
@@ -255,7 +262,7 @@ export class TripPageComponent implements OnInit {
   }
 
   // Share my trip dialog popup
-  openShareMyTripDialog(trip: any, tripIndex: any) {
+  public openShareMyTripDialog(trip: any, tripIndex: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
@@ -274,14 +281,14 @@ export class TripPageComponent implements OnInit {
   }
 
   // Delete specific trip
-  deleteTrip(id: any) {
+  public deleteTrip(id: any) {
     this.tripService.deleteTrip(id)
       .subscribe(() => {
         this.router.navigate(['/nadzorna-plosca']);
       });
   }
 
-  goBack() {
+  public goBack(): void {
     this.location.back(); // <-- go back to previous location on cancel
   }
 

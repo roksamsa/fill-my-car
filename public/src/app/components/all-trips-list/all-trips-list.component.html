@@ -92,7 +92,7 @@
           </div>
         </div>
 
-        <div *ngIf="moreActionOpened !== tripIndex" class="trip__router-link" [routerLink]="['/potovanje/', trip?._id]">
+        <div *ngIf="moreActionOpened !== tripIndex" class="trip__router-link" [routerLink]="['/potovanje/', trip?.id]">
         </div>
 
         <div class="table__column trip__actions">
@@ -124,7 +124,7 @@
                              [class.trip__more--selected]="moreActionOpened === tripIndex"
                              [buttonTooltipText]="'Izbriši'"
                              [buttonTooltipPosition]="'above'"
-                             (clicked)="deleteTrip(trip._id)">
+                             (clicked)="deleteTrip(trip.id)">
               <svg *ngIf="makeTripDateFormatted(trip?.tripDate) > currentDate" class="trip__svg-icon" width="22" height="22" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 57" id="Layer_57"><path d="M18.83,16l8.59-8.59a2,2,0,0,0-2.83-2.83L16,13.17,7.41,4.59A2,2,0,0,0,4.59,7.41L13.17,16,4.59,24.59a2,2,0,1,0,2.83,2.83L16,18.83l8.59,8.59a2,2,0,0,0,2.83-2.83Z"/></g></svg>
               <svg *ngIf="!(makeTripDateFormatted(trip?.tripDate) > currentDate)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
             </app-button-icon>

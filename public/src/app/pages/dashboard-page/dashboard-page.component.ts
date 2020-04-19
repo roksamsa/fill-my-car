@@ -272,7 +272,11 @@ export class DashboardPageComponent implements OnInit {
     });
   }
 
-  trackByFn(index, item) {
+  public trackByFn(index, item) {
     return index;
+  }
+
+  public sortBy(prop: string) {
+    return this.vehicles.sort((a, b) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
   }
 }
