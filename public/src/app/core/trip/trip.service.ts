@@ -157,11 +157,11 @@ export class TripService {
     tripTakenSeats: number,
     tripFreeSeats: number): Observable<Trip[]> {
     const updatedTrip = {
-      _id: id,
+      id: id,
       tripTakenSeats: tripTakenSeats,
       tripFreeSeats: tripFreeSeats
     };
-    return this.http.patch<Trip[]>(this.uriTripUpdateSpecificField + id, updatedTrip);
+    return this.http.patch<Trip[]>(this.uriTripUpdate + id, updatedTrip);
   }
 
   // Delete trip from database

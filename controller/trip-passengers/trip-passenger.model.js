@@ -16,19 +16,19 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     tripPassengerStartLocation: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     tripPassengerEndLocation: {
       type: Sequelize.STRING
     },
     tripPassengerName: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     tripPassengerEmail: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     tripPassengerPhone: {
-      type: Sequelize.BOOLEAN
+      type: Sequelize.STRING
     }
   });
   return TripPassenger;

@@ -21,22 +21,22 @@ export class TripPassengerService {
     private constant: ConstantsService) { }
 
   // Get all trips in database
-  getAllTrips(): Observable<TripPassenger[]> {
+  public getAllTrips(): Observable<TripPassenger[]> {
     return this.http.get<TripPassenger[]>(this.uriTripsPassengers);
   }
 
   // Get specific trip by ID
-  getTripById(id: any): Observable<TripPassenger[]> {
+  public getTripById(id: any): Observable<TripPassenger[]> {
     return this.http.get<TripPassenger[]>(this.uriTripsPassengers + id);
   }
 
   // Get trips for specific user
-  getTripsByUser(belongsToUser: any): Observable<TripPassenger[]> {
+  public getTripsByUser(belongsToUser: any): Observable<TripPassenger[]> {
     return this.http.get<TripPassenger[]>(this.uriTripsPassengersForUser + belongsToUser);
   }
 
   // Add new trip to database
-  addTripPassenger(
+  public addTripPassenger(
     belongsToUser: string,
     belongsToVehicle: string,
     belongsToTrip: string,
@@ -62,7 +62,7 @@ export class TripPassengerService {
   }
 
   // Update trip from database
-  updateTrip(
+  public updateTrip(
     id: string,
     belongsToUser: string,
     selectedVehicle: string,
@@ -103,12 +103,12 @@ export class TripPassengerService {
   }
 
   // Delete trip from database
-  deleteTripPassenger(id: any): Observable<TripPassenger[]> {
+  public deleteTripPassenger(id: any): Observable<TripPassenger[]> {
     return this.http.delete<TripPassenger[]>(this.uriTripDelete + id);
   }
 
   // Delete trip from database
-  deleteAllTripPassengers(): Observable<TripPassenger[]> {
+  public deleteAllTripPassengers(): Observable<TripPassenger[]> {
     return this.http.delete<TripPassenger[]>(this.uriTripDelete);
   }
 }

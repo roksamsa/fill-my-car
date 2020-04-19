@@ -1,5 +1,5 @@
 export interface Vehicle {
-  _id: string;
+  id: string;
   belongsToUser: string;
   vehicleType: string;
   vehicleTypeID: string;

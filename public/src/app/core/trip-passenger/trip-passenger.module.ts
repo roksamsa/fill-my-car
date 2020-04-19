@@ -1,5 +1,5 @@
 export interface TripPassenger {
-  _id: string;
+  id: string;
   belongsToUser: string;
   belongsToVehicle: string;
   belongsToTrip: string;

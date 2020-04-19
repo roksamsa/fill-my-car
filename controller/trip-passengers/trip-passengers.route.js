@@ -5,7 +5,7 @@ import express from 'express';
 import database from '../../database/database-setup';
 
 const router = express.Router();
-const TripPassenger = database.TripPassenger;
+const TripPassenger = database.tripPassengers;
 const tripPassengersURI = '/api/trip-passengers';
 
 // Get all trip passengers list

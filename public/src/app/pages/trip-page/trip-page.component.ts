@@ -352,18 +352,18 @@ export class TripPageComponent implements OnInit {
     tripPassengerEmail: string,
     tripPassengerPhone: string) {
 
-    const tripId = this.trip._id;
+    const tripId = this.trip.id;
     this.seatsTakenNumber = this.seatsTakenNumber + this.seatsSelectedNumberFromInput;
     this.seatsFreeNumber = this.seatsFreeNumber - this.seatsSelectedNumberFromInput;
 
-    console.log('this.seatsFreeNumber:');
+    /*console.log('this.seatsFreeNumber:');
     console.log(this.seatsFreeNumber);
     console.log('this.seatsTakenNumber:');
     console.log(this.seatsTakenNumber);
     console.log('tripPassengerSeatsReservation:');
     console.log(tripPassengerSeatsReservation);
     console.log('this.seatsSelectedNumberFromInput:');
-    console.log(this.seatsSelectedNumberFromInput);
+    console.log(this.seatsSelectedNumberFromInput);*/
 
     this.tripPassengerService.addTripPassenger(
       belongsToUser,

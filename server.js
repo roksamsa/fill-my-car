@@ -63,11 +63,32 @@ database.sequelize.sync().then(() => {
   console.log(consoleDivider);
   console.log(connectionMessageRunning);
   console.log(consoleDivider);
+  initial();
 }).catch((error) => {
   console.log(consoleDivider);
   console.error(connectionMessageNotRunning, error);
   console.log(consoleDivider);
 });
+
+function initial() {
+  let tripPassengers = [{
+      belongsToUser: 'kV6FwjmHrbZiJQwwBcBYO5EMJmq1',
+      belongsToVehicle: '2',
+      belongsToTrip: 'Citroen',
+      tripPassengerSeatsReservation: 4,
+      tripPassengerStartLocation: 'Citroen',
+      tripPassengerEndLocation: 'silver',
+      tripPassengerName: 'Citroen',
+      tripPassengerEmail: 'Citroen',
+      tripPassengerPhone: 'Citroen',
+  }];
+  // console.log(database);
+  // Init data -> save to PostgreSQL
+  const TripPassenger = database.tripPassengers;
+  for (let i = 0; i < tripPassengers.length; i++) {
+    TripPassenger.create(tripPassengers[i]);
+  }
+}
 
 // Import data
 require('./controller/auth');

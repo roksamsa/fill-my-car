@@ -231,7 +231,7 @@ export class CreateTripDialogComponent implements OnInit {
     this.vehicleService.getVehicleByUser(this.currentUser.uid).subscribe((data: Vehicle[]) => {
       if (data.length > 0) {
         this.vehicles = data;
-        this.vehicleId = data[0]._id;
+        this.vehicleId = data[0].id;
       } else {
         this.vehicles = null;
       }
