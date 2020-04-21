@@ -1,6 +1,3 @@
-/* jshint node: true */
-'use strict';
-
 module.exports = (sequelize, Sequelize) => {
   const TripPassenger = sequelize.define('TripPassenger', {
     belongsToUser: {

@@ -1,6 +1,3 @@
-/* jshint node: true */
-'use strict';
-
 import express from 'express';
 import session from 'express-session';
 import cors from 'cors';
@@ -17,7 +14,7 @@ const portForApp = 4444;
 const localDomainName = 'https://localhost';
 const webDomainName = 'https://napolnimojavto.si';
 const defaultDomainName = localDomainName;
-const corsOptionsOrigin = defaultDomainName + ':' + portForApp;
+const corsOptionsOrigin = defaultDomainName;
 const path = require('path');
 const consoleDivider = '\n******************************************\n';
 const consoleMessage = 'Server runs on port: ';
@@ -29,8 +26,9 @@ const connectionMessageNotRunning = 'Unable to connect to the PostgreSQL databas
 const router = express.Router();
 const app = express();
 
+const isProduction = process.env.NODE_ENV === 'production';
 const corsOptions = {
-  origin: corsOptionsOrigin,
+  origin: isProduction ? webDomainName : '*',
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
@@ -45,7 +43,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(require('morgan')('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '')));
 app.use(session({
   secret: 'This is the Rocks72 secret',
   cookie: { maxAge: 60000 },
@@ -98,6 +96,9 @@ app.use(require('./controller/index'));
 app.use(require('./controller/vehicles/vehicles.route'));
 app.use(require('./controller/trips/trips.route'));
 app.use(require('./controller/trip-passengers/trip-passengers.route'));
+app.get('*', (req, res) => {
+	return res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 app.use(function(req, res, next) {
   // update to match the domain you will make the request from

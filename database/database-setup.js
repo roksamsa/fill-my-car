@@ -1,7 +1,15 @@
-import { Sequelize } from 'sequelize-typescript';
-import { DBConfig } from './database-config'; // DB connection parameters
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+// import Sequelize from 'sequelize';
+const DBConfig = require('./database-config'); // DB connection parameters
 
-// const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname')
+/*
+const DBConfig = require('./database-config')[env]; // DB connection parameters
+const env = process.env.NODE_ENV || 'development';
+const sequelize = new Sequelize('postgres://user:pass@localhost:5432/dbname');
+const sequelize = new Sequelize('postgres://' + DBConfig.username + ':' + DBConfig.password + '@' + DBConfig.host + ':' + DBConfig.port + '/' + DBConfig.database);
+*/
 
 export const sequelize = new Sequelize({
   database: DBConfig.database,
@@ -20,6 +28,20 @@ export const sequelize = new Sequelize({
 });
 
 const database = {};
+
+/*fs.readdirSync(__dirname).filter(function (file) {
+  return (file.indexOf(".") !== 0) && (file !== 'index.js');
+}).forEach(function (file) {
+  var model = sequelize["import"](path.join(__dirname, file));
+  database[model.name] = model;
+});
+
+Object.keys(database).forEach(function (modelName) {
+  if ('associate' in database[modelName]) {
+    database[modelName].associate(database);
+  }
+});
+*/
 
 database.Sequelize = Sequelize;
 database.sequelize = sequelize;

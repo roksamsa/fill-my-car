@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Trip } from './trip.module';
-import { MatDialog } from '@angular/material/dialog';
 import { ConstantsService } from '../../common/services/constants.service';
 
 @Injectable({
@@ -10,7 +9,7 @@ import { ConstantsService } from '../../common/services/constants.service';
 })
 
 export class TripService {
-  uriBase = this.constant.baseAppDomainLocal;
+  uriBase = this.constant.baseAppDomain;
   uriTrip = this.uriBase + 'trip/';
   uriTrips = this.uriBase + 'trips/';
   uriTripsForUser = this.uriTrips + 'user/';

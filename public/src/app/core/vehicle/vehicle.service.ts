@@ -9,7 +9,7 @@ import { ConstantsService } from '../../common/services/constants.service';
 })
 
 export class VehicleService {
-  uriBase = this.constant.baseAppDomainLocal;
+  uriBase = this.constant.baseAppDomain;
   uriVehicles = this.uriBase + 'vehicles/';
   uriVehiclesForUser = this.uriVehicles + 'user/';
   uriVehicleAdd = this.uriVehicles + 'add/';

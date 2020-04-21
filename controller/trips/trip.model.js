@@ -1,6 +1,3 @@
-/* jshint node: true */
-'use strict';
-
 module.exports = (sequelize, Sequelize) => {
   const Trip = sequelize.define('Trip', {
     belongsToUser: {
@@ -52,7 +49,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     tripMessage: {
-      type: Sequelize.TEXT('long'),
+      type: Sequelize.TEXT,
       unique: false
     },
     tripNewPassengersAcceptance: {
