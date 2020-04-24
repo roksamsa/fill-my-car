@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Inject } from '@angular/core';
+import { Component, AfterViewInit, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
@@ -43,7 +43,7 @@ export const headerFadeInAnimationTiming = '400ms';
     ])
   ]
 })
-export class CreateVehicleDialogComponent implements AfterViewInit {
+export class CreateVehicleDialogComponent implements AfterViewInit, OnInit {
   isDialogOpen = false;
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
@@ -93,8 +93,11 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
     });
   }
 
-  public ngAfterViewInit(): void {
+  public ngOnInit() {
     this.isDialogOpen = true;
+  }
+
+  public ngAfterViewInit(): void {
     this.selectedTypeData = 'car';
     this.numberPickerData.changeInputPlaceholderValue(this.inputSeatsPlaceholder);
   }
@@ -120,7 +123,6 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
 
   public selectedVehicleType(event: MatSelectChange) {
     event ? (this.selectedTypeData = event.value) : (this.selectedTypeData = 'car');
-    console.log(event.value);
   }
 
   // Vehicle brand
@@ -153,7 +155,6 @@ export class CreateVehicleDialogComponent implements AfterViewInit {
 
   public selectedYearModel(event: MatSelectChange) {
     this.selectedVehicleYearData = event.source.value;
-    console.log(this.selectedVehicleYearData);
   }
 
   // Add vehicle on popup close

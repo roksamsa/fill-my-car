@@ -11,5 +11,4 @@ export class WebpageHeaderComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

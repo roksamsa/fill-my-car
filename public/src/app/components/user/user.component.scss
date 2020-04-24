@@ -34,6 +34,13 @@ $header__shadow-color: rgba(38, 42, 77, .3); // #262A4D
     font-weight: bold;
   }
 
+  &__avatar-name {
+    font-size: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
   &__email {
     font-size: 20px;
   }

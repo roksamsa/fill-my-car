@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -11,10 +10,12 @@ export class UserService {
     public db: AngularFirestore,
     public afAuth: AngularFireAuth) { }
 
-  getCurrentUser() {
+  get getCurrentUser(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      const user = firebase.auth().onAuthStateChanged(function (userData) {
+      const user = firebase.auth().onAuthStateChanged(userData => {
         if (user) {
+          console.log(user);
+          console.log(userData);
           resolve(userData);
         } else {
           reject('No user logged in');
@@ -23,7 +24,7 @@ export class UserService {
     });
   }
 
-  updateCurrentUser(value) {
+  public updateCurrentUser(value: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       const user = firebase.auth().currentUser;
       user.updateProfile({
@@ -35,9 +36,9 @@ export class UserService {
     });
   }
 
-  isUserLoggedIn() {
+  get isUserLoggedIn(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      const user = firebase.auth().onAuthStateChanged(function (userData) {
+      const user = firebase.auth().onAuthStateChanged(userData => {
         if (user) {
           resolve(userData);
         } else {

@@ -8,6 +8,7 @@ import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialo
 import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
 import { UserMenuService } from '../user-menu/user-menu.service';
 import { WebpageMenuService } from '../../webpage/components/webpage-menu/webpage-menu.service';
+import { ConstantsService } from '../../common/services/constants.service';
 
 export const defaultAnimationFunction = 'ease-in-out';
 
@@ -38,44 +39,42 @@ export const headerAnimationDelay = '450ms';
 
 export class HeaderComponent implements OnInit {
 
-  clickActiveState = false;
-  dialogResult = '';
-  createContentVisibility = false;
-  createButtonTooltipText = 'Dodaj novo vozilo ali potovanje';
-  darkModeActivated: boolean;
+  private dialogResult = '';
+  private createContentVisibility = false;
   private loginRegisterOverlayVisibility = true;
 
+  public clickActiveState = false;
+  public darkModeActivated: boolean;
+  public createButtonTooltipText = 'Dodaj novo vozilo ali potovanje';
+
+  public userData: any;
+
   constructor(
-    public authService: FirebaseAuthService,
     private headerData: HeaderService,
     private webpageMenuData: WebpageMenuService,
     private userMenuDarkThemeData: UserMenuService,
     private popupTrip: MatDialog,
+    public authService: FirebaseAuthService,
+    public constant: ConstantsService,
     public router: Router,
-    public ngZone: NgZone) {}
+    public ngZone: NgZone) {
+    }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.clickActiveState = clickActiveState);
     this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState);
   }
 
-  setUserMenuVisibility() {
-    // If user logs out
-    if (this.authService.userData.uid.length < 0) {
-      this.clickActiveState = false;
-      this.headerData.changeUserMenuVisibility(this.clickActiveState);
-    } else {
-      this.clickActiveState = !this.clickActiveState;
-      this.headerData.changeUserMenuVisibility(this.clickActiveState);
-      console.log(this.clickActiveState);
-    }
+  public setUserMenuVisibility(): void {
+    this.clickActiveState = !this.clickActiveState;
+    this.headerData.changeUserMenuVisibility(this.clickActiveState);
   }
 
-  clickOutsideUserMenuVisibility() {
+  public clickOutsideUserMenuVisibility(): void {
     this.headerData.changeUserMenuVisibility(false);
   }
 
-  isCreateContentVisible() {
+  public isCreateContentVisible(): void {
     this.createContentVisibility = !this.createContentVisibility;
     (this.createContentVisibility === true) ?
     this.createButtonTooltipText = 'Zapri dodajanje' :
@@ -83,7 +82,7 @@ export class HeaderComponent implements OnInit {
   }
 
   // Add vehicle dialog popup
-  openAddDialog() {
+  public openAddDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
@@ -101,7 +100,7 @@ export class HeaderComponent implements OnInit {
   }
 
   // Add trip dialog popup
-  openAddTripDialog() {
+  public openAddTripDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
@@ -118,7 +117,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  redirectToHomeAndOpenLogin() {
+  public redirectToHomeAndOpenLogin(): void {
     this.webpageMenuData.openLoginRegisterOverlay(this.loginRegisterOverlayVisibility);
   }
 }

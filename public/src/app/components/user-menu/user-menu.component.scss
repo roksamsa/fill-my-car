@@ -92,24 +92,26 @@ $header-user-avatar__border--dark-theme: 2px solid rgba(15, 7, 35, 1);
     &:hover {
       .user-menu__avatar {
         &::before {
-          content: '';
-          position: absolute;
           bottom: -1px;
           left: -1px;
           right: -1px;
           top: -1px;
-          border: 2px solid $color__blue--primary;
+          border: 3px solid $color__blue--primary;
         }
       }
     }
   }
 
   &__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     width: 80px;
     height: 80px;
     margin-right: 15px;
     border-radius: 50%;
+    overflow: hidden;
 
     &::before {
       content: '';
@@ -120,7 +122,19 @@ $header-user-avatar__border--dark-theme: 2px solid rgba(15, 7, 35, 1);
       top: 0;
       border-radius: 50%;
       border: $header-user-avatar__border;
-      transition: top 200ms ease-in-out, bottom 200ms ease-in-out, left 200ms ease-in-out, right 200ms ease-in-out, border-color 200ms ease-in-out;
+      transition: top 200ms ease-in-out, bottom 200ms ease-in-out, left 200ms ease-in-out, right 200ms ease-in-out, border 200ms ease-in-out;
+    }
+
+    &--default {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $color__blue--primary;
+      border-width: 0;
+
+      .user-menu__avatar-name {
+        color: white;
+      }
     }
 
     &-image {
@@ -133,6 +147,15 @@ $header-user-avatar__border--dark-theme: 2px solid rgba(15, 7, 35, 1);
     }
   }
 
+  &__avatar-image-wrapper {
+    display: flex;
+    position: relative;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
   &__avatar-wrapper {
     position: absolute;
     left: 50%;
@@ -142,6 +165,13 @@ $header-user-avatar__border--dark-theme: 2px solid rgba(15, 7, 35, 1);
     height: 72px;
     border-radius: 50%;
     overflow: hidden;
+  }
+
+  &__avatar-name {
+    font-size: 36px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1;
   }
 
   &__item {

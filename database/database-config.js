@@ -36,7 +36,6 @@ const DBConfig = {
 
 /*
 PRODUCTION
-
 const host = 'localhost';
 const username = 'roksam1_R27OKs42';
 const password = 'GXZ0#WHAP]_rV(725u';
@@ -49,25 +48,24 @@ const pool = {
   max: 5,
   min: 0
 };
+*/
 
-const DBAuthorization = {
-  host, username, password
+/*
+DEVELOPMENT
+const host = 'localhost';
+const username = 'postgres';
+const password = 'R27OKas72mas';
+const database = 'fill-my-car-postgres';
+const dialect = 'postgres'; // Database management system type
+const port = 5432;
+const pool = {
+  acquire: 30000,
+  idle: 10000,
+  max: 5,
+  min: 0
 };
+*/
 
-const replication = {
-  read: DBAuthorization,
-  write: DBAuthorization
-};
-
-const DBConfig = {
-  dialect,
-  pool,
-  username,
-  password,
-  port,
-  database,
-  replication
-};*/
 
 /*
 https://napolnimojavto.si/

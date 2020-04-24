@@ -3,6 +3,7 @@ import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { HeaderService } from '../header/header.service';
 import { UserMenuService } from './user-menu.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { ConstantsService } from '../../common/services/constants.service';
 
 export const headerFadeInAnimationTiming = '300ms';
 export const headerFadeOutAnimationTiming = '150ms';
@@ -57,45 +58,44 @@ export const defaultAnimationFunction = 'ease-in-out';
 })
 
 export class UserMenuComponent implements OnInit {
-  userMenuVisibility: boolean;
-  slideToggleChecked = false;
-  userFullName = '';
-  userEmail = '';
-  userName = '';
+  public userMenuVisibility: boolean;
+  public slideToggleChecked = false;
+
+  public userFullName = '';
+  public userName = '';
+
+  public userEmail: any;
 
   constructor(
     public authService: FirebaseAuthService,
+    public constant: ConstantsService,
     private userMenuDarkThemeData: UserMenuService,
     private headerData: HeaderService) {
-    this.userFullName = authService.userData.displayName;
-    this.userEmail = authService.userData.email;
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.clickUserName();
     this.headerData.currentUserMenuState.subscribe(clickActiveState => this.userMenuVisibility = clickActiveState);
     this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.slideToggleChecked = clickActiveState);
   }
 
-  clickUserMenuVisibility() {
+  public clickUserMenuVisibility(): void {
     this.headerData.changeUserMenuVisibility(false);
   }
 
-  clickUserName() {
-    if (this.userFullName) {
-      this.userName = this.userFullName.replace(/ /g, '.');
-    } else {
-      this.userName = this.userEmail;
-    }
+  public clickUserName(): void {
+    this.userEmail ?
+    (this.userName = this.userFullName.replace(/ /g, '.')) :
+    (this.userName = this.userEmail);
   }
 
-  isDarkModeActivated() {
+  public isDarkModeActivated(): void {
     this.slideToggleChecked = !this.slideToggleChecked;
     this.userMenuDarkThemeData.changeToDarkMode(this.slideToggleChecked);
   }
 
-  userMenuSignOut() {
-    this.authService.SignOut();
+  public userMenuSignOut(): void {
+    this.authService.signOut();
     this.headerData.changeUserMenuVisibility(false);
   }
 }

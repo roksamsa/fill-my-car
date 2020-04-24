@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../../core/user/user.service';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,22 +10,24 @@ import { FirebaseUserModel } from '../../core/user/user.model';
   styleUrls: ['./user.component.scss']
 })
 
-export class UserComponent implements OnInit {
+export class UserComponent {
 
-  user: FirebaseUserModel = new FirebaseUserModel();
+  public userData: any;
+  public userEmail: any;
+  public userDisplayName: any;
+  public userPhotoURL: any;
+  public userAvatarFirstLetter: any;
+  public isUserLoggedIn: any;
 
   constructor(
     public userService: UserService,
     public authService: FirebaseAuthService,
     private route: ActivatedRoute) {
-  }
-
-  ngOnInit(): void {
-    this.route.data.subscribe(routeData => {
-      const data = routeData['data'];
-      if (data) {
-        this.user = data;
-      }
-    });
+      this.isUserLoggedIn = this.authService.isLoggedIn;
+      this.userData = this.authService.getUserData;
+      this.userEmail = this.authService.getUserData.email;
+      this.userDisplayName = this.authService.getUserData.displayName;
+      this.userPhotoURL = this.authService.getUserData.photoURL;
+      this.userAvatarFirstLetter = this.userEmail.charAt(0);
   }
 }

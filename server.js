@@ -1,21 +1,22 @@
-import express from 'express';
-import session from 'express-session';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
+const express = require('express');
+const session = require('express-session');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 // Import database settings
-import database from './database/database-setup';
+const database = require('./database/database-setup');
 
 // Listening
+const path = require('path');
 const portForDatabase = 5432;
 const portForServer = 4000;
 const portForApp = 4444;
 const localDomainName = 'https://localhost';
 const webDomainName = 'https://napolnimojavto.si';
-const defaultDomainName = localDomainName;
+const defaultDomainName = webDomainName;
 const corsOptionsOrigin = defaultDomainName;
-const path = require('path');
+
 const consoleDivider = '\n******************************************\n';
 const consoleMessage = 'Server runs on port: ';
 const connectionMessageRunning =
@@ -28,8 +29,9 @@ const app = express();
 
 const isProduction = process.env.NODE_ENV === 'production';
 const corsOptions = {
-  origin: isProduction ? webDomainName : '*',
-  optionsSuccessStatus: 200
+  origin: '*',
+  optionsSuccessStatus: 200,
+  credentials: true
 };
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -96,16 +98,17 @@ app.use(require('./controller/index'));
 app.use(require('./controller/vehicles/vehicles.route'));
 app.use(require('./controller/trips/trips.route'));
 app.use(require('./controller/trip-passengers/trip-passengers.route'));
-app.get('*', (req, res) => {
+/*app.get('*', (req, res) => {
 	return res.sendFile(path.join(__dirname, 'index.html'));
-});
+});*/
 
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Origin", corsOptionsOrigin);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", true);
   next();
-});
+});*/
 
 app.listen(portForServer, function () {
   console.log(consoleDivider);

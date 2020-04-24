@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-// import Sequelize from 'sequelize';
 const DBConfig = require('./database-config'); // DB connection parameters
 
 /*
@@ -11,7 +10,7 @@ const sequelize = new Sequelize('postgres://user:pass@localhost:5432/dbname');
 const sequelize = new Sequelize('postgres://' + DBConfig.username + ':' + DBConfig.password + '@' + DBConfig.host + ':' + DBConfig.port + '/' + DBConfig.database);
 */
 
-export const sequelize = new Sequelize({
+const sequelize = new Sequelize({
   database: DBConfig.database,
   dialect: DBConfig.dialect,
   username: DBConfig.username,
@@ -40,8 +39,7 @@ Object.keys(database).forEach(function (modelName) {
   if ('associate' in database[modelName]) {
     database[modelName].associate(database);
   }
-});
-*/
+});*/
 
 database.Sequelize = Sequelize;
 database.sequelize = sequelize;

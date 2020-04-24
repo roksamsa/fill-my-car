@@ -1,9 +1,13 @@
-<div class="user__wrapper" *ngIf="authService.userData as user">
-  <div class="user__avatar">
-    <img class="user__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
+<div class="user__wrapper">
+  <div class="header__avatar"
+       [class.header__avatar--default]="!userPhotoURL">
+    <img *ngIf="userPhotoURL" class="header__avatar-image" src="{{ userPhotoURL }}" alt="{{ userDisplayName }}">
+    <div *ngIf="!userPhotoURL" class="header__avatar-name">
+      {{ userAvatarFirstLetter }}
+    </div>
   </div>
   <div class="user__right">
-    <div class="user__username">{{user.displayName}}</div>
-    <div class="user__email">{{user.email}}</div>
+    <div class="user__username">{{ userDisplayName }}</div>
+    <div class="user__email">{{ userEmail }}</div>
   </div>
 </div>

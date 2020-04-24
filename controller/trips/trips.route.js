@@ -1,6 +1,5 @@
-import express from 'express';
-import database from '../../database/database-setup';
-
+const express = require('express');
+const database = require('../../database/database-setup');
 const router = express.Router();
 const Trip = database.trips;
 const tripsURI = '/api/trips';

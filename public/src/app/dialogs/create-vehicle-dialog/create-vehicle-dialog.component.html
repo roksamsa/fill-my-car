@@ -133,9 +133,9 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
-  <button mat-raised-button class="button button--primary"
+  <button *ngIf="authService.user$ | async as user" mat-raised-button class="button button--primary"
     (click)="addVehicle(
-      authService.userData.uid,
+      user.uid,
       selectedTypeData,
       vehicleBrand.value,
       vehicleName.value,

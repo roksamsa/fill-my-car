@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
   public readonly baseAppPort: string = '4000';
   public readonly baseAppDomainLocal: string = 'http://localhost:' + this.baseAppPort + '/api/';
-  public readonly baseAppDomainWeb: string = 'http://napolnimojavto.si:' + this.baseAppPort + '/api/';
+  public readonly baseAppDomainWeb: string = 'https://napolnimojavto.si:' + this.baseAppPort + '/api/';
   public readonly baseAppDomain = this.baseAppDomainLocal;
 
   public readonly currentDate = new Date();
@@ -34,5 +34,9 @@ export class ConstantsService {
     } else {
       return Math.round(value * multiplier) / multiplier;
     }
-}
+  }
+
+  public generateLetterForUserAvatar(string: string): void {
+    string.charAt(0);
+  }
 }

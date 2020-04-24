@@ -1,16 +1,16 @@
 <header class="header"
         [class.dark-theme]="darkModeActivated">
-  <app-user-menu *ngIf="authService.isLoggedIn && clickActiveState"></app-user-menu>
+  <app-user-menu *ngIf="clickActiveState"></app-user-menu>
   <div class="header__background"></div>
   <div class="header__wrapper">
     <div class="header__left"
          (click)="clickOutsideUserMenuVisibility()">
       <app-logo class="header__logo" routerLink="/"></app-logo>
-      <app-main-menu *ngIf="authService.isLoggedIn" class="header__menu" [class.dark-theme]="darkModeActivated"></app-main-menu>
+      <app-main-menu *ngIf="authService.user$ | async" class="header__menu" [class.dark-theme]="darkModeActivated"></app-main-menu>
     </div>
 
     <div class="header__right">
-      <div *ngIf="authService.isLoggedIn; else loggedOut" class="header__user" [class.header__user--open]="clickActiveState">
+      <div *ngIf="authService.user$ | async; else loggedOut" class="header__user" [class.header__user--open]="clickActiveState">
 
         <div class="header__create">
           <div class="header__create-wrapper" [@createContentWrapperAnimation]="createContentVisibility">
@@ -31,12 +31,14 @@
           </div>
         </div>
 
-        <div *ngIf="authService.userData as user" class="header__user-wrapper" (click)="setUserMenuVisibility()">
+        <div *ngIf="authService.user$ | async as user" class="header__user-wrapper" (click)="setUserMenuVisibility()">
           <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
-            <img class="header__avatar-image" src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}" alt="{{user.displayName}}">
+            <img *ngIf="user.photoURL" class="header__avatar-image" src="{{ user.photoURL }}" alt="{{ user.displayName }}">
+            <div *ngIf="!user.photoURL" class="header__avatar-name">
+              {{ constant.generateLetterForUserAvatar(user.email) }}
+            </div>
           </div>
-          <div *ngIf="user.displayName" class="header__username">{{user.displayName}}</div>
-          <div *ngIf="user.email && !user.displayName" class="header__email">{{user.email}}</div>
+          <div *ngIf="user.displayName; else showEmail" class="header__username">{{ user.displayName }}</div>
         </div>
       </div>
 
@@ -50,3 +52,7 @@
     </div>
   </div>
 </header>
+
+<ng-template #showEmail>
+  <div class="header__email">{{ user.email }}</div>
+</ng-template>

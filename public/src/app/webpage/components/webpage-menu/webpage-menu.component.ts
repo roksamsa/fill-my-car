@@ -1,31 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { WebpageMenuService } from './webpage-menu.service';
 import { FirebaseAuthService } from '../../../core/auth/auth.service';
+import { ConstantsService } from '../../../common/services/constants.service';
 
 @Component({
   selector: 'app-webpage-menu',
   templateUrl: './webpage-menu.component.html',
   styleUrls: ['./webpage-menu.component.scss']
 })
-export class WebpageMenuComponent implements OnInit {
+export class WebpageMenuComponent {
 
   private loginRegisterOverlayVisibility = false;
-  public isUserLoggedIn: boolean;
+  public otherContentVisible = false;
 
   constructor(private webpageMenuData: WebpageMenuService,
-              public authService: FirebaseAuthService) { }
-
-  public ngOnInit(): void {
-    this.setUserLoggedInStatus();
-    console.log(this.authService);
-  }
-
-  public setUserLoggedInStatus(): void {
-    if (this.authService.userData.uid.length < 0) {
-      this.isUserLoggedIn = false;
-    } else {
-      this.isUserLoggedIn = true;
-    }
+              public constant: ConstantsService,
+              public authService: FirebaseAuthService) {
   }
 
   public openLoginRegisterOverlay(): void {
@@ -34,6 +24,6 @@ export class WebpageMenuComponent implements OnInit {
   }
 
   public userMenuSignOut(): void {
-    this.authService.SignOut();
+    this.authService.signOut();
   }
 }

@@ -314,12 +314,7 @@
     <app-here-maps [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
   </div>
 </div>
-
-{{seatsAvailableValue}}
-{{seatsTakenValue}}
-{{seatsFreeValue}}
-
-<mat-dialog-actions>
+<mat-dialog-actions *ngIf="authService.user$ | async as user">
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button *ngIf="stepper.selectedIndex === 0"
           mat-raised-button
@@ -365,7 +360,7 @@
           class="button button--primary"
           (click)="updateTrip(
             selectedTripData.id,
-            authService.userData.uid,
+            user.uid,
             selectedVehicle.value,
             'active',
             selectedTripData.tripIdTag,

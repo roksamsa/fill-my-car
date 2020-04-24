@@ -333,7 +333,7 @@
   </div>
 </div>
 
-<mat-dialog-actions>
+<mat-dialog-actions *ngIf="authService.user$ | async as user">
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button *ngIf="stepper.selectedIndex === 0" mat-raised-button class="button button--default"
     (click)="stepperGoNextStep()" type="button">
@@ -371,7 +371,7 @@
           mat-raised-button
           class="button button--primary"
           (click)="addTrip(
-                    authService.userData.uid,
+                    user.uid,
                     selectedVehicle.value,
                     'active',
                     tripIdTag,

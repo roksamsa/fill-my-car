@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
@@ -42,7 +42,7 @@ export const headerFadeInAnimationTiming = '400ms';
     ])
   ]
 })
-export class EditVehicleDialogComponent implements AfterViewInit {
+export class EditVehicleDialogComponent implements OnInit {
 
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
@@ -112,7 +112,7 @@ export class EditVehicleDialogComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  public ngOnInit() {
     this.isDialogOpen = true;
   }
 

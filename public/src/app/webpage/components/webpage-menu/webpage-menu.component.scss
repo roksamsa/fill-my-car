@@ -78,10 +78,14 @@
     overflow: hidden;
 
     &--default {
-      .header__avatar-image {
-        width: 32px;
-        height: 32px;
-        margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $color__blue--primary;
+      border-width: 0;
+
+      .header__avatar-name {
+        color: white;
       }
     }
 
@@ -95,6 +99,13 @@
       border-radius: 50%;
       overflow: hidden;
     }
+  }
+
+  &__avatar-name {
+    font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1;
   }
 
   &__user {

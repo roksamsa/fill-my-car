@@ -1,34 +1,41 @@
 <ul class="menu">
-  <!--<li class="menu__item" routerLink="/pregled" routerLinkActive="menu__item--active">
+  <li *ngIf="otherContentVisible" class="menu__item" routerLink="/pregled" routerLinkActive="menu__item--active">
     <div class="menu__item-text">Kako uporabljam aplikacijo?</div>
-  </li>-->
-  <!--<li class="menu__item" routerLink="/pregled" routerLinkActive="menu__item--active">
+  </li>
+  <li *ngIf="otherContentVisible" class="menu__item" routerLink="/pregled" routerLinkActive="menu__item--active">
     <div class="menu__item-text">O nas</div>
-  </li>-->
-  <li *ngIf="!authService.isLoggedIn" class="menu__item"
-      (click)="openLoginRegisterOverlay()">
-    <div class="menu__item-text">Prijava</div>
   </li>
-  <li *ngIf="authService.isLoggedIn"
-      class="menu__item"
-      (click)="userMenuSignOut()">
-    <div class="menu__item-text">Odjava</div>
-  </li>
-  <li *ngIf="authService.isLoggedIn"
-      class="menu__item"
-      routerLink="/pregled">
-    <div *ngIf="authService.userData as user"
-         class="header__user-wrapper">
-      <div class="header__avatar"
-           [class.header__avatar--default]="!user.photoURL">
-        <img class="header__avatar-image"
-             src="{{(user.photoURL) ? user.photoURL : '/assets/icons/icon-user.svg'}}"
-             alt="{{user.displayName}}">
-      </div>
-      <div *ngIf="user.displayName"
-           class="header__username">{{user.displayName}}</div>
-      <div *ngIf="user.email && !user.displayName"
-           class="header__email">{{user.email}}</div>
-    </div>
+  <li *ngIf="authService.user$ | async; then authenticated else guest">
+    <!-- template will replace this div -->
   </li>
 </ul>
+
+<!-- User NOT logged in -->
+<ng-template #guest>
+  <li class="menu__item" (click)="openLoginRegisterOverlay()">
+    <div class="menu__item-text">Prijava</div>
+  </li>
+</ng-template>
+
+<!-- User logged in -->
+<ng-template #authenticated>
+  <li class="menu__item" (click)="userMenuSignOut()">
+    <div class="menu__item-text">Odjava</div>
+  </li>
+  <li class="menu__item" routerLink="/pregled">
+    <div class="header__user-wrapper" *ngIf="authService.user$ | async as user">
+      <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
+        <img *ngIf="user.photoURL" class="header__avatar-image" src="{{ user.photoURL }}" alt="{{ user.displayName }}">
+        <div *ngIf="!user.photoURL" class="header__avatar-name">
+          {{ constant.generateLetterForUserAvatar(user.email) }}
+        </div>
+      </div>
+      <div *ngIf="user.displayName; else showEmail" class="header__username">{{ user.displayName }}</div>
+    </div>
+  </li>
+</ng-template>
+
+
+<ng-template #showEmail>
+  <div class="header__email">{{ user.email }}</div>
+</ng-template>
