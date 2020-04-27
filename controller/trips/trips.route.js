@@ -2,8 +2,8 @@ const express = require('express');
 const database = require('../../database/database-setup');
 const router = express.Router();
 const Trip = database.trips;
-const tripsURI = '/api/trips';
-const tripURI = '/api/trip';
+const tripsURI = '/trips';
+const tripURI = '/trip';
 
 // Get all trips list
 router.get(tripsURI, function (req, res) {

@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
 const https = require('https');
 
 const options = {
   hostname: 'localhost',
-  port: 4433,
+  port: 443,
   path: '/',
-  method: 'GET',
-  key: fs.readFileSync('../client1-key.pem'),
-  cert: fs.readFileSync('../client1-crt.pem'),
-  ca: fs.readFileSync('../ca-crt.pem')
+  method: 'GET'
 };
 
 const req = https.request(options, function(res) {
@@ -28,4 +24,3 @@ router.get('/', function (req, res) {
 });
 
 module.exports = router;
-

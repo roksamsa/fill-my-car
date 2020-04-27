@@ -8,17 +8,11 @@ export class ConstantsService {
 
   public baseAppDomain = '';
   public readonly baseAppPort = '4000';
-  public readonly baseAppPortSSL = '4433';
-  public readonly baseAppDomainName = 'localhost';
-  public readonly baseAppDomainNameWeb = 'napolnimojavto.si';
-  public readonly baseAppDomainProtocol = 'http://';
-  public readonly baseAppDomainProtocolSSL = 'https://';
+  public readonly baseAppDomainName = 'http://localhost';
+  public readonly baseAppDomainNameWeb = 'https://api.napolnimojavto.si/';
 
-  public readonly baseAppDomainLocal =
-    this.baseAppDomainProtocol + this.baseAppDomainName + ':' + this.baseAppPort + '/api/';
-
-  public readonly baseAppDomainWeb =
-    this.baseAppDomainProtocolSSL + this.baseAppDomainNameWeb + ':' + this.baseAppPortSSL + '/api/';
+  public readonly baseAppDomainLocal = this.baseAppDomainName + ':' + this.baseAppPort + '/api/';
+  public readonly baseAppDomainWeb = this.baseAppDomainNameWeb;
 
   public readonly messageProduction = 'Application is running in PRODUCTION mode.';
   public readonly messageDevelopment = 'Application is running in DEVELOPMENT mode.';

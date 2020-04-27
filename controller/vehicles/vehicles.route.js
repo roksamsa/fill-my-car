@@ -2,7 +2,7 @@ const express = require('express');
 const database = require('../../database/database-setup');
 const router = express.Router();
 const Vehicle = database.vehicles;
-const vehiclesURI = '/api/vehicles';
+const vehiclesURI = '/vehicles';
 
 // Get all vehicles
 router.get(vehiclesURI, function (req, res) {

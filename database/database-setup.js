@@ -1,13 +1,6 @@
 const Sequelize = require('sequelize');
 const DBConfig = require('./database-config'); // DB connection parameters
 
-/*
-const DBConfig = require('./database-config')[env]; // DB connection parameters
-const env = process.env.NODE_ENV || 'development';
-const sequelize = new Sequelize('postgres://user:pass@localhost:5432/dbname');
-const sequelize = new Sequelize('postgres://' + DBConfig.username + ':' + DBConfig.password + '@' + DBConfig.host + ':' + DBConfig.port + '/' + DBConfig.database);
-*/
-
 const sequelize = new Sequelize({
   database: DBConfig.database,
   dialect: DBConfig.dialect,
@@ -35,16 +28,3 @@ database.trips = require('../controller/trips/trip.model')(sequelize, Sequelize)
 database.tripPassengers = require('../controller/trip-passengers/trip-passenger.model')(sequelize, Sequelize);
 
 module.exports = database;
-
-/*fs.readdirSync(__dirname).filter(function (file) {
-  return (file.indexOf(".") !== 0) && (file !== 'index.js');
-}).forEach(function (file) {
-  var model = sequelize["import"](path.join(__dirname, file));
-  database[model.name] = model;
-});
-
-Object.keys(database).forEach(function (modelName) {
-  if ('associate' in database[modelName]) {
-    database[modelName].associate(database);
-  }
-});*/

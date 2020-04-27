@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 const host = 'localhost';
-const username = 'roksam1';
-const password = 'bger8jvCkd';
-const database = 'roksam1_fill_my_car_postgres';
+const username = 'postgres';
+const password = 'R27OKas72mas';
+const database = 'fill-my-car-postgres';
 const dialect = 'postgres'; // Database management system type
 const port = 5432;
 const pool = {

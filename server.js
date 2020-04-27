@@ -19,10 +19,11 @@ const isProduction = true;
 // Other variables
 const portForDatabase = 5432;
 const portForServer = 4000;
-const portForSSLServer = 4433;
+
 const localDomainName = 'localhost';
-const webDomainName = 'napolnimojavto.si';
-const corsOptionsOrigin = 'https://' + defaultDomainName;
+const webDomainName = 'https://api.napolnimojavto.si/';
+const corsOptionsOrigin = 'https://api.napolnimojavto.si/';
+var defaultDomainName = '';
 
 // All console messages
 const consoleDivider = '\n******************************************\n';
@@ -35,7 +36,6 @@ const consoleAppRunningTypeMessagePROD = 'Application is in PRODUCTION mode.';
 const consoleAppRunningTypeMessageDEV = 'Application is in DEVELOPMENT mode.';
 
 var consoleAppRunningTypeMessage = '';
-var defaultDomainName = '';
 var defaultDomainPort = '';
 var defaultServerType;
 
@@ -48,15 +48,14 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   credentials: true
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(cookieParser());
+app.use(helmet());
 
 // Parse application/x-www-form-urlencoded
-/*app.use(bodyParser.urlencoded({
+app.use(bodyParser.urlencoded({
   extended: true
-}));*/
-
-app.use(helmet());
+}));
 
 // Parse application/json
 app.use(bodyParser.json());
@@ -91,11 +90,12 @@ database.sequelize.sync().then(() => {
   console.log(consoleDivider);
 });
 
+/*
 database.sequelize.query('SELECT * FROM' + database.vehicles).success(function(result) {
   console.log(result);
 }).error(function(err) {
   console.log(err);
-});
+});*/
 
 /*
 function initial() {
@@ -123,10 +123,10 @@ function initial() {
 require('./controller/auth');
 
 app.use('/', router);
-app.use(require('./controller/index'));
 app.use(require('./controller/vehicles/vehicles.route'));
 app.use(require('./controller/trips/trips.route'));
 app.use(require('./controller/trip-passengers/trip-passengers.route'));
+app.use(require('./controller/index'));
 
 /*
 app.get('*', (req, res) => {
@@ -148,32 +148,35 @@ app.get('*', (req, res) => {
 */
 /*
 const privateKey = fs.readFileSync('../../../ssl/keys/b351d_e230f_15fa5903a5f402bb43354e5d9824b0a8.key');
-const certificate = fs.readFileSync('../../../ssl/certs/napolnimojavto_si_b351d_e230f_1595587392_a295722e91b17b4374eb34f11128255f.crt');*/
+const certificate = fs.readFileSync('../../../ssl/certs/napolnimojavto_si_b351d_e230f_1595587392_a295722e91b17b4374eb34f11128255f.crt');
 
 const privateKey = fs.readFileSync('server-key.pem');
 const certificate = fs.readFileSync('server-crt.pem');
 const ca = fs.readFileSync('ca-crt.pem');
 
+
+const privateKey = fs.readFileSync(path.join(__dirname, '../../ssl/keys/cadce_3af6d_caa9c3669e870d14e3e86ccb01ae9c96.key'), 'utf-8');
+const certificate = fs.readFileSync(path.join(__dirname, '../../ssl/certs/api_napolnimojavto_si_cadce_3af6d_1595776936_cd5b3ba91450b4fdc96cd1f981386bee.crt'), 'utf-8');
+
+  requestCert: true,
+  rejectUnauthorized: true,*/
+
+const privateKey = fs.readFileSync(path.join(__dirname, '../../ssl/keys/bfa16_51e29_ed5bd294115c0f62e6c12e443d26c7de.key'), 'utf-8');
+const certificate = fs.readFileSync(path.join(__dirname, '../../ssl/certs/api_napolnimojavto_si_bfa16_51e29_1619550376_7ca0ed87ba2cd7628f91241ac394792b.crt'), 'utf-8');
+const csr = fs.readFileSync(path.join(__dirname, '../../ssl/csrs/api_napolnimojavto_si_bfa16_51e29_e11cbd0a183ec1f6b93efa82820664af.csr'), 'utf-8');
+
 const options = {
-  root: path.join(__dirname, ''),
-  dotfiles: 'deny',
-  headers: {
-    'x-timestamp': Date.now(),
-    'x-sent': true
-  }
+  root: path.join(__dirname, '/'),
+  dotfiles: 'deny'
 };
 
 const optionsSSL = {
   root: path.join(__dirname, '/'),
   key: privateKey,
-  cert: certificate,
-  ca: ca,
-  requestCert: true,
-  rejectUnauthorized: true,
-  headers: {
-    'x-timestamp': Date.now(),
-    'x-sent': true
-  }
+  crt: certificate,
+  csr: csr,
+  requestCert: false,
+  rejectUnauthorized: false
 };
 
 /*
@@ -184,37 +187,49 @@ const optionsSSL = {
 const serverHTTPS = https.createServer(optionsSSL, app);
 
 // HTTP Server
-const serverHTTP = http.createServer(options, app);
+const serverHTTP = http.createServer(app);
 
 if (isProduction === true) {
   defaultDomainName = webDomainName;
-  defaultDomainPort = portForSSLServer;
   defaultServerType = serverHTTPS;
   consoleAppRunningTypeMessage = consoleAppRunningTypeMessagePROD;
 } else {
   defaultDomainName = localDomainName;
-  defaultDomainPort = portForServer;
   defaultServerType = serverHTTP;
   consoleAppRunningTypeMessage = consoleAppRunningTypeMessageDEV;
 }
 
-app.listen(8000);
+// Add CORS middleware headers
+app.use(function (req, res, next) {
 
-defaultServerType.listen(defaultDomainPort, app, () => {
-  console.log(consoleDivider);
-  console.log(consoleAppRunningTypeMessage);
-  console.log(consoleServerMessage + defaultDomainPort);
-  console.log(consoleDivider);
+  // Website you wish to allow to connect
+  res.header('Access-Control-Allow-Origin', corsOptionsOrigin);
+  res.header('Access-Control-Allow-Origin', defaultDomainName);
+
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Authorization, Origin');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
 });
 
-//CORS middleware
-const corsMiddleware = function(req, res, next) {
-  // Update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Origin", corsOptionsOrigin);
-  res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-};
+/*
+http.createServer(function(request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.end("Hello, World Node.js!\n");
+}).listen(process.env.PORT);
+console.log('App deluje...');*/
 
-app.use(corsMiddleware);
+serverHTTPS.listen(process.env.PORT, () => {
+  console.log(consoleDivider);
+  console.log(consoleAppRunningTypeMessage);
+  console.log(consoleServerMessage);
+  console.log(consoleDivider);
+});
