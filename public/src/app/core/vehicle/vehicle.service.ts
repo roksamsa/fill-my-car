@@ -32,6 +32,9 @@ export class VehicleService {
 
   // Get vehicles by specific user
   getVehicleByUser(belongsToUser: string): Observable<Vehicle[]> {
+    console.log(this.uriBase);
+    console.log(this.uriVehiclesForUser);
+    console.log(belongsToUser);
     return this.http.get<Vehicle[]>(this.uriVehiclesForUser + belongsToUser);
   }
 

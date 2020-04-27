@@ -4,17 +4,42 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConstantsService {
-  public readonly baseAppPort: string = '4000';
-  public readonly baseAppDomainLocal: string = 'http://localhost:' + this.baseAppPort + '/api/';
-  public readonly baseAppDomainWeb: string = 'https://napolnimojavto.si:' + this.baseAppPort + '/api/';
-  public readonly baseAppDomain = this.baseAppDomainLocal;
+  public readonly isProduction = true;
+
+  public baseAppDomain = '';
+  public readonly baseAppPort = '4000';
+  public readonly baseAppPortSSL = '4433';
+  public readonly baseAppDomainName = 'localhost';
+  public readonly baseAppDomainNameWeb = 'napolnimojavto.si';
+  public readonly baseAppDomainProtocol = 'http://';
+  public readonly baseAppDomainProtocolSSL = 'https://';
+
+  public readonly baseAppDomainLocal =
+    this.baseAppDomainProtocol + this.baseAppDomainName + ':' + this.baseAppPort + '/api/';
+
+  public readonly baseAppDomainWeb =
+    this.baseAppDomainProtocolSSL + this.baseAppDomainNameWeb + ':' + this.baseAppPortSSL + '/api/';
+
+  public readonly messageProduction = 'Application is running in PRODUCTION mode.';
+  public readonly messageDevelopment = 'Application is running in DEVELOPMENT mode.';
 
   public readonly currentDate = new Date();
   public readonly dateFormat = 'EEEE, dd. MMMM yyyy, HH:mm';
   public readonly dateFormatWithoutTime = 'EEEE, dd. MMMM yyyy';
   public readonly dateFormatWithoutTimeReadyForDate = 'yyyy, MM, dd';
 
-  constructor() { }
+  constructor() {
+    console.log('*****************************************');
+    if (this.isProduction) {
+      console.log(this.messageProduction);
+      this.baseAppDomain = this.baseAppDomainWeb;
+    } else {
+      console.log(this.messageDevelopment);
+      this.baseAppDomain = this.baseAppDomainLocal;
+    }
+    console.log('API URL used: ' + this.baseAppDomain);
+    console.log('*****************************************');
+  }
 
   public numberZeroPadding(num: number): string {
     return ('0' + num).slice(-2);

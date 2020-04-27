@@ -96,6 +96,5 @@ export class UserMenuComponent implements OnInit {
 
   public userMenuSignOut(): void {
     this.authService.signOut();
-    this.headerData.changeUserMenuVisibility(false);
   }
 }

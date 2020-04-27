@@ -36,7 +36,8 @@ router.get(vehiclesURI + '/user/:belongsToUser', function (req, res) {
     .then(vehicles => {
       res.json(vehicles);
     }).catch(error => {
-      console.log(error);
+      // console.log(error);
+      res.render('error', { error: err });
       res.status(500).json({msg: "Error!", details: error});
     });
 });
