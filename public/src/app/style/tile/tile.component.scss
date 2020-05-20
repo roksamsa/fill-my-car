@@ -15,7 +15,7 @@ $tile__border-radius: 3px;
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 3%;
 
   &.tile--title-top {
     width: 100%;
@@ -78,6 +78,7 @@ $tile__border-radius: 3px;
   border-radius: $tile__border-radius;
   box-shadow: $tile__shadow;
   transition: box-shadow 200ms ease-in-out;
+  overflow: hidden;
 
   &.dark-theme {
     background-color: $tile__background-color--dark-theme;
@@ -90,5 +91,11 @@ $tile__border-radius: 3px;
     .tile__title {
       color: $color__white--90;
     }
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  :host {
+    margin-top: 2%;
   }
 }

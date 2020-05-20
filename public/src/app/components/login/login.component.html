@@ -2,8 +2,11 @@
   <div class="displayTableCell">
 
     <div class="login-register-tabs">
-      <h3 class="login-register-tabs__title link" [ngClass]="{'login-register-tabs__title--active': isLoginFormVisible}" (click)="changeFromLoginToRegister()">Prijava</h3>
-      <h3 class="login-register-tabs__title link" [ngClass]="{'login-register-tabs__title--active': !isLoginFormVisible}" (click)="changeFromRegisterToLogin()">Registracija</h3>
+      <h3 class="login-register-tabs__title link" [ngClass]="{'login-register-tabs__title--active': isLoginFormVisible}"
+        (click)="changeFromLoginToRegister()">Prijava</h3>
+      <h3 class="login-register-tabs__title link"
+        [ngClass]="{'login-register-tabs__title--active': !isLoginFormVisible}" (click)="changeFromRegisterToLogin()">
+        Registracija</h3>
     </div>
 
     <div *ngIf="isRegisterNotificationVisible" class="register__notification">
@@ -13,13 +16,13 @@
 
     <div *ngIf="isLoginFormVisible" class="login-form" [@formEnterAnimation]>
       <div class="login-form__input form__input">
-        <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
+        <mat-form-field [floatLabel]="'never'" class="login-form__field form__field">
           <input matInput type="text" class="formControl" placeholder="Email" #userName required>
         </mat-form-field>
       </div>
 
       <div class="login-form__input form__input">
-        <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
+        <mat-form-field [floatLabel]="'never'" class="login-form__field form__field">
           <input matInput type="password" class="formControl" placeholder="Geslo" #userPassword required>
         </mat-form-field>
       </div>
@@ -27,7 +30,8 @@
       <div class="login-form__group login-form__group--buttons">
         <!-- Calling SignIn Api from AuthService -->
         <div class="login-form__button">
-          <button type="button" mat-raised-button class="button button--primary" value="Prijava" (click)="authService.EmailSignIn(userName.value, userPassword.value)">Prijava</button>
+          <button type="button" mat-raised-button class="button button--primary" value="Prijava"
+            (click)="authService.EmailSignIn(userName.value, userPassword.value)">Prijava</button>
         </div>
 
         <div class="login-form__group login-form__group--buttons-social">
@@ -40,10 +44,17 @@
 
           <!-- Calling FacebookAuth Api from AuthService -->
           <div class="login-form__button">
-              <button type="button" mat-raised-button class="button button--white" (click)="authService.facebookSignIn()">
-                <div class="button__icon button__icon--social button__icon--facebook"></div>
-              </button>
-            </div>
+            <button type="button" mat-raised-button class="button button--white" (click)="authService.facebookSignIn()">
+              <div class="button__icon button__icon--social button__icon--facebook"></div>
+            </button>
+          </div>
+
+          <!-- Calling Twitter Api from AuthService -->
+          <div class="login-form__button">
+            <button type="button" mat-raised-button class="button button--white" (click)="authService.twitterSignIn()">
+              <div class="button__icon button__icon--social button__icon--twitter"></div>
+            </button>
+          </div>
 
           <!-- Calling GithubAuth Api from AuthService -->
           <div class="login-form__button">
@@ -62,13 +73,13 @@
     <div *ngIf="!isLoginFormVisible" class="register-form" [@formEnterAnimation]>
 
       <div class="login-form__input form__input">
-        <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
+        <mat-form-field [floatLabel]="'never'" class="login-form__field form__field">
           <input matInput type="text" class="formControl" placeholder="Email" #emailForRegistration required>
         </mat-form-field>
       </div>
 
       <div class="login-form__input form__input">
-        <mat-form-field [floatLabel]="'never'"  class="login-form__field form__field">
+        <mat-form-field [floatLabel]="'never'" class="login-form__field form__field">
           <input matInput type="password" class="formControl" placeholder="Geslo" #userPasswordForRegistration required>
         </mat-form-field>
       </div>
@@ -76,30 +87,8 @@
       <div class="login-form__group login-form__group--buttons">
         <!-- Calling SignIn Api from AuthService -->
         <div class="login-form__button">
-          <button type="button" mat-raised-button class="button button--primary" value="Registracija" (click)="registerWithEmail(emailForRegistration.value, userPasswordForRegistration.value)">Registracija</button>
-        </div>
-
-        <div class="login-form__group login-form__group--buttons-social">
-          <!-- Calling GoogleAuth Api from AuthService -->
-          <div class="login-form__button">
-            <button type="button" mat-raised-button class="button button--white" (click)="authService.googleSignIn()">
-              <div class="button__icon button__icon--social button__icon--google"></div>
-            </button>
-          </div>
-
-          <!-- Calling FacebookAuth Api from AuthService -->
-          <div class="login-form__button">
-              <button type="button" mat-raised-button class="button button--white" (click)="authService.facebookSignIn()">
-                <div class="button__icon button__icon--social button__icon--facebook"></div>
-              </button>
-            </div>
-
-          <!-- Calling GithubAuth Api from AuthService -->
-          <div class="login-form__button">
-            <button type="button" mat-raised-button class="button button--white" (click)="authService.githubSignIn()">
-              <div class="button__icon button__icon--social button__icon--github"></div>
-            </button>
-          </div>
+          <button type="button" mat-raised-button class="button button--primary" value="Registracija"
+            (click)="registerWithEmail(emailForRegistration.value, userPasswordForRegistration.value)">Registracija</button>
         </div>
       </div>
     </div>

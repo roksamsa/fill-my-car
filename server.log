@@ -1,0 +1,979 @@
+App 4177075 output: net.js:1451
+App 4177075 output:   throw new ERR_INVALID_OPT_VALUE('options', util.inspect(options));
+App 4177075 output:   ^
+App 4177075 output: 
+App 4177075 output: TypeError [ERR_INVALID_OPT_VALUE]: The value "{ root: '/home/roksam1/domains/api.napolnimojavto.si/',
+App 4177075 output:   key:
+App 4177075 output:    '-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEAytznXUKqwne88V27o053FFZYBR4QUfMhcxWDJ5rriBdAHyX0\nf+/wMLoLZI41WKBI/4ljlNEo1K2b5zsoQETliYLhJLc+uWi5RNtfdpjzHV8TZdUt\nuHHGrK6GkgJack6i6qjL1SKjC/1VIc0qedASOHpydQAh/2E9wrLh2J0dGYLn5cAW\nqZGWCrsa3n0hCaNIp1cTsqPI1ZxSdaDLhBY5LxKTfIM8t5Tk9Id6zaHnq0x45ZHL\n0C6wMzENCtaAuUMhViFYqe+/+IevqIrtxH/TkTFzBAC+A9tqdBJspg/7hY1M9fbD\nyjNpLO6Z/1J+clxMnc3E6mEWmULWgFzJf0OvbQIDAQABAoIBAFBGpk+jaAtYcq5Y\n1z3CeSDVIjO0N+UV/zCZXLM5fOb3vGoXDO/rtPKzTHrYQ4f0ta5ZYcysECpJIR6Z\nrE3ydZq67fkngmzAYkA7R0WZNOt0iiqL93G7pFEFJz90KvJ8579QWIjZEghWkW+0\nzpAxpGQxIEXobYuvoU8AlpqvYaqMC5hiNJMxboMNoqfxJWpTO04HXcAZu8LXA3j1\n2icMO/eKZ2licxMcU0sPb1ND6UTGog8edRITD9wFd1Hot3XVpf9vTRMK7OlDfPeP\n4NziihrPSKyJaLi8JZTCHfVhnenkXMowlcWiOM75TlcIcjKOl/PQLffukqZ6gh9X\n9HRgd0kCgYEAzojwzLUIgpXpDwqcFjVOhKA5LikuFcBI6nk84cfeUf0woO5Yy/i4\nj93Gmw1Imdz41BAyD5IbJk/AbN6GibQNrQrSMbGY6w73Gj03RHdF05vIBWDLcHiy\nsbZcjY3r94mICs2jEqqaTcTFzP042FOKUv2ks0sJ50/4mhdms4P0BHsCgYEA+3LT\nEemUDkJgjMUD1bUw4K5tXLAPsRp4jvAd/n7QzFPgGh8JfFvCdz/UiJ8C7PFe2W4E\nbLwIG8EnbWHLUmIByj3zUz+6UHBXpO0qFGCFU8B9CZ/KvZmkNRby/KdWMCIj83+O\nHC824lbnQ0MQkzJ+38xr8EbAP4Yf7ApBkCoNWzcCgYBiM5iTLOyr8o2K+ld288eu\npeQqP6hK7U9+NUEudXMO9tz9V/benRdcSG3bYXiIuBmT81NqNeU01SzAVxoPNY5f\nHcsNl80GzunNDxhNNIz97Y8wh3KTur/0YaomIDn3S+xkfpwwDvApVAtcyXYS3b3i\ncfmyylYeJtckpUXOy0nmKwKBgF8qokARS3vqG2ir2Du2C/29hp6h9A5vmlle/7sm\nfBgZVqQMQybSA9PmUKY0qILNB7z7KqmMsPTwMd/wN2fCuDK3J7TGVdnD6yf8qwRz\nU4LTQ3+0/qKr175QJT8ChlhJU5oBGOQJ6pfXlEecxlUvs104nVGfNXvVY5eOein6\nAHwZAoGAIJOLIKIrUCDzSvKHAJMBKdZ4hGoqxmLn4mptAm9S+XheqxWbiiBhUNIc\ntYK+dripa8QPWmdd1C6vzv/HlNLKR2wgoIwB0EONy65SZegL+88nKqvC7ivtin3o\nFbOVUd2uJVBo0Yif0Gl3NKE8/L+xcP3bNPycaQ/NdAYShxzPSX4=\n-----END RSA PRIVATE KEY-----',
+App 4177075 output:   ca:
+App 4177075 output:    '-----BEGIN CERTIFICATE-----\nMIIFfjCCBGagAwIBAgISA/RjkKlne/h9OjCUY58D9t8gMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0yMDA0MjcxNTIyMTZaFw0y\nMDA3MjYxNTIyMTZaMCAxHjAcBgNVBAMTFWFwaS5uYXBvbG5pbW9qYXZ0by5zaTCC\nASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMrc511CqsJ3vPFdu6NOdxRW\nWAUeEFHzIXMVgyea64gXQB8l9H/v8DC6C2SONVigSP+JY5TRKNStm+c7KEBE5YmC\n4SS3PrlouUTbX3aY8x1fE2XVLbhxxqyuhpICWnJOouqoy9Uiowv9VSHNKnnQEjh6\ncnUAIf9hPcKy4didHRmC5+XAFqmRlgq7Gt59IQmjSKdXE7KjyNWcUnWgy4QWOS8S\nk3yDPLeU5PSHes2h56tMeOWRy9AusDMxDQrWgLlDIVYhWKnvv/iHr6iK7cR/05Ex\ncwQAvgPbanQSbKYP+4WNTPX2w8ozaSzumf9SfnJcTJ3NxOphFplC1oBcyX9Dr20C\nAwEAAaOCAoYwggKCMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcD\nAQYIKwYBBQUHAwIwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUzqhnQ7NIdqCMEEU8\npx8TxGNa8AAwHwYDVR0jBBgwFoAUqEpqYwR93brm0Tm3pkVl7/Oo7KEwbwYIKwYB\nBQUHAQEEYzBhMC4GCCsGAQUFBzABhiJodHRwOi8vb2NzcC5pbnQteDMubGV0c2Vu\nY3J5cHQub3JnMC8GCCsGAQUFBzAChiNodHRwOi8vY2VydC5pbnQteDMubGV0c2Vu\nY3J5cHQub3JnLzA7BgNVHREENDAyghVhcGkubmFwb2xuaW1vamF2dG8uc2mCGXd3\ndy5hcGkubmFwb2xuaW1vamF2dG8uc2kwTAYDVR0gBEUwQzAIBgZngQwBAgEwNwYL\nKwYBBAGC3xMBAQEwKDAmBggrBgEFBQcCARYaaHR0cDovL2Nwcy5sZXRzZW5jcnlw\ndC5vcmcwggEFBgorBgEEAdZ5AgQCBIH2BIHzAPEAdwBep3P531bA57U2SH3QSeAy\nepGaDIShEhKEGHWWgXFFWAAAAXG8ckA4AAAEAwBIMEYCIQCHzLeR2XC84XI+rTOX\n19u8ds7AdX5OQPqE8ceSwCXBAwIhAP5klADQCBcoa074kLJbKkHQajcPPtsK6hU9\nYbTWQZyEAHYAB7dcG+V9aP/xsMYdIxXHuuZXfFeUt2ruvGE6GmnTohwAAAFxvHJA\nXAAABAMARzBFAiEAx5OiegkQizdyGySCyxP9EPIKnPnnukjrVTDM9A/5+HoCIHZf\nWpmVjAw9Sfpn+pl1sxwVWc4uYjyZVBCaH4rKQEWBMA0GCSqGSIb3DQEBCwUAA4IB\nAQA3/xeBVQ52GrxYx+WFN0RQuYwbe9CUwP860obwLcRfxJ52pGQ9jAOIjMLJk70p\nrDK+PyRFZ09ABg0zpfh0boWC93zRzGQrgl1tz8QJIyswwHtJnxep2TDAAWJvYpR5\nCRq8ZVKcJ2BMvGfHKf/N19XCD1Fwquc/oMVRTuk55ADxD/vHtNm7GJ0lZpCt/+ar\ncZYQ1gDz6sPxgF7yFcbs1gURYjngq1lpJuqrvY2hEwHBQyKOzx+FEE3VX+4VJVee\nskgRpljuqtBq4dM5NUz3fzH7MuoIUSAFAFpAQZUhZQrgp1AEbR7elFqTk/zUesbX\nC0YNA74A/lSt6C0e+Pc0Te9u\n-----END CERTIFICATE-----',
+App 4177075 output:   requestCert: true,
+App 4177075 output:   rejectUnauthorized: true }" is invalid for option "options"
+App 4177075 output:     at Server.listen (net.js:1451:9)
+App 4177075 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:219:19)
+App 4177075 output:     at Module._compile (internal/modules/cjs/loader.js:778:30)
+App 4177075 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+App 4177075 output:     at Module.load (internal/modules/cjs/loader.js:653:32)
+App 4177075 output:     at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+App 4177075 output:     at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+App 4177075 output:     at Module.require (internal/modules/cjs/loader.js:692:17)
+App 4177075 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 4177075 output:     at require (internal/modules/cjs/helpers.js:25:18)
+App 4177075 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 4177075 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 4177075 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 4177075 output:     at Module._compile (internal/modules/cjs/loader.js:778:30)
+App 4177075 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+App 4177075 output:     at Module.load (internal/modules/cjs/loader.js:653:32)
+App 4177075 output:     at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+App 4177075 output:     at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+App 4177075 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+App 4177075 output:     at startup (internal/bootstrap/node.js:283:19)
+App 4177075 output:     at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+App 4177489 output: net.js:1451
+App 4177489 output:   throw new ERR_INVALID_OPT_VALUE('options', util.inspect(options));
+App 4177489 output:   ^
+App 4177489 output: 
+App 4177489 output: TypeError [ERR_INVALID_OPT_VALUE]: The value "{ root: '/home/roksam1/domains/api.napolnimojavto.si/',
+App 4177489 output:   key:
+App 4177489 output:    '-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEAytznXUKqwne88V27o053FFZYBR4QUfMhcxWDJ5rriBdAHyX0\nf+/wMLoLZI41WKBI/4ljlNEo1K2b5zsoQETliYLhJLc+uWi5RNtfdpjzHV8TZdUt\nuHHGrK6GkgJack6i6qjL1SKjC/1VIc0qedASOHpydQAh/2E9wrLh2J0dGYLn5cAW\nqZGWCrsa3n0hCaNIp1cTsqPI1ZxSdaDLhBY5LxKTfIM8t5Tk9Id6zaHnq0x45ZHL\n0C6wMzENCtaAuUMhViFYqe+/+IevqIrtxH/TkTFzBAC+A9tqdBJspg/7hY1M9fbD\nyjNpLO6Z/1J+clxMnc3E6mEWmULWgFzJf0OvbQIDAQABAoIBAFBGpk+jaAtYcq5Y\n1z3CeSDVIjO0N+UV/zCZXLM5fOb3vGoXDO/rtPKzTHrYQ4f0ta5ZYcysECpJIR6Z\nrE3ydZq67fkngmzAYkA7R0WZNOt0iiqL93G7pFEFJz90KvJ8579QWIjZEghWkW+0\nzpAxpGQxIEXobYuvoU8AlpqvYaqMC5hiNJMxboMNoqfxJWpTO04HXcAZu8LXA3j1\n2icMO/eKZ2licxMcU0sPb1ND6UTGog8edRITD9wFd1Hot3XVpf9vTRMK7OlDfPeP\n4NziihrPSKyJaLi8JZTCHfVhnenkXMowlcWiOM75TlcIcjKOl/PQLffukqZ6gh9X\n9HRgd0kCgYEAzojwzLUIgpXpDwqcFjVOhKA5LikuFcBI6nk84cfeUf0woO5Yy/i4\nj93Gmw1Imdz41BAyD5IbJk/AbN6GibQNrQrSMbGY6w73Gj03RHdF05vIBWDLcHiy\nsbZcjY3r94mICs2jEqqaTcTFzP042FOKUv2ks0sJ50/4mhdms4P0BHsCgYEA+3LT\nEemUDkJgjMUD1bUw4K5tXLAPsRp4jvAd/n7QzFPgGh8JfFvCdz/UiJ8C7PFe2W4E\nbLwIG8EnbWHLUmIByj3zUz+6UHBXpO0qFGCFU8B9CZ/KvZmkNRby/KdWMCIj83+O\nHC824lbnQ0MQkzJ+38xr8EbAP4Yf7ApBkCoNWzcCgYBiM5iTLOyr8o2K+ld288eu\npeQqP6hK7U9+NUEudXMO9tz9V/benRdcSG3bYXiIuBmT81NqNeU01SzAVxoPNY5f\nHcsNl80GzunNDxhNNIz97Y8wh3KTur/0YaomIDn3S+xkfpwwDvApVAtcyXYS3b3i\ncfmyylYeJtckpUXOy0nmKwKBgF8qokARS3vqG2ir2Du2C/29hp6h9A5vmlle/7sm\nfBgZVqQMQybSA9PmUKY0qILNB7z7KqmMsPTwMd/wN2fCuDK3J7TGVdnD6yf8qwRz\nU4LTQ3+0/qKr175QJT8ChlhJU5oBGOQJ6pfXlEecxlUvs104nVGfNXvVY5eOein6\nAHwZAoGAIJOLIKIrUCDzSvKHAJMBKdZ4hGoqxmLn4mptAm9S+XheqxWbiiBhUNIc\ntYK+dripa8QPWmdd1C6vzv/HlNLKR2wgoIwB0EONy65SZegL+88nKqvC7ivtin3o\nFbOVUd2uJVBo0Yif0Gl3NKE8/L+xcP3bNPycaQ/NdAYShxzPSX4=\n-----END RSA PRIVATE KEY-----',
+App 4177489 output:   ca:
+App 4177489 output:    '-----BEGIN CERTIFICATE-----\nMIIFfjCCBGagAwIBAgISA/RjkKlne/h9OjCUY58D9t8gMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0yMDA0MjcxNTIyMTZaFw0y\nMDA3MjYxNTIyMTZaMCAxHjAcBgNVBAMTFWFwaS5uYXBvbG5pbW9qYXZ0by5zaTCC\nASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMrc511CqsJ3vPFdu6NOdxRW\nWAUeEFHzIXMVgyea64gXQB8l9H/v8DC6C2SONVigSP+JY5TRKNStm+c7KEBE5YmC\n4SS3PrlouUTbX3aY8x1fE2XVLbhxxqyuhpICWnJOouqoy9Uiowv9VSHNKnnQEjh6\ncnUAIf9hPcKy4didHRmC5+XAFqmRlgq7Gt59IQmjSKdXE7KjyNWcUnWgy4QWOS8S\nk3yDPLeU5PSHes2h56tMeOWRy9AusDMxDQrWgLlDIVYhWKnvv/iHr6iK7cR/05Ex\ncwQAvgPbanQSbKYP+4WNTPX2w8ozaSzumf9SfnJcTJ3NxOphFplC1oBcyX9Dr20C\nAwEAAaOCAoYwggKCMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcD\nAQYIKwYBBQUHAwIwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUzqhnQ7NIdqCMEEU8\npx8TxGNa8AAwHwYDVR0jBBgwFoAUqEpqYwR93brm0Tm3pkVl7/Oo7KEwbwYIKwYB\nBQUHAQEEYzBhMC4GCCsGAQUFBzABhiJodHRwOi8vb2NzcC5pbnQteDMubGV0c2Vu\nY3J5cHQub3JnMC8GCCsGAQUFBzAChiNodHRwOi8vY2VydC5pbnQteDMubGV0c2Vu\nY3J5cHQub3JnLzA7BgNVHREENDAyghVhcGkubmFwb2xuaW1vamF2dG8uc2mCGXd3\ndy5hcGkubmFwb2xuaW1vamF2dG8uc2kwTAYDVR0gBEUwQzAIBgZngQwBAgEwNwYL\nKwYBBAGC3xMBAQEwKDAmBggrBgEFBQcCARYaaHR0cDovL2Nwcy5sZXRzZW5jcnlw\ndC5vcmcwggEFBgorBgEEAdZ5AgQCBIH2BIHzAPEAdwBep3P531bA57U2SH3QSeAy\nepGaDIShEhKEGHWWgXFFWAAAAXG8ckA4AAAEAwBIMEYCIQCHzLeR2XC84XI+rTOX\n19u8ds7AdX5OQPqE8ceSwCXBAwIhAP5klADQCBcoa074kLJbKkHQajcPPtsK6hU9\nYbTWQZyEAHYAB7dcG+V9aP/xsMYdIxXHuuZXfFeUt2ruvGE6GmnTohwAAAFxvHJA\nXAAABAMARzBFAiEAx5OiegkQizdyGySCyxP9EPIKnPnnukjrVTDM9A/5+HoCIHZf\nWpmVjAw9Sfpn+pl1sxwVWc4uYjyZVBCaH4rKQEWBMA0GCSqGSIb3DQEBCwUAA4IB\nAQA3/xeBVQ52GrxYx+WFN0RQuYwbe9CUwP860obwLcRfxJ52pGQ9jAOIjMLJk70p\nrDK+PyRFZ09ABg0zpfh0boWC93zRzGQrgl1tz8QJIyswwHtJnxep2TDAAWJvYpR5\nCRq8ZVKcJ2BMvGfHKf/N19XCD1Fwquc/oMVRTuk55ADxD/vHtNm7GJ0lZpCt/+ar\ncZYQ1gDz6sPxgF7yFcbs1gURYjngq1lpJuqrvY2hEwHBQyKOzx+FEE3VX+4VJVee\nskgRpljuqtBq4dM5NUz3fzH7MuoIUSAFAFpAQZUhZQrgp1AEbR7elFqTk/zUesbX\nC0YNA74A/lSt6C0e+Pc0Te9u\n-----END CERTIFICATE-----',
+App 4177489 output:   requestCert: true,
+App 4177489 output:   rejectUnauthorized: true }" is invalid for option "options"
+App 4177489 output:     at Server.listen (net.js:1451:9)
+App 4177489 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:219:19)
+App 4177489 output:     at Module._compile (internal/modules/cjs/loader.js:778:30)
+App 4177489 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+App 4177489 output:     at Module.load (internal/modules/cjs/loader.js:653:32)
+App 4177489 output:     at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+App 4177489 output:     at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+App 4177489 output:     at Module.require (internal/modules/cjs/loader.js:692:17)
+App 4177489 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 4177489 output:     at require (internal/modules/cjs/helpers.js:25:18)
+App 4177489 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 4177489 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 4177489 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 4177489 output:     at Module._compile (internal/modules/cjs/loader.js:778:30)
+App 4177489 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+App 4177489 output:     at Module.load (internal/modules/cjs/loader.js:653:32)
+App 4177489 output:     at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+App 4177489 output:     at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+App 4177489 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+App 4177489 output:     at startup (internal/bootstrap/node.js:283:19)
+App 4177489 output:     at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+App 4179448 output: 
+App 4179448 output: ******************************************
+App 4179448 output: 
+App 4179448 output: Application is in PRODUCTION mode.
+App 4179448 output: Server runs on port: 
+App 4179448 output: 
+App 4179448 output: ******************************************
+App 4179448 output: 
+App 4179448 output: events.js:174
+App 4179448 output:       throw er; // Unhandled 'error' event
+App 4179448 output:       ^
+App 4179448 output: 
+App 4179448 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 4179448 output:     at Object.checkServerIdentity (tls.js:239:17)
+App 4179448 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1068:27)
+App 4179448 output:     at TLSSocket.emit (events.js:198:13)
+App 4179448 output:     at TLSSocket._finishInit (_tls_wrap.js:636:8)
+App 4179448 output: Emitted 'error' event at:
+App 4179448 output:     at TLSSocket.socketErrorListener (_http_client.js:401:9)
+App 4179448 output:     at TLSSocket.emit (events.js:198:13)
+App 4179448 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 4179448 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 4179448 output:     at process._tickCallback (internal/process/next_tick.js:63:19)
+App 4179899 output: 
+App 4179899 output: ******************************************
+App 4179899 output: 
+App 4179899 output: Application is in PRODUCTION mode.
+App 4179899 output: Server runs on port: 
+App 4179899 output: 
+App 4179899 output: ******************************************
+App 4179899 output: 
+App 4179899 output: events.js:174
+App 4179899 output:       throw er; // Unhandled 'error' event
+App 4179899 output:       ^
+App 4179899 output: 
+App 4179899 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 4179899 output:     at Object.checkServerIdentity (tls.js:239:17)
+App 4179899 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1068:27)
+App 4179899 output:     at TLSSocket.emit (events.js:198:13)
+App 4179899 output:     at TLSSocket._finishInit (_tls_wrap.js:636:8)
+App 4179899 output: Emitted 'error' event at:
+App 4179899 output:     at TLSSocket.socketErrorListener (_http_client.js:401:9)
+App 4179899 output:     at TLSSocket.emit (events.js:198:13)
+App 4179899 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 4179899 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 4179899 output:     at process._tickCallback (internal/process/next_tick.js:63:19)
+App 4191056 output: 
+App 4191056 output: ******************************************
+App 4191056 output: 
+App 4191056 output: Application is in PRODUCTION mode.
+App 4191056 output: Server runs on port: 
+App 4191056 output: 
+App 4191056 output: ******************************************
+App 4191056 output: 
+App 4191056 output: events.js:170
+App 4191056 output:       throw er; // Unhandled 'error' event
+App 4191056 output:       ^
+App 4191056 output: 
+App 4191056 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 4191056 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 4191056 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 4191056 output:     at TLSSocket.emit (events.js:193:13)
+App 4191056 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 4191056 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 4191056 output: Emitted 'error' event at:
+App 4191056 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 4191056 output:     at TLSSocket.emit (events.js:193:13)
+App 4191056 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 4191056 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 4191056 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 14537 output: fs.js:119
+App 14537 output:     throw err;
+App 14537 output:     ^
+App 14537 output: 
+App 14537 output: Error: ENOTDIR: not a directory, open '/home/roksam1/domains/api.napolnimojavto.si/certificates/server-key.pem/utf-8'
+App 14537 output:     at Object.openSync (fs.js:448:3)
+App 14537 output:     at Object.readFileSync (fs.js:348:35)
+App 14537 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:163:23)
+App 14537 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 14537 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 14537 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 14537 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 14537 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 14537 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 14537 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 14537 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 14537 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 14537 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 14537 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 14537 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 14537 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 14537 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 14537 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 14537 output:     at internal/main/run_main_module.js:21:11
+App 15029 output: fs.js:119
+App 15029 output:     throw err;
+App 15029 output:     ^
+App 15029 output: 
+App 15029 output: Error: ENOTDIR: not a directory, open '/home/roksam1/domains/api.napolnimojavto.si/certificates/server-key.pem/utf-8'
+App 15029 output:     at Object.openSync (fs.js:448:3)
+App 15029 output:     at Object.readFileSync (fs.js:348:35)
+App 15029 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:163:23)
+App 15029 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 15029 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 15029 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 15029 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 15029 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 15029 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 15029 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 15029 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 15029 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 15029 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 15029 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 15029 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 15029 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 15029 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 15029 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 15029 output:     at internal/main/run_main_module.js:21:11
+App 26369 output: fs.js:119
+App 26369 output:     throw err;
+App 26369 output:     ^
+App 26369 output: 
+App 26369 output: Error: ENOTDIR: not a directory, open '/home/roksam1/domains/api.napolnimojavto.si/certificates/server-key.pem/utf-8'
+App 26369 output:     at Object.openSync (fs.js:448:3)
+App 26369 output:     at Object.readFileSync (fs.js:348:35)
+App 26369 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:163:23)
+App 26369 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 26369 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 26369 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 26369 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 26369 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 26369 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 26369 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 26369 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 26369 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 26369 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 26369 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 26369 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 26369 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 26369 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 26369 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 26369 output:     at internal/main/run_main_module.js:21:11
+App 40884 output: fs.js:119
+App 40884 output:     throw err;
+App 40884 output:     ^
+App 40884 output: 
+App 40884 output: Error: ENOENT: no such file or directory, open '/home/roksam1/ssl/certs/api_napolnimojavto_si_bfa16_51e29_e11cbd0a183ec1f6b93efa82820664af.csr/utf-8'
+App 40884 output:     at Object.openSync (fs.js:448:3)
+App 40884 output:     at Object.readFileSync (fs.js:348:35)
+App 40884 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:166:16)
+App 40884 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 40884 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 40884 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 40884 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 40884 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 40884 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 40884 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 40884 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 40884 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 40884 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 40884 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 40884 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 40884 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 40884 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 40884 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 40884 output:     at internal/main/run_main_module.js:21:11
+App 41334 output: fs.js:119
+App 41334 output:     throw err;
+App 41334 output:     ^
+App 41334 output: 
+App 41334 output: Error: ENOENT: no such file or directory, open '/home/roksam1/ssl/certs/api_napolnimojavto_si_bfa16_51e29_e11cbd0a183ec1f6b93efa82820664af.csr/utf-8'
+App 41334 output:     at Object.openSync (fs.js:448:3)
+App 41334 output:     at Object.readFileSync (fs.js:348:35)
+App 41334 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:166:16)
+App 41334 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 41334 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 41334 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 41334 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 41334 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 41334 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 41334 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 41334 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 41334 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 41334 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 41334 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 41334 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 41334 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 41334 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 41334 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 41334 output:     at internal/main/run_main_module.js:21:11
+App 42519 output: fs.js:119
+App 42519 output:     throw err;
+App 42519 output:     ^
+App 42519 output: 
+App 42519 output: Error: ENOENT: no such file or directory, open '/home/roksam1/ssl/certs/api_napolnimojavto_si_bfa16_51e29_e11cbd0a183ec1f6b93efa82820664af.csr'
+App 42519 output:     at Object.openSync (fs.js:448:3)
+App 42519 output:     at Object.readFileSync (fs.js:348:35)
+App 42519 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:166:16)
+App 42519 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 42519 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 42519 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 42519 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 42519 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 42519 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 42519 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 42519 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 42519 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 42519 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 42519 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 42519 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 42519 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 42519 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 42519 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 42519 output:     at internal/main/run_main_module.js:21:11
+App 42937 output: fs.js:119
+App 42937 output:     throw err;
+App 42937 output:     ^
+App 42937 output: 
+App 42937 output: Error: ENOENT: no such file or directory, open '/home/roksam1/ssl/certs/api_napolnimojavto_si_bfa16_51e29_e11cbd0a183ec1f6b93efa82820664af.csr'
+App 42937 output:     at Object.openSync (fs.js:448:3)
+App 42937 output:     at Object.readFileSync (fs.js:348:35)
+App 42937 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:166:16)
+App 42937 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 42937 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 42937 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 42937 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 42937 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 42937 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 42937 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 42937 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 42937 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 42937 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 42937 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 42937 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 42937 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 42937 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 42937 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 42937 output:     at internal/main/run_main_module.js:21:11
+App 43355 output: fs.js:119
+App 43355 output:     throw err;
+App 43355 output:     ^
+App 43355 output: 
+App 43355 output: Error: ENOENT: no such file or directory, open '/home/roksam1/ssl/certs/api_napolnimojavto_si_bfa16_51e29_e11cbd0a183ec1f6b93efa82820664af.csr'
+App 43355 output:     at Object.openSync (fs.js:448:3)
+App 43355 output:     at Object.readFileSync (fs.js:348:35)
+App 43355 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:166:16)
+App 43355 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 43355 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 43355 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 43355 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 43355 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 43355 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 43355 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 43355 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 43355 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 43355 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 43355 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 43355 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 43355 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 43355 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 43355 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 43355 output:     at internal/main/run_main_module.js:21:11
+App 44993 output: 
+App 44993 output: ******************************************
+App 44993 output: 
+App 44993 output: Application is in PRODUCTION mode.
+App 44993 output: Server runs on port: 
+App 44993 output: 
+App 44993 output: ******************************************
+App 44993 output: 
+App 44993 output: events.js:170
+App 44993 output:       throw er; // Unhandled 'error' event
+App 44993 output:       ^
+App 44993 output: 
+App 44993 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 44993 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 44993 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 44993 output:     at TLSSocket.emit (events.js:193:13)
+App 44993 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 44993 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 44993 output: Emitted 'error' event at:
+App 44993 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 44993 output:     at TLSSocket.emit (events.js:193:13)
+App 44993 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 44993 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 44993 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 45421 output: 
+App 45421 output: ******************************************
+App 45421 output: 
+App 45421 output: Application is in PRODUCTION mode.
+App 45421 output: Server runs on port: 
+App 45421 output: 
+App 45421 output: ******************************************
+App 45421 output: 
+App 45421 output: events.js:170
+App 45421 output:       throw er; // Unhandled 'error' event
+App 45421 output:       ^
+App 45421 output: 
+App 45421 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 45421 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 45421 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 45421 output:     at TLSSocket.emit (events.js:193:13)
+App 45421 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 45421 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 45421 output: Emitted 'error' event at:
+App 45421 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 45421 output:     at TLSSocket.emit (events.js:193:13)
+App 45421 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 45421 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 45421 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 45829 output: 
+App 45829 output: ******************************************
+App 45829 output: 
+App 45829 output: Application is in PRODUCTION mode.
+App 45829 output: Server runs on port: 
+App 45829 output: 
+App 45829 output: ******************************************
+App 45829 output: 
+App 45829 output: events.js:170
+App 45829 output:       throw er; // Unhandled 'error' event
+App 45829 output:       ^
+App 45829 output: 
+App 45829 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 45829 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 45829 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 45829 output:     at TLSSocket.emit (events.js:193:13)
+App 45829 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 45829 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 45829 output: Emitted 'error' event at:
+App 45829 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 45829 output:     at TLSSocket.emit (events.js:193:13)
+App 45829 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 45829 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 45829 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 48216 output: 
+App 48216 output: ******************************************
+App 48216 output: 
+App 48216 output: Application is in PRODUCTION mode.
+App 48216 output: Server runs on port: 
+App 48216 output: 
+App 48216 output: ******************************************
+App 48216 output: 
+App 48216 output: events.js:170
+App 48216 output:       throw er; // Unhandled 'error' event
+App 48216 output:       ^
+App 48216 output: 
+App 48216 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 48216 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 48216 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 48216 output:     at TLSSocket.emit (events.js:193:13)
+App 48216 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 48216 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 48216 output: Emitted 'error' event at:
+App 48216 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 48216 output:     at TLSSocket.emit (events.js:193:13)
+App 48216 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 48216 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 48216 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 48648 output: 
+App 48648 output: ******************************************
+App 48648 output: 
+App 48648 output: Application is in PRODUCTION mode.
+App 48648 output: Server runs on port: 
+App 48648 output: 
+App 48648 output: ******************************************
+App 48648 output: 
+App 48648 output: events.js:170
+App 48648 output:       throw er; // Unhandled 'error' event
+App 48648 output:       ^
+App 48648 output: 
+App 48648 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 48648 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 48648 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 48648 output:     at TLSSocket.emit (events.js:193:13)
+App 48648 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 48648 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 48648 output: Emitted 'error' event at:
+App 48648 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 48648 output:     at TLSSocket.emit (events.js:193:13)
+App 48648 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 48648 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 48648 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 55189 output: 
+App 55189 output: ******************************************
+App 55189 output: 
+App 55189 output: Application is in PRODUCTION mode.
+App 55189 output: Server runs on port: 
+App 55189 output: 
+App 55189 output: ******************************************
+App 55189 output: 
+App 55189 output: events.js:170
+App 55189 output:       throw er; // Unhandled 'error' event
+App 55189 output:       ^
+App 55189 output: 
+App 55189 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 55189 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 55189 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 55189 output:     at TLSSocket.emit (events.js:193:13)
+App 55189 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 55189 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 55189 output: Emitted 'error' event at:
+App 55189 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 55189 output:     at TLSSocket.emit (events.js:193:13)
+App 55189 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 55189 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 55189 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 55606 output: 
+App 55606 output: ******************************************
+App 55606 output: 
+App 55606 output: Application is in PRODUCTION mode.
+App 55606 output: Server runs on port: 
+App 55606 output: 
+App 55606 output: ******************************************
+App 55606 output: 
+App 55606 output: events.js:170
+App 55606 output:       throw er; // Unhandled 'error' event
+App 55606 output:       ^
+App 55606 output: 
+App 55606 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 55606 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 55606 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 55606 output:     at TLSSocket.emit (events.js:193:13)
+App 55606 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 55606 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 55606 output: Emitted 'error' event at:
+App 55606 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 55606 output:     at TLSSocket.emit (events.js:193:13)
+App 55606 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 55606 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 55606 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 59063 output: events.js:170
+App 59063 output:       throw er; // Unhandled 'error' event
+App 59063 output:       ^
+App 59063 output: 
+App 59063 output: Error: listen EACCES: permission denied 0.0.0.0:443
+App 59063 output:     at Server.setupListenHandle [as _listen2] (net.js:1242:19)
+App 59063 output:     at listenInCluster (net.js:1307:12)
+App 59063 output:     at Server.listen (net.js:1395:7)
+App 59063 output:     at Object.<anonymous> (/home/roksam1/domains/api.napolnimojavto.si/server.js:223:13)
+App 59063 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 59063 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 59063 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 59063 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 59063 output:     at Module.require (internal/modules/cjs/loader.js:723:19)
+App 59063 output:     at Module.require (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:80:25)
+App 59063 output:     at require (internal/modules/cjs/helpers.js:14:16)
+App 59063 output:     at loadApplication (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:243:2)
+App 59063 output:     at setupEnvironment (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:214:2)
+App 59063 output:     at Object.<anonymous> (/opt/passenger-5.3.7-9.el7.cloudlinux/src/helper-scripts/node-loader.js:133:1)
+App 59063 output:     at Module._compile (internal/modules/cjs/loader.js:816:30)
+App 59063 output:     at Object.Module._extensions..js (internal/modules/cjs/loader.js:827:10)
+App 59063 output:     at Module.load (internal/modules/cjs/loader.js:685:32)
+App 59063 output:     at Function.Module._load (internal/modules/cjs/loader.js:620:12)
+App 59063 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:877:12)
+App 59063 output:     at internal/main/run_main_module.js:21:11
+App 59063 output: Emitted 'error' event at:
+App 59063 output:     at emitErrorNT (net.js:1286:8)
+App 59063 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 59063 output:     at process.runNextTicks [as _tickCallback] (internal/process/task_queues.js:56:3)
+App 59063 output:     at Function.Module.runMain (internal/modules/cjs/loader.js:880:11)
+App 59063 output:     at internal/main/run_main_module.js:21:11
+App 60151 output: 
+App 60151 output: ******************************************
+App 60151 output: 
+App 60151 output: Application is in PRODUCTION mode.
+App 60151 output: Server runs on port: 
+App 60151 output: 
+App 60151 output: ******************************************
+App 60151 output: 
+App 60151 output: events.js:170
+App 60151 output:       throw er; // Unhandled 'error' event
+App 60151 output:       ^
+App 60151 output: 
+App 60151 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 60151 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 60151 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 60151 output:     at TLSSocket.emit (events.js:193:13)
+App 60151 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 60151 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 60151 output: Emitted 'error' event at:
+App 60151 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 60151 output:     at TLSSocket.emit (events.js:193:13)
+App 60151 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 60151 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 60151 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 60626 output: 
+App 60626 output: ******************************************
+App 60626 output: 
+App 60626 output: Application is in PRODUCTION mode.
+App 60626 output: Server runs on port: 
+App 60626 output: 
+App 60626 output: ******************************************
+App 60626 output: 
+App 60626 output: events.js:170
+App 60626 output:       throw er; // Unhandled 'error' event
+App 60626 output:       ^
+App 60626 output: 
+App 60626 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 60626 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 60626 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 60626 output:     at TLSSocket.emit (events.js:193:13)
+App 60626 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 60626 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 60626 output: Emitted 'error' event at:
+App 60626 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 60626 output:     at TLSSocket.emit (events.js:193:13)
+App 60626 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 60626 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 60626 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 61338 output: 
+App 61338 output: ******************************************
+App 61338 output: 
+App 61338 output: Application is in PRODUCTION mode.
+App 61338 output: Server runs on port: 
+App 61338 output: 
+App 61338 output: ******************************************
+App 61338 output: 
+App 61338 output: events.js:170
+App 61338 output:       throw er; // Unhandled 'error' event
+App 61338 output:       ^
+App 61338 output: 
+App 61338 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 61338 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 61338 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 61338 output:     at TLSSocket.emit (events.js:193:13)
+App 61338 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 61338 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 61338 output: Emitted 'error' event at:
+App 61338 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 61338 output:     at TLSSocket.emit (events.js:193:13)
+App 61338 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 61338 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 61338 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 62537 output: 
+App 62537 output: ******************************************
+App 62537 output: 
+App 62537 output: Application is in PRODUCTION mode.
+App 62537 output: Server runs on port: 
+App 62537 output: 
+App 62537 output: ******************************************
+App 62537 output: 
+App 62537 output: events.js:170
+App 62537 output:       throw er; // Unhandled 'error' event
+App 62537 output:       ^
+App 62537 output: 
+App 62537 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 62537 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 62537 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 62537 output:     at TLSSocket.emit (events.js:193:13)
+App 62537 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 62537 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 62537 output: Emitted 'error' event at:
+App 62537 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 62537 output:     at TLSSocket.emit (events.js:193:13)
+App 62537 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 62537 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 62537 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 65278 output: App deluje...
+App 65278 output: events.js:170
+App 65278 output:       throw er; // Unhandled 'error' event
+App 65278 output:       ^
+App 65278 output: 
+App 65278 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 65278 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 65278 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 65278 output:     at TLSSocket.emit (events.js:193:13)
+App 65278 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 65278 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 65278 output: Emitted 'error' event at:
+App 65278 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 65278 output:     at TLSSocket.emit (events.js:193:13)
+App 65278 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 65278 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 65278 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 65742 output: App deluje...
+App 65742 output: events.js:170
+App 65742 output:       throw er; // Unhandled 'error' event
+App 65742 output:       ^
+App 65742 output: 
+App 65742 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 65742 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 65742 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 65742 output:     at TLSSocket.emit (events.js:193:13)
+App 65742 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 65742 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 65742 output: Emitted 'error' event at:
+App 65742 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 65742 output:     at TLSSocket.emit (events.js:193:13)
+App 65742 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 65742 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 65742 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 66311 output: App deluje...
+App 66311 output: events.js:170
+App 66311 output:       throw er; // Unhandled 'error' event
+App 66311 output:       ^
+App 66311 output: 
+App 66311 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 66311 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 66311 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 66311 output:     at TLSSocket.emit (events.js:193:13)
+App 66311 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 66311 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 66311 output: Emitted 'error' event at:
+App 66311 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 66311 output:     at TLSSocket.emit (events.js:193:13)
+App 66311 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 66311 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 66311 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 66806 output: App deluje...
+App 66806 output: events.js:170
+App 66806 output:       throw er; // Unhandled 'error' event
+App 66806 output:       ^
+App 66806 output: 
+App 66806 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 66806 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 66806 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 66806 output:     at TLSSocket.emit (events.js:193:13)
+App 66806 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 66806 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 66806 output: Emitted 'error' event at:
+App 66806 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 66806 output:     at TLSSocket.emit (events.js:193:13)
+App 66806 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 66806 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 66806 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 67313 output: App deluje...
+App 67313 output: events.js:170
+App 67313 output:       throw er; // Unhandled 'error' event
+App 67313 output:       ^
+App 67313 output: 
+App 67313 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 67313 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 67313 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 67313 output:     at TLSSocket.emit (events.js:193:13)
+App 67313 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 67313 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 67313 output: Emitted 'error' event at:
+App 67313 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 67313 output:     at TLSSocket.emit (events.js:193:13)
+App 67313 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 67313 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 67313 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 67769 output: App deluje...
+App 67769 output: events.js:170
+App 67769 output:       throw er; // Unhandled 'error' event
+App 67769 output:       ^
+App 67769 output: 
+App 67769 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 67769 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 67769 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 67769 output:     at TLSSocket.emit (events.js:193:13)
+App 67769 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 67769 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 67769 output: Emitted 'error' event at:
+App 67769 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 67769 output:     at TLSSocket.emit (events.js:193:13)
+App 67769 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 67769 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 67769 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 68257 output: App deluje...
+App 68257 output: events.js:170
+App 68257 output:       throw er; // Unhandled 'error' event
+App 68257 output:       ^
+App 68257 output: 
+App 68257 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 68257 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 68257 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 68257 output:     at TLSSocket.emit (events.js:193:13)
+App 68257 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 68257 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 68257 output: Emitted 'error' event at:
+App 68257 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 68257 output:     at TLSSocket.emit (events.js:193:13)
+App 68257 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 68257 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 68257 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 68731 output: App deluje...
+App 68731 output: events.js:170
+App 68731 output:       throw er; // Unhandled 'error' event
+App 68731 output:       ^
+App 68731 output: 
+App 68731 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 68731 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 68731 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 68731 output:     at TLSSocket.emit (events.js:193:13)
+App 68731 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 68731 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 68731 output: Emitted 'error' event at:
+App 68731 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 68731 output:     at TLSSocket.emit (events.js:193:13)
+App 68731 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 68731 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 68731 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 69172 output: App deluje...
+App 69172 output: events.js:170
+App 69172 output:       throw er; // Unhandled 'error' event
+App 69172 output:       ^
+App 69172 output: 
+App 69172 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 69172 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 69172 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 69172 output:     at TLSSocket.emit (events.js:193:13)
+App 69172 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 69172 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 69172 output: Emitted 'error' event at:
+App 69172 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 69172 output:     at TLSSocket.emit (events.js:193:13)
+App 69172 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 69172 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 69172 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 69630 output: App deluje...
+App 69630 output: events.js:170
+App 69630 output:       throw er; // Unhandled 'error' event
+App 69630 output:       ^
+App 69630 output: 
+App 69630 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 69630 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 69630 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 69630 output:     at TLSSocket.emit (events.js:193:13)
+App 69630 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 69630 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 69630 output: Emitted 'error' event at:
+App 69630 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 69630 output:     at TLSSocket.emit (events.js:193:13)
+App 69630 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 69630 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 69630 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 70094 output: App deluje...
+App 70094 output: events.js:170
+App 70094 output:       throw er; // Unhandled 'error' event
+App 70094 output:       ^
+App 70094 output: 
+App 70094 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 70094 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 70094 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 70094 output:     at TLSSocket.emit (events.js:193:13)
+App 70094 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 70094 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 70094 output: Emitted 'error' event at:
+App 70094 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 70094 output:     at TLSSocket.emit (events.js:193:13)
+App 70094 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 70094 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 70094 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 70577 output: App deluje...
+App 70577 output: events.js:170
+App 70577 output:       throw er; // Unhandled 'error' event
+App 70577 output:       ^
+App 70577 output: 
+App 70577 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 70577 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 70577 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 70577 output:     at TLSSocket.emit (events.js:193:13)
+App 70577 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 70577 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 70577 output: Emitted 'error' event at:
+App 70577 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 70577 output:     at TLSSocket.emit (events.js:193:13)
+App 70577 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 70577 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 70577 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 71023 output: 
+App 71023 output: ******************************************
+App 71023 output: 
+App 71023 output: Application is in PRODUCTION mode.
+App 71023 output: Server runs on port: 
+App 71023 output: 
+App 71023 output: ******************************************
+App 71023 output: 
+App 71023 output: events.js:170
+App 71023 output:       throw er; // Unhandled 'error' event
+App 71023 output:       ^
+App 71023 output: 
+App 71023 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 71023 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 71023 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 71023 output:     at TLSSocket.emit (events.js:193:13)
+App 71023 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 71023 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 71023 output: Emitted 'error' event at:
+App 71023 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 71023 output:     at TLSSocket.emit (events.js:193:13)
+App 71023 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 71023 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 71023 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 71450 output: 
+App 71450 output: ******************************************
+App 71450 output: 
+App 71450 output: Application is in PRODUCTION mode.
+App 71450 output: Server runs on port: 
+App 71450 output: 
+App 71450 output: ******************************************
+App 71450 output: 
+App 71450 output: events.js:170
+App 71450 output:       throw er; // Unhandled 'error' event
+App 71450 output:       ^
+App 71450 output: 
+App 71450 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 71450 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 71450 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 71450 output:     at TLSSocket.emit (events.js:193:13)
+App 71450 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 71450 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 71450 output: Emitted 'error' event at:
+App 71450 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 71450 output:     at TLSSocket.emit (events.js:193:13)
+App 71450 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 71450 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 71450 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 72436 output: 
+App 72436 output: ******************************************
+App 72436 output: 
+App 72436 output: Application is in PRODUCTION mode.
+App 72436 output: Server runs on port: 
+App 72436 output: 
+App 72436 output: ******************************************
+App 72436 output: 
+App 72436 output: events.js:170
+App 72436 output:       throw er; // Unhandled 'error' event
+App 72436 output:       ^
+App 72436 output: 
+App 72436 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 72436 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 72436 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 72436 output:     at TLSSocket.emit (events.js:193:13)
+App 72436 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 72436 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 72436 output: Emitted 'error' event at:
+App 72436 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 72436 output:     at TLSSocket.emit (events.js:193:13)
+App 72436 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 72436 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 72436 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 72867 output: 
+App 72867 output: ******************************************
+App 72867 output: 
+App 72867 output: Application is in PRODUCTION mode.
+App 72867 output: Server runs on port: 
+App 72867 output: 
+App 72867 output: ******************************************
+App 72867 output: 
+App 72867 output: events.js:170
+App 72867 output:       throw er; // Unhandled 'error' event
+App 72867 output:       ^
+App 72867 output: 
+App 72867 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 72867 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 72867 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 72867 output:     at TLSSocket.emit (events.js:193:13)
+App 72867 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 72867 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 72867 output: Emitted 'error' event at:
+App 72867 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 72867 output:     at TLSSocket.emit (events.js:193:13)
+App 72867 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 72867 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 72867 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 73608 output: App deluje...
+App 73608 output: events.js:170
+App 73608 output:       throw er; // Unhandled 'error' event
+App 73608 output:       ^
+App 73608 output: 
+App 73608 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 73608 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 73608 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 73608 output:     at TLSSocket.emit (events.js:193:13)
+App 73608 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 73608 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 73608 output: Emitted 'error' event at:
+App 73608 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 73608 output:     at TLSSocket.emit (events.js:193:13)
+App 73608 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 73608 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 73608 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 74028 output: App deluje...
+App 74028 output: events.js:170
+App 74028 output:       throw er; // Unhandled 'error' event
+App 74028 output:       ^
+App 74028 output: 
+App 74028 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 74028 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 74028 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 74028 output:     at TLSSocket.emit (events.js:193:13)
+App 74028 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 74028 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 74028 output: Emitted 'error' event at:
+App 74028 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 74028 output:     at TLSSocket.emit (events.js:193:13)
+App 74028 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 74028 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 74028 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)
+App 75452 output: 
+App 75452 output: ******************************************
+App 75452 output: 
+App 75452 output: Application is in PRODUCTION mode.
+App 75452 output: Server runs on port: 
+App 75452 output: 
+App 75452 output: ******************************************
+App 75452 output: 
+App 75452 output: events.js:170
+App 75452 output:       throw er; // Unhandled 'error' event
+App 75452 output:       ^
+App 75452 output: 
+App 75452 output: Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sh14.neoserv.si, DNS:www.sh14.neoserv.si
+App 75452 output:     at Object.checkServerIdentity (tls.js:261:12)
+App 75452 output:     at TLSSocket.onConnectSecure (_tls_wrap.js:1255:27)
+App 75452 output:     at TLSSocket.emit (events.js:193:13)
+App 75452 output:     at TLSSocket._finishInit (_tls_wrap.js:726:8)
+App 75452 output:     at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:560:12)
+App 75452 output: Emitted 'error' event at:
+App 75452 output:     at TLSSocket.socketErrorListener (_http_client.js:397:9)
+App 75452 output:     at TLSSocket.emit (events.js:193:13)
+App 75452 output:     at emitErrorNT (internal/streams/destroy.js:91:8)
+App 75452 output:     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
+App 75452 output:     at processTicksAndRejections (internal/process/task_queues.js:81:17)

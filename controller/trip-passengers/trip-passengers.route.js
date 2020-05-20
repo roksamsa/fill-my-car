@@ -44,13 +44,12 @@ router.get(tripPassengersURI + '/user/:belongsToUser', function (req, res) {
 // Create a new trip passenger
 router.post(tripPassengersURI + '/add', function (req, res) {
   const tripPassengerValue = new TripPassenger(req.body);
-  console.log(tripPassengerValue);
   tripPassengerValue.save()
     .then(tripPassengerValue => {
       res.status(200).json({'TripPassenger': tripPassengerValue + ' added successfully'});
     })
     .catch(error => {
-      res.status(400).send('Failed to create new trip, with error: ' + error);
+      res.status(400).send('Failed to create new trip passenger, with error: ' + error);
     });
 });
 
@@ -59,7 +58,7 @@ router.delete(tripPassengersURI + '/delete/:id', function (req, res) {
   const id = req.params.id;
   TripPassenger.destroy({where: {id: id}})
     .then(tripPassenger => {
-      res.status(200).json({msg: 'Trip with id: ' + tripPassenger + ' deleted successfully.'});
+      res.status(200).json({msg: 'Trip passenger with id: ' + tripPassenger + ' deleted successfully.'});
     })
     .catch(error => {
       res.status(500).json({msg: "error", details: error});
@@ -71,7 +70,7 @@ router.delete(tripPassengersURI + '/delete/:id', function (req, res) {
   const id = req.params.id;
   TripPassenger.destroy({where: {}, truncate: true})
     .then(tripPassenger => {
-      res.status(200).json({msg: 'Trip with id: ' + tripPassenger + ' deleted successfully.'});
+      res.status(200).json({msg: 'All trip passengers deleted successfully.'});
     })
     .catch(error => {
       res.status(500).json({msg: "error", details: error});
@@ -87,7 +86,7 @@ router.patch(tripPassengersURI + '/update/:id', function (req, res) {
     .then(tripPassenger => {
       if (!tripPassenger) {
         return res.status(404).json({
-          message: 'Trip with id: ' + id + ' can not be found! Sorry :/'
+          message: 'Trip passenger with id: ' + id + ' can not be found! Sorry :/'
         });
       } else {
         res.json(tripPassenger);

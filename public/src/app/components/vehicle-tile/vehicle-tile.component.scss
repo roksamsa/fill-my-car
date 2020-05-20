@@ -43,9 +43,10 @@ $vehicle-tile__selected-box-shadow--dark-theme: inset 0 0 0 2px #09031b;
 
   &.vehicle-tile--single {
     display: flex;
-    width: 180px;
-    height: 150px;
-    margin-bottom: 50px;
+    width: 33%;
+    height: auto;
+    margin-bottom: 7%;
+    margin-top: 3%;
     cursor: unset;
 
     .vehicle-tile {
@@ -334,16 +335,9 @@ $vehicle-tile__selected-box-shadow--dark-theme: inset 0 0 0 2px #09031b;
   }
 }
 
-@media only screen and (max-width: 1200px) {
-  .vehicle-tile {
-    padding: 0 10%;
-  }
-}
-
 @media only screen and (max-width: 770px) {
   :host {
     margin-right: 0;
-    padding: 15% 0;
   }
 
   .vehicle-tile__icon {

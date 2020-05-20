@@ -1,7 +1,3 @@
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 const host = 'localhost';
 const username = 'postgres';
 const password = 'R27OKas72mas';

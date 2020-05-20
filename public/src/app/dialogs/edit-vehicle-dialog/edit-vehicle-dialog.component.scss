@@ -15,8 +15,9 @@
   }
 
   &__headline {
-    color: $color__blue--primary;
     margin-top: 0;
+    margin-bottom: 0;
+    color: $color__blue--primary;
   }
 
   &__close-icon {
@@ -28,7 +29,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 270px;
+    height: 33%;
     opacity: 0.3;
     background-position: center;
     background-size: cover;

@@ -29,9 +29,6 @@ export class VehiclesPageComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '600px';
-    dialogConfig.position = {
-      top: '100px'
-    };
 
     const dialogRef = this.popupVehicle.open(CreateVehicleDialogComponent, dialogConfig);
 

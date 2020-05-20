@@ -373,12 +373,10 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
   public tripQuietChange(): void {
     this.isTripQuietChecked = (this.isTripQuietChecked === true ) ? false : true;
-    console.log(this.isTripQuietChecked);
   }
 
   acceptPassengersChange(event: any) {
     this.isAcceptPassengersChecked = event.value;
-    console.log(this.isAcceptPassengersChecked);
   }
 
   /*

@@ -23,7 +23,6 @@
 
 <mat-dialog-content>
   <form [formGroup]="createForm" class="create-form">
-
     <section class="form__row form__row--2-input-fields form__row--inputs-with-space">
       <div class="form__input">
         <label class="form__label">Tip</label>
@@ -128,20 +127,19 @@
                     (change)="vehicleInsuranceChange()">
         Imam nezgodno zavarovanje za potnike v tem vozilu.</mat-checkbox>
     </section>
-
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Prekliči</button>
   <button *ngIf="authService.user$ | async as user" mat-raised-button class="button button--primary"
     (click)="addVehicle(
-      user.uid,
-      selectedTypeData,
-      vehicleBrand.value,
-      vehicleName.value,
-      vehicleModelYear.value,
-      vehicleColor.value,
-      vehicleSeatsValue,
-      vehicleLuggageValue,
-      isVehicleInsuranceChecked)">Dodaj novo vozilo</button>
+             user.uid,
+             selectedTypeData,
+             vehicleBrand.value,
+             vehicleName.value,
+             vehicleModelYear.value,
+             vehicleColor.value,
+             vehicleSeatsValue,
+             vehicleLuggageValue,
+             isVehicleInsuranceChecked)">Dodaj novo vozilo</button>
 </mat-dialog-actions>

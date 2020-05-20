@@ -88,9 +88,6 @@ export class HeaderComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '600px';
-    dialogConfig.position = {
-      top: '100px'
-    };
 
     const dialogRef = this.popupTrip.open(CreateVehicleDialogComponent, dialogConfig);
 
@@ -106,9 +103,6 @@ export class HeaderComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '1100px';
-    dialogConfig.position = {
-      top: '100px'
-    };
 
     const dialogRef = this.popupTrip.open(CreateTripDialogComponent, dialogConfig);
 

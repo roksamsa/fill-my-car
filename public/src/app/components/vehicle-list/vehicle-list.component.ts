@@ -52,7 +52,7 @@ export class VehicleListComponent implements OnInit {
 
   buttonTooltipTextEdit: string;
   buttonTooltipTextDelete: string;
-  buttonTooltipTextAdd = 'Dodaj novo vozilo';
+  buttonTooltipTextAdd = this.emptyDataButtonText;
 
   selectedVehicleIndex: number;
   isSelectedVehicle: boolean;
@@ -144,11 +144,13 @@ export class VehicleListComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '600px';
-    dialogConfig.position = {
-      top: '100px'
-    };
 
     const dialogRef = this.popupDialog.open(CreateVehicleDialogComponent, dialogConfig);
+
+    dialogRef.afterOpened().subscribe(result => {
+      console.log('Dialog message: ');
+      console.log(result);
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
@@ -164,9 +166,6 @@ export class VehicleListComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '600px';
-    dialogConfig.position = {
-      top: '100px'
-    };
     dialogConfig.data = this.selectedVehicle;
 
     const dialogRef = this.popupDialog.open(EditVehicleDialogComponent, dialogConfig);
@@ -182,7 +181,6 @@ export class VehicleListComponent implements OnInit {
     this.vehicleService.deleteVehicle(id)
       .subscribe(() => {
         this.fetchVehicles();
-        console.log(id);
       });
   }
 }

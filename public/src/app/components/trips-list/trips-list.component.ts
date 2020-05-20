@@ -131,8 +131,6 @@ export class TripsListComponent implements OnInit {
       this.isTripActive = false;
       this.statusIconTooltip = 'Potovanje ni aktivno';
     }
-    console.log(this.tripDateFormatted);
-    console.log(this.currentDate);
   }
 
   public makeTripDateFormatted(date: Date): Date {
@@ -210,9 +208,6 @@ export class TripsListComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '1100px';
-    dialogConfig.position = {
-      top: '100px'
-    };
     dialogConfig.data = trip;
 
     const dialogRef = this.popupDialog.open(EditTripDialogComponent, dialogConfig);
@@ -230,9 +225,6 @@ export class TripsListComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '1100px';
-    dialogConfig.position = {
-      top: '100px'
-    };
 
     const dialogRef = this.popupDialog.open(CreateTripDialogComponent, dialogConfig);
 

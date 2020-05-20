@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vehicle } from './vehicle.module';
 import { ConstantsService } from '../../common/services/constants.service';
@@ -18,7 +20,8 @@ export class VehicleService {
 
   constructor(
     private http: HttpClient,
-    private constant: ConstantsService) { }
+    private constant: ConstantsService) {
+    }
 
   // Get all vehicles in database
   getAllVehicles(): Observable<Vehicle[]> {
@@ -32,9 +35,6 @@ export class VehicleService {
 
   // Get vehicles by specific user
   getVehicleByUser(belongsToUser: string): Observable<Vehicle[]> {
-    console.log(this.uriBase);
-    console.log(this.uriVehiclesForUser);
-    console.log(belongsToUser);
     return this.http.get<Vehicle[]>(this.uriVehiclesForUser + belongsToUser);
   }
 

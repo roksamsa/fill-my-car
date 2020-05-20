@@ -82,8 +82,6 @@ export class AllTripsListComponent implements OnInit, OnDestroy {
       this.isTripActive = false;
       this.statusIconTooltip = 'Potovanje ni aktivno';
     }
-    console.log(this.tripDateFormatted);
-    console.log(this.currentDate);
   }
 
   public makeTripDateFormatted(date): Date {

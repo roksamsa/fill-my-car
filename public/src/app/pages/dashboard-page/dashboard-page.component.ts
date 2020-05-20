@@ -210,9 +210,6 @@ export class DashboardPageComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '600px';
-    dialogConfig.position = {
-      top: '100px'
-    };
 
     const dialogRef = this.popupDialog.open(CreateVehicleDialogComponent, dialogConfig);
 
@@ -231,9 +228,6 @@ export class DashboardPageComponent implements OnInit {
     dialogConfig.closeOnNavigation = true;
     dialogConfig.hasBackdrop = true;
     dialogConfig.width = '600px';
-    dialogConfig.position = {
-      top: '100px'
-    };
     dialogConfig.data = this.selectedVehicle;
 
     const dialogRef = this.popupDialog.open(EditVehicleDialogComponent, dialogConfig);
@@ -260,9 +254,6 @@ export class DashboardPageComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '1100px';
-    dialogConfig.position = {
-      top: '100px'
-    };
 
     const dialogRef = this.popupDialog.open(CreateTripDialogComponent, dialogConfig);
 

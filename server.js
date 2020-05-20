@@ -14,13 +14,13 @@ const morgan = require('morgan');
 const database = require('./database/database-setup');
 
 // Is in production?
-const isProduction = true;
+const isProduction = false;
 
 // Other variables
 const portForDatabase = 5432;
 const portForServer = 4000;
 
-const localDomainName = 'localhost';
+const localDomainName = 'https://localhost:4444';
 const webDomainName = 'https://api.napolnimojavto.si/';
 const corsOptionsOrigin = 'https://api.napolnimojavto.si/';
 var defaultDomainName = '';
@@ -43,12 +43,14 @@ var defaultServerType;
 const router = express.Router();
 const app = express();
 
+const whitelist = [localDomainName, webDomainName, 'http://localhost:4000'];
+
 const corsOptions = {
-  origin: '*',
+  origin: [localDomainName, webDomainName, 'http://localhost:4000'],
   optionsSuccessStatus: 200,
   credentials: true
 };
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
 
@@ -110,8 +112,8 @@ function initial() {
       tripPassengerEmail: 'Citroen',
       tripPassengerPhone: 'Citroen',
   }];
-  // console.log(database);
-  // Init data -> save to PostgreSQL
+  console.log(database);
+  Init data -> save to PostgreSQL
   const TripPassenger = database.tripPassengers;
   for (let i = 0; i < tripPassengers.length; i++) {
     TripPassenger.create(tripPassengers[i]);
@@ -161,15 +163,17 @@ const certificate = fs.readFileSync(path.join(__dirname, '../../ssl/certs/api_na
   requestCert: true,
   rejectUnauthorized: true,*/
 
+/*
 const privateKey = fs.readFileSync(path.join(__dirname, '../../ssl/keys/bfa16_51e29_ed5bd294115c0f62e6c12e443d26c7de.key'), 'utf-8');
 const certificate = fs.readFileSync(path.join(__dirname, '../../ssl/certs/api_napolnimojavto_si_bfa16_51e29_1619550376_7ca0ed87ba2cd7628f91241ac394792b.crt'), 'utf-8');
 const csr = fs.readFileSync(path.join(__dirname, '../../ssl/csrs/api_napolnimojavto_si_bfa16_51e29_e11cbd0a183ec1f6b93efa82820664af.csr'), 'utf-8');
+*/
 
 const options = {
   root: path.join(__dirname, '/'),
   dotfiles: 'deny'
 };
-
+/*
 const optionsSSL = {
   root: path.join(__dirname, '/'),
   key: privateKey,
@@ -179,19 +183,17 @@ const optionsSSL = {
   rejectUnauthorized: false
 };
 
-/*
-  ignoreHTTPSErrors: true,
-*/
+ignoreHTTPSErrors: true,
 
 // HTTPS Server (SSL)
-const serverHTTPS = https.createServer(optionsSSL, app);
+const serverHTTPS = https.createServer(optionsSSL, app);*/
 
 // HTTP Server
 const serverHTTP = http.createServer(app);
 
 if (isProduction === true) {
   defaultDomainName = webDomainName;
-  defaultServerType = serverHTTPS;
+  defaultServerType = serverHTTP;
   consoleAppRunningTypeMessage = consoleAppRunningTypeMessagePROD;
 } else {
   defaultDomainName = localDomainName;
@@ -227,9 +229,4 @@ http.createServer(function(request, response) {
 }).listen(process.env.PORT);
 console.log('App deluje...');*/
 
-serverHTTPS.listen(process.env.PORT, () => {
-  console.log(consoleDivider);
-  console.log(consoleAppRunningTypeMessage);
-  console.log(consoleServerMessage);
-  console.log(consoleDivider);
-});
+app.listen(portForServer, () => console.log(`Example app listening at http://localhost:${portForServer}`));

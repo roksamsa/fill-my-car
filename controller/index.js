@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const https = require('https');
+const http = require('http');
 
 const options = {
   hostname: 'localhost',
@@ -9,7 +9,7 @@ const options = {
   method: 'GET'
 };
 
-const req = https.request(options, function(res) {
+const req = http.request(function(res) {
   res.on('data', function(data) {
     process.stdout.write(data);
   });

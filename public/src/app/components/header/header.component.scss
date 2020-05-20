@@ -240,7 +240,7 @@ $header-user-wrapper__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
   }
 }
 
-@media only screen and (max-width: 890px) {
+@media only screen and (max-width: 1200px) {
   .header__wrapper {
     width: 90%;
   }
@@ -250,12 +250,17 @@ $header-user-wrapper__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
   }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 500px) {
   .header__username {
     display: none;
   }
 
   .header__avatar {
     margin-right: 0;
+  }
+
+  .header__user-wrapper {
+    padding-right: 0;
+    padding-left: 0;
   }
 }

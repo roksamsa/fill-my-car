@@ -158,7 +158,7 @@ export class EditVehicleDialogComponent implements OnInit {
 
   // Vehicle year model
   getVehicleYearModel(): VehicleYearsSetup[] {
-    return vehicleYears.reverse();
+    return vehicleYears.slice().reverse();
   }
 
   selectedYearModel(event: MatSelectChange) {

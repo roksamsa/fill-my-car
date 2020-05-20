@@ -85,7 +85,7 @@
                        (dateChange)="getDateFromDatePickerInput($event.value._d)"
                        (dateInput)="getDateFromDatePickerInput($event.value._d)">
                 <mat-datepicker-toggle matSuffix [for]="tripDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker startAt="{{currentDateString | date: dateFormat}}" weekStartsOn="1" #tripDatePicker></mat-datepicker>
+                <mat-datepicker startAt="{{currentDateString}}" weekStartsOn="1" #tripDatePicker></mat-datepicker>
               </mat-form-field>
             </div>
 
@@ -311,7 +311,9 @@
   </mat-dialog-content>
 
   <div class="here-maps__wrapper">
-    <app-here-maps [hereMapStart]="hereMapStart" [hereMapFinish]="hereMapFinish"></app-here-maps>
+    <app-here-maps class="dialog__maps"
+                   [hereMapStart]="hereMapStart"
+                   [hereMapFinish]="hereMapFinish"></app-here-maps>
   </div>
 </div>
 <mat-dialog-actions *ngIf="authService.user$ | async as user">

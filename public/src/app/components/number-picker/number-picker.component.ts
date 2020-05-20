@@ -82,9 +82,6 @@ export class NumberPickerComponent implements OnInit {
   public increaseValue(): void {
     let currentValue = this.getValue();
 
-    console.log(currentValue);
-    console.log(this.inputDisabled );
-
     if (this.inputDisabled === false) {
       if (this.isTimeInput === true) {
         if (+currentValue < this.max) {
@@ -117,9 +114,6 @@ export class NumberPickerComponent implements OnInit {
 
   public decreaseValue(): void {
     let currentValue = this.getValue();
-
-    console.log(currentValue);
-    console.log(this.inputDisabled );
 
     if (this.inputDisabled === false) {
       if (this.isTimeInput === true) {

@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConstantsService {
-  public readonly isProduction = true;
+  public readonly isProduction = false;
 
   public baseAppDomain = '';
   public readonly baseAppPort = '4000';
   public readonly baseAppDomainName = 'http://localhost';
   public readonly baseAppDomainNameWeb = 'https://api.napolnimojavto.si/';
 
-  public readonly baseAppDomainLocal = this.baseAppDomainName + ':' + this.baseAppPort + '/api/';
+  public readonly baseAppDomainLocal = this.baseAppDomainName + ':' + this.baseAppPort + '/';
   public readonly baseAppDomainWeb = this.baseAppDomainNameWeb;
 
   public readonly messageProduction = 'Application is running in PRODUCTION mode.';
@@ -23,16 +23,11 @@ export class ConstantsService {
   public readonly dateFormatWithoutTimeReadyForDate = 'yyyy, MM, dd';
 
   constructor() {
-    console.log('*****************************************');
     if (this.isProduction) {
-      console.log(this.messageProduction);
       this.baseAppDomain = this.baseAppDomainWeb;
     } else {
-      console.log(this.messageDevelopment);
       this.baseAppDomain = this.baseAppDomainLocal;
     }
-    console.log('API URL used: ' + this.baseAppDomain);
-    console.log('*****************************************');
   }
 
   public numberZeroPadding(num: number): string {

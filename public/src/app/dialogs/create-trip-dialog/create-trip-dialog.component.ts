@@ -277,8 +277,6 @@ export class CreateTripDialogComponent implements OnInit {
   getSelectedVehicleData(event: any): void {
     this.selectedVehicleId = event.value;
     this.fetchVehicle(this.selectedVehicleId);
-    console.log(this.selectedVehicleId);
-    console.log(this.selectedVehicleId);
   }
 
   public tripStopsOnTheWayToFinalDestinationChange(): void {
@@ -349,7 +347,6 @@ export class CreateTripDialogComponent implements OnInit {
 
   freeSeatsChanged(value: number) {
     this.seatsAvailableValue = value;
-    console.log(this.seatsAvailableValue);
   }
 
   priceChanged(value: number): void {

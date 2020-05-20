@@ -51,9 +51,9 @@ export class CreateVehicleDialogComponent implements AfterViewInit, OnInit {
   preloadingSpinnerVisibility = true;
   selectedTypeData = 'car';
   selectedColorData = 'white';
-  selectedBrandData = '';
-  selectedBrandDataWithoutSpaces = '';
-  selectedVehicleYearData = '';
+  private selectedBrandData = '';
+  public selectedBrandDataWithoutSpaces: string;
+  private selectedVehicleYearData = '';
   isVehicleInsuranceChecked = false;
 
   public inputSeatsPlaceholder = 'Test test test';
@@ -150,7 +150,7 @@ export class CreateVehicleDialogComponent implements AfterViewInit, OnInit {
 
   // Vehicle year model
   public getVehicleYearModel(): VehicleYearsSetup[] {
-    return vehicleYears.reverse();
+    return vehicleYears.slice().reverse();
   }
 
   public selectedYearModel(event: MatSelectChange) {

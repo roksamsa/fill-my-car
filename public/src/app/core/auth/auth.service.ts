@@ -16,6 +16,9 @@ export class FirebaseAuthService {
   static SetUserData: any;
   public userData: any; // Save logged in user data
   public currentUserData: any;
+  public isUserLoggedIn: boolean;
+
+  private userLocalStorage = JSON.parse(localStorage.getItem('user'));
 
   user$: Observable<FirebaseUserModel>;
 
@@ -33,11 +36,13 @@ export class FirebaseAuthService {
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           JSON.parse(localStorage.getItem('user'));
+          this.isUserLoggedIn = true;
           return this.firestore.doc<FirebaseUserModel>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
           localStorage.setItem('user', null);
           JSON.parse(localStorage.getItem('user'));
+          this.isUserLoggedIn = false;
           return of(null);
         }
       })
@@ -82,9 +87,10 @@ export class FirebaseAuthService {
   }
 
   // Returns true when user is logged in and email is verified
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
+  public get isLoggedIn(): boolean {
+    console.log(this.userLocalStorage);
+    return this.userLocalStorage !== null ? true : false;
+    // return (this.userLocalStorage !== null WW user.emailVerified !== false) ? true : false;
   }
 
   // Returns true when user is logged in and email is verified
@@ -117,6 +123,13 @@ export class FirebaseAuthService {
   // Sign in with Facebook
   public async facebookSignIn() {
     const provider = new auth.FacebookAuthProvider();
+    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    return this.updateUserData(credential.user);
+  }
+
+  // Sign in with Twitter
+  public async twitterSignIn() {
+    const provider = new auth.TwitterAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
     return this.updateUserData(credential.user);
   }

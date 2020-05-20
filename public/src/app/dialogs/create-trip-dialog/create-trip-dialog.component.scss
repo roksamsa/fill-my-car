@@ -10,14 +10,19 @@
   }
 
   &__headline {
-    color: $color__blue--primary;
     margin-top: 0;
+    margin-bottom: 0;
+    color: $color__blue--primary;
   }
 
   &__content {
     display: flex;
     flex-direction: row;
   }
+}
+
+.dialog__maps {
+  height: 100%;
 }
 
 .mat-dialog-content {

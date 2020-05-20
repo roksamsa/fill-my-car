@@ -4,6 +4,7 @@ import { TripService } from '../../core/trip/trip.service';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { TripPassengerService } from '../../core/trip-passenger/trip-passenger.service';
+import { UserService } from '../../core/user/user.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Trip } from '../../core/trip/trip.module';
 import { ActivatedRoute } from '@angular/router';
@@ -43,8 +44,9 @@ export class TripPageComponent implements OnInit {
   public tripPetsAreAllowed: boolean;
   public tripPassengersCanSmoke: boolean;
   public tripQuiet: boolean;
+  public tripBelongsToUser: string;
 
-  private currentTripId: string;
+  public currentTripId: string;
   private tripIdTag: string;
   private tripId: string;
 
@@ -59,6 +61,8 @@ export class TripPageComponent implements OnInit {
   public dateFormatWithoutTime = this.constant.dateFormatWithoutTime;
 
   isTripActive: boolean;
+  isUserLoggedIn: boolean;
+  isTripFromRightUser: boolean;
 
   selectedVehicleId = '';
   selectedVehicleId2 = '';
@@ -122,6 +126,7 @@ export class TripPageComponent implements OnInit {
         })
       ])
     });
+    this.isUserLoggedIn = authService.isLoggedIn;
   }
 
   public ngOnInit(): void {
@@ -140,7 +145,6 @@ export class TripPageComponent implements OnInit {
   public getSocialUser(): void {
     this.authSocialService.authState.subscribe((user) => {
       this.socialUser = user;
-      console.log(user);
       this.socialUserLoggedIn = (user != null);
     });
   }
@@ -173,7 +177,6 @@ export class TripPageComponent implements OnInit {
       console.log(params);
     });*/
     this.route.paramMap.subscribe(params => {
-      console.log(params);
       this.currentTripId = params.get('id');
       this.tripService.getTripByTagId(this.currentTripId).subscribe((data: any) => {
         this.preloadingSpinnerShow();
@@ -183,6 +186,7 @@ export class TripPageComponent implements OnInit {
           this.tripId = data.id;
           this.tripIdTag = data.tripIdTag;
           this.areThereAnyTrips = true;
+          this.tripBelongsToUser = data.belongsToUser;
           this.tripFromLocationCity = data.tripFromLocation.split(', ')[0];
           this.tripToLocationCity = data.tripToLocation.split(', ')[0];
           this.hereMapStart = data.tripFromLocation;
@@ -206,9 +210,17 @@ export class TripPageComponent implements OnInit {
           this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(this.seatsAvailableNumber);
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(this.seatsTakenNumber);
 
-          console.log(this.seatsAvailableNumber);
-          console.log(this.seatsTakenNumber);
-          console.log(this.seatsFreeNumber);
+          console.log(this.trip);
+          console.log(this.tripBelongsToUser);
+          console.log(this.currentUser.uid);
+
+          if (this.tripBelongsToUser === this.currentUser.uid) {
+            this.isTripFromRightUser = true;
+          } else {
+            this.isTripFromRightUser = false;
+          }
+
+          console.log(this.isTripFromRightUser);
 
           this.titleService.setTitle('Potovanje #' + this.tripIdTag + ': ' + this.tripFromLocationCity + ' - ' + this.tripToLocationCity);
           this.fetchVehicle(this.selectedVehicleId);
@@ -248,9 +260,6 @@ export class TripPageComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '1100px';
-    dialogConfig.position = {
-      top: '100px'
-    };
     dialogConfig.data = trip;
 
     const dialogRef = this.popupDialog.open(EditTripDialogComponent, dialogConfig);
@@ -268,9 +277,6 @@ export class TripPageComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.width = '600px';
-    dialogConfig.position = {
-      top: '100px'
-    };
     dialogConfig.data = trip;
 
     const dialogRef = this.popupDialog.open(ShareMyTripDialogComponent, dialogConfig);
