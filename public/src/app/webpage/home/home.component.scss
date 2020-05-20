@@ -454,6 +454,12 @@ $home-background-elements__top: 55%;
     bottom: 81%;
     transform: scale(0.5);
   }
+
+  .home__sun,
+  .home__mountains,
+  .home__grass {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 330px) {
@@ -462,12 +468,6 @@ $home-background-elements__top: 55%;
     transform: scale(0.5);
   }
 
-  .home__sun {
-    top: 7%;
-  }
-}
-
-@media only screen and (max-width: 330px) {
   .home__sun {
     top: 4%;
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WebpageMenuService } from './webpage-menu.service';
 import { FirebaseAuthService } from '../../../core/auth/auth.service';
 import { ConstantsService } from '../../../common/services/constants.service';
@@ -8,14 +8,20 @@ import { ConstantsService } from '../../../common/services/constants.service';
   templateUrl: './webpage-menu.component.html',
   styleUrls: ['./webpage-menu.component.scss']
 })
-export class WebpageMenuComponent {
+export class WebpageMenuComponent implements OnInit {
 
   private loginRegisterOverlayVisibility = false;
   public otherContentVisible = false;
+  public preloadingSpinnerVisibility = true;
 
   constructor(private webpageMenuData: WebpageMenuService,
               public constant: ConstantsService,
               public authService: FirebaseAuthService) {
+    this.preloadingSpinnerVisibility = true;
+    this.preloadingSpinnerShow();
+  }
+
+  ngOnInit() {
   }
 
   public openLoginRegisterOverlay(): void {
@@ -25,5 +31,12 @@ export class WebpageMenuComponent {
 
   public userMenuSignOut(): void {
     this.authService.signOut();
+  }
+
+  private preloadingSpinnerShow() {
+    const that = this;
+    setTimeout(function() {
+      that.preloadingSpinnerVisibility = false;
+    }, 1500);
   }
 }

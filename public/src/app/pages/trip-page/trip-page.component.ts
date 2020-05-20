@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { Location, DatePipe } from '@angular/common';
 import { TripService } from '../../core/trip/trip.service';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
@@ -19,6 +19,9 @@ import { VehicleSeatsService } from '../../components/vehicle-seats/vehicle-seat
 import { ConstantsService } from '../../common/services/constants.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { NumberPickerService } from '../../components/number-picker/number-picker.service';
+import { SendEmailService } from '../../core/send-emails/send-email.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-trip-page',
@@ -49,6 +52,8 @@ export class TripPageComponent implements OnInit {
   public currentTripId: string;
   private tripIdTag: string;
   private tripId: string;
+
+  private inputSeatsValueOnReset = 0;
 
   preloadingSpinnerVisibility = true;
 
@@ -85,8 +90,12 @@ export class TripPageComponent implements OnInit {
   public socialUser: SocialUser;
   public socialUserLoggedIn: boolean;
   public addTripFormStepperForm: FormGroup;
+  public subscription: Subscription;
 
   @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('passengerPhoneNumber') passengerPhoneNumber: ElementRef;
+  @ViewChild('yourEndLocation') yourEndLocation: ElementRef;
+  @ViewChild('yourStartLocation') yourStartLocation: ElementRef;
 
   get addTripFormStepperFormArray(): AbstractControl | null {
     return this.addTripFormStepperForm.get('addTripFormStepperFormArray');
@@ -105,6 +114,8 @@ export class TripPageComponent implements OnInit {
     private constant: ConstantsService,
     private location: Location,
     private authSocialService: AuthService,
+    private sendEmailService: SendEmailService,
+    public numberPickerData: NumberPickerService,
     public vehicleSeatsData: VehicleSeatsService,
     private cdref: ChangeDetectorRef) {
     this.addTripFormStepperForm = this.form.group({
@@ -133,11 +144,42 @@ export class TripPageComponent implements OnInit {
     this.fetchTrip();
   }
 
+  sendMail(
+    email: string,
+    name: string,
+    phone: string,
+    trip: string,
+    seats: number,
+    startLocation: string,
+    endLocation: string) {
+    console.log(email);
+    console.log(name);
+    console.log(phone);
+    console.log(trip);
+    console.log(seats);
+    console.log(startLocation);
+    console.log(endLocation);
+    this.subscription = this.sendEmailService.sendEmail(
+      email,
+      name,
+      phone,
+      trip,
+      seats,
+      startLocation,
+      endLocation).
+      subscribe(data => {
+        let msg = data['message'];
+        alert(msg);
+      }, error => {
+        console.error(error, 'error');
+      });
+  }
+
   public preloadingSpinnerShow(): void {
     const that = this;
     this.preloadingSpinnerVisibility = true;
 
-    setTimeout(function() {
+    setTimeout(function () {
       that.preloadingSpinnerVisibility = false;
     }, 800);
   }
@@ -320,16 +362,23 @@ export class TripPageComponent implements OnInit {
     this.stepper.next();
   }
 
-  cancelTripBooking() {
+  public cancelTripBooking() {
     this.stepper.selectedIndex = 0;
     this.seatsSelectedNumberFromInput = 0;
-    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(0);
+    this.resetBookingData();
+  }
+
+  private resetBookingData() {
+    this.addTripFormStepperForm.reset();
+    this.stepper.reset();
+    this.seatsInputChange(0);
+    this.numberPickerData.inputValueData.subscribe(inputData => this.inputSeatsValueOnReset = inputData);
   }
 
   goToFirstStepWithDelay() {
     const that = this;
 
-    setTimeout(function() {
+    setTimeout(function () {
       that.stepper.selectedIndex = 0;
     }, 3000);
   }
@@ -347,7 +396,7 @@ export class TripPageComponent implements OnInit {
   }
 
   // Add vehicle on popup close
-  joinTripSave (
+  joinTripSave(
     belongsToUser: string,
     belongsToVehicle: string,
     belongsToTrip: string,
@@ -362,15 +411,6 @@ export class TripPageComponent implements OnInit {
     this.seatsTakenNumber = this.seatsTakenNumber + this.seatsSelectedNumberFromInput;
     this.seatsFreeNumber = this.seatsFreeNumber - this.seatsSelectedNumberFromInput;
 
-    /*console.log('this.seatsFreeNumber:');
-    console.log(this.seatsFreeNumber);
-    console.log('this.seatsTakenNumber:');
-    console.log(this.seatsTakenNumber);
-    console.log('tripPassengerSeatsReservation:');
-    console.log(tripPassengerSeatsReservation);
-    console.log('this.seatsSelectedNumberFromInput:');
-    console.log(this.seatsSelectedNumberFromInput);*/
-
     this.tripPassengerService.addTripPassenger(
       belongsToUser,
       belongsToVehicle,
@@ -380,8 +420,18 @@ export class TripPageComponent implements OnInit {
       tripPassengerEndLocation,
       tripPassengerName,
       tripPassengerEmail,
-      tripPassengerPhone).subscribe(() => {}
-    );
+      tripPassengerPhone).subscribe(() => {
+        this.sendMail(
+          tripPassengerEmail,
+          tripPassengerName,
+          tripPassengerPhone,
+          tripId,
+          tripPassengerSeatsReservation,
+          tripPassengerStartLocation,
+          tripPassengerEndLocation
+        );
+      }
+      );
 
     this.tripService.updateSeatsOnTrip(
       tripId,
@@ -393,6 +443,7 @@ export class TripPageComponent implements OnInit {
       this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(this.seatsFreeNumber);
       this.vehicleSeatsData.changeVehicleSeatsTakenNumber(this.seatsTakenNumber);
       this.goToFirstStepWithDelay();
+      this.resetBookingData();
       this.fetchTrip();
     });
   }

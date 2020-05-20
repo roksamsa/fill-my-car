@@ -39,6 +39,7 @@ export class PreloadingSpinnerComponent implements OnInit {
   @Input() colorType = 'accent';
   @Input() mode = 'indeterminate'; // Default spinner mode - indeterminate animation goes to infinity
   @Input() visibility = true; // Is spinner visible or not.
+  @Input() backgroundVisible = true; // Is white transparent background is visible or not.
 
   constructor(
     private userMenuDarkThemeData: UserMenuService) { }

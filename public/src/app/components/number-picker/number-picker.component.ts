@@ -77,6 +77,8 @@ export class NumberPickerComponent implements OnInit {
     this.numberPicker.registerOnChange(() => {
       this.change.emit(this.getValue());
     });
+
+    this.numberPickerData.inputValueData.subscribe(inputData => this.inputValueNumber = inputData);
   }
 
   public increaseValue(): void {
@@ -152,6 +154,10 @@ export class NumberPickerComponent implements OnInit {
 
   public getValue(): number {
     return this.numberPicker.value;
+  }
+
+  public resetInput() {
+    this.numberPicker.reset();
   }
 
   public onFocus(): void {

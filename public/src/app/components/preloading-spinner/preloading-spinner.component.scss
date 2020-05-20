@@ -34,6 +34,15 @@ $vehicles-items__width--full-size-1: 100%;
   &.preloading-spinner--width-height-as-content {
     display: inline;
   }
+
+  &.menu__username {
+    display: flex;
+
+    .preloading-spinner {
+      min-width: 140px;
+      min-height: 64px;
+    }
+  }
 }
 
 .preloading-spinner {
@@ -47,6 +56,12 @@ $vehicles-items__width--full-size-1: 100%;
   &.dark-theme {
     .preloading-spinner__wrapper {
       background-color: rgba(28, 18, 53, 0.5);
+    }
+  }
+
+  &--without-bg {
+    .preloading-spinner__wrapper {
+      background-color: transparent;
     }
   }
 

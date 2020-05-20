@@ -1,5 +1,8 @@
 <ng-content></ng-content>
-<div *ngIf="visibility" class="preloading-spinner" @preloadingAnimation [class.dark-theme]="darkModeActivated">
+<div *ngIf="visibility"
+     class="preloading-spinner"
+     @preloadingAnimation
+     [ngClass]="{'dark-theme': darkModeActivated, 'preloading-spinner--without-bg': !backgroundVisible}">
   <div class="preloading-spinner__wrapper">
     <mat-progress-spinner class="preloading-spinner__loader"
                           [mode]="mode"

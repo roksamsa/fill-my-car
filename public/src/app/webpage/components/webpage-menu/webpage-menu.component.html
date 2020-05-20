@@ -23,15 +23,22 @@
     <div class="menu__item-text">Odjava</div>
   </li>
   <li class="menu__item" routerLink="/pregled">
-    <div class="header__user-wrapper" *ngIf="authService.user$ | async as user">
-      <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
-        <img *ngIf="user.photoURL" class="header__avatar-image" src="{{ user.photoURL }}" alt="{{ user.displayName }}">
-        <div *ngIf="!user.photoURL" class="header__avatar-name">
-          {{ constant.generateLetterForUserAvatar(user.email) }}
+    <app-preloading-spinner tile-content
+                            class="menu__username"
+                            [diameter]="20"
+                            [strokeWidth]="3"
+                            [backgroundVisible]="false"
+                            [visibility]="preloadingSpinnerVisibility">
+      <div *ngIf="authService.user$ | async as user" class="header__user-wrapper">
+        <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
+          <img *ngIf="user.photoURL" class="header__avatar-image" src="{{ user.photoURL }}" alt="{{ user.displayName }}">
+          <div *ngIf="!user.photoURL" class="header__avatar-name">
+            {{ constant.generateLetterForUserAvatar(user.email) }}
+          </div>
         </div>
+        <div *ngIf="user.displayName; else showEmail" class="header__username">{{ user.displayName }}</div>
       </div>
-      <div *ngIf="user.displayName; else showEmail" class="header__username">{{ user.displayName }}</div>
-    </div>
+    </app-preloading-spinner>
   </li>
 </ng-template>
 
