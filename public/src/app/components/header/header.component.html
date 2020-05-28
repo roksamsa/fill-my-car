@@ -33,13 +33,13 @@
 
         <div *ngIf="authService.user$ | async as user" class="header__user-wrapper" (click)="setUserMenuVisibility()">
           <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
-            <img *ngIf="user.photoURL" class="header__avatar-image" src="{{ user.photoURL }}" alt="{{ authService.onlyName }}">
+            <img *ngIf="user.photoURL" class="header__avatar-image" src="{{ user.photoURL }}" alt="{{ authService.userOnlyName }}">
             <div *ngIf="!user.photoURL" class="header__avatar-name">
               {{ constant.generateLetterForUserAvatar(user.email) }}
             </div>
           </div>
-          <div *ngIf="authService.onlyName != null" class="header__username">{{ authService.onlyName }}</div>
-          <div *ngIf="authService.onlyName == null" class="header__email">{{ user.email }}</div>
+          <div *ngIf="authService.userOnlyName != null" class="header__username">{{ authService.userOnlyName }}</div>
+          <div *ngIf="authService.userOnlyName == null" class="header__email">{{ user.email }}</div>
         </div>
       </div>
 

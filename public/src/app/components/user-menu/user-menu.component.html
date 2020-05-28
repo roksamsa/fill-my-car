@@ -5,15 +5,15 @@
       <div class="user-menu__avatar"
            [class.user-menu__avatar--default]="!user.photoURL">
         <div class="user-menu__avatar-image-wrapper">
-          <img *ngIf="user.photoURL" class="user-menu__avatar-image" src="{{ user.photoURL }}" alt="{{ user.displayName }}">
+          <img *ngIf="user.photoURL" class="user-menu__avatar-image" src="{{ user.photoURL }}" alt="{{ authService.userOnlyName }}">
         </div>
         <div *ngIf="!user.photoURL" class="user-menu__avatar-name">
-          {{ constant.generateLetterForUserAvatar(user.email) }}
+          {{ constant.generateLetterForUserAvatar(authService.userEmail) }}
         </div>
       </div>
       <div class="user-menu__profile-text">
-        <div class="user-menu__profile-item">{{ user.displayName }}</div>
-        <div class="user-menu__profile-item">{{ user.email }}</div>
+        <div class="user-menu__profile-item">{{ authService.userOnlyName }}</div>
+        <div class="user-menu__profile-item">{{ authService.userEmail }}</div>
       </div>
     </div>
     <div class="user-menu__item user-menu__item--menu"

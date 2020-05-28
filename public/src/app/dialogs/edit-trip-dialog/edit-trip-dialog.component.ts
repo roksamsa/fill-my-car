@@ -38,6 +38,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   vehicleSeatsStillLeftForCurrentTrip: any;
   vehicleSeatsTakenNumber: any;
 
+  selectedVehicleIdData = '';
   selectedTypeData = '';
   selectedBrandData = '';
   selectedColorData = '';
@@ -132,75 +133,19 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
     this.currentUser = this.authService.currentUserData;
 
+    this.fetchVehicle(this.selectedTripData.selectedVehicle);
+
     if (this.currentTripId === '') {
       this.currentTripId = this.createTripIdTag();
     } else {
       this.currentTripId = selectedTripData.tripIdTag;
     }
 
-    this.date = new Date(selectedTripData.tripDate);
-    this.createdDate = new Date(selectedTripData.tripCreationDate);
-    this.dateHourValue = this.date.getHours();
-    this.dateMinutesValue = this.date.getMinutes();
-
-    this.hereMapStartEditValue = selectedTripData.tripFromLocation;
-    this.hereMapFinishEditValue = selectedTripData.tripToLocation;
-    this.priceValue = selectedTripData.tripPrice;
-    this.luggageSpaceValue = selectedTripData.tripLuggageSpace;
-    this.isAcceptPassengersChecked = selectedTripData.tripNewPassengersAcceptance;
-    this.isTripStopsOnTheWayToFinalDestinationChecked = selectedTripData.tripStopsOnTheWayToFinalDestination;
-    this.isTripComfortableChecked = selectedTripData.tripComfortable;
-    this.isTripPetsAreAllowedChecked = selectedTripData.tripPetsAreAllowed;
-    this.isTripPassengersCanSmokeChecked = selectedTripData.tripPassengersCanSmoke;
-    this.isTripQuietChecked = selectedTripData.tripQuiet;
-    this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat);
-
-    this.seatsAvailableValue = selectedTripData.tripAvailableSeats;
-    this.seatsTakenValue = selectedTripData.tripTakenSeats;
-    this.seatsFreeValue = selectedTripData.tripFreeSeats;
-
-    this.constant.numberZeroPadding(this.dateHourValue);
-    this.constant.numberZeroPadding(this.dateMinutesValue);
-
-    this.titleService.setTitle('Urejanje potovanja #' +
-    selectedTripData.tripIdTag +
-    ': ' + this.hereMapStartEditValue +
-    ' - ' + this.hereMapFinishEditValue);
-
-    this.snackBarStringForWhenEditIsOver = 'Uredili ste potovanje: ' + selectedTripData.tripIdTag + '.';
-    this.currentUserFromService = this.authService.getUserData;
-    this.tripDriverName = this.currentUser.displayName;
-    this.tripDriverEmail = this.currentUser.providerData[0].email;
-  }
-
-  private readonly snackBarStringForWhenEditIsOver: string;
-  private readonly snackBarStringForWhenSeatsTakenHigherSeatsAvailable = 'Na tem potovanju že imate vse sedeže zapolnjene in ne morate spremeniti količino prostih mest.';
-
-  private openSnackBar(): void {
-    this._snackBar.open(this.snackBarStringForWhenSeatsTakenHigherSeatsAvailable, 'Zapri', {
-      duration: 7500,
-      panelClass: ['mat-toolbar', 'mat-primary']
-    });
-  }
-
-  private openSnackBarWhenEditIsOver(): void {
-    this._snackBar.open(this.snackBarStringForWhenEditIsOver, 'Zapri', {
-      duration: 7500,
-      panelClass: ['mat-toolbar', 'mat-primary']
-    });
-  }
-
-  public ngOnInit(): void {
-    this.fetchVehicles();
-    this.isVehicleListEmpty();
-
-    this.fetchVehicle(this.selectedTripData.selectedVehicle);
-
     this.addTripFormStepperForm = this.formBuilder.group({
       addTripFormStepperFormArray: this.formBuilder.array([
         this.formBuilder.group({
           belongsToUser: this.selectedTripData.belongsToUser,
-          selectedVehicle: [this.selectedTripData.selectedVehicle, Validators.required],
+          selectedVehicle: ['Moj avto', Validators.required],
           tripIdTag: this.selectedTripData.tripIdTag,
           tripStatus: this.selectedTripData.tripStatus,
           tripFromLocation: [this.selectedTripData.tripFromLocation, Validators.required],
@@ -224,6 +169,66 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
         })
       ])
     });
+
+    this.date = new Date(selectedTripData.tripDate);
+    this.createdDate = new Date(selectedTripData.tripCreationDate);
+    this.dateHourValue = this.date.getHours();
+    this.dateMinutesValue = this.date.getMinutes();
+
+    this.hereMapStartEditValue = selectedTripData.tripFromLocation;
+    this.hereMapFinishEditValue = selectedTripData.tripToLocation;
+    this.priceValue = selectedTripData.tripPrice;
+    this.luggageSpaceValue = selectedTripData.tripLuggageSpace;
+    this.isAcceptPassengersChecked = selectedTripData.tripNewPassengersAcceptance;
+    this.isTripStopsOnTheWayToFinalDestinationChecked = selectedTripData.tripStopsOnTheWayToFinalDestination;
+    this.isTripComfortableChecked = selectedTripData.tripComfortable;
+    this.isTripPetsAreAllowedChecked = selectedTripData.tripPetsAreAllowed;
+    this.isTripPassengersCanSmokeChecked = selectedTripData.tripPassengersCanSmoke;
+    this.isTripQuietChecked = selectedTripData.tripQuiet;
+    this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat);
+    this.selectedVehicleIdData = this.selectedTripData.selectedVehicle;
+
+    this.seatsAvailableValue = selectedTripData.tripAvailableSeats;
+    this.seatsTakenValue = selectedTripData.tripTakenSeats;
+    this.seatsFreeValue = selectedTripData.tripFreeSeats;
+
+    this.constant.numberZeroPadding(this.dateHourValue);
+    this.constant.numberZeroPadding(this.dateMinutesValue);
+
+    this.titleService.setTitle('Urejanje potovanja #' +
+    selectedTripData.tripIdTag +
+    ': ' + this.hereMapStartEditValue +
+    ' - ' + this.hereMapFinishEditValue);
+
+    this.snackBarStringForWhenEditIsOver = 'Uredili ste potovanje: ' + selectedTripData.tripIdTag + '.';
+    this.currentUserFromService = this.authService.getUserData;
+    this.tripDriverName = this.authService.userOnlyName;
+    this.tripDriverEmail = this.currentUser.providerData[0].email;
+
+    console.log(this.selectedTripData.selectedVehicle);
+    console.log(this.selectedVehicleIdData);
+  }
+
+  private readonly snackBarStringForWhenEditIsOver: string;
+  private readonly snackBarStringForWhenSeatsTakenHigherSeatsAvailable = 'Na tem potovanju že imate vse sedeže zapolnjene in ne morate spremeniti količino prostih mest.';
+
+  private openSnackBar(): void {
+    this._snackBar.open(this.snackBarStringForWhenSeatsTakenHigherSeatsAvailable, 'Zapri', {
+      duration: 7500,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
+  }
+
+  private openSnackBarWhenEditIsOver(): void {
+    this._snackBar.open(this.snackBarStringForWhenEditIsOver, 'Zapri', {
+      duration: 7500,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
+  }
+
+  public ngOnInit(): void {
+    this.fetchVehicles();
+    this.isVehicleListEmpty();
   }
 
   ngAfterViewInit() {
@@ -328,7 +333,7 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       });
   }
 
-  changeClient(value) {
+  public changeClient(value) {
     this.fetchVehicle(value);
   }
 

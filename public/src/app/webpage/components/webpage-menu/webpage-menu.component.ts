@@ -24,7 +24,7 @@ export class WebpageMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userName = this.authService.onlyName;
+    this.userName = this.authService.userOnlyName;
   }
 
   public openLoginRegisterOverlay(): void {

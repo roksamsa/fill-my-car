@@ -408,3 +408,15 @@ $vehicle-tile__selected-box-shadow--dark-theme: inset 0 0 0 2px #09031b;
     }
   }
 }
+
+@media only screen and (max-width: 576px) {
+  :host {
+    width: 100%;
+    height: auto;
+    margin-bottom: 5%;
+  }
+
+  .vehicle-tile {
+    padding: 10%;
+  }
+}

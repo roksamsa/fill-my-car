@@ -54,7 +54,7 @@ export class TripPageComponent implements OnInit {
 
   public currentTripId: string;
   private tripIdTag: string;
-  private tripId: string;
+  public tripId: string;
 
   private inputSeatsValueOnReset = 0;
 
@@ -108,6 +108,7 @@ export class TripPageComponent implements OnInit {
     public authService: FirebaseAuthService,
     private route: ActivatedRoute,
     private router: Router,
+    public datePipe: DatePipe,
     private vehicleService: VehicleService,
     private tripService: TripService,
     private tripPassengerService: TripPassengerService,
@@ -142,7 +143,7 @@ export class TripPageComponent implements OnInit {
     });
     this.currentUser = this.authService.currentUserData;
     this.isUserLoggedIn = authService.isLoggedIn;
-    this.tripDriverName = this.authService.onlyName;
+    this.tripDriverName = this.authService.userOnlyName;
     this.tripDriverEmail = this.currentUser;
   }
 
@@ -159,7 +160,6 @@ export class TripPageComponent implements OnInit {
     tripId: string,
     tripIdTag: string,
     tripDate: string,
-    tripTime: string,
     tripVehicle: string,
     tripVehicleColor: string,
     tripPrice: string,
@@ -177,7 +177,6 @@ export class TripPageComponent implements OnInit {
       tripId,
       tripIdTag,
       tripDate,
-      tripTime,
       tripVehicle,
       tripVehicleColor,
       tripPrice,
@@ -455,10 +454,9 @@ export class TripPageComponent implements OnInit {
           this.tripDriverEmail,
           this.tripId,
           this.tripIdTag,
-          this.tripDate,
-          this.tripDateFormatted,
-          this.vehicle.vehicleBrand + '' + this.vehicle.vehicleName,
-          this.vehicle.vehicleColor,
+          this.datePipe.transform(this.tripDateFormatted, 'dd. mmmm yyyy, HH:mm'),
+          this.vehicle.vehicleBrand + ' ' + this.vehicle.vehicleName + ' (' + this.selectedTypeData + ')',
+          this.selectedColorData,
           this.tripPrice,
           tripPassengerSeatsReservation,
           this.tripFromLocationCity,
@@ -469,13 +467,6 @@ export class TripPageComponent implements OnInit {
         this.fetchUpdatedNumberOfSeats();
       }
       );
-
-      /*
-      this.vehicle = selectedVehicleData;
-      this.selectedTypeData = selectedVehicleData.vehicleType;
-      this.selectedColorData = selectedVehicleData.vehicleColor;
-      this.selectedBrandData = selectedVehicleData.vehicleBrand;
-      this.selectedNameData = selectedVehicleData.vehicleName;*/
 
     this.tripService.updateSeatsOnTrip(
       tripId,

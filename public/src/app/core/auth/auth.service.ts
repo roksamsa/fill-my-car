@@ -16,7 +16,8 @@ export class FirebaseAuthService {
   public currentUserData: any;
   public isUserLoggedIn: boolean;
   public userLocalStorage = JSON.parse(localStorage.getItem('user'));
-  public onlyName: string;
+  public userOnlyName: string;
+  public userEmail;
 
   public user$: Observable<FirebaseUserModel>;
 
@@ -36,7 +37,8 @@ export class FirebaseAuthService {
           JSON.parse(localStorage.getItem('user'));
           this.isUserLoggedIn = true;
           this.currentUserData = JSON.parse(localStorage.getItem('user'));
-          this.onlyName = this.getShortName(user.displayName);
+          this.userOnlyName = this.getShortName(user.displayName);
+          this.userEmail = user.providerData[0].email;
           return this.firestore.doc<FirebaseUserModel>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
@@ -44,7 +46,8 @@ export class FirebaseAuthService {
           JSON.parse(localStorage.getItem('user'));
           this.isUserLoggedIn = false;
           this.currentUserData = null;
-          this.onlyName = null;
+          this.userOnlyName = null;
+          this.userEmail = null;
           return of(null);
         }
       })

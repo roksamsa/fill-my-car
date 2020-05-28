@@ -79,10 +79,10 @@ export class EditVehicleDialogComponent implements OnInit {
       belongsToUser: selectedVehicleData.belongsToUser,
       vehicleType: [selectedVehicleData.vehicleType, Validators.required],
       vehicleBrand: selectedVehicleData.vehicleBrand,
-      vehicleName: selectedVehicleData.vehicleName,
+      vehicleName: [selectedVehicleData.vehicleName, Validators.required],
       vehicleModelYear: selectedVehicleData.vehicleModelYear,
-      vehicleSeatsValue: selectedVehicleData.vehicleSeats,
-      vehicleColor: selectedVehicleData.vehicleColor,
+      vehicleSeatsValue: [selectedVehicleData.vehicleSeats, Validators.required],
+      vehicleColor: [selectedVehicleData.vehicleColor, Validators.required],
       vehicleMaxLuggage: selectedVehicleData.vehicleMaxLuggage,
       vehicleInsurance: selectedVehicleData.vehicleInsurance
     });

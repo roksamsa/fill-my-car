@@ -145,7 +145,7 @@ export class CreateTripDialogComponent implements OnInit {
       ])
     });
     this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat, this.dateLocale);
-    this.tripDriverName = this.authService.onlyName;
+    this.tripDriverName = this.authService.userOnlyName;
     this.tripDriverEmail = this.currentUser.providerData[0].email;
   }
 

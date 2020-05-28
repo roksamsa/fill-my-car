@@ -7,7 +7,6 @@ export interface EmailInfo {
   tripId: string;
   tripIdTag: string;
   tripDate: string;
-  tripTime: string;
   tripVehicle: string;
   tripVehicleColor: string;
   tripPrice: string;
