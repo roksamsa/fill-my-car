@@ -6,11 +6,13 @@ export interface Trip {
   tripIdTag: string;
   tripFromLocation: string;
   tripToLocation: string;
-  tripCreationDate: Date,
-  tripEditedDate: Date,
-  tripDate: Date,
+  tripCreationDate: Date;
+  tripEditedDate: Date;
+  tripDate: Date;
   tripTimeHour: string;
   tripTimeMinutes: string;
+  tripDriverName: string;
+  tripDriverEmail: string;
   tripAvailableSeats: number;
   tripTakenSeats: number;
   tripFreeSeats: number;

@@ -41,6 +41,7 @@ $vehicle-tile__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
+  transition: margin-right 200ms ease-in-out;
 
   &__item {
     display: flex;
@@ -143,5 +144,11 @@ $vehicle-tile__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
 
   .menu__item-icon-wrapper {
     margin-right: 0;
+  }
+}
+
+@media only screen and (max-width: 420px){
+  .menu {
+    margin-left: 0;
   }
 }

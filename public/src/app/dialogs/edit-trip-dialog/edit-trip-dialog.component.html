@@ -246,7 +246,7 @@
         <mat-step formGroupName="2" [stepControl]="addTripFormStepperFormArray?.get([2])">
           <ng-template matStepLabel>Zaključek</ng-template>
 
-          <section class="form__row form__row--2-input-fields">
+          <section class="form__row">
             <div class="form__input">
               <label id="how-to-accept-passengers" class="form__label form__label--bigger-margin">Kako boš sprejel potnike na tvojem potovanju?</label>
               <mat-radio-group aria-labelledby="how-to-accept-passengers"
@@ -373,6 +373,8 @@
             date,
             dateHourString,
             dateMinutesString,
+            tripDriverName,
+            tripDriverEmail,
             seatsAvailableValue,
             seatsTakenValue,
             seatsFreeValue,

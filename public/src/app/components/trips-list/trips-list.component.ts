@@ -11,6 +11,7 @@ import { filter } from 'rxjs/operators';
 import { ConstantsService } from '../../common/services/constants.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const headerFadeInAnimationTiming = '200ms';
@@ -65,6 +66,7 @@ export class TripsListComponent implements OnInit {
   public areThereAnyTrips = false;
   public trips: Trip[] = [];
   public vehicle: Vehicle;
+  public currentUser: any;
   preloadingSpinnerVisibility = true;
   vehicleSeatsAvailableNumber: number;
   selectedVehicleId = '';
@@ -77,7 +79,6 @@ export class TripsListComponent implements OnInit {
 
   selectedTrip: any;
   selectedTripIndex = '';
-  currentUser = JSON.parse(localStorage.getItem('user'));
   dialogResult: '';
   tripFromLocationCity = '';
   moreActionVisible: any;
@@ -107,7 +108,10 @@ export class TripsListComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private vehicleService: VehicleService,
-    private tripService: TripService) { }
+    private tripService: TripService,
+    public authService: FirebaseAuthService) {
+      this.currentUser = this.authService.currentUserData;
+    }
 
   public ngOnInit(): void {
     this.fetchTrips();

@@ -97,6 +97,7 @@ $header-user-wrapper__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
 
   &__logo {
     margin-right: 30px;
+    transition: margin-right 200ms ease-in-out;
   }
 
   &__user-wrapper {
@@ -262,5 +263,11 @@ $header-user-wrapper__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
   .header__user-wrapper {
     padding-right: 0;
     padding-left: 0;
+  }
+}
+
+@media only screen and (max-width: 420px){
+  .header__logo {
+    margin-right: 0;
   }
 }

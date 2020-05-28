@@ -105,3 +105,20 @@ $tile__border-radius: 3px;
     flex-direction: column-reverse;
   }
 }
+
+@media only screen and (max-width: 576px) {
+  .tile.tile--title-left .tile__headline {
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .tile__title.tile__title--title-left {
+    width: 100%;
+    padding-right: 0;
+    margin-top: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+}

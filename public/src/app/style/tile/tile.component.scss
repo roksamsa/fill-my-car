@@ -99,3 +99,19 @@ $tile__border-radius: 3px;
     margin-top: 2%;
   }
 }
+
+@media only screen and (max-width: 576px) {
+  :host {
+    &.tile--title-left {
+      .tile__wrapper {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .tile__headline {
+        margin-right: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/crea
 import { HeaderService } from '../../../app/components/header/header.service';
 import { trigger, stagger, query, style, animate, transition, animateChild, group } from '@angular/animations';
 import { Title } from '@angular/platform-browser';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 
 export const defaultAnimationFunction = 'ease-in-out';
 export const logoFadeInAnimationTiming = '250ms';
@@ -109,7 +110,6 @@ export class DashboardPageComponent implements OnInit {
   emptyDataButtonText = 'Dodaj novo vozilo';
 
   vehicles: Vehicle[] = [];
-  currentUser = JSON.parse(localStorage.getItem('user'));
   trips: Trip[] = [];
   areThereAnyTrips = false;
   preloadingSpinnerVisibility = true;
@@ -122,13 +122,18 @@ export class DashboardPageComponent implements OnInit {
 
   areThereAnyVehicles = false;
 
+  public currentUser: any;
+
   constructor(
     private vehicleService: VehicleService,
     private tripService: TripService,
     public popupDialog: MatDialog,
+    public authService: FirebaseAuthService,
     private titleService: Title,
     private headerData: HeaderService,
-    private vehicleTileData: VehicleTileService) { }
+    private vehicleTileData: VehicleTileService) {
+      this.currentUser = this.authService.currentUserData;
+  }
 
   ngOnInit() {
     this.fetchVehicles();

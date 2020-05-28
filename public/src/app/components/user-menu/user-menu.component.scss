@@ -196,3 +196,9 @@ $header-user-avatar__border--dark-theme: 2px solid rgba(15, 7, 35, 1);
     }
   }
 }
+
+@media only screen and (max-width: 1200px){
+  :host {
+    width: 90%;
+  }
+}

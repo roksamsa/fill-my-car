@@ -31,18 +31,14 @@
                             [visibility]="preloadingSpinnerVisibility">
       <div *ngIf="authService.user$ | async as user" class="header__user-wrapper">
         <div class="header__avatar" [class.header__avatar--default]="!user.photoURL">
-          <img *ngIf="user.photoURL" class="header__avatar-image" src="{{ user.photoURL }}" alt="{{ user.displayName }}">
+          <img *ngIf="user.photoURL" class="header__avatar-image" src="{{ user.photoURL }}" alt="{{ authService.onlyName }}">
           <div *ngIf="!user.photoURL" class="header__avatar-name">
             {{ constant.generateLetterForUserAvatar(user.email) }}
           </div>
         </div>
-        <div *ngIf="user.displayName; else showEmail" class="header__username">{{ user.displayName }}</div>
+        <div *ngIf="authService.onlyName != null" class="header__username">{{ authService.onlyName }}</div>
+        <div *ngIf="authService.onlyName == null" class="header__email">{{ user.email }}</div>
       </div>
     </app-preloading-spinner>
   </li>
-</ng-template>
-
-
-<ng-template #showEmail>
-  <div class="header__email">{{ user.email }}</div>
 </ng-template>

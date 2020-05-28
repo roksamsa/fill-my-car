@@ -14,6 +14,7 @@
   font-weight: bold;
   font-size: 20px;
   cursor: pointer;
+  transition: font-size 200ms ease-in-out;
 
   &__pink {
     color: $color__pink--primary;
@@ -25,5 +26,11 @@
 
   &--white {
     color: $color__white--100;
+  }
+}
+
+@media only screen and (max-width: 420px){
+  .logo {
+    font-size: 16px;
   }
 }

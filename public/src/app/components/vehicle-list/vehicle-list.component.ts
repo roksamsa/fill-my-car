@@ -6,7 +6,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { VehicleTileService } from '../../../app/components/vehicle-tile/vehicle-tile.service';
 import { CreateVehicleDialogComponent } from '../../dialogs/create-vehicle-dialog/create-vehicle-dialog.component';
 import { EditVehicleDialogComponent } from '../../dialogs/edit-vehicle-dialog/edit-vehicle-dialog.component';
-import { trigger, stagger, query, style, animate, transition, animateChild, group } from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -43,6 +44,8 @@ import { trigger, stagger, query, style, animate, transition, animateChild, grou
 })
 
 export class VehicleListComponent implements OnInit {
+
+  public currentUser: any;
   emptyDataType = 'vertical';
   tileTitleTrips = 'Moja potovanja';
   tileHeadlineAddButtonTooltipText = 'Dodaj novo potovanje';
@@ -57,7 +60,6 @@ export class VehicleListComponent implements OnInit {
   selectedVehicleIndex: number;
   isSelectedVehicle: boolean;
   vehicles: Vehicle[] = [];
-  currentUser = JSON.parse(localStorage.getItem('user'));
   areThereAnyVehicles = false;
   preloadingSpinnerVisibility = true;
   dialogResult = '';
@@ -78,8 +80,11 @@ export class VehicleListComponent implements OnInit {
   constructor(
     private vehicleService: VehicleService,
     public popupDialog: MatDialog,
+    public authService: FirebaseAuthService,
     private vehicleTileData: VehicleTileService,
-    private router: Router) { }
+    private router: Router) {
+      this.currentUser = this.authService.currentUserData;
+    }
 
   ngOnInit() {
     this.fetchVehicles();

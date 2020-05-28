@@ -33,11 +33,14 @@ import { Subscription } from 'rxjs';
 export class TripPageComponent implements OnInit {
   public vehicle: Vehicle;
   public trip: Trip;
-  public currentUser = JSON.parse(localStorage.getItem('user'));
+  public currentUser: any;
   public areThereAnyTrips = false;
   public tripFromLocationCity = '';
   public tripToLocationCity = '';
   public tripMessage: string;
+  public tripDriverName = '';
+  public tripDriverEmail = '';
+  public tripPrice = '';
   public hereMapStart = '';
   public hereMapFinish = '';
   public dialogResult: '';
@@ -110,7 +113,7 @@ export class TripPageComponent implements OnInit {
     private tripPassengerService: TripPassengerService,
     private popupDialog: MatDialog,
     private titleService: Title,
-    private form: FormBuilder,
+    public form: FormBuilder,
     private constant: ConstantsService,
     private location: Location,
     private authSocialService: AuthService,
@@ -137,7 +140,10 @@ export class TripPageComponent implements OnInit {
         })
       ])
     });
+    this.currentUser = this.authService.currentUserData;
     this.isUserLoggedIn = authService.isLoggedIn;
+    this.tripDriverName = this.authService.onlyName;
+    this.tripDriverEmail = this.currentUser;
   }
 
   public ngOnInit(): void {
@@ -145,30 +151,43 @@ export class TripPageComponent implements OnInit {
   }
 
   sendMail(
-    email: string,
-    name: string,
-    phone: string,
-    trip: string,
-    seats: number,
+    passengerEmailAddress: string,
+    passengerName: string,
+    passengerPhone: string,
+    driverName: string,
+    driverEmailAddress: string,
+    tripId: string,
+    tripIdTag: string,
+    tripDate: string,
+    tripTime: string,
+    tripVehicle: string,
+    tripVehicleColor: string,
+    tripPrice: string,
+    reservedSeatsNumber: number,
     startLocation: string,
-    endLocation: string) {
-    console.log(email);
-    console.log(name);
-    console.log(phone);
-    console.log(trip);
-    console.log(seats);
-    console.log(startLocation);
-    console.log(endLocation);
+    endLocation: string,
+    reservedStartLocation: string,
+    reservedEndLocation: string) {
     this.subscription = this.sendEmailService.sendEmail(
-      email,
-      name,
-      phone,
-      trip,
-      seats,
+      passengerEmailAddress,
+      passengerName,
+      passengerPhone,
+      driverName,
+      driverEmailAddress,
+      tripId,
+      tripIdTag,
+      tripDate,
+      tripTime,
+      tripVehicle,
+      tripVehicleColor,
+      tripPrice,
+      reservedSeatsNumber,
       startLocation,
-      endLocation).
+      endLocation,
+      reservedStartLocation,
+      reservedEndLocation).
       subscribe(data => {
-        let msg = data['message'];
+        const msg = data['message'];
         alert(msg);
       }, error => {
         console.error(error, 'error');
@@ -211,13 +230,23 @@ export class TripPageComponent implements OnInit {
     }
   }
 
+  private fetchUpdatedNumberOfSeats(): void {
+    this.route.paramMap.subscribe(params => {
+      this.currentTripId = params.get('id');
+      this.tripService.getTripByTagId(this.currentTripId).subscribe((data: any) => {
+        if (data !== null && data !== undefined) {
+          this.seatsFreeNumberForInput = data.tripFreeSeats;
+          console.log(this.seatsFreeNumberForInput);
+        } else {
+          this.seatsFreeNumberForInput = null;
+          console.log(this.seatsFreeNumberForInput);
+        }
+      });
+    });
+  }
+
   // Fetch all trips for specific user
   public fetchTrip(): void {
-    /*this.route.data.subscribe(databaseId => console.log(databaseId));
-    this.route.queryParams.subscribe(params => {
-      this.selectedVehicleId2 = params['tripIdTag'];
-      console.log(params);
-    });*/
     this.route.paramMap.subscribe(params => {
       this.currentTripId = params.get('id');
       this.tripService.getTripByTagId(this.currentTripId).subscribe((data: any) => {
@@ -238,6 +267,9 @@ export class TripPageComponent implements OnInit {
           this.tripDateFormatted = new Date(this.tripDate);
           this.tripCreationDate = data.tripCreationDate;
           this.tripEditedDate = data.tripEditedDate;
+          this.tripDriverName = data.tripDriverName;
+          this.tripDriverEmail = data.tripDriverEmail;
+          this.tripPrice = data.tripPrice,
           this.tripComfortable = data.tripComfortable;
           this.tripStopsOnTheWayToFinalDestination = data.tripStopsOnTheWayToFinalDestination;
           this.tripMessage = data.tripMessage;
@@ -252,22 +284,15 @@ export class TripPageComponent implements OnInit {
           this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(this.seatsAvailableNumber);
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(this.seatsTakenNumber);
 
-          console.log(this.trip);
-          console.log(this.tripBelongsToUser);
-          console.log(this.currentUser.uid);
-
-          if (this.tripBelongsToUser === this.currentUser.uid) {
+          if (this.tripBelongsToUser === this.authService.userLocalStorage.uid) {
             this.isTripFromRightUser = true;
           } else {
             this.isTripFromRightUser = false;
           }
 
-          console.log(this.isTripFromRightUser);
-
           this.titleService.setTitle('Potovanje #' + this.tripIdTag + ': ' + this.tripFromLocationCity + ' - ' + this.tripToLocationCity);
           this.fetchVehicle(this.selectedVehicleId);
           this.checkIfTripIsActive();
-          this.setNewSeatsData();
 
         } else {
           this.trip = null;
@@ -346,8 +371,8 @@ export class TripPageComponent implements OnInit {
   }
 
   joinTripStart() {
+    this.seatsInputChange(1);
     this.stepper.next();
-    this.vehicleSeatsData.changeVehicleSeatsSeatsSelectedFromInput(this.seatsSelectedNumberFromInput);
   }
 
   joinTrip1() {
@@ -373,6 +398,7 @@ export class TripPageComponent implements OnInit {
     this.stepper.reset();
     this.seatsInputChange(0);
     this.numberPickerData.inputValueData.subscribe(inputData => this.inputSeatsValueOnReset = inputData);
+    this.fetchUpdatedNumberOfSeats();
   }
 
   goToFirstStepWithDelay() {
@@ -409,7 +435,7 @@ export class TripPageComponent implements OnInit {
 
     const tripId = this.trip.id;
     this.seatsTakenNumber = this.seatsTakenNumber + this.seatsSelectedNumberFromInput;
-    this.seatsFreeNumber = this.seatsFreeNumber - this.seatsSelectedNumberFromInput;
+    this.seatsFreeNumber = this.seatsAvailableNumber - this.seatsTakenNumber;
 
     this.tripPassengerService.addTripPassenger(
       belongsToUser,
@@ -425,13 +451,31 @@ export class TripPageComponent implements OnInit {
           tripPassengerEmail,
           tripPassengerName,
           tripPassengerPhone,
-          tripId,
+          this.tripDriverName,
+          this.tripDriverEmail,
+          this.tripId,
+          this.tripIdTag,
+          this.tripDate,
+          this.tripDateFormatted,
+          this.vehicle.vehicleBrand + '' + this.vehicle.vehicleName,
+          this.vehicle.vehicleColor,
+          this.tripPrice,
           tripPassengerSeatsReservation,
+          this.tripFromLocationCity,
+          this.tripToLocationCity,
           tripPassengerStartLocation,
           tripPassengerEndLocation
         );
+        this.fetchUpdatedNumberOfSeats();
       }
       );
+
+      /*
+      this.vehicle = selectedVehicleData;
+      this.selectedTypeData = selectedVehicleData.vehicleType;
+      this.selectedColorData = selectedVehicleData.vehicleColor;
+      this.selectedBrandData = selectedVehicleData.vehicleBrand;
+      this.selectedNameData = selectedVehicleData.vehicleName;*/
 
     this.tripService.updateSeatsOnTrip(
       tripId,

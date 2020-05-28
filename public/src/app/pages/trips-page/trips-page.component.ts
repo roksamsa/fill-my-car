@@ -4,6 +4,7 @@ import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/crea
 import { TripService } from '../../core/trip/trip.service';
 import { Trip } from '../../core/trip/trip.module';
 import { Title } from '@angular/platform-browser';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-trips-page',
@@ -15,13 +16,16 @@ export class TripsPageComponent implements OnInit {
   dialogResult = '';
   tileTitle = 'Moja potovanja';
   tileHeadlineAddButtonTooltipText = 'Dodaj novo potovanje';
-  currentUser = JSON.parse(localStorage.getItem('user'));
   trips: Trip[] = [];
   areThereAnyTrips = false;
+  public currentUser: any;
 
   constructor(public popupTrip: MatDialog,
+              public authService: FirebaseAuthService,
               private titleService: Title,
-              private tripService: TripService) { }
+              private tripService: TripService) {
+    this.currentUser = this.authService.currentUserData;
+  }
 
   ngOnInit() {
     this.fetchTrips();

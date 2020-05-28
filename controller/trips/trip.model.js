@@ -33,6 +33,12 @@ module.exports = (sequelize, Sequelize) => {
     tripTimeMinutes: {
       type: Sequelize.STRING
     },
+    tripDriverName: {
+      type: Sequelize.STRING
+    },
+    tripDriverEmail: {
+      type: Sequelize.STRING
+    },
     tripAvailableSeats: {
       type: Sequelize.INTEGER
     },

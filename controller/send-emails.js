@@ -160,33 +160,66 @@ router.post(sendEmailURI, (req, res) => {
 
   var mailOptions = {
     from: emailUser,
-    to: req.body.emailAddress,
-    cc: emailUser,
-    subject: 'Prijava na potovanje: ' + req.body.trip,
+    to: req.body.passengerEmailAddress,
+    cc: req.body.driverEmailAddress,
+    subject: 'Prijava na potovanje #' + req.body.tripIdTag + ' (' + req.body.startLocation + ' - ' + req.body.endLocation + ')',
     html:
       emailTemplateTop +
       `<!-- START MAIN CONTENT AREA -->
       <tr>
         <td class="wrapper" style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;">
           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+          <tr>
+            <td>
+              <img alt="Napolni moj avto" title="Napolni moj avto" src="https://napolnimojavto.si/napolni-moj-avto-logo.png" />
+            </td>
+          </tr>
             <tr>
               <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hi ${req.body.name},</p>
-                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
-                <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
+                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Pozdravljen/a popotnik/ca <b>${req.body.passengerName}</b>,</p>
+                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+                Prejeli smo vašo rezervacijo poti <b><a href="https://napolnimojavto.si/potovanje/${req.body.tripIdTag}">${req.body.tripIdTag}</a> (${req.body.startLocation} - ${req.body.endLocation})</b>, katero ste oddali na naši platformi <b><a href="https://napolnimojavto.si/potovanje/${req.body.tripIdTag}">Napolni moj avto</a></b>.</p>
+                <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
                   <tbody>
                     <tr>
                       <td align="left" style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;">
                         <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                           <tbody>
                             <tr>
-                              <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;"> <a href="http://htmlemail.io" target="_blank" style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Call To Action</a> </td>
+                              <td>${req.body.passengerName}</td>
                             </tr>
                             <tr>
-                              <td>${req.body.trip}</td>
+                              <td>${req.body.passengerPhone}</td>
                             </tr>
                             <tr>
-                              <td>${req.body.seats}</td>
+                              <td>${req.body.driverName}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.driverEmailAddress}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.tripId}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.tripIdTag}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.tripDate}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.tripTime}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.tripVehicle}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.tripVehicleColor}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.tripPrice}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.reservedSeatsNumber}</td>
                             </tr>
                             <tr>
                               <td>${req.body.startLocation}</td>
@@ -194,20 +227,53 @@ router.post(sendEmailURI, (req, res) => {
                             <tr>
                               <td>${req.body.endLocation}</td>
                             </tr>
+                            <tr>
+                              <td>${req.body.reservedStartLocation}</td>
+                            </tr>
+                            <tr>
+                              <td>${req.body.reservedEndLocation}</td>
+                            </tr>
+                            <tr>
+                              <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #D93362; border-radius: 30px; text-align: center;"> <a href="http://htmlemail.io" target="_blank" style="display: inline-block; color: #ffffff; background-color: #D93362; border: solid 1px #D93362; border-radius: 30px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #D93362;">Preklic rezervacije</a> </td>
+                            </tr>
                           </tbody>
                         </table>
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Good luck! Hope it works.</p>
+                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+                  Želimo ti prijetno pot,
+                </p>
+                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+                  tvoja ekipa Napolni moj avto.
+                </p>
               </td>
             </tr>
           </table>
         </td>
       </tr>` + emailTemplateBottom
   };
+
+  /*
+          tripPassengerEmail,
+          tripPassengerName,
+          tripPassengerPhone,
+          this.tripDriverName,
+          this.tripDriverEmail,
+          this.tripId,
+          this.tripIdTag,
+          this.tripDate,
+          this.tripDateFormatted,
+          this.vehicle.vehicleBrand + '' + this.vehicle.vehicleName,
+          this.vehicle.vehicleColor,
+          this.tripPrice,
+          tripPassengerSeatsReservation,
+          this.tripFromLocationCity,
+          this.tripToLocationCity,
+          tripPassengerStartLocation,
+          tripPassengerEndLocation
+  */
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {

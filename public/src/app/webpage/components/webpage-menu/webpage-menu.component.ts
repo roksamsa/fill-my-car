@@ -13,15 +13,18 @@ export class WebpageMenuComponent implements OnInit {
   private loginRegisterOverlayVisibility = false;
   public otherContentVisible = false;
   public preloadingSpinnerVisibility = true;
+  public userName = '';
 
   constructor(private webpageMenuData: WebpageMenuService,
               public constant: ConstantsService,
               public authService: FirebaseAuthService) {
+    console.log(this.userName);
     this.preloadingSpinnerVisibility = true;
     this.preloadingSpinnerShow();
   }
 
   ngOnInit() {
+    this.userName = this.authService.onlyName;
   }
 
   public openLoginRegisterOverlay(): void {

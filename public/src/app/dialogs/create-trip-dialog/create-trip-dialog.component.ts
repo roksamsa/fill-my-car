@@ -21,13 +21,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CreateTripDialogComponent implements OnInit {
 
+  public currentUser: any;
   public vehicle: Vehicle;
   selectedVehicleId = '';
 
   addTripFormStepperForm: FormGroup;
   vehicles: Vehicle[] = [];
   vehicleId: string;
-  currentUser = JSON.parse(localStorage.getItem('user'));
 
   // Trip ID generator
   tripIdTagCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -70,6 +70,9 @@ export class CreateTripDialogComponent implements OnInit {
   currentDate = this.constant.currentDate;
   currentDateString = '';
 
+  public tripDriverName = '';
+  public tripDriverEmail = '';
+
   // Seats
   vehicleSeatsAvailableValue = 0;
   seatsAvailableValue = 0;
@@ -111,6 +114,8 @@ export class CreateTripDialogComponent implements OnInit {
     public constant: ConstantsService,
     public thisDialogRef: MatDialogRef<CreateTripDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) {
+
+    this.currentUser = this.authService.currentUserData;
     this.addTripFormStepperForm = this.form.group({
       addTripFormStepperFormArray: this.form.array([
         this.form.group({
@@ -140,6 +145,8 @@ export class CreateTripDialogComponent implements OnInit {
       ])
     });
     this.currentDateString = this.datePipe.transform(this.currentDate, this.dateFormat, this.dateLocale);
+    this.tripDriverName = this.authService.onlyName;
+    this.tripDriverEmail = this.currentUser.providerData[0].email;
   }
 
   private snackBarStringForWhenTripIsCreated: string;
@@ -370,6 +377,8 @@ export class CreateTripDialogComponent implements OnInit {
     tripDate: Date,
     tripTimeHour: string,
     tripTimeMinutes: string,
+    tripDriverName: string,
+    tripDriverEmail: string,
     tripAvailableSeats: number,
     tripTakenSeats: number,
     tripFreeSeats: number,
@@ -395,6 +404,8 @@ export class CreateTripDialogComponent implements OnInit {
       tripDate,
       tripTimeHour,
       tripTimeMinutes,
+      tripDriverName,
+      tripDriverEmail,
       tripAvailableSeats,
       tripTakenSeats,
       tripFreeSeats,

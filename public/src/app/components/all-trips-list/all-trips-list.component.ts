@@ -1,15 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { TripService } from '../../core/trip/trip.service';
 import { Trip } from '../../core/trip/trip.module';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { trigger, style, animate, transition } from '@angular/animations';
-import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-trip-dialog.component';
-import { CreateTripDialogComponent } from '../../dialogs/create-trip-dialog/create-trip-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Subject } from 'rxjs';
 import { filter, debounceTime } from 'rxjs/operators';
 import { ConstantsService } from '../../common/services/constants.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-all-trips-list',
@@ -21,6 +19,7 @@ export class AllTripsListComponent implements OnInit, OnDestroy {
   public areThereAnyTrips = false;
   public trips: Trip[] = [];
   public vehicle: Vehicle;
+  public currentUser: any;
   preloadingSpinnerVisibility = true;
   vehicleSeatsAvailableNumber: number;
   selectedVehicleId = '';
@@ -33,7 +32,6 @@ export class AllTripsListComponent implements OnInit, OnDestroy {
 
   selectedTrip: any;
   selectedTripIndex = '';
-  currentUser = JSON.parse(localStorage.getItem('user'));
   dialogResult: '';
   tripFromLocationCity = '';
   moreActionVisible: any;
@@ -56,8 +54,10 @@ export class AllTripsListComponent implements OnInit, OnDestroy {
   constructor(
     private popupDialog: MatDialog,
     private constant: ConstantsService,
+    public authService: FirebaseAuthService,
     private vehicleService: VehicleService,
     private tripService: TripService) {
+      this.currentUser = this.authService.currentUserData;
       this._setSearchSubscription();
     }
 

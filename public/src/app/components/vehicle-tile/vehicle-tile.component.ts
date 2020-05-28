@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { UserMenuService } from '../user-menu/user-menu.service';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-vehicle-tile',
@@ -9,8 +10,8 @@ import { UserMenuService } from '../user-menu/user-menu.service';
 })
 export class VehicleTileComponent implements OnInit {
 
+  public currentUser: any;
   vehicles: Vehicle[] = [];
-  currentUser = JSON.parse(localStorage.getItem('user'));
   darkModeActivated: boolean;
 
   @Input() vehicleTextVisible = true;
@@ -20,7 +21,10 @@ export class VehicleTileComponent implements OnInit {
   public _vehicleType = '';
   public _vehicleColor = '';
 
-  constructor(private userMenuDarkThemeData: UserMenuService) {}
+  constructor(private userMenuDarkThemeData: UserMenuService,
+              public authService: FirebaseAuthService) {
+    this.currentUser = this.authService.currentUserData;
+  }
 
   ngOnInit() {
     this.userMenuDarkThemeData.currentUserMenuThemeModeState.subscribe(clickActiveState => this.darkModeActivated = clickActiveState);

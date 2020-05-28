@@ -15,21 +15,41 @@ export class SendEmailService {
               private constant: ConstantsService) { }
 
   sendEmail(
-    emailAddress: string,
-    name: string,
-    phone: string,
-    trip: string,
-    seats: number,
+    passengerEmailAddress: string,
+    passengerName: string,
+    passengerPhone: string,
+    driverName: string,
+    driverEmailAddress: string,
+    tripId: string,
+    tripIdTag: string,
+    tripDate: string,
+    tripTime: string,
+    tripVehicle: string,
+    tripVehicleColor: string,
+    tripPrice: string,
+    reservedSeatsNumber: number,
     startLocation: string,
-    endLocation: string): Observable<EmailInfo> {
+    endLocation: string,
+    reservedStartLocation: string,
+    reservedEndLocation: string): Observable<EmailInfo> {
     const email = {
-      emailAddress: emailAddress,
-      name: name,
-      phone: phone,
-      trip: trip,
-      seats: seats,
+      passengerEmailAddress: passengerEmailAddress,
+      passengerName: passengerName,
+      passengerPhone: passengerPhone,
+      driverName: driverName,
+      driverEmailAddress: driverEmailAddress,
+      tripId: tripId,
+      tripIdTag: tripIdTag,
+      tripDate: tripDate,
+      tripTime: tripTime,
+      tripVehicle: tripVehicle,
+      tripVehicleColor: tripVehicleColor,
+      tripPrice: tripPrice,
+      reservedSeatsNumber: reservedSeatsNumber,
       startLocation: startLocation,
-      endLocation: endLocation
+      endLocation: endLocation,
+      reservedStartLocation: reservedStartLocation,
+      reservedEndLocation: reservedEndLocation
     };
     return this.http.post<EmailInfo>(this.uriSendEmail, email);
   }

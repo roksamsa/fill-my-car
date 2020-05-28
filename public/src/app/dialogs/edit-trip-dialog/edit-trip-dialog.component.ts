@@ -26,9 +26,9 @@ import { Title } from '@angular/platform-browser';
 
 export class EditTripDialogComponent implements OnInit, AfterViewInit {
 
+  public currentUser: any;
   addTripFormStepperForm: FormGroup;
   vehicles: Vehicle[] = [];
-  currentUser = JSON.parse(localStorage.getItem('user'));
   tripIdTagCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   tripIdTagCharactersLength = this.tripIdTagCharacters.length;
   tripIdTagMaxLength = 7;
@@ -67,6 +67,10 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
   public isTripPetsAreAllowedChecked = false;
   public isTripPassengersCanSmokeChecked = false;
   public isTripQuietChecked = false;
+
+  public currentUserFromService: any;
+  public tripDriverName = '';
+  public tripDriverEmail = '';
 
   // Seats
   vehicleSeatsAvailableValue = 0;
@@ -126,6 +130,8 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     public thisDialogRef: MatDialogRef<EditTripDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) {
 
+    this.currentUser = this.authService.currentUserData;
+
     if (this.currentTripId === '') {
       this.currentTripId = this.createTripIdTag();
     } else {
@@ -162,6 +168,9 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     ' - ' + this.hereMapFinishEditValue);
 
     this.snackBarStringForWhenEditIsOver = 'Uredili ste potovanje: ' + selectedTripData.tripIdTag + '.';
+    this.currentUserFromService = this.authService.getUserData;
+    this.tripDriverName = this.currentUser.displayName;
+    this.tripDriverEmail = this.currentUser.providerData[0].email;
   }
 
   private readonly snackBarStringForWhenEditIsOver: string;
@@ -458,6 +467,8 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     tripDate: Date,
     tripTimeHour: string,
     tripTimeMinutes: string,
+    tripDriverName: string,
+    tripDriverEmail: string,
     tripAvailableSeats: number,
     tripTakenSeats: number,
     tripFreeSeats: number,
@@ -483,6 +494,8 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
       tripDate,
       tripTimeHour,
       tripTimeMinutes,
+      tripDriverName,
+      tripDriverEmail,
       tripAvailableSeats,
       tripTakenSeats,
       tripFreeSeats,

@@ -58,6 +58,10 @@
         &::before {
           animation: status-grow 3s forwards infinite;
         }
+
+        &::after {
+          background-color: #8BCF47;
+        }
       }
     }
   }
@@ -88,7 +92,7 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background-color: #8BCF47;
+      background-color: #cccccc;
       border: 2px solid $color__blue--primary;
       box-sizing: border-box;
     }
@@ -233,10 +237,33 @@
     flex-grow: 1;
   }
 
+  &__driver {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    margin-left: 30px;
+  }
+
+  &__driver-icon {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__driver-name {
+    font-size: 24px;
+  }
+
   &__vehicle-seats {
     display: flex;
     align-items: center;
-    margin-left: 50px;
+    justify-content: center;
+    margin-bottom: 30px;
   }
 
   &__other-info {

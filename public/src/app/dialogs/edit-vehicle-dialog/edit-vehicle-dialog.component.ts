@@ -44,9 +44,9 @@ export const headerFadeInAnimationTiming = '400ms';
 })
 export class EditVehicleDialogComponent implements OnInit {
 
+  public currentUser: any;
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
-  currentUser = JSON.parse(localStorage.getItem('user'));
 
   isDialogOpen = false;
   selectedTypeData = '';
@@ -74,6 +74,7 @@ export class EditVehicleDialogComponent implements OnInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     public thisDialogRef: MatDialogRef<EditVehicleDialogComponent>) {
+    this.currentUser = this.authService.currentUserData;
     this.createForm = this.fb.group({
       belongsToUser: selectedVehicleData.belongsToUser,
       vehicleType: [selectedVehicleData.vehicleType, Validators.required],

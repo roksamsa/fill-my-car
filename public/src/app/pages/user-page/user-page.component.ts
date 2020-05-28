@@ -9,10 +9,12 @@ import { Title } from '@angular/platform-browser';;
 })
 export class UserPageComponent implements OnInit {
 
-  private currentUser = JSON.parse(localStorage.getItem('user'));
+  public currentUser: any;
 
   constructor(public authService: FirebaseAuthService,
-              private titleService: Title) { }
+              private titleService: Title) {
+    this.currentUser = this.authService.currentUserData;
+  }
 
   ngOnInit() {
     this.titleService.setTitle(this.currentUser.displayName);

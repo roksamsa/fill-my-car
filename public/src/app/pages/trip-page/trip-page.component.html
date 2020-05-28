@@ -13,7 +13,11 @@
             </svg>
           </app-button-icon>
           <div *ngIf="trip?.tripIdTag" class="trip__id-tag">Potovanje <span class="trip__id-tag-string">#{{ trip?.tripIdTag }}</span></div>
-          <div *ngIf="trip?.tripIdTag" class="trip__status" matTooltip="{{ statusIconTooltip }}" matTooltipPosition="right" [ngClass]="{'trip__status--active': isTripActive}">
+          <div *ngIf="trip?.tripIdTag"
+                class="trip__status"
+                matTooltip="{{ statusIconTooltip }}"
+                matTooltipPosition="right"
+                [ngClass]="{'trip__status--active': isTripActive}">
             <div class="trip__status-icon"></div>
           </div>
         </div>
@@ -94,9 +98,17 @@
                                 [vehicleName]="selectedNameData"
                                 [vehicleTextVisible]="true"></app-vehicle-tile>
             </div>
-            <div *ngIf="seatsAvailableNumber" class="trip__vehicle-seats">
-              <app-vehicle-seats></app-vehicle-seats>
+            <div class="trip__driver">
+            <div class="trip__driver-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="34" viewBox="0 0 32 34"><g transform="translate(-8303 -5927)"><g transform="translate(8303 5929)" opacity="0.31"><path d="M16,0A16,16,0,1,0,32,16,16,16,0,0,0,16,0Zm0,4a11.649,11.649,0,0,1,11,8H5A11.649,11.649,0,0,1,16,4Zm0,14a2,2,0,1,1,2-2A2,2,0,0,1,16,18ZM4,16c5.465,0,9.907,5.469,10,12A12.227,12.227,0,0,1,4,16ZM18,28c.093-6.531,4.535-12,10-12A12.227,12.227,0,0,1,18,28Z" fill="#394c5f"/></g><g transform="translate(8303 5927)"><path d="M16,0A16,16,0,1,0,32,16,16,16,0,0,0,16,0Zm0,4a11.649,11.649,0,0,1,11,8H5A11.649,11.649,0,0,1,16,4ZM4,16c5.465,0,9.907,5.469,10,12A12.227,12.227,0,0,1,4,16ZM18,28c.093-6.531,4.535-12,10-12A12.227,12.227,0,0,1,18,28Z" fill="#242b61"/></g><circle cx="2" cy="2" r="2" transform="translate(8317 5942)" fill="#000427"/></g></svg>
             </div>
+            <div class="trip__driver-name">
+              {{ tripDriverName }}
+            </div>
+            </div>
+          </div>
+          <div *ngIf="seatsAvailableNumber" class="trip__vehicle-seats">
+            <app-vehicle-seats [ngClass]="{'vehicle-seats--center': seatsAvailableNumber == seatsTakenNumber}"></app-vehicle-seats>
           </div>
           <div *ngIf="tripMessage || tripCreationDate" class="trip__other-info">
             <div *ngIf="tripMessage" class="trip__message">
@@ -308,7 +320,7 @@
                   class="button button--primary"
                   [disabled]="!socialUser && !form.valid"
                   (click)="joinTripSave(
-                    currentUser.uid,
+                    authService.userLocalStorage.uid,
                     trip?.selectedVehicle,
                     tripId,
                     seatsSelectedNumberFromInput,

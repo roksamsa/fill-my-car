@@ -44,10 +44,11 @@ export const headerFadeInAnimationTiming = '400ms';
   ]
 })
 export class CreateVehicleDialogComponent implements AfterViewInit, OnInit {
+
+  public currentUser: any;
   isDialogOpen = false;
   createForm: FormGroup;
   vehicles: Vehicle[] = [];
-  currentUser = JSON.parse(localStorage.getItem('user'));
   preloadingSpinnerVisibility = true;
   selectedTypeData = 'car';
   selectedColorData = 'white';
@@ -71,6 +72,7 @@ export class CreateVehicleDialogComponent implements AfterViewInit, OnInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     public thisDialogRef: MatDialogRef<CreateVehicleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
+    this.currentUser = this.authService.currentUserData;
     this.createForm = this.fb.group({
       belongsToUser: '',
       vehicleType: [this.selectedTypeData, Validators.required],

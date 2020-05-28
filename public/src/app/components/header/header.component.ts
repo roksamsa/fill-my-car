@@ -48,6 +48,7 @@ export class HeaderComponent implements OnInit {
   public createButtonTooltipText = 'Dodaj novo vozilo ali potovanje';
 
   public userData: any;
+  public userDataOnlyName: string;
 
   constructor(
     private headerData: HeaderService,
@@ -58,6 +59,7 @@ export class HeaderComponent implements OnInit {
     public constant: ConstantsService,
     public router: Router,
     public ngZone: NgZone) {
+      this.userDataOnlyName = this.authService.onlyName;
     }
 
   public ngOnInit(): void {

@@ -13,14 +13,12 @@ import { switchMap } from 'rxjs/operators';
 
 export class FirebaseAuthService {
 
-  static SetUserData: any;
-  public userData: any; // Save logged in user data
   public currentUserData: any;
   public isUserLoggedIn: boolean;
+  public userLocalStorage = JSON.parse(localStorage.getItem('user'));
+  public onlyName: string;
 
-  private userLocalStorage = JSON.parse(localStorage.getItem('user'));
-
-  user$: Observable<FirebaseUserModel>;
+  public user$: Observable<FirebaseUserModel>;
 
   constructor(
     public firestore: AngularFirestore,   // Inject Firestore service
@@ -37,12 +35,16 @@ export class FirebaseAuthService {
           localStorage.setItem('user', JSON.stringify(user));
           JSON.parse(localStorage.getItem('user'));
           this.isUserLoggedIn = true;
+          this.currentUserData = JSON.parse(localStorage.getItem('user'));
+          this.onlyName = this.getShortName(user.displayName);
           return this.firestore.doc<FirebaseUserModel>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
           localStorage.setItem('user', null);
           JSON.parse(localStorage.getItem('user'));
           this.isUserLoggedIn = false;
+          this.currentUserData = null;
+          this.onlyName = null;
           return of(null);
         }
       })
@@ -59,6 +61,10 @@ export class FirebaseAuthService {
         JSON.parse(localStorage.getItem('user'));
       }
     });*/
+  }
+
+  private getShortName(fullName: string) {
+    return fullName.split(' ').slice(0, -1).join(' ');
   }
 
   // Sign in with email/password
@@ -88,9 +94,7 @@ export class FirebaseAuthService {
 
   // Returns true when user is logged in and email is verified
   public get isLoggedIn(): boolean {
-    console.log(this.userLocalStorage);
     return this.userLocalStorage !== null ? true : false;
-    // return (this.userLocalStorage !== null WW user.emailVerified !== false) ? true : false;
   }
 
   // Returns true when user is logged in and email is verified
@@ -182,6 +186,9 @@ export class FirebaseAuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
     };
+
+    console.log('userData');
+    console.log(userData);
 
     return userRef.set(userData, {
       merge: true
