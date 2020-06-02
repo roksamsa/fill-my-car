@@ -8,4 +8,5 @@ export interface TripPassenger {
   tripPassengerName: string;
   tripPassengerEmail: string;
   tripPassengerPhone: string;
+  tripPassengerCancelTripHash: string;
 }

@@ -7,7 +7,7 @@ const tripURI = '/trip';
 
 // Get all trips list
 router.get(tripsURI, function (req, res) {
-  Trip.findAll().then(trips => {
+  Trip.findAll({ order: [['tripDate', 'ASC']] }).then(trips => {
     // Send All Vehicles to Client
     res.json(trips);
   }).catch(error => {

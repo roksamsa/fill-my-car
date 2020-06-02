@@ -1,0 +1,59 @@
+<div class="popup__header">
+  <h2 class="popup__headline">Preklic rezervacije na poti<span class="popup__headline-trip-id">
+      #{{ selectedTripData.trip.tripIdTag }}</span></h2>
+  <app-button-icon class="popup__close" [buttonTooltipText]="'Zapri'" [buttonTooltipPosition]="'left'"
+    (clicked)="onCloseCancel()">
+    <svg class="popup__close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+      <path d="M0 0h24v24H0z" fill="none" />
+    </svg>
+  </app-button-icon>
+</div>
+
+<div class="popup__content">
+  <mat-dialog-content class="popup__trip">
+    <p>Ali ste prepričani, da želite preklicati rezervacijo na poti #{{ selectedTripData.trip.tripIdTag }}?</p>
+    <div class="popup__trip-data">
+      <div class="popup__trip-data-row">
+        <div class="popup__trip-data-text">{{ selectedTripData.trip.tripFromLocation }}</div>
+        <div class="popup__trip-data-arrow">
+          <svg class="popup__trip-data-arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z" /></svg>
+        </div>
+        <div class="popup__trip-data-text">{{ selectedTripData.trip.tripToLocation }}</div>
+      </div>
+      <div class="popup__trip-data-row">
+        <div class="popup__trip-data-icon">
+          <svg class="trip__info-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+          </svg>
+        </div>
+        <div class="popup__trip-data-text popup__trip-data-text--margin-right">{{ selectedTripData.trip.tripDate | date: dateFormatWithoutTime }}</div>
+        <div class="popup__trip-data-icon">
+          <svg class="trip__info-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" /></svg>
+        </div>
+        <div class="popup__trip-data-text popup__trip-data-text--margin-right">{{ selectedTripData.trip.tripTimeHour }} : {{ selectedTripData.trip.tripTimeMinutes }}</div>
+        <div class="popup__trip-data-icon">
+          <svg class="trip__svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+          </svg>
+        </div>
+        <div class="popup__trip-data-text">{{ tripPassengerSeatsReservation }}</div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>
+<mat-dialog-actions>
+  <button mat-raised-button class="button button--default" (click)="onCloseCancel()">Zapri</button>
+  <button mat-raised-button class="button button--primary" (click)="updateTripWithNewSeatsReservation()">Preklic
+    rezervacije</button>
+</mat-dialog-actions>

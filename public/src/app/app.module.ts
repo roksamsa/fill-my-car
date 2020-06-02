@@ -25,12 +25,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VehicleService } from './core/vehicle/vehicle.service';
-import { VehicleSeatsService } from '../app/components/vehicle-seats/vehicle-seats.service';
 import { NumberPickerService } from '../app/components/number-picker/number-picker.service';
 import { HeaderService } from '../app/components/header/header.service';
 import { LoginService } from '../app/components/login/login.service';
-import { VehicleTileService } from '../app/components/vehicle-tile/vehicle-tile.service';
+import { VehicleService } from './core/vehicle/vehicle.service';
+import { VehicleSeatsService } from './components/vehicle/vehicle-seats/vehicle-seats.service';
+import { VehicleTileService } from './components/vehicle/vehicle-tile/vehicle-tile.service';
+import { VehicleListComponent } from './components/vehicle/vehicle-list/vehicle-list.component';
+import { VehicleTileComponent } from './components/vehicle/vehicle-tile/vehicle-tile.component';
+import { VehicleSeatsComponent } from './components/vehicle/vehicle-seats/vehicle-seats.component';
 import { UserMenuService } from '../app/components/user-menu/user-menu.service';
 import { WebpageMenuService } from '../app/webpage/components/webpage-menu/webpage-menu.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -55,17 +58,14 @@ import { environment } from '../environments/environment';
 import { VehiclesPageComponent } from './pages/vehicles-page/vehicles-page.component';
 import { TripsPageComponent } from './pages/trips-page/trips-page.component';
 import { TripPageComponent } from './pages/trip-page/trip-page.component';
-import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { AuthGuard } from './core/auth/auth.guard';
-import { SecureInnerPagesGuard } from './core/auth/secure-inner-pages.guard';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { TileTitleTopComponent } from './components/tile-title-top/tile-title-top.component';
-import { VehicleTileComponent } from './components/vehicle-tile/vehicle-tile.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { ClickOutsideDirective } from './core/other/click-outside.directive';
 import { CopyClipboardModule } from './core/other/copy-clipboard.module';
 import { AppLongPressDirective } from './core/other/long-press.directive';
-import { TripsListComponent } from './components/trips-list/trips-list.component';
+import { TripsListComponent } from './components/trip/trips-list/trips-list.component';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
 import { HereMapsComponent } from './components/here-maps/here-maps.component';
 import { PreloadingSpinnerComponent } from './components/preloading-spinner/preloading-spinner.component';
@@ -73,7 +73,6 @@ import { NumberPickerComponent } from './components/number-picker/number-picker.
 import { InfoBoxComponent } from './components/info-box/info-box.component';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { registerLocaleData, DatePipe } from '@angular/common';
-import { VehicleSeatsComponent } from './components/vehicle-seats/vehicle-seats.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { WithoutHeaderFooterLayoutComponent } from './layouts/without-header-footer-layout/without-header-footer-layout.component';
 import { LoginRegisterContentComponent } from './components/login-register-content/login-register-content.component';
@@ -101,14 +100,32 @@ import {
   NativeDateModule } from '@angular/material/core';
 import { ButtonIconComponent } from './style/button-icon/button-icon.component';
 import { ShareMyTripDialogComponent } from './dialogs/share-my-trip-dialog/share-my-trip-dialog.component';
-import { AllTripsListComponent } from './components/all-trips-list/all-trips-list.component';
+import { AllTripsListComponent } from './components/trip/all-trips-list/all-trips-list.component';
 import { IzjavaOZasebnostiComponent } from './webpage/izjava-o-zasebnosti/izjava-o-zasebnosti.component';
 import { InformacijeOStraniComponent } from './webpage/informacije-o-strani/informacije-o-strani.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { StranNiNajdenaComponent } from './webpage/stran-ni-najdena/stran-ni-najdena.component';
+import { VsePotiComponent } from './webpage/vse-poti/vse-poti.component';
+import { VanComponent } from './webpage/components/van/van.component';
+import { AllTripsPageComponent } from './pages/all-trips-page/all-trips-page.component';
+import { CancelTripReservationComponent } from './dialogs/cancel-trip-reservation/cancel-trip-reservation.component';
 
 registerLocaleData(localeSl);
 
 const routes: Routes = [
+  { path: 'uporabnik/:user',
+    component: DefaultLayoutComponent,
+    children: [{
+      path: '',
+      component: UserPageComponent
+    }],
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
+  },
+  { path: 'uporabnik/',
+    redirectTo: 'uporabnik/:user',
+    canActivate: [AuthGuard]
+  },
   { path: 'pregled',
     component: DefaultLayoutComponent,
     children: [{
@@ -116,15 +133,6 @@ const routes: Routes = [
       component: DashboardPageComponent
     }], canActivate: [AuthGuard]
   },
-
-  { path: 'prijava-registracija',
-    component: WithoutHeaderFooterLayoutComponent,
-    children: [{
-      path: '',
-      component: LoginRegisterComponent
-    }], canActivate: [SecureInnerPagesGuard]
-  },
-
   { path: 'moja-vozila',
     component: DefaultLayoutComponent,
     children: [{
@@ -132,7 +140,6 @@ const routes: Routes = [
       component: VehiclesPageComponent
     }], canActivate: [AuthGuard]
   },
-
   { path: 'moja-potovanja',
     component: DefaultLayoutComponent,
     children: [{
@@ -140,7 +147,6 @@ const routes: Routes = [
       component: TripsPageComponent
     }], canActivate: [AuthGuard]
   },
-
   { path: 'potovanje/:id',
     component: DefaultLayoutComponent,
     children: [{
@@ -148,15 +154,27 @@ const routes: Routes = [
       component: TripPageComponent
     }], pathMatch: 'full'
   },
-
-  { path: 'uporabnik/:id',
+  { path: 'potovanje/:id/odjava/:hash',
     component: DefaultLayoutComponent,
     children: [{
       path: '',
-      component: UserPageComponent
-    }], pathMatch: 'full', canActivate: [AuthGuard]
+      component: TripPageComponent
+    }], pathMatch: 'full'
   },
-
+  { path: 'potovanja',
+    component: WithoutHeaderFooterLayoutComponent,
+    children: [{
+      path: '',
+      component: VsePotiComponent
+    }]
+  },
+  { path: 'vsa-potovanja',
+    component: DefaultLayoutComponent,
+    children: [{
+      path: '',
+      component: AllTripsPageComponent
+    }], canActivate: [AuthGuard]
+  },
   { path: 'dodajanje-novega-vozila',
     component: DefaultLayoutComponent,
     children: [{
@@ -164,12 +182,10 @@ const routes: Routes = [
       component: CreateVehicleDialogComponent
     }], canActivate: [AuthGuard]
   },
-
   { path: 'dialog/deli-potovanje',
     outlet: 'dialog',
     component: ShareMyTripDialogComponent
   },
-
   { path: 'izjava-o-zasebnosti',
     component: WithoutHeaderFooterLayoutComponent,
     children: [{
@@ -177,7 +193,6 @@ const routes: Routes = [
       component: IzjavaOZasebnostiComponent
     }]
   },
-
   { path: 'informacije-o-strani',
     component: WithoutHeaderFooterLayoutComponent,
     children: [{
@@ -185,7 +200,6 @@ const routes: Routes = [
       component: InformacijeOStraniComponent
     }]
   },
-
   { path: '',
     component: WithoutHeaderFooterLayoutComponent,
     children: [{
@@ -193,9 +207,14 @@ const routes: Routes = [
       component: HomeComponent
     }]
   },
-
-  { path: '**',
-    component: HomeComponent
+  {
+    path: '**',
+    pathMatch   : 'full',
+    component: WithoutHeaderFooterLayoutComponent,
+    children: [{
+      path: '',
+      component: StranNiNajdenaComponent
+    }]
   }
 ];
 
@@ -278,7 +297,12 @@ export function provideConfig() {
     AllTripsListComponent,
     IzjavaOZasebnostiComponent,
     InformacijeOStraniComponent,
-    DialogComponent
+    DialogComponent,
+    StranNiNajdenaComponent,
+    VsePotiComponent,
+    VanComponent,
+    AllTripsPageComponent,
+    CancelTripReservationComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

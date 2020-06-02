@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WebpageMenuService } from '../components/webpage-menu/webpage-menu.service';
 import { trigger, query, style, group, animate, transition, state } from '@angular/animations';
+import { FirebaseAuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -130,7 +131,8 @@ export class HomeComponent implements OnInit {
   public loginRegisterOverlayVisible = false;
   public vanAnimationState = false;
 
-  constructor(private webpageMenuData: WebpageMenuService) { }
+  constructor(private webpageMenuData: WebpageMenuService,
+              public authService: FirebaseAuthService) { }
 
   public ngOnInit(): void {
     this.webpageMenuData.currentLoginRegisterOverlayVisibilityState.subscribe(

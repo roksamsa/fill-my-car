@@ -13,9 +13,10 @@
         <ng-container *ngFor="let vehicle of vehicles; let i = index; trackBy: trackByFn">
           <app-vehicle-tile *ngIf="i < 6"
                             @vehicleFadeIn
+                            class="vehicle-tile--dashboard"
                             [id]="'vehicleID_' + i"
                             [ngClass]="{'selected': selectedVehicle === vehicle}"
-                            [vehicleID]="vehicle.vehicleId"
+                            [vehicleID]="vehicle.id"
                             [vehicleBrand]="vehicle.vehicleBrand"
                             [vehicleName]="vehicle.vehicleName"
                             [vehicleType]="vehicle.vehicleType"

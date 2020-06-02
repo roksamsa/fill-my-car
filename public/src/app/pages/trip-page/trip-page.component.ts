@@ -1,10 +1,10 @@
+import { CancelTripReservationComponent } from './../../dialogs/cancel-trip-reservation/cancel-trip-reservation.component';
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { Location, DatePipe } from '@angular/common';
 import { TripService } from '../../core/trip/trip.service';
 import { FirebaseAuthService } from '../../core/auth/auth.service';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
 import { TripPassengerService } from '../../core/trip-passenger/trip-passenger.service';
-import { UserService } from '../../core/user/user.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { Trip } from '../../core/trip/trip.module';
 import { ActivatedRoute } from '@angular/router';
@@ -14,8 +14,8 @@ import { EditTripDialogComponent } from '../../dialogs/edit-trip-dialog/edit-tri
 import { ShareMyTripDialogComponent } from '../../dialogs/share-my-trip-dialog/share-my-trip-dialog.component';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from "angularx-social-login";
-import { VehicleSeatsService } from '../../components/vehicle-seats/vehicle-seats.service';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { VehicleSeatsService } from '../../components/vehicle/vehicle-seats/vehicle-seats.service';
 import { ConstantsService } from '../../common/services/constants.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -57,6 +57,11 @@ export class TripPageComponent implements OnInit {
   public tripId: string;
 
   private inputSeatsValueOnReset = 0;
+  private randomHashNumber = '';
+  private passengerHashNumberFromRouterLink = '';
+  private passengerHashNumberFromDatabase = '';
+
+  private tripPassengerData = null;
 
   preloadingSpinnerVisibility = true;
 
@@ -120,8 +125,7 @@ export class TripPageComponent implements OnInit {
     private authSocialService: AuthService,
     private sendEmailService: SendEmailService,
     public numberPickerData: NumberPickerService,
-    public vehicleSeatsData: VehicleSeatsService,
-    private cdref: ChangeDetectorRef) {
+    public vehicleSeatsData: VehicleSeatsService) {
     this.addTripFormStepperForm = this.form.group({
       addTripFormStepperFormArray: this.form.array([
         this.form.group({
@@ -149,9 +153,54 @@ export class TripPageComponent implements OnInit {
 
   public ngOnInit(): void {
     this.fetchTrip();
+    this.fetchPassengerHashForCancelTrip();
   }
 
-  sendMail(
+  sendEmailToPassenger(
+    passengerEmailAddress: string,
+    passengerName: string,
+    passengerPhone: string,
+    passengerCancelTripHash: string,
+    driverName: string,
+    driverEmailAddress: string,
+    tripId: string,
+    tripIdTag: string,
+    tripDate: string,
+    tripVehicle: string,
+    tripVehicleColor: string,
+    tripPrice: string,
+    reservedSeatsNumber: number,
+    startLocation: string,
+    endLocation: string,
+    reservedStartLocation: string,
+    reservedEndLocation: string) {
+    this.subscription = this.sendEmailService.sendEmailToPassengerWhenJoinsTrip(
+      passengerEmailAddress,
+      passengerName,
+      passengerPhone,
+      passengerCancelTripHash,
+      driverName,
+      driverEmailAddress,
+      tripId,
+      tripIdTag,
+      tripDate,
+      tripVehicle,
+      tripVehicleColor,
+      tripPrice,
+      reservedSeatsNumber,
+      startLocation,
+      endLocation,
+      reservedStartLocation,
+      reservedEndLocation).
+      subscribe(data => {
+        const msg = data['message'];
+        console.log(msg);
+      }, error => {
+        console.error(error, 'error');
+      });
+  }
+
+  sendEmailToDriver(
     passengerEmailAddress: string,
     passengerName: string,
     passengerPhone: string,
@@ -168,7 +217,7 @@ export class TripPageComponent implements OnInit {
     endLocation: string,
     reservedStartLocation: string,
     reservedEndLocation: string) {
-    this.subscription = this.sendEmailService.sendEmail(
+    this.subscription = this.sendEmailService.sendEmailToDriverWhenJoinsTrip(
       passengerEmailAddress,
       passengerName,
       passengerPhone,
@@ -187,7 +236,7 @@ export class TripPageComponent implements OnInit {
       reservedEndLocation).
       subscribe(data => {
         const msg = data['message'];
-        alert(msg);
+        console.log(msg);
       }, error => {
         console.error(error, 'error');
       });
@@ -235,16 +284,14 @@ export class TripPageComponent implements OnInit {
       this.tripService.getTripByTagId(this.currentTripId).subscribe((data: any) => {
         if (data !== null && data !== undefined) {
           this.seatsFreeNumberForInput = data.tripFreeSeats;
-          console.log(this.seatsFreeNumberForInput);
         } else {
           this.seatsFreeNumberForInput = null;
-          console.log(this.seatsFreeNumberForInput);
         }
       });
     });
   }
 
-  // Fetch all trips for specific user
+  // Fetch all data for specific trip
   public fetchTrip(): void {
     this.route.paramMap.subscribe(params => {
       this.currentTripId = params.get('id');
@@ -269,7 +316,7 @@ export class TripPageComponent implements OnInit {
           this.tripDriverName = data.tripDriverName;
           this.tripDriverEmail = data.tripDriverEmail;
           this.tripPrice = data.tripPrice,
-          this.tripComfortable = data.tripComfortable;
+            this.tripComfortable = data.tripComfortable;
           this.tripStopsOnTheWayToFinalDestination = data.tripStopsOnTheWayToFinalDestination;
           this.tripMessage = data.tripMessage;
           this.tripPetsAreAllowed = data.tripPetsAreAllowed;
@@ -352,6 +399,24 @@ export class TripPageComponent implements OnInit {
     });
   }
 
+  // Share my trip dialog popup
+  public openCancelTripReservationDialog(trip: any, passengerHash: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = true;
+    dialogConfig.width = '600px';
+    dialogConfig.data = {trip, passengerHash};
+
+    const dialogRef = this.popupDialog.open(CancelTripReservationComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogResult = result;
+      console.log(this.passengerHashNumberFromRouterLink);
+      this.fetchTrip();
+    });
+  }
+
   // Delete specific trip
   public deleteTrip(id: any) {
     this.tripService.deleteTrip(id)
@@ -414,10 +479,35 @@ export class TripPageComponent implements OnInit {
 
       this.vehicleSeatsData.vehicleSeatsAvailableOnVehicleNumberData.subscribe((availableNumber) => {
         this.seatsFreeNumber = availableNumber;
-
-        //this.seatsFreeNumber = this.seatsAvailableNumber - this.seatsTakenNumber;
       });
     });
+  }
+
+  // Fetch all trips for specific user
+  private fetchPassengerHashForCancelTrip(): void {
+    this.route.paramMap.subscribe(params => {
+      if (params != null) {
+        this.passengerHashNumberFromRouterLink = params.get('hash');
+        this.tripPassengerService.getTripPassengerByHash(this.passengerHashNumberFromRouterLink).subscribe(data => {
+          this.tripPassengerData = data;
+
+          if (this.passengerHashNumberFromRouterLink === this.tripPassengerData.tripPassengerCancelTripHash) {
+            this.openCancelTripReservationDialog(this.trip, this.passengerHashNumberFromRouterLink);
+          }
+        });
+      }
+    });
+  }
+
+  // Generate random hash for passenger
+  private createPassengerHashForCancelTrip() {
+    const randomHashNumberCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const randomHashNumberMaxLength = 100;
+    const randomHashNumberCharactersLength = randomHashNumberCharacters.length;
+
+    for (let i = 0; i < randomHashNumberMaxLength; i++) {
+      this.randomHashNumber += randomHashNumberCharacters.charAt(Math.floor(Math.random() * randomHashNumberCharactersLength));
+    }
   }
 
   // Add vehicle on popup close
@@ -432,6 +522,8 @@ export class TripPageComponent implements OnInit {
     tripPassengerEmail: string,
     tripPassengerPhone: string) {
 
+    this.createPassengerHashForCancelTrip();
+
     const tripId = this.trip.id;
     this.seatsTakenNumber = this.seatsTakenNumber + this.seatsSelectedNumberFromInput;
     this.seatsFreeNumber = this.seatsAvailableNumber - this.seatsTakenNumber;
@@ -445,8 +537,28 @@ export class TripPageComponent implements OnInit {
       tripPassengerEndLocation,
       tripPassengerName,
       tripPassengerEmail,
-      tripPassengerPhone).subscribe(() => {
-        this.sendMail(
+      tripPassengerPhone,
+      this.randomHashNumber).subscribe(() => {
+        this.sendEmailToPassenger(
+          tripPassengerEmail,
+          tripPassengerName,
+          tripPassengerPhone,
+          this.randomHashNumber,
+          this.tripDriverName,
+          this.tripDriverEmail,
+          this.tripId,
+          this.tripIdTag,
+          this.datePipe.transform(this.tripDateFormatted, 'dd. MMMM yyyy, HH:mm'),
+          this.vehicle.vehicleBrand + ' ' + this.vehicle.vehicleName + ' (' + this.selectedTypeData + ')',
+          this.selectedColorData,
+          this.tripPrice,
+          tripPassengerSeatsReservation,
+          this.tripFromLocationCity,
+          this.tripToLocationCity,
+          tripPassengerStartLocation,
+          tripPassengerEndLocation
+        );
+        this.sendEmailToDriver(
           tripPassengerEmail,
           tripPassengerName,
           tripPassengerPhone,
@@ -454,7 +566,7 @@ export class TripPageComponent implements OnInit {
           this.tripDriverEmail,
           this.tripId,
           this.tripIdTag,
-          this.datePipe.transform(this.tripDateFormatted, 'dd. mmmm yyyy, HH:mm'),
+          this.datePipe.transform(this.tripDateFormatted, 'dd. MMMM yyyy, HH:mm'),
           this.vehicle.vehicleBrand + ' ' + this.vehicle.vehicleName + ' (' + this.selectedTypeData + ')',
           this.selectedColorData,
           this.tripPrice,

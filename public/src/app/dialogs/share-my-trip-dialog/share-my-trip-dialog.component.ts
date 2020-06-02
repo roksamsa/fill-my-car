@@ -38,8 +38,7 @@ export class ShareMyTripDialogComponent implements OnInit {
   }
 
   public copyToClipboard(event: string): void {
-    const message = `'${event}' has been copied to clipboard`
-    console.log(message);
+    const message = `'${event}' has been copied to clipboard`;
     this.status = message;
     this.openSnackBarWhenMakeTripLinkCopy();
   }

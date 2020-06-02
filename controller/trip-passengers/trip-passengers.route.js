@@ -27,17 +27,15 @@ router.get(tripPassengersURI + '/:id', function (req, res) {
     });
 });
 
-// Get all trip passengers for specific user
-router.get(tripPassengersURI + '/user/:belongsToUser', function (req, res) {
-  TripPassenger.findAll({where: {belongsToUser: req.params.belongsToUser},
-    order: [
-      ['id', 'DESC']
-    ]})
-    .then(tripPassenger => {
-      res.json(tripPassenger);
-    }).catch(error => {
-      console.log(error);
-      res.status(500).json({msg: "Error!", details: error});
+// Get a single trip passenger by Hash
+router.get(tripPassengersURI + '/passenger/:tripPassengerCancelTripHash', function (req, res) {
+  const tripPassengerCancelTripHash = req.params.tripPassengerCancelTripHash;
+  TripPassenger.findOne({where: {tripPassengerCancelTripHash: tripPassengerCancelTripHash}})
+    .then(TripPassenger => {
+      res.json(TripPassenger);
+    })
+    .catch(error => {
+      res.status(500).json({msg: "error", details: error});
     });
 });
 
@@ -54,11 +52,11 @@ router.post(tripPassengersURI + '/add', function (req, res) {
 });
 
 // Delete a specific trip with id
-router.delete(tripPassengersURI + '/delete/:id', function (req, res) {
-  const id = req.params.id;
-  TripPassenger.destroy({where: {id: id}})
-    .then(tripPassenger => {
-      res.status(200).json({msg: 'Trip passenger with id: ' + tripPassenger + ' deleted successfully.'});
+router.delete(tripPassengersURI + '/delete/:tripPassengerCancelTripHash', function (req, res) {
+  const tripPassengerCancelTripHash = req.params.tripPassengerCancelTripHash;
+  TripPassenger.destroy({where: {tripPassengerCancelTripHash: tripPassengerCancelTripHash}})
+    .then(tripPassengerCancelTripHash => {
+      res.status(200).json({msg: 'Trip passenger with tripPassengerCancelTripHash: ' + tripPassengerCancelTripHash + ' deleted successfully.'});
     })
     .catch(error => {
       res.status(500).json({msg: "error", details: error});
@@ -66,8 +64,7 @@ router.delete(tripPassengersURI + '/delete/:id', function (req, res) {
 });
 
 // Delete all trip passengers
-router.delete(tripPassengersURI + '/delete/:id', function (req, res) {
-  const id = req.params.id;
+router.delete(tripPassengersURI + '/delete-all', function (req, res) {
   TripPassenger.destroy({where: {}, truncate: true})
     .then(tripPassenger => {
       res.status(200).json({msg: 'All trip passengers deleted successfully.'});

@@ -23,7 +23,7 @@ const portForServer = 4000;
 const localDomainName = 'https://localhost:4444';
 const webDomainName = 'https://api.napolnimojavto.si/';
 const corsOptionsOrigin = 'https://api.napolnimojavto.si/';
-var defaultDomainName = '';
+let defaultDomainName = '';
 
 // All console messages
 const consoleDivider = '\n******************************************\n';
@@ -93,6 +93,14 @@ database.sequelize.sync().then(() => {
 });
 
 /*
+database.sequelize.drop();
+database.sequelize.dropAllSchemas();
+database.sequelize.sync({ force: true }).then(() => {
+}).catch((error) => {
+});
+*/
+
+/*
 database.sequelize.query('SELECT * FROM' + database.vehicles).success(function(result) {
   console.log(result);
 }).error(function(err) {
@@ -124,12 +132,16 @@ function initial() {
 // Import data
 require('./controller/auth');
 
+/* App */
 app.use('/', router);
 app.use(require('./controller/index'));
-app.use(require('./controller/send-emails'));
 app.use(require('./controller/vehicles/vehicles.route'));
 app.use(require('./controller/trips/trips.route'));
 app.use(require('./controller/trip-passengers/trip-passengers.route'));
+
+/* Emails */
+app.use(require('./controller/emails/email/email-join-trip-driver'));
+app.use(require('./controller/emails/email/email-join-trip-passenger'));
 
 /*
 app.get('*', (req, res) => {

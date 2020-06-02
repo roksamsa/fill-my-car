@@ -1,0 +1,54 @@
+:host {
+  &.van--bottom-small {
+    position: absolute;
+    bottom: 0;
+    width: 300px;
+    height: auto;
+  }
+}
+
+.van {
+  &__luggage {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    position: absolute;
+    bottom: 91%;
+    left: 0;
+    width: 100%;
+    height: 60px;
+  }
+
+  &__luggage-case {
+    position: relative;
+    top: 0;
+
+    &--white {
+      margin-right: 4%;
+      animation: van-luggage-moving-1 4s forwards infinite;
+    }
+
+    &--pink {
+      animation: van-luggage-moving-2 6s forwards infinite;
+    }
+  }
+
+  &__van {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    margin-top: -130px;
+    margin-left: 0;
+    transition: width 300ms ease-in-out, top 300ms ease-in-out, left 300ms ease-in-out, margin-left 300ms ease-in-out;
+
+    &--enter-animation-done {
+      animation: van-moving-up-down 6s forwards infinite;
+    }
+  }
+
+  &__svg {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+}

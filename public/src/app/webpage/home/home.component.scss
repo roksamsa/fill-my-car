@@ -331,6 +331,7 @@ $home-background-elements__top: 55%;
     //background-color: #FFE230;
     background-image: radial-gradient(ellipse at center right, rgba(255, 226, 48, 100%) 0, rgba(255, 226, 48, 0) 50%);
     -webkit-mask-image: linear-gradient(to left, transparent 0, black 15%);
+    mask-image: linear-gradient(to left, transparent 0, black 15%);
     animation: van-light 20s forwards infinite;
   }
 
@@ -384,6 +385,7 @@ $home-background-elements__top: 55%;
 
   &__button {
     margin-top: 20px;
+    margin-right: 20px;
     transform: box-shadow 200ms ease-in-out;
 
     &:hover {

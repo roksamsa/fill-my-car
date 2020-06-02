@@ -1,0 +1,133 @@
+@import '../../sass/global_variables';
+@import '../../sass/elements/button';
+@import '../../sass/elements/forms';
+@import '../../components/info-box/info-box.component.scss';
+
+.popup {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__headline {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: $color__blue--primary;
+  }
+
+  &__headline-trip-id {
+    color: $color__pink--primary;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__trip {
+    flex-direction: column;
+    margin-right: 0;
+    color: $color__blue--primary;
+  }
+
+  &__trip-data {
+    display: block;
+    @include font-titillium-semibold;
+  }
+
+  &__trip-data-row {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  &__trip-data-arrow {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  &__trip-data-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  &__trip-data-icon-svg,
+  &__trip-data-arrow-icon {
+    width: 100%;
+    height: 100%;
+    fill: $color__blue--primary;
+  }
+
+  &__trip-data-text {
+    &--margin-right {
+      margin-right: 40px;
+    }
+  }
+}
+
+.dialog__maps {
+  height: 100%;
+}
+
+.mat-dialog-content {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+  margin: 0 24px 0 0;
+  padding: 0;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+  min-height: auto;
+  margin: 20px 0 0 0;
+  padding: 0;
+}
+
+.trip__map {
+  width: 400px;
+  height: 500px;
+}
+
+.info-box__icon--police-man {
+  width: 36px;
+  height: auto;
+}
+
+.form {
+  &__time-input-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 100%;
+    margin: 0 5px;
+  }
+
+  &__price-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__time-input-dots {
+    width: 24px;
+  }
+
+  &__svg-icon {
+    width: 100%;
+    fill: $color__blue--primary;
+  }
+
+  &__price-label {
+    @include font-titillium-semibold;
+    margin-left: 16px;
+    color: $color__blue--primary;
+  }
+}

@@ -18,7 +18,6 @@ export class WebpageMenuComponent implements OnInit {
   constructor(private webpageMenuData: WebpageMenuService,
               public constant: ConstantsService,
               public authService: FirebaseAuthService) {
-    console.log(this.userName);
     this.preloadingSpinnerVisibility = true;
     this.preloadingSpinnerShow();
   }

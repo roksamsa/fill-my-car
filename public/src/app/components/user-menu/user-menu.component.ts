@@ -71,6 +71,9 @@ export class UserMenuComponent implements OnInit {
     public constant: ConstantsService,
     private userMenuDarkThemeData: UserMenuService,
     private headerData: HeaderService) {
+      this.userFullName = authService.userFullName;
+      this.userName = authService.userOnlyName;
+      this.userEmail = authService.userEmail;
   }
 
   public ngOnInit(): void {

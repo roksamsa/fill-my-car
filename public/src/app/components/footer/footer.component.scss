@@ -4,8 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
   margin-top: 10px;
+  margin-bottom: 40px;
   font-size: 13px;
 
   &--default {
@@ -38,13 +38,23 @@
     li {
       float: left;
       list-style: none;
-      padding: 5px 15px;
+      padding: 10px 15px;
       margin: 0 0 0 20px;
       cursor: pointer;
+      outline: none;
+      transition: color 200ms ease-in-out;
 
       &:hover {
+        font-weight: bold;
         color: $color__pink--primary;
       }
+    }
+  }
+
+  &__menu-item {
+    &--active {
+      font-weight: bold;
+      color: $color__pink--primary;
     }
   }
 }

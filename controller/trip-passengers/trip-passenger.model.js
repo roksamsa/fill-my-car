@@ -26,6 +26,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     tripPassengerPhone: {
       type: Sequelize.STRING
+    },
+    tripPassengerCancelTripHash: {
+      type: Sequelize.STRING
     }
   });
   return TripPassenger;

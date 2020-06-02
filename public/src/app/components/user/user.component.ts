@@ -13,11 +13,12 @@ import { FirebaseUserModel } from '../../core/user/user.model';
 export class UserComponent {
 
   public userData: any;
-  public userEmail: any;
-  public userDisplayName: any;
-  public userPhotoURL: any;
-  public userAvatarFirstLetter: any;
-  public isUserLoggedIn: any;
+  public userEmail: string;
+  public userName: string;
+  public userDisplayName: string;
+  public userPhotoURL: string;
+  public userAvatarFirstLetter: string;
+  public isUserLoggedIn: boolean;
 
   constructor(
     public userService: UserService,
@@ -27,6 +28,7 @@ export class UserComponent {
       this.userData = this.authService.getUserData;
       this.userEmail = this.authService.getUserData.email;
       this.userDisplayName = this.authService.getUserData.displayName;
+      this.userName = this.authService.userOnlyName;
       this.userPhotoURL = this.authService.getUserData.photoURL;
       this.userAvatarFirstLetter = this.userEmail.charAt(0);
   }

@@ -1,7 +1,7 @@
 <div class="user-menu__wrapper" [class.dark-theme]="slideToggleChecked">
   <div class="user-menu__background" [@userMenuBackgroundFadeIn]="userMenuVisibility"></div>
   <div *ngIf="authService.user$ | async as user" class="user-menu__content" [@userMenuContentFadeIn]="userMenuVisibility">
-    <div (click)="clickUserMenuVisibility()" class="user-menu__profile" routerLink="/uporabnik/{{userName | lowercase}}">
+    <div (click)="clickUserMenuVisibility()" class="user-menu__profile" [routerLink]="['/uporabnik/', userName | lowercase]">
       <div class="user-menu__avatar"
            [class.user-menu__avatar--default]="!user.photoURL">
         <div class="user-menu__avatar-image-wrapper">
@@ -17,9 +17,9 @@
       </div>
     </div>
     <div class="user-menu__item user-menu__item--menu"
-         (click)="clickUserMenuVisibility()"
          routerLinkActive="user-menu__item--active"
-         routerLink="/uporabnik/{{userName | lowercase}}">Uporabniški profil</div>
+         [routerLink]="['/uporabnik/', userName | lowercase]"
+         (click)="clickUserMenuVisibility()">Uporabniški profil</div>
     <div class="user-menu__item user-menu__item--menu">
       <mat-slide-toggle
           class="user-menu__slide-toggle"
@@ -28,7 +28,7 @@
         Temni način
       </mat-slide-toggle>
     </div>
-    <div class="user-menu__item user-menu__item--menu" (click)="clickUserMenuVisibility()" routerLink="/uporabnik/{{userName | lowercase}}">Potrebuješ pomoč?</div>
-    <div class="user-menu__item user-menu__item--menu" (click)="userMenuSignOut()" routerLink="/home">Odjava</div>
+    <!--<div class="user-menu__item user-menu__item--menu" (click)="clickUserMenuVisibility()" routerLink="/uporabnik/{{userName | lowercase}}">Potrebuješ pomoč?</div>-->
+    <div class="user-menu__item user-menu__item--menu" (click)="userMenuSignOut()" routerLink="/">Odjava</div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+$color__pink--primary: #D93362;
+
 @font-face {
   font-family: 'Titillium';
   src: url('/../../assets/font/hinted-Titillium-ThinItalic.eot');
@@ -148,8 +150,13 @@
   @include font-titillium-semibold;
 }
 
+h1 {
+  font-size: 42px;
+  color: $color__pink--primary;
+}
+
 h2 {
-  font-size: 34px;
+  font-size: 28px;
 }
 
 p {

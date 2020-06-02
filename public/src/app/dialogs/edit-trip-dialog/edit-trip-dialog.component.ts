@@ -204,9 +204,6 @@ export class EditTripDialogComponent implements OnInit, AfterViewInit {
     this.currentUserFromService = this.authService.getUserData;
     this.tripDriverName = this.authService.userOnlyName;
     this.tripDriverEmail = this.currentUser.providerData[0].email;
-
-    console.log(this.selectedTripData.selectedVehicle);
-    console.log(this.selectedVehicleIdData);
   }
 
   private readonly snackBarStringForWhenEditIsOver: string;

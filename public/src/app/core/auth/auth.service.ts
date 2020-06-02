@@ -17,6 +17,7 @@ export class FirebaseAuthService {
   public isUserLoggedIn: boolean;
   public userLocalStorage = JSON.parse(localStorage.getItem('user'));
   public userOnlyName: string;
+  public userFullName: string;
   public userEmail;
 
   public user$: Observable<FirebaseUserModel>;
@@ -38,6 +39,7 @@ export class FirebaseAuthService {
           this.isUserLoggedIn = true;
           this.currentUserData = JSON.parse(localStorage.getItem('user'));
           this.userOnlyName = this.getShortName(user.displayName);
+          this.userFullName = user.displayName;
           this.userEmail = user.providerData[0].email;
           return this.firestore.doc<FirebaseUserModel>(`users/${user.uid}`).valueChanges();
         } else {
@@ -47,23 +49,12 @@ export class FirebaseAuthService {
           this.isUserLoggedIn = false;
           this.currentUserData = null;
           this.userOnlyName = null;
+          this.userFullName = null;
           this.userEmail = null;
           return of(null);
         }
       })
     );
-
-    /* Saving user data in localstorage when logged in and setting up null when logged out */
-    /*this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
-      } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
-      }
-    });*/
   }
 
   private getShortName(fullName: string) {
@@ -189,9 +180,6 @@ export class FirebaseAuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
     };
-
-    console.log('userData');
-    console.log(userData);
 
     return userRef.set(userData, {
       merge: true

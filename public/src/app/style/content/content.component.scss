@@ -1,6 +1,5 @@
 :host {
   display: block;
-  height: 100%;
   width: 100%;
 
   &.webpage-login__wrapper,
@@ -71,12 +70,18 @@
 
 @media only screen and (max-width: 760px) {
   .app__wrapper {
-    width: 96%;
+    width: 90%;
   }
 
   :host-context(.footer) {
     .app__content {
       flex-direction: column;;
     }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .app__wrapper {
+    width: 100%;
   }
 }

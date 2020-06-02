@@ -1,0 +1,52 @@
+@import '../../sass/global_variables';
+@import '../../sass/elements/button';
+
+$not-found-background-elements__top: 55%;
+
+:host {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.page {
+  &__main-content {
+    display: flex;
+    align-items: center;
+  }
+
+  &__content {
+    margin-bottom: 30px;
+    margin-top: 100px;
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+
+  &__text {
+    margin-top: 0;
+  }
+
+  &__button {
+    margin-top: 20px;
+    transform: box-shadow 200ms ease-in-out;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(20, 0, 50, 0.25);
+    }
+  }
+
+  &__main-content-wrapper {
+    width: 100%;
+  }
+
+  &__footer {
+    width: 100%;
+    color: $color__white--100;
+  }
+}

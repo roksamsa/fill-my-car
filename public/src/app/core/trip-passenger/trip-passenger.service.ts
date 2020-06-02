@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TripPassenger } from './trip-passenger.module';
 import { ConstantsService } from '../../common/services/constants.service';
@@ -11,28 +11,29 @@ import { ConstantsService } from '../../common/services/constants.service';
 export class TripPassengerService {
   uriBase = this.constant.baseAppDomain;
   uriTripsPassengers = this.uriBase + 'trip-passengers/';
-  uriTripsPassengersForUser = this.uriTripsPassengers + 'user/';
+  uriTripsPassengerData = this.uriTripsPassengers + 'passenger/';
   uriTripPassengerAdd = this.uriTripsPassengers + 'add/';
   uriTripUpdate = this.uriTripsPassengers + 'update/';
   uriTripDelete = this.uriTripsPassengers + 'delete/';
+  uriTripDeleteAll = this.uriTripsPassengers + 'delete-all/';
 
   constructor(
     private http: HttpClient,
     private constant: ConstantsService) { }
 
   // Get all trips in database
-  public getAllTrips(): Observable<TripPassenger[]> {
+  public getAllTripPassengers(): Observable<TripPassenger[]> {
     return this.http.get<TripPassenger[]>(this.uriTripsPassengers);
   }
 
   // Get specific trip by ID
-  public getTripById(id: any): Observable<TripPassenger[]> {
-    return this.http.get<TripPassenger[]>(this.uriTripsPassengers + id);
+  public getTripPassengerById(id: any): Observable<TripPassenger[]> {
+    return this.http.get<TripPassenger[]>(this.uriTripsPassengerData + id);
   }
 
-  // Get trips for specific user
-  public getTripsByUser(belongsToUser: any): Observable<TripPassenger[]> {
-    return this.http.get<TripPassenger[]>(this.uriTripsPassengersForUser + belongsToUser);
+  // Get specific trip by HASH
+  public getTripPassengerByHash(tripPassengerCancelTripHash: any): Observable<TripPassenger[]> {
+    return this.http.get<TripPassenger[]>(this.uriTripsPassengerData + tripPassengerCancelTripHash);
   }
 
   // Add new trip to database
@@ -45,7 +46,8 @@ export class TripPassengerService {
     tripPassengerEndLocation: string,
     tripPassengerName: string,
     tripPassengerEmail: string,
-    tripPassengerPhone: string) {
+    tripPassengerPhone: string,
+    tripPassengerCancelTripHash: string) {
     const tripPassenger = {
       belongsToUser: belongsToUser,
       belongsToVehicle: belongsToVehicle,
@@ -55,60 +57,19 @@ export class TripPassengerService {
       tripPassengerEndLocation: tripPassengerEndLocation,
       tripPassengerName: tripPassengerName,
       tripPassengerEmail: tripPassengerEmail,
-      tripPassengerPhone: tripPassengerPhone
+      tripPassengerPhone: tripPassengerPhone,
+      tripPassengerCancelTripHash: tripPassengerCancelTripHash
     };
-    console.log(tripPassenger);
     return this.http.post(this.uriTripPassengerAdd, tripPassenger);
   }
 
-  // Update trip from database
-  public updateTrip(
-    id: string,
-    belongsToUser: string,
-    selectedVehicle: string,
-    tripStatus: string,
-    tripIdTag: string,
-    tripFromLocation: string,
-    tripToLocation: string,
-    tripDate: Date,
-    tripTime: string,
-    tripFreeSeats: number,
-    tripTakenSeats: number,
-    tripPrice: number,
-    tripLuggageSpace: number,
-    tripMessage: string,
-    tripComfortable: boolean,
-    tripStopsOnTheWayToFinalDestination: boolean,
-    tripNewPassengersAcceptance: string): Observable<TripPassenger[]> {
-    const trip = {
-      id: id,
-      belongsToUser: belongsToUser,
-      selectedVehicle: selectedVehicle,
-      tripStatus: tripStatus,
-      tripIdTag: tripIdTag,
-      tripFromLocation: tripFromLocation,
-      tripToLocation: tripToLocation,
-      tripDate: tripDate,
-      tripTime: tripTime,
-      tripFreeSeats: tripFreeSeats,
-      tripTakenSeats: tripTakenSeats,
-      tripPrice: tripPrice,
-      tripLuggageSpace: tripLuggageSpace,
-      tripMessage: tripMessage,
-      tripComfortable: tripComfortable,
-      tripStopsOnTheWayToFinalDestination: tripStopsOnTheWayToFinalDestination,
-      tripNewPassengersAcceptance: tripNewPassengersAcceptance
-    };
-    return this.http.patch<TripPassenger[]>(this.uriTripUpdate + id, trip);
+  // Delete trip passenger from database with specific HASH
+  public deleteTripPassenger(hash: any): Observable<TripPassenger[]> {
+    return this.http.delete<TripPassenger[]>(this.uriTripDelete + hash);
   }
 
-  // Delete trip from database
-  public deleteTripPassenger(id: any): Observable<TripPassenger[]> {
-    return this.http.delete<TripPassenger[]>(this.uriTripDelete + id);
-  }
-
-  // Delete trip from database
+   // Delete all trips from database
   public deleteAllTripPassengers(): Observable<TripPassenger[]> {
-    return this.http.delete<TripPassenger[]>(this.uriTripDelete);
+    return this.http.delete<TripPassenger[]>(this.uriTripDeleteAll);
   }
 }

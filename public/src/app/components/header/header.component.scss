@@ -97,7 +97,7 @@ $header-user-wrapper__hover-background--dark-theme: rgba(15, 7, 35, 0.7);
 
   &__logo {
     margin-right: 30px;
-    transition: margin-right 200ms ease-in-out;
+    transition: margin-right 200ms ease-in-out, transform 200ms ease-in-out;
   }
 
   &__user-wrapper {

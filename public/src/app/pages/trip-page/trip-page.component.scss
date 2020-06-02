@@ -331,6 +331,14 @@
     font-size: 50px;
     line-height: 1;
   }
+
+  &__info-box {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .form__input--join-trip {
@@ -479,7 +487,10 @@
   max-width: 560px;
 
   &--without-button {
+    flex-grow: 0;
     width: unset;
+    max-width: 50%;
+    overflow: hidden;
   }
 }
 

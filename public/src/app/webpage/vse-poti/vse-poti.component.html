@@ -1,0 +1,10 @@
+<app-webpage-header></app-webpage-header>
+<app-content class="page__content" [withPaddingTop]="false">
+  <div class="page__main-content">
+    <div class="page__main-content-wrapper">
+      <app-all-trips-list class="all-trips"></app-all-trips-list>
+    </div>
+  </div>
+</app-content>
+<app-footer class="page__footer"></app-footer>
+<app-login-register *ngIf="loginRegisterOverlayVisible" [@loginRegisterOverlayAnimation]="'in'"></app-login-register>

@@ -540,12 +540,22 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 
 .link {
   position: relative;
+  padding: 10px 0;
+  font-weight: bold;
+  text-decoration: none;
+  outline: none;
+  color: $color__blue--primary;
+  transition: color 200ms ease-in-out;
+
+  &:hover {
+    color: $color__pink--primary;
+  }
 
   &::after,
   &::before {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: 0;
     width: 50%;
     height: 2px;
     background-color: $color__pink--primary;

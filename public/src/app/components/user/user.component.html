@@ -1,13 +1,13 @@
 <div class="user__wrapper">
-  <div class="header__avatar"
-       [class.header__avatar--default]="!userPhotoURL">
-    <img *ngIf="userPhotoURL" class="header__avatar-image" src="{{ userPhotoURL }}" alt="{{ userDisplayName }}">
-    <div *ngIf="!userPhotoURL" class="header__avatar-name">
+  <div class="user__avatar"
+       [class.user__avatar--default]="!userPhotoURL">
+    <img *ngIf="userPhotoURL" class="user__avatar-image" src="{{ userPhotoURL }}" alt="{{ userName }}">
+    <div *ngIf="!userPhotoURL" class="user__avatar-name">
       {{ userAvatarFirstLetter }}
     </div>
   </div>
   <div class="user__right">
-    <div class="user__username">{{ userDisplayName }}</div>
+    <div class="user__username">{{ userName }}</div>
     <div class="user__email">{{ userEmail }}</div>
   </div>
 </div>

@@ -39,6 +39,7 @@ $tile__border-radius: 3px;
   &__headline {
     display: flex;
     flex-shrink: 0;
+    position: relative;
   }
 
   &__title {
@@ -97,6 +98,20 @@ $tile__border-radius: 3px;
       width: 2px;
       background-color: $color__blue--lighter;
     }
+  }
+}
+
+:host-context(.all-trips) {
+  margin-top: 0;
+
+  .tile__headline {
+    display: none;
+  }
+}
+
+:host-context(.all-trips-loggedin) {
+  .tile__headline {
+    display: none;
   }
 }
 

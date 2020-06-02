@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { VehicleService } from '../../core/vehicle/vehicle.service';
-import { VehicleTileService } from '../../../app/components/vehicle-tile/vehicle-tile.service';
+import { VehicleTileService } from '../../components/vehicle/vehicle-tile/vehicle-tile.service';
 import { Vehicle } from '../../core/vehicle/vehicle.module';
 import { TripService } from '../../core/trip/trip.service';
 import { Trip } from '../../core/trip/trip.module';

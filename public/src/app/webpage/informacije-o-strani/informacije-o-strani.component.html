@@ -1,1 +1,31 @@
-<p>informacije-o-strani works!</p>
+<app-webpage-header></app-webpage-header>
+<app-content class="page__content" [withPaddingTop]="false">
+  <div class="page__main-content">
+    <div class="page__main-content-wrapper">
+      <h1>Informacije o strani</h1>
+      <p>V Sloveniji že imamo spletno platformo Prevoz.org, s katero lahko delimo svoje vozilo z drugimi potniki na poti
+        do našega končnega cilja. S polnjenjem prostih mest v vozilu ravnamo okolju prijazno, si popestrimo vožnjo in
+        prihranimo pri gorivu. Potniki na tovrsten način dobijo cenovno ugoden prevoz do željene točke hkrati pa si
+        razširijo svoje socialno mrežo poznanstev. Tovrsten način potovanja iz leta v leto postaja bolj priljubljen, kar
+        se med drugim kaže v vedno večjem obisku spletne strani prevozi.org (+2 milijona ogledov strani na mesec in več
+        deset tisoč uporabnikov na dan).</p>
+      <p>Spletna stran Prevoz.org omogoča uporabnikom objavo poti, ki bi jo radi delili z drugimi. Komunikacija med
+        voznikom in ostalimi sopotniki je mogoča le preko mobilnega telefona (klic ali SMS). V tem delu celotnega
+        procesa deljenja vozila lahko komunikacijo in prijavo/odjavo na skupno vožnjo močno izboljšamo in s tem olajšamo
+        uporabo aplikacije. Obstoječa aplikacije se v trenutni obliki tudi srečuje s problemom varnosti, saj ne beleži
+        poti in potnikov, hkrati pa ne omogoča uporabnikom, da označijo neprimerne voznike in potnike.</p>
+      <p>V okviru zaključne naloge bom natančneje preučil obstoječe storitve za skupno vožnjo ter zasnovali in izdelali
+        spletno aplikacijo, pri kateri se bom osredotočil na izboljšanje uporabniške izkušnje predvsem iz vidika
+        komunikacije med voznikom in sopotnikom ter zagotavljanju čim večje varnosti tovrstne vožnje. Ena od idej zajema
+        avtomatizacijo postopkov prijave/odjave na skupno vožnjo in preproste komunikacije med voznikom in potniki.
+        Druga se navezuje na povečevanje varnosti potnikov in voznikov preko mehanizmov ocenjevanja kakovosti potovanja,
+        v katero bodo vključeni tako vozniki, kot tudi potniki.</p>
+
+      <p>Za vsa morebitna vprašanja, pripombe in težave s spletno stranjo smo vam na voljo po elektronski pošti
+        <a class="link" href="mailto: info@napolnimojavto.si">info@napolnimojavto.si</a>
+      </p>
+    </div>
+  </div>
+</app-content>
+<app-footer class="page__footer"></app-footer>
+<app-login-register *ngIf="loginRegisterOverlayVisible" [@loginRegisterOverlayAnimation]="'in'"></app-login-register>
