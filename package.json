@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@agm/core": "^1.1.0",
-    "angular": "^1.7.9",
+    "angular": "^1.8.0",
     "bcrypt-nodejs": "^0.0.3",
     "bcryptjs": "^2.4.3",
     "bindings": "^1.5.0",
