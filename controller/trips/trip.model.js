@@ -75,10 +75,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     tripQuiet: {
       type: Sequelize.BOOLEAN
-    }/*,
-    tripPageVisitsCounter: {
-      type: Sequelize.INTEGER
-    }*/
+    }
   });
   return Trip;
 };

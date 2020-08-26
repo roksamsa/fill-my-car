@@ -18,7 +18,8 @@ export class FirebaseAuthService {
   public userLocalStorage = JSON.parse(localStorage.getItem('user'));
   public userOnlyName: string;
   public userFullName: string;
-  public userEmail;
+  public userId: string;
+  public userEmail: string;
 
   public user$: Observable<FirebaseUserModel>;
 
@@ -41,6 +42,7 @@ export class FirebaseAuthService {
           this.userOnlyName = this.getShortName(user.displayName);
           this.userFullName = user.displayName;
           this.userEmail = user.providerData[0].email;
+          this.userId = user.uid;
           return this.firestore.doc<FirebaseUserModel>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
@@ -51,6 +53,7 @@ export class FirebaseAuthService {
           this.userOnlyName = null;
           this.userFullName = null;
           this.userEmail = null;
+          this.userId = null;
           return of(null);
         }
       })
@@ -159,13 +162,12 @@ export class FirebaseAuthService {
     return this.afAuth.auth.signInWithPopup(provider).then((result) => {
       this.ngZone.run(() => {
         console.log('You have been successfully logged in!');
-        console.log(result);
         this.SetUserData(result.user);
         this.router.navigate(['pregled']);
       });
     }).catch((error) => {
       window.alert(error);
-      console.log('errorerrorerrorerrorerror');
+      console.log('Error!');
     });
   }
 

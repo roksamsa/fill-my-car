@@ -142,6 +142,7 @@ app.use(require('./controller/trip-passengers/trip-passengers.route'));
 /* Emails */
 app.use(require('./controller/emails/email/email-join-trip-driver'));
 app.use(require('./controller/emails/email/email-join-trip-passenger'));
+app.use(require('./controller/emails/email/email-cancels-trip-driver'));
 
 /*
 app.get('*', (req, res) => {

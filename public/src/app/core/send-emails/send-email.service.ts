@@ -11,6 +11,7 @@ export class SendEmailService {
   uriBase = this.constant.baseAppDomain;
   sendEmailURIForPassengerWhenHeJoinsTheTrip = this.uriBase + 'emails/passenger-when-joins-trip';
   sendEmailURIForDriverWhenSomebodyJoinsTheTrip = this.uriBase + 'emails/driver-when-joins-trip';
+  sendEmailURIForDriverWhenSomebodyCancelsTheTrip = this.uriBase + 'emails/driver-when-cancel-trip';
 
   constructor(private http: HttpClient,
               private constant: ConstantsService) { }
@@ -91,5 +92,37 @@ export class SendEmailService {
       reservedEndLocation: reservedEndLocation
     };
     return this.http.post<EmailForDriverInfo>(this.sendEmailURIForDriverWhenSomebodyJoinsTheTrip, email);
+  }
+
+  sendEmailToDriverWhenSomeoneCancelsTrip(
+    passengerEmailAddress: string,
+    passengerName: string,
+    passengerPhone: string,
+    driverName: string,
+    driverEmailAddress: string,
+    tripId: string,
+    tripIdTag: string,
+    tripDate: string,
+    reservedSeatsNumber: number,
+    startLocation: string,
+    endLocation: string,
+    reservedStartLocation: string,
+    reservedEndLocation: string): Observable<EmailForDriverInfo> {
+    const email = {
+      passengerEmailAddress: passengerEmailAddress,
+      passengerName: passengerName,
+      passengerPhone: passengerPhone,
+      driverName: driverName,
+      driverEmailAddress: driverEmailAddress,
+      tripId: tripId,
+      tripIdTag: tripIdTag,
+      tripDate: tripDate,
+      reservedSeatsNumber: reservedSeatsNumber,
+      startLocation: startLocation,
+      endLocation: endLocation,
+      reservedStartLocation: reservedStartLocation,
+      reservedEndLocation: reservedEndLocation
+    };
+    return this.http.post<EmailForDriverInfo>(this.sendEmailURIForDriverWhenSomebodyCancelsTheTrip, email);
   }
 }

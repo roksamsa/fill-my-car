@@ -194,7 +194,6 @@ export class TripPageComponent implements OnInit {
       reservedEndLocation).
       subscribe(data => {
         const msg = data['message'];
-        console.log(msg);
       }, error => {
         console.error(error, 'error');
       });
@@ -236,7 +235,6 @@ export class TripPageComponent implements OnInit {
       reservedEndLocation).
       subscribe(data => {
         const msg = data['message'];
-        console.log(msg);
       }, error => {
         console.error(error, 'error');
       });
@@ -330,7 +328,7 @@ export class TripPageComponent implements OnInit {
           this.vehicleSeatsData.changeVehicleSeatsAvailableNumber(this.seatsAvailableNumber);
           this.vehicleSeatsData.changeVehicleSeatsTakenNumber(this.seatsTakenNumber);
 
-          if (this.tripBelongsToUser === this.authService.userLocalStorage.uid) {
+          if (this.tripBelongsToUser === this.authService.userId) {
             this.isTripFromRightUser = true;
           } else {
             this.isTripFromRightUser = false;
@@ -412,7 +410,6 @@ export class TripPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogResult = result;
-      console.log(this.passengerHashNumberFromRouterLink);
       this.fetchTrip();
     });
   }
@@ -486,15 +483,16 @@ export class TripPageComponent implements OnInit {
   // Fetch all trips for specific user
   private fetchPassengerHashForCancelTrip(): void {
     this.route.paramMap.subscribe(params => {
-      if (params != null) {
+      if (params.has('hash')) {
         this.passengerHashNumberFromRouterLink = params.get('hash');
         this.tripPassengerService.getTripPassengerByHash(this.passengerHashNumberFromRouterLink).subscribe(data => {
           this.tripPassengerData = data;
-
           if (this.passengerHashNumberFromRouterLink === this.tripPassengerData.tripPassengerCancelTripHash) {
             this.openCancelTripReservationDialog(this.trip, this.passengerHashNumberFromRouterLink);
           }
         });
+      } else {
+        this.passengerHashNumberFromRouterLink = null;
       }
     });
   }

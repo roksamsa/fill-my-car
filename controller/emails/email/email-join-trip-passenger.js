@@ -12,7 +12,6 @@ const sendEmailURIForPassengerWhenHeJoinsTheTrip = '/emails/passenger-when-joins
 
 // Email for PASSENGER when he joins the trip
 router.post(sendEmailURIForPassengerWhenHeJoinsTheTrip, (req, res) => {
-  console.log(req.body, 'data of form');
   var transporter = nodemailer.createTransport(nodemailerTransporterOptions);
 
   var mailOptionsForPassengerWhenHeJoinsTheTrip = {
@@ -89,7 +88,7 @@ router.post(sendEmailURIForPassengerWhenHeJoinsTheTrip, (req, res) => {
                         </table>
                       </td>
                       <tr>
-                        <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #D93362; border-radius: 30px; text-align: center;"> <a href="https://napolnimojavto.si/potovanje/${req.body.tripIdTag}/odjava/${req.body.passengerCancelTripHash}" target="_blank" style="margin: 0; display: inline-block; color: #ffffff; background-color: #D93362; border: solid 1px #D93362; border-radius: 30px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; padding: 12px 25px; text-transform: capitalize; border-color: #D93362;">Preklic rezervacije</a></td>
+                        <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #D93362; border-radius: 30px; text-align: center;"> <a href="https://napolnimojavto.si/potovanje/${req.body.tripIdTag}/odjava/${req.body.passengerCancelTripHash}" target="_blank" style="margin: 0; display: inline-block; color: #ffffff; background-color: #D93362; border: solid 1px #D93362; border-radius: 30px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; padding: 12px 25px; border-color: #D93362;">Preklic rezervacije</a></td>
                         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #D93362; border-radius: 30px; text-align: center;"></td>
                       </tr>
                     </tr>

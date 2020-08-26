@@ -526,4 +526,12 @@
     margin-right: 0;
     margin-left: 0;
   }
+
+  .trip__graphics {
+    flex-direction: column;
+  }
+
+  .trip__driver {
+    margin-left: 0;
+  }
 }
